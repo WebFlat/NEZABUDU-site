@@ -10995,6 +10995,25 @@ return jQuery;
 
 })(jQuery);
 
+
+
+function loadQuestionnarieMy() {
+    var myQuestionnary = $('#myItems');
+    $.getJSON('questionnarie_my.json', function (data) {
+        var outMy = '';
+        for (var key in data) {
+            if (data[key].avatar == '') {
+                data[key].avatar = "./img/user-def.png";
+            } else {
+                data[key].avatar = data[key].avatar;
+            }
+            outMy += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
+        };
+        myQuestionnary.html(outMy);
+    });
+};
+loadQuestionnarieMy();
+
 var sectionCreate = $('#createItmes');
 var sectionAdded = $('#addItems');
 function loadQuestionnaries(section, users) {
@@ -11012,36 +11031,6 @@ function loadQuestionnaries(section, users) {
         }
         section.html(out);
 
-
-
-
-        //change icon like anb bookmarks when click*********
-        $('.user__candle').on('click', function () {
-            if ($(this).next().hasClass('active')) {
-                $(this).next().toggleClass('active');
-            } else {
-                $(this).next().toggleClass('active');
-
-            }
-        })
-        $('.user__like-icon').on('click', function () {
-            var countNum = $(this).next('.user__likeCount');
-            var count = countNum.text();
-            count = parseInt(count);
-            if ($(this).hasClass('active')) {
-                $(this).toggleClass('active');
-                $(this).attr('src', './img/heart.svg');
-                if (count > 0) {
-                    count = count - 1;
-                    countNum.html(count);
-                }
-            } else {
-                $(this).attr('src', './img/heart-black.svg');
-                $(this).toggleClass('active');
-                count = count + 1;
-                countNum.html(count);
-            }
-        })
     });
 }
 
@@ -11049,53 +11038,6 @@ function loadQuestionnaries(section, users) {
 loadQuestionnaries(sectionCreate, 'user-relative');
 loadQuestionnaries(sectionAdded, 'user-added');
 
-
-
-// function loadQuestionnaries2() {
-//     $.getJSON('questionnaries.json', function (data) {
-//         var out = '';
-//         for (var key in data) {
-//             if (data[key].avatar == '') {
-//                 data[key].avatar = "./img/user-def.png";
-//                 if (data[key].isLife == true) {
-//                     out += '<div class="user-bookmark user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-//                 }
-//             } else {
-//                 out += '<div class="user-bookmark user item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span> - </span><span class="user__die">' + data[key].die + '</span></div><img class="user__candle" src="./img/candle.png" alt="candle"><img class="user__candle-fire" src="./img/candle-fire.png" alt="candle-fire"></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-//             }
-//         }
-//         $('.profile__bookmarks').html(out);
-
-
-//         //change icon like anb bookmarks when click*********
-//         $('.user__candle').on('click', function () {
-//             if ($(this).next().hasClass('active')) {
-//                 $(this).next().toggleClass('active');
-//             } else {
-//                 $(this).next().toggleClass('active');
-
-//             }
-//         })
-//         $('.user__like-icon').on('click', function () {
-//             var countNum = $(this).next('.user__likeCount');
-//             var count = countNum.text();
-//             count = parseInt(count);
-//             if ($(this).hasClass('active')) {
-//                 $(this).toggleClass('active');
-//                 $(this).attr('src', './img/heart.svg');
-//                 if (count > 0) {
-//                     count = count - 1;
-//                     countNum.html(count);
-//                 }
-//             } else {
-//                 $(this).attr('src', './img/heart-black.svg');
-//                 $(this).toggleClass('active');
-//                 count = count + 1;
-//                 countNum.html(count);
-//             }
-//         });
-//     });
-// };
 
 
 //Init pagination**************************************
@@ -11312,26 +11254,7 @@ jQuery(function ($) {
 	});
 
 
-	//tabs forms***********************************************
-	// $(".reg__main").not(":first").hide();
-	// $(".reg-tab").click(function () {
-	// 	$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
-	// 	$(".reg__main").hide().eq($(this).index()).fadeIn();
-	// }).eq(0).addClass("active");
 
-	//close popup change password********************************************
-	// $('.password__close').click(function () {
-	// 	$('.questionnaire__bg').hide();
-	// 	$('.password').hide();
-	// 	$('body').removeClass('no-scroll');
-	// })
-
-	//Show popup change password***************************************************
-	// $('#passChange').click(function () {
-	// 	$('.questionnaire__bg').show();
-	// 	$('.password').show().css('display', 'flex');
-	// 	$('body').addClass('no-scroll');
-	// })
 
 	//show tabs in menu cabinet******************************
 	$(".profile__tabs").not(":first").hide();
@@ -11341,6 +11264,9 @@ jQuery(function ($) {
 		$(".nav-tab").removeClass("active-tab");
 		$(".nav-tab1").addClass("active-tab");
 		$(".tab1").fadeIn().siblings('.profile__tabs').hide();
+		setTimeout(function () {
+			initClick();
+		}, 100);
 	});
 	$(".nav-tab2").click(function () {
 		$(".tab2").fadeIn().siblings('.profile__tabs').hide();
@@ -11349,6 +11275,9 @@ jQuery(function ($) {
 		var sectionBookmark = $('.profile__bookmarks');
 		loadQuestionnaries(sectionBookmark, 'user-bookmark');
 		pagin2();
+		setTimeout(function () {
+			initClick();
+		}, 100);
 
 	});
 	$(".nav-tab3").click(function () {
@@ -11403,6 +11332,41 @@ jQuery(function ($) {
 	//Read more*************************************
 	$('#user-about').click(function () {
 		$('#user-about-short').toggleClass('more');
-	})
+	});
 
+
+
+
+	//change icon like anb bookmarks when click*********
+	function initClick() {
+		$('.user__candle').click(function () {
+			if ($(this).next().hasClass('active')) {
+				$(this).next().toggleClass('active');
+			} else {
+				$(this).next().toggleClass('active');
+
+			}
+		})
+		$('.user__like-icon').click(function () {
+			var countNum = $(this).next('.user__likeCount');
+			var count = countNum.text();
+			count = parseInt(count);
+			if ($(this).hasClass('active')) {
+				$(this).toggleClass('active');
+				$(this).attr('src', './img/heart.svg');
+				if (count > 0) {
+					count = count - 1;
+					countNum.html(count);
+				}
+			} else {
+				$(this).attr('src', './img/heart-black.svg');
+				$(this).toggleClass('active');
+				count = count + 1;
+				countNum.html(count);
+			}
+		})
+	}
+	setTimeout(function () {
+		initClick();
+	}, 100);
 });
