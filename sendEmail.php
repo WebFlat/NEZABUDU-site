@@ -1,5 +1,5 @@
 <?php
-$to = 'nezabudu.team@gmail.com';
+$to = 'y.vacheslav@gmail.com';
 $from = "From: предложение о сотрудничестве с сайта <nezabudu.com.ua>\n\r";
 $name = $_POST['name'];
 $tel = $_POST['tel'];

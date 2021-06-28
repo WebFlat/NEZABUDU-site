@@ -1,61 +1,44 @@
 <?php  
 
-$servername = "db1.ho.ua";
-$username = "webflat";
-$password = "Yachuk185429";
-$database = "webflat";
+$servername = "localhost:8887";
+$username = "root";
+$password = "root";
+$database = "Nezabudu";
 $conn = mysqli_connect($servername, $username, $password, $database);
 
   
-if (isset($_POST['name']))  
-{$userName = $_POST['name'];}
-  
-  
-if (isset($_POST['soname']))  
-{$userSoname = $_POST['soname'];}
-  
-  
-  
-if (isset($_POST['patronymic']))  
-{$userPatronymic = $_POST['patronymic'];}
-  
-  
-  
-if (isset($_POST['tel']))  
-{$userTel = $_POST['tel'];}
-  
-  
-  
-if (isset($_POST['mail'])) 
-{$userEmail = $_POST['mail'];}
-  
-  
-if (isset($_POST['password']))  
-{$userPassword = $_POST['password'];}
 
-
+// $userName = $_POST['userName'];
+// $userSoname = $_POST['userSoname'];
+// $userPatronymic = $_POST['userPatronymic']; 
+// $userTel = $_POST['userTel'];
+// $userEmail = $_POST['userEmail'];
+// $userPassword = $_POST['userPassword'];
 
 if (!$conn) {
        echo ('Произошла ошибка при подключении к базе данных ' . mysqli_connect_error());
 } else {
-       echo ('Соединение установленно');
        mysqli_set_charset($conn, "utf8");
-       $sql = "INSERT INTO users (name, soname, patronymic, tel, email, password) VALUES ('$userName','$userSoname','$userPatronymic','$userTel','$userEmail','$userPassword')";
+       $sql = "INSERT INTO users (userName, userSurname, userPatronimyc, userEmail, userTel, userPassword) VALUES ('$userName','$userSoname','$userPatronymic','$userEmail','$userTel','$userPassword')";
        $result = mysqli_query($conn, $sql);
-       
-       if (!$result) {
-              echo ("Произошла ошибка при выполнении запроса ". mysqli_error($conn));
+       if ($result === true) {
+              // $response = [
+              //        "status" => true,
+              //        "message" => 'Вы успешно зарегистрированы',
+              // ];
+              // echo json_encode($response);
+              echo ('Вы успешно зарегистрированы');
+
        } else {
-              echo ("Данные занесены");
+              $response = [
+                     "status" => false,
+                     "error" => 'Ошибка подключения или такой пользователь уже зарегистрирован',
+              ];
+              echo json_encode($response);
+              echo ('Ошибка');
+
        }
 }
 mysqli_close($conn);
-  
-// if (mysqli_query($conn, $sql)) {
-//        echo "New record created successfully";
-// } else {
-//        echo die("Error: (" . mysqli_connect_errno() . "). ".$sql. mysqli_error($conn));
-// }
-// mysqli_close($conn);
   
 ?>
