@@ -11124,34 +11124,6 @@ function pagin3() {
 };
 pagin();
 pagin3();
-
-// function pagin2() {
-//     setTimeout(function () {
-
-//         var items = $('.user');
-//         var numItems = items.length;
-//         var perPage = 4;
-
-
-//         items.slice(perPage).hide();
-
-//         $('#pagination-container2').pagination({
-//             items: numItems,
-//             itemsOnPage: perPage,
-//             edges: 1,
-//             displayedPages: 3,
-//             prevText: '<',
-//             nextText: '>',
-//             cssStyle: 'light-theme',
-//             onPageClick: function (pageNumber) {
-//                 var showFrom = perPage * (pageNumber - 1);
-//                 var showTo = showFrom + perPage;
-//                 items.hide().slice(showFrom, showTo).show();
-//             }
-//         });
-//     }, 1000);
-
-// };
 jQuery(function ($) {
 	'use strict';
 
@@ -11329,10 +11301,7 @@ jQuery(function ($) {
 		$('body').toggleClass('no-scroll');
 	});
 
-	//Read more*************************************
-	$('#user-about').click(function () {
-		$('#user-about-short').toggleClass('more');
-	});
+
 
 
 

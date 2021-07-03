@@ -10659,6 +10659,30 @@ jQuery(function ($) {
 		$('.header__user').src = user.avatar;
 	};
 
+
+
+	//tabs forms***********************************************
+	$(".reg__main").not(":first").hide();
+	$(".reg-tab").click(function () {
+		$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
+		$(".reg__main").hide().eq($(this).index()).fadeIn();
+	}).eq(0).addClass("active");
+
+	//close forms popup********************************************
+	$('.reg__close').click(function () {
+		$('.reg-bg').hide();
+		$('body').removeClass('no-scroll');
+	})
+
+	//Show forms***************************************************
+	$('.enter').click(function () {
+		$('.reg-bg').show().css('display', 'flex');
+		$('body').addClass('no-scroll');
+	})
+
+
+
+
 	//burger***************************************
 	function burgerShow() {
 		//User or guest
@@ -10690,50 +10714,6 @@ jQuery(function ($) {
 	});
 
 
-	$('.data__relative').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
 	$('#lang').each(function () {
 		var $this = $(this), numberOfOptions = $(this).children('option').length;
 
@@ -10779,96 +10759,8 @@ jQuery(function ($) {
 		});
 
 	});
-	$('.die__select').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
 
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '400px');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-	$('.die__opinion').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '400px');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
 
 
 
@@ -10880,24 +10772,24 @@ jQuery(function ($) {
 
 	//Search show***************************************
 
-	$('.search__btn-showHide').click(function () {
-		$('.search__more-wrap').toggleClass('show-select');
-		$('.search__btn-showHide').toggleClass('active-btn');
-	});
+	// $('.search__btn-showHide').click(function () {
+	// 	$('.search__more-wrap').toggleClass('show-select');
+	// 	$('.search__btn-showHide').toggleClass('active-btn');
+	// });
 
 
 
 	//Set data to input from calendar******************
-	$('#user-both').change(function () {
-		var dataBoth = $('#user-both').val();
-		dataBoth = dataBoth.split('-').reverse().join('-');
-		$('.user__both').val(dataBoth);
-	});
-	$('#user-die').change(function () {
-		var dataDie = $('#user-die').val();
-		dataDie = dataDie.split('-').reverse().join('-');
-		$('.user__die').val(dataDie);
-	});
+	// $('#user-both').change(function () {
+	// 	var dataBoth = $('#user-both').val();
+	// 	dataBoth = dataBoth.split('-').reverse().join('-');
+	// 	$('.user__both').val(dataBoth);
+	// });
+	// $('#user-die').change(function () {
+	// 	var dataDie = $('#user-die').val();
+	// 	dataDie = dataDie.split('-').reverse().join('-');
+	// 	$('.user__die').val(dataDie);
+	// });
 
 	//Show candle fire*************************************
 	$('#candle').click(function () {
@@ -10950,7 +10842,7 @@ jQuery(function ($) {
 
 
 
-	//show questionnarie item menu right********************
+	//show questionnarie item menu(tabs)*******************
 	$('.data__tab').not(':first').hide();
 	$('.menu__item').click(function () {
 		if ($(window).width() < 935) {
@@ -10965,58 +10857,66 @@ jQuery(function ($) {
 
 	});
 
-	//force click link to section of story***********************
-	$('.brief__name').click(function () {
-		$('.menu__item')[1].click();
+	//show-hide live story*******************************
+	$('.btn-tab-link').click(function () {
+		$('.brief').fadeOut(0);
+		$('.story__back').show();
+		$('.story').fadeIn(1500);
 	});
+	$('.story__back').click(function () {
+		$('.story').fadeOut(0);
+		$('.story__back').hide();
+		$('body,html').scrollTop(0);
+		$('.brief').fadeIn(900);
+	});
+
+
+
+
+
 
 	//upload avatar*************************************
-	$('.about__upload-inpt--ava').change(function (e) {
-		var input = e.target;
+	// $('.about__upload-inpt--ava').change(function (e) {
+	// 	var input = e.target;
 
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = $('#output');
-			output.attr('src', dataURL);
-		};
-		reader.readAsDataURL(input.files[0]);
-	});
+	// 	var reader = new FileReader();
+	// 	reader.onload = function () {
+	// 		var dataURL = reader.result;
+	// 		var output = $('#output');
+	// 		output.attr('src', dataURL);
+	// 	};
+	// 	reader.readAsDataURL(input.files[0]);
+	// });
 
 
 	//upload foto to fotoalbum****************************
-	function hideAddfoto() {
-		var foto = $('.about__gal-wrap');
-		console.log(foto.length);
-		if (foto.length >= 10) {
-			$('.about__gal-wrap--def').hide();
-		} else {
-			$('.about__gal-wrap--def').show();
-		}
-	};
+	// function hideAddfoto() {
+	// 	var foto = $('.about__gal-wrap');
+	// 	console.log(foto.length);
+	// 	if (foto.length >= 10) {
+	// 		$('.about__gal-wrap--def').hide();
+	// 	} else {
+	// 		$('.about__gal-wrap--def').show();
+	// 	}
+	// };
 
-	$('#addFoto').change(function (e) {
-		var input = e.target;
-		hideAddfoto();
-		var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = elem.children();
-			output.attr('src', dataURL);
-		};
-		$(elem).insertBefore($('#elem'));
-		reader.readAsDataURL(input.files[0]);
-
-
-	});
+	// $('#addFoto').change(function (e) {
+	// 	var input = e.target;
+	// 	hideAddfoto();
+	// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
+	// 	var reader = new FileReader();
+	// 	reader.onload = function () {
+	// 		var dataURL = reader.result;
+	// 		var output = elem.children();
+	// 		output.attr('src', dataURL);
+	// 	};
+	// 	$(elem).insertBefore($('#elem'));
+	// 	reader.readAsDataURL(input.files[0]);
 
 
+	// });
 
-	$('.user__remind').click(function (e) {
-		e.preventDefault();
-		$(this).toggleClass('active');
-	});
+
 
 
 	//Read more*************************************

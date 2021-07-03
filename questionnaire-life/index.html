@@ -188,6 +188,98 @@
 	        </div>
 	    </div>
 	</header>
+	<div class="reg-bg">
+	    <section class="reg">
+	        <span class="reg__close">
+	            <img src="./img/close.png" alt="close">
+	        </span>
+	        <div class="reg__form-bg">
+	            <div class="reg__header">
+	                <span class="reg__btn-reg reg-tab">Регистрация</span>
+	                <span class="reg__btn-enter reg-tab">Войти</span>
+	            </div>
+	            <div class="wrapper wrapper--reg reg__main">
+	                <h6 class="reg__title">Через социальные сети</h6>
+	                <div class="reg__wrap-soc">
+	                    <div class="reg__google btn-form">
+	                        <a style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;"
+	                            href="https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Fmysite.com%2Fgglogin&response_type=code&client_id={65830191151-qdaau551j9ta4r6k5rumb25ee17omp02.apps.googleusercontent.com}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile"></a>
+	                        <img src="./img/google.png" alt="google">
+	                        <span class="reg__soc-title">Google</span>
+	                    </div>
+	                    <div class="reg__facebook btn-form">
+	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
+	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
+	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+	                            data-width=""></div>
+	                        <img src="./img/facebook.png" alt="facebook">
+	                        <span class="reg__soc-title">Facebook</span>
+	                    </div>
+	                </div>
+	                <span class="reg__title">или</span>
+	                <form method="POST" class="reg__form" id="reg-form">
+	                    <div class="reg__wrap-names">
+	                        <input id="reg-soname" type="text" name='userSoname' required placeholder="Фамилия"
+	                            class="reg__input btn-form">
+	                        <input id="reg-name" type="text" name='userName' required placeholder="Имя"
+	                            class="reg__input btn-form">
+	                    </div>
+	                    <input id="reg-patronymic" type="text" name="userPatronymic" required placeholder="Отчество"
+	                        class="reg__input">
+	                    <input id="reg-tel" type="text" name="userTel" required placeholder="+380507777777"
+	                        class="reg__input">
+	                    <input id="reg-email" type="email" name="userEmail" required placeholder="example@mail.com"
+	                        class="reg__input">
+	                    <input id="reg-password" type="password" name="userPassword" required placeholder="Пароль"
+	                        class="reg__input">
+	                    <input type="submit" value="Зарегистрироваться" class="reg__btn" name="registr" id="sendReg">
+	                </form>
+	                <div class="reg__link-wrap reg-tab">
+	                    <!-- <span class="link-to-enter">Уже есть аккаунт?</span> -->
+	                </div>
+	                <div class="reg__footer">
+	                    <p>Регистрируясь на этом веб-сайте,<br>ты принимаешь наши
+	                        <a href="terms.html" class="reg__link-conf" target="_blank"
+	                            rel="noopener noreferrer">Пользовательское соглашение</a> и
+	                        <a href="privacy.html" target="_blank" class="reg__link-conf" rel="noopener noreferrer">Политику
+	                            конфедициальности</a>
+	                    </p>
+	                </div>
+	            </div>
+	            <div class="wrapper wrapper--reg reg__main">
+	                <h6 class="reg__title">Через социальные сети</h6>
+	                <div class="reg__wrap-soc">
+	                    <div class="reg__google btn-form">
+	                        <a style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;"
+	                            href="https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Fmysite.com%2Fgglogin&response_type=code&client_id={65830191151-qdaau551j9ta4r6k5rumb25ee17omp02.apps.googleusercontent.com}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile"></a>
+	                        <img src="./img/google.png" alt="google">
+	                        <span class="reg__soc-title">Google</span>
+	                    </div>
+	                    <div class="reg__facebook btn-form">
+	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
+	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
+	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+	                            data-width=""></div>
+	                        <img src="./img/facebook.png" alt="facebook">
+	                        <span class="reg__soc-title">Facebook</span>
+	                    </div>
+	                </div>
+	                <span class="reg__title">или</span>
+	                <form method="POST" class="reg__form" id="auth-form">
+	                    <input id="auth-email" type="text" name="authEmail" required placeholder="Почта" class="reg__input">
+	                    <input id="auth-password" type="password" name="authPassword" required placeholder="Пароль"
+	                        class="reg__input">
+	                    <!-- <div class="g-recaptcha captcha" data-sitekey="6Le-nP0ZAAAAAIVD_XVU_oC54rpo9yRmXqPnBjou"></div> -->
+	                    <input type="submit" value="Войти" class="reg__btn" name="auth" id="authSend">
+	                </form>
+	                <div class="reg__link-wrap">
+	                    <span>Забыли пароль?</span>
+	                </div>
+	            </div>
+	        </div>
+	        <span id="error"></span>
+	    </section>
+	</div>
 	<div id="p_prldr">
 	    <div class="contpre">
 	        <span class="contpre__logo">НЕЗАБУДУ</span></br>
@@ -201,13 +293,13 @@
 		        <section class="profile__menu profile__menu--mob">
 		            <div class="menu__items menu__items--mob">
 		                <a href="#" class="menu__item menu__item--mob active-items main">
-		                    <img src="./img/item1.png" alt="icon" class="menu__img menu__img--mob">
+		                    <img src="./img/icon1.png" alt="icon" class="menu__img menu__img--mob">
 		                </a>
 		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/item2.png" alt="icon" class="menu__img menu__img--mob">
+		                    <img src="./img/icon2.png" alt="icon" class="menu__img menu__img--mob">
 		                </a>
 		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/item3.png" alt="icon" class="menu__img menu__img--mob">
+		                    <img src="./img/icon3.png" alt="icon" class="menu__img menu__img--mob">
 		                </a>
 		                <a href="#" class="menu__item menu__item--mob">
 		                    <img src="./img/icon4.png" alt="icon" class="menu__img menu__img--mob">
@@ -221,68 +313,313 @@
 		                <a href="#" class="menu__item menu__item--mob">
 		                    <img src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob">
 		                </a>
+		                <a href="#" class="menu__item menu__item--mob">
+		                    <img src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob">
+		                </a>
+		                <a href="#" class="menu__item menu__item--mob">
+		                    <img src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob">
+		                </a>
 		            </div>
 		        </section>
 		    </section>
 		    <div class="profile__wrap">
 		        <section class="profile__data">
 		            <div class="data__form-tabs">
-		                <article class="brief data__tab">
-		                    <div class="wrapper">
-		                        <div class="brief__user">
-		                            <div class="brief__img-wrap">
-		                                <img class="brief__icon" src="./img/dad.jpg" alt=" user">
-		                            </div>
-		                            <div class="brief__info">
-		                                <img src="./img/candle.png" alt="candle" class="brief__candle" id="candle">
-		                                <img src="./img/candle-fire.png" alt="candle" class="brief__candle brief__candle--fire"
-		                                    id="candleFire">
-		                                <h6 class="brief__titles">
-		                                    <span class="brief__name-user" id="user-surname">Савельев</span>
-		                                    <span class="brief__surname" id="user-name">Илья</span>
-		                                    <span class="brief__patronimyc" id="user-patronimyc">Михайлович
-		                                    </span>
-		                                </h6>
-		                                <div class="brief__years">
-		                                    <span class="brief__both">11.10.1952</span>
-		                                    <span> - </span>
-		                                    <span class="brief__die">11.10.1952</span>
-		                                    <span class="brief__life-long">
-		                                        (
-		                                        <span class="brief__life-val" id="user-old">35</span>
-		                                        )
-		                                    </span>
+		                <article class="data__tab">
+		                    <article class="brief">
+		                        <div class="wrapper">
+		                            <div class="brief__user">
+		                                <div class="brief__img-wrap">
+		                                    <img class="brief__icon" src="./img/dad.jpg" alt=" user">
 		                                </div>
-		                                <!-- <p class="brief__text" id="user-about-short">
+		                                <div class="brief__info">
+		                                    <img src="./img/candle.png" alt="candle" class="brief__candle" id="candle">
+		                                    <img src="./img/candle-fire.png" alt="candle"
+		                                        class="brief__candle brief__candle--fire" id="candleFire">
+		                                    <h6 class="brief__titles">
+		                                        <span class="brief__name-user" id="user-surname">Савельев</span>
+		                                        <span class="brief__surname" id="user-name">Илья</span>
+		                                        <span class="brief__patronimyc" id="user-patronimyc">Михайлович
+		                                        </span>
+		                                    </h6>
+		                                    <div class="brief__years">
+		                                        <span class="brief__both">11.10.1952</span>
+		                                        <span> - </span>
+		                                        <span class="brief__die">11.10.1952</span>
+		                                        <span class="brief__life-long">
+		                                            (
+		                                            <span class="brief__life-val" id="user-old">35</span>
+		                                            )
+		                                        </span>
+		                                    </div>
+		                                    <!-- <p class="brief__text" id="user-about-short">
 		                                    Художник, любящий дедушка,
 		                                    путешественник, который
 		                                    занимался любимым делом.
 		                                </p> -->
-		                                <p class="brief__text" id="user-about-short">
-		                                    Художник, любящий дедушка,
-		                                    путешественник, который
-		                                    занимался любимым делом.
-		                                    Художник, любящий дедушка,
-		                                    путешественник, который
-		                                    занимался любимым делом.
-		                                    Художник, любящий дедушка,
-		                                    путешественник, который
-		                                    занимался любимым делом.
-		                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores
-		                                    delectus odit
-		                                    dignissimos nulla quia, aspernatur provident consequatur odio corporis doloremque
-		                                    accusantium fugit id et illum exercitationem eos, sed maiores.
-		                                </p>
-		                                <p id="user-about" class="brief__more"> Читать дальше...</p>
-		                                <div class="brief__bookmarks">
-		                                    <!-- <img class="brief__bookmark brief__bookmark--small" src="./img/my-boockmark.png"
+		                                    <p class="brief__text" id="user-about-short">
+		                                        Художник, любящий дедушка,
+		                                        путешественник, который
+		                                        занимался любимым делом.
+		                                        Художник, любящий дедушка,
+		                                        путешественник, который
+		                                        занимался любимым делом.
+		                                        Художник, любящий дедушка,
+		                                        путешественник, который
+		                                        занимался любимым делом.
+		                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores
+		                                        delectus odit
+		                                        dignissimos nulla quia, aspernatur provident consequatur odio corporis
+		                                        doloremque
+		                                        accusantium fugit id et illum exercitationem eos, sed maiores.
+		                                    </p>
+		                                    <p id="user-about" class="brief__more"> Читать дальше...</p>
+		                                    <div class="brief__bookmarks">
+		                                        <!-- <img class="brief__bookmark brief__bookmark--small" src="./img/my-boockmark.png"
 		                                        alt="bookmark"> -->
-		                                    <img class="brief__bookmark" src="./img/bookmark.svg" alt="bookmark" id="bookmark">
+		                                        <img class="brief__bookmark" src="./img/bookmark.svg" alt="bookmark"
+		                                            id="bookmark">
+		                                    </div>
 		                                </div>
 		                            </div>
 		                        </div>
-		                    </div>
-		                    <div class="brief__timelaps">
+		                        <div class="brief__timelaps">
+		                            <span class="brief__start">
+		                                Рождение
+		                                <span class="brief__start-both">11.10.1952</span>
+		                                <span>,</span>
+		                                <span class="brief__city">
+		                                    Мариуполь
+		                                </span>
+		                            </span>
+		                            <div class="brief__section">
+		                                <div class="brief__block1 first">
+		                                    <span class="brief__period">
+		                                        0-7
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block2">
+		                                    <span class="brief__name">
+		                                        Детство
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block3">
+		
+		                                </div>
+		                                <div class="brief__block4">
+		                                    <div class="brief__gall">
+		                                        <a href="#childhood" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#childhood" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#childhood" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#childhood" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#childhood" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                    </div>
+		                                    <p class="brief__descr">
+		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
+		                                        provident
+		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
+		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
+		                                        esse
+		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
+		                                        enim?
+		                                        Nostrum, dolorum
+		                                    </p>
+		                                </div>
+		                            </div>
+		                            <div class="brief__section">
+		                                <div class="brief__block1">
+		                                    <span class="brief__period">
+		                                        8-21
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block2">
+		                                    <span href="#preyouth" class="brief__name">
+		                                        Юность
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block3">
+		
+		                                </div>
+		                                <div class="brief__block4">
+		                                    <div class="brief__gall">
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                    </div>
+		                                    <p class="brief__descr">
+		
+		                                    </p>
+		                                </div>
+		                            </div>
+		                            <div class="brief__section">
+		                                <div class="brief__block1">
+		                                    <span class="brief__period">
+		                                        22-40
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block2">
+		                                    <span href="#youth" class="brief__name">
+		                                        Молодость
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block3">
+		
+		                                </div>
+		                                <div class="brief__block4">
+		                                    <div class="brief__gall">
+		                                        <a href="#youth" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#youth" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#youth" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                    </div>
+		                                    <p class="brief__descr">
+		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
+		                                        provident
+		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
+		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
+		                                        esse
+		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
+		                                        enim?
+		                                        Nostrum, dolorum
+		                                    </p>
+		                                </div>
+		                            </div>
+		                            <div class="brief__section">
+		                                <div class="brief__block1">
+		                                    <span class="brief__period">
+		                                        41-65
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block2">
+		                                    <span class="brief__name">
+		                                        Зрелость
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block3">
+		
+		                                </div>
+		                                <div class="brief__block4">
+		                                    <div class="brief__gall">
+		                                        <a href="#ripeness" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                        <a href="#ripeness" class="brief__photo-wrap btn-tab-link">
+		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
+		                                        </a>
+		                                    </div>
+		                                    <p class="brief__descr">
+		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
+		                                        provident
+		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
+		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
+		                                        esse
+		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
+		                                        enim?
+		                                        Nostrum, dolorum
+		                                    </p>
+		                                </div>
+		                            </div>
+		                            <div class="brief__section">
+		                                <div class="brief__block1 last">
+		                                    <span class="brief__period">
+		                                        66-99
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block2">
+		                                    <span href="#elderhood" class="brief__name">
+		                                        Преклонный возраст
+		                                    </span>
+		                                </div>
+		                                <div class="brief__block3">
+		                                </div>
+		                                <div class="brief__block4">
+		                                    <div class="brief__gall">
+		                                        <div class="brief__photo-wrap">
+		
+		                                        </div>
+		                                    </div>
+		                                    <p class="brief__descr">
+		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
+		                                        provident
+		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
+		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
+		                                        esse
+		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
+		                                        enim?
+		                                        Nostrum, dolorum
+		                                    </p>
+		                                </div>
+		                            </div>
+		                            <span class="brief__end brief__end--first">
+		                                Смерть
+		                                <span class="brief__start-both">11.10.1952</span>
+		                                <span>,</span>
+		                                <span class="brief__city">
+		                                    Мариуполь
+		                                </span>
+		                            </span>
+		                            <span class="brief__end">
+		                                Причина смерти:
+		                                <span class="brief__cause" id="cause">
+		                                    Рак
+		                                </span>
+		                            </span>
+		                        </div>
+		                        <div class="wrapper">
+		                            <div class="brief__location">
+		                                <span class="brief__cemetery">
+		                                    Кладбище:
+		                                    <span id="cemetery">Старокрымское</span>
+		                                </span>
+		                                <p class="brief__values">
+		                                    <span>Сектор: <span id="sector">25</span></span>
+		                                    <span>Квадрат: <span id="sector">133</span></span>
+		                                    <br>
+		                                    <span>Ряд: <span id="sector">734</span></span>
+		                                    <span>Номер: <span id="sector">555555</span></span>
+		
+		                                </p>
+		                                <div class="brief__loc-wrap">
+		                                    <!-- <a href=" https://goo.gl/maps/HV2Njc5PkkuMWdDM8" class="brief__google-link" target="_blank"></a> -->
+		                                    <div class="brief__loc-prev">
+		                                        <iframe
+		                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2355.255729576177!2d37.4893909254376!3d47.141695095960316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDA4JzMwLjIiTiAzN8KwMjknMjguOCJF!5e0!3m2!1sru!2sua!4v1620509552115!5m2!1sru!2sua"
+		                                            style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+		                                    </div>
+		                                </div>
+		                            </div>
+		
+		                        </div>
+		                    </article>
+		                    <article class="story wrapper">
+		                        <button class="story__back">&#8592; назад</button>
 		                        <span class="brief__start">
 		                            Рождение
 		                            <span class="brief__start-both">11.10.1952</span>
@@ -291,180 +628,347 @@
 		                                Мариуполь
 		                            </span>
 		                        </span>
-		                        <div class="brief__section">
-		                            <div class="brief__block1">
-		                                <span class="brief__period">
-		                                    0-7
-		                                </span>
-		                            </div>
-		                            <div class="brief__block2">
-		                                <a href="#childhood" class="brief__name">
-		                                    Детство
-		                                </a>
-		                            </div>
-		                            <div class="brief__block3">
-		
-		                            </div>
-		                            <div class="brief__block4">
-		                                <div class="brief__gall">
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                </div>
-		                                <p class="brief__descr">
-		                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci provident
-		                                    inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                    magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero esse
-		                                    commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit enim?
-		                                    Nostrum, dolorum
+		                        <div class="story__section" id="childhood">
+		                            <h6 class="story__title">
+		                                Детство
+		                            </h6>
+		                            <div class="story__text">
+		                                <p class="story__descr">
+		                                    Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.
 		                                </p>
+		                                <button class="more">Подробнее</button>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <div class="story__img-wrap">
+		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
+		                                </div>
+		                                <span class="story__content-title">
+		                                    В детском садике
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
 		                            </div>
 		                        </div>
-		                        <div class="brief__section">
-		                            <div class="brief__block1">
-		                                <span class="brief__period">
-		                                    8-21
-		                                </span>
-		                            </div>
-		                            <div class="brief__block2">
-		                                <a href="#preyouth" class="brief__name">
-		                                    Юность
-		                                </a>
-		                            </div>
-		                            <div class="brief__block3">
-		
-		                            </div>
-		                            <div class="brief__block4">
-		                                <div class="brief__gall">
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                </div>
-		                                <p class="brief__descr">
-		
+		                        <div class="story__section" id="preyouth">
+		                            <h6 class="story__title">
+		                                Юность
+		                            </h6>
+		                            <div class="story__text">
+		                                <p class="story__descr">
+		                                    Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.
 		                                </p>
+		                                <button class="more">Подробнее</button>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <div class="story__img-wrap">
+		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
+		                                </div>
+		                                <span class="story__content-title">
+		                                    В детском садике
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
 		                            </div>
 		                        </div>
-		                        <div class="brief__section">
-		                            <div class="brief__block1">
-		                                <span class="brief__period">
-		                                    22-40
-		                                </span>
-		                            </div>
-		                            <div class="brief__block2">
-		                                <a href="#youth" class="brief__name">
-		                                    Молодость
-		                                </a>
-		                            </div>
-		                            <div class="brief__block3">
-		
-		                            </div>
-		                            <div class="brief__block4">
-		                                <div class="brief__gall">
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                </div>
-		                                <p class="brief__descr">
-		                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci provident
-		                                    inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                    magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero esse
-		                                    commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit enim?
-		                                    Nostrum, dolorum
+		                        <div class="story__section" id="youth">
+		                            <h6 class="story__title">
+		                                Молодость
+		                            </h6>
+		                            <div class="story__text">
+		                                <p class="story__descr">
+		                                    Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.
 		                                </p>
+		                                <button class="more">Подробнее</button>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <div class="story__img-wrap">
+		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
+		                                </div>
+		                                <span class="story__content-title">
+		                                    В детском садике
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
 		                            </div>
 		                        </div>
-		                        <div class="brief__section">
-		                            <div class="brief__block1">
-		                                <span class="brief__period">
-		                                    41-65
-		                                </span>
-		                            </div>
-		                            <div class="brief__block2">
-		                                <a href="#ripeness" class="brief__name">
-		                                    Зрелость
-		                                </a>
-		                            </div>
-		                            <div class="brief__block3">
-		
-		                            </div>
-		                            <div class="brief__block4">
-		                                <div class="brief__gall">
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                    <div class="brief__photo-wrap">
-		                                        <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                    </div>
-		                                </div>
-		                                <p class="brief__descr">
-		                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci provident
-		                                    inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                    magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero esse
-		                                    commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit enim?
-		                                    Nostrum, dolorum
+		                        <div class="story__section" id="ripeness">
+		                            <h6 class="story__title">
+		                                Зрелость
+		                            </h6>
+		                            <div class="story__text">
+		                                <p class="story__descr">
+		                                    Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.
 		                                </p>
+		                                <button class="more">Подробнее</button>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <div class="story__img-wrap">
+		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
+		                                </div>
+		                                <span class="story__content-title">
+		                                    В детском садике
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
 		                            </div>
 		                        </div>
-		                        <div class="brief__section">
-		                            <div class="brief__block1">
-		                                <span class="brief__period">
-		                                    66-99
-		                                </span>
-		                            </div>
-		                            <div class="brief__block2">
-		                                <a href="#elderhood" class="brief__name">
-		                                    Преклонный возраст
-		                                </a>
-		                            </div>
-		                            <div class="brief__block3">
-		                            </div>
-		                            <div class="brief__block4">
-		                                <div class="brief__gall">
-		                                    <div class="brief__photo-wrap">
-		
-		                                    </div>
-		                                </div>
-		                                <p class="brief__descr">
-		                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci provident
-		                                    inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                    magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero esse
-		                                    commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit enim?
-		                                    Nostrum, dolorum
+		                        <div class="story__section" id="elderhood">
+		                            <h6 class="story__title">
+		                                Преклонный возраст
+		                            </h6>
+		                            <div class="story__text">
+		                                <p class="story__descr">
+		                                    Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                    школу, учился 9 классов, на выходных
+		                                    был у бабушки с дедушкой.
 		                                </p>
+		                                <button class="more">Подробнее</button>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <div class="story__img-wrap">
+		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
+		                                </div>
+		                                <span class="story__content-title">
+		                                    В детском садике
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
+		                            </div>
+		                            <div class="story__content">
+		                                <span class="story__date">
+		                                    18.05.1987
+		                                </span>
+		                                <span class="story__content-title">
+		                                    У бабушки в деревне
+		                                </span>
+		                                <div class="story__text story__text--content">
+		                                    <p class="story__descr">
+		                                        Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
+		                                        школу, учился 9 классов, на выходных
+		                                        был у бабушки с дедушкой.
+		                                    </p>
+		                                    <button class="more">Подробнее</button>
+		                                </div>
 		                            </div>
 		                        </div>
-		                        <span class="brief__end brief__end--first">
+		                        <span class="brief__end">
 		                            Смерть
 		                            <span class="brief__start-both">11.10.1952</span>
 		                            <span>,</span>
@@ -472,442 +976,75 @@
 		                                Мариуполь
 		                            </span>
 		                        </span>
-		                        <span class="brief__end">
-		                            Причина смерти:
-		                            <span class="brief__cause" id="cause">
-		                                Рак
-		                            </span>
-		                        </span>
-		                    </div>
-		                    <div class="wrapper">
-		                        <div class="brief__location">
-		                            <span class="brief__cemetery">
-		                                Кладбище:
-		                                <span id="cemetery">Старокрымское</span>
-		                            </span>
-		                            <p class="brief__values">
-		                                <span>Сектор: <span id="sector">25</span></span>
-		                                <span>Квадрат: <span id="sector">133</span></span>
-		                                <br>
-		                                <span>Ряд: <span id="sector">734</span></span>
-		                                <span>Номер: <span id="sector">555555</span></span>
+		                    </article>
 		
-		                            </p>
-		                            <div class="brief__loc-wrap">
-		                                <!-- <a href=" https://goo.gl/maps/HV2Njc5PkkuMWdDM8" class="brief__google-link" target="_blank"></a> -->
-		                                <div class="brief__loc-prev">
-		                                    <iframe
-		                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2355.255729576177!2d37.4893909254376!3d47.141695095960316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDA4JzMwLjIiTiAzN8KwMjknMjguOCJF!5e0!3m2!1sru!2sua!4v1620509552115!5m2!1sru!2sua"
-		                                        style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
-		                                </div>
-		                            </div>
-		                        </div>
 		
-		                    </div>
 		                </article>
-		                <article class="story data__tab wrapper">
-		                    <span class="brief__start">
-		                        Рождение
-		                        <span class="brief__start-both">11.10.1952</span>
-		                        <span>,</span>
-		                        <span class="brief__city">
-		                            Мариуполь
-		                        </span>
-		                    </span>
-		                    <div class="story__section" id="childhood">
-		                        <h6 class="story__title">
-		                            Детство
-		                        </h6>
-		                        <div class="story__text">
-		                            <p class="story__descr">
-		                                Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.
-		                            </p>
-		                            <button class="more">Подробнее</button>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <div class="story__img-wrap">
-		                                <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                            </div>
-		                            <span class="story__content-title">
-		                                В детском садике
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="story__section" id="preyouth">
-		                        <h6 class="story__title">
-		                            Юность
-		                        </h6>
-		                        <div class="story__text">
-		                            <p class="story__descr">
-		                                Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.
-		                            </p>
-		                            <button class="more">Подробнее</button>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <div class="story__img-wrap">
-		                                <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                            </div>
-		                            <span class="story__content-title">
-		                                В детском садике
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="story__section" id="youth">
-		                        <h6 class="story__title">
-		                            Молодость
-		                        </h6>
-		                        <div class="story__text">
-		                            <p class="story__descr">
-		                                Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.
-		                            </p>
-		                            <button class="more">Подробнее</button>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <div class="story__img-wrap">
-		                                <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                            </div>
-		                            <span class="story__content-title">
-		                                В детском садике
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="story__section" id="ripeness">
-		                        <h6 class="story__title">
-		                            Зрелость
-		                        </h6>
-		                        <div class="story__text">
-		                            <p class="story__descr">
-		                                Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.
-		                            </p>
-		                            <button class="more">Подробнее</button>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <div class="story__img-wrap">
-		                                <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                            </div>
-		                            <span class="story__content-title">
-		                                В детском садике
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="story__section" id="elderhood">
-		                        <h6 class="story__title">
-		                            Преклонный возраст
-		                        </h6>
-		                        <div class="story__text">
-		                            <p class="story__descr">
-		                                Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                школу, учился 9 классов, на выходных
-		                                был у бабушки с дедушкой.
-		                            </p>
-		                            <button class="more">Подробнее</button>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <div class="story__img-wrap">
-		                                <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                            </div>
-		                            <span class="story__content-title">
-		                                В детском садике
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__content">
-		                            <span class="story__date">
-		                                18.05.1987
-		                            </span>
-		                            <span class="story__content-title">
-		                                У бабушки в деревне
-		                            </span>
-		                            <div class="story__text story__text--content">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <span class="brief__end">
-		                        Смерть
-		                        <span class="brief__start-both">11.10.1952</span>
-		                        <span>,</span>
-		                        <span class="brief__city">
-		                            Мариуполь
-		                        </span>
-		                    </span>
-		                </article>
+		                <article class="data__tab">2</article>
+		                <article class="data__tab">3</article>
+		                <article class="data__tab">4</article>
+		                <article class="data__tab">5</article>
+		                <article class="data__tab">6</article>
+		                <article class="data__tab">7</article>
+		                <article class="data__tab">8</article>
+		                <article class="data__tab">9</article>
 		            </div>
 		        </section>
 		        <section class="profile__menu">
 		            <div class="menu__items">
 		                <a href="#" class="menu__item active-items main">
 		                    <div class="menu__description">
-		                        <span>Форма с данными</span>
+		                        <span>Линия жизни</span>
 		                    </div>
-		                    <img src="./img/item1.png" alt="icon" class="menu__img">
+		                    <img src="./img/icon1.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Родственники</span>
+		                        <span>Семья</span>
 		                    </div>
-		                    <img src="./img/item2.png" alt="icon" class="menu__img">
+		                    <img src="./img/icon2.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Главные увлечения в жизни</span>
+		                        <span>Праздники</span>
 		                    </div>
-		                    <img src="./img/item3.png" alt="icon" class="menu__img">
+		                    <img src="./img/icon3.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Характер,каким был для семьи</span>
+		                        <span>Деятельность</span>
 		                    </div>
 		                    <img src="./img/icon4.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Какие ценности нес и чему научил</span>
+		                        <span>Увлечения</span>
 		                    </div>
 		                    <img src="./img/icon5.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Интересные истории,что запомнилось</span>
+		                        <span>Путешествия</span>
 		                    </div>
 		                    <img src="./img/icon6.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Чем гордитесь</span>
+		                        <span>Наследие</span>
 		                    </div>
 		                    <img src="./img/icon7.png" alt="icon" class="menu__img">
+		                </a>
+		                <a href="#" class="menu__item">
+		                    <div class="menu__description">
+		                        <span>Учеба/друзья</span>
+		                    </div>
+		                    <img src="./img/icon8.png" alt="icon" class="menu__img">
+		                </a>
+		                <a href="#" class="menu__item">
+		                    <div class="menu__description">
+		                        <span>Веселые истории</span>
+		                    </div>
+		                    <img src="./img/icon9.png" alt="icon" class="menu__img">
 		                </a>
 		            </div>
 		        </section>
