@@ -11341,7 +11341,9 @@ $('.settings__save').click(function (e) {
 					setCookie(cookie_name_token, json.token, 3600);
 					cookie_token = getCookie(cookie_name_token);
 					$('#error').text("Данные успешно обновлены").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-					window.location.reload().delay(1000);
+					setTimeout(function () {
+						window.location.reload();
+					}, 2000);
 				} else {
 					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
 				}
