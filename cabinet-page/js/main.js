@@ -11124,218 +11124,434 @@ function pagin3() {
 };
 pagin();
 pagin3();
-jQuery(function ($) {
-	'use strict';
+
+'use strict';
 
 
-	$(window).on('load', function () {
-		var $preloader = $('#p_prldr');
-		$preloader.delay(1000).fadeOut('slow');
-	});
+$(window).on('load', function () {
+	var $preloader = $('#p_prldr');
+	$preloader.delay(1000).fadeOut('slow');
+});
+
+//Request to server*****************************
+// var api_url = "http://localhost:3000/";
+var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+
+var cookie_name_token = "project_token";
+var cookie_token = getCookie(cookie_name_token);
 
 
-	//Зарегестрірованний юзер
-	var user = true;
-	var user_data = false;
+//User if login*******************************
+var user = false;
+var userName = '';
+var userSurname = '';
+var userPatronymic = '';
+var userEmail = '';
+var userTel = '';
+var userBoth = '';
+var password = '';
+var userIcon = '';
+var userAvatar = '';
+var userId = '';
+ifLogin();
+function ifLogin() {
+	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+		start();
+	} else {
+		window.location.href = '../index.html';
+	}
+};
 
+//Exit account***************************************************
+$('#logout').click(function () {
+	deleteCookie(cookie_name_token)
+	window.location.reload();
 
-	//Icon user if login**************************
+});
+
+//if user auth************************************************
+function start() {
+	fetch(
+		`${api_url}get_start_info`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('wellcome');
+			console.log('Data:', JSON.stringify(data));
+			user = true;
+			userAvatar = data.user.avatar;
+			userName = data.user.first_name;
+			userPatronymic = data.user.patronymic;
+			userSurname = data.user.last_name;
+			userTel = data.user.tel_number;
+			userEmail = data.user.email;
+			userBoth = data.user.userBoth;
+			password = data.user.password;
+			userIcon = data.user.avatar;
+			userId = data.user.id;
+			confirmUser();
+		})
+		.catch(error => console.error('error1:', error));
+};
+
+//Icon user if login**************************
+function confirmUser() {
 	if (user) {
 		$('.enter').removeClass('active');
 		$('.loginIn').addClass('active');
 	} else {
-		window.location.href = '../index.html';
+		$('.enter').addClass('active');
+		$('.loginIn').removeClass('active');
 	};
-	//If not empty foto user
-	if (!user.avatar === '') {
-		$('.header__user').src = user.avatar;
-	};
-
-	//burger***************************************
-	function burgerShow() {
-		//User or guest
-		if (user) {
-			$('#menu-user').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		}
-	};
-
-	$('.burger').click(function () {
-		burgerShow();
-
-	});
-	$('.nav__link').click(function () {
-		burgerShow();
-	});
-	$('.burger__bg-body').click(function (e) {
-		var container = $('.burger-wrap');
-		if (container.has(e.target).length === 0) {
-			burgerShow();
-		}
-	});
-
-
-	//selects***********************************************
-
-	$('#lang').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--lang"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options select-options--lang'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-
-
-
-
-	//show tabs in menu cabinet******************************
-	$(".profile__tabs").not(":first").hide();
-	$(".nav-tab").not(":first").removeClass("active-tab");
-
-	$(".nav-tab1").click(function () {
-		$(".nav-tab").removeClass("active-tab");
-		$(".nav-tab1").addClass("active-tab");
-		$(".tab1").fadeIn().siblings('.profile__tabs').hide();
-		setTimeout(function () {
-			initClick();
-		}, 100);
-	});
-	$(".nav-tab2").click(function () {
-		$(".tab2").fadeIn().siblings('.profile__tabs').hide();
-		$(".nav-tab").removeClass("active-tab");
-		$(".nav-tab2").addClass("active-tab");
-		var sectionBookmark = $('.profile__bookmarks');
-		loadQuestionnaries(sectionBookmark, 'user-bookmark');
-		pagin2();
-		setTimeout(function () {
-			initClick();
-		}, 100);
-
-	});
-	$(".nav-tab3").click(function () {
-		$(".nav-tab").removeClass("active-tab");
-		$(".nav-tab3").addClass("active-tab");
-		$(".tab3").fadeIn().siblings('.profile__tabs').hide();
-	});
-	$(".nav-tab4").click(function () {
-		$(".nav-tab").removeClass("active-tab");
-		$(".nav-tab4").addClass("active-tab");
-		$(".tab4").fadeIn().siblings('.profile__tabs').hide();
-	});
-
-
-
-
-	//upload avatar*************************************
-	$('#editFoto').change(function (e) {
-		var foto = e.target;
-
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = $('#user-icon');
-			output.attr('src', dataURL);
-		};
-		reader.readAsDataURL(foto.files[0]);
-	});
-
-
-	//add date input of both***************************
-	$('#userBoth').change(function () {
-		var date = $('#userBoth').val();
-		date = date.split('-').reverse().join('-');
-		$('#userBothDate').val(date);
-	});
-
-
-	//Show popup choice questionnaries***************
-	$('#createQuestionnaries').click(function (e) {
-		e.preventDefault();
-		$('#popup-choice').addClass('opened');
-		$('body').toggleClass('no-scroll');
-
-	});
-	//Close popup***********************************
-	$('.closeChoice').click(function () {
-		$('#popup-choice').removeClass('opened');
-		$('body').toggleClass('no-scroll');
-	});
-
-
-
-
-
-
-	//change icon like anb bookmarks when click*********
-	function initClick() {
-		$('.user__candle').click(function () {
-			if ($(this).next().hasClass('active')) {
-				$(this).next().toggleClass('active');
-			} else {
-				$(this).next().toggleClass('active');
-
-			}
-		})
-		$('.user__like-icon').click(function () {
-			var countNum = $(this).next('.user__likeCount');
-			var count = countNum.text();
-			count = parseInt(count);
-			if ($(this).hasClass('active')) {
-				$(this).toggleClass('active');
-				$(this).attr('src', './img/heart.svg');
-				if (count > 0) {
-					count = count - 1;
-					countNum.html(count);
-				}
-			} else {
-				$(this).attr('src', './img/heart-black.svg');
-				$(this).toggleClass('active');
-				count = count + 1;
-				countNum.html(count);
-			}
-		})
+	if (!userAvatar === '') {
+		$('.header__user').src = `data:image/png;base64,${userAvatar}`;
 	}
+	if (userBoth == '' && userBoth == null) {
+		userBoth = '';
+	}
+};
+
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+function deleteCookie(name) {
+	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+};
+
+//Comfirm fields input*******************************
+function validateMail() {
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	var user_email = $('#userEmail').val();
+	if (reg.test(user_email) == false || user_email == '') {
+		$('#error').text("Введите корректный e-mail").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateSoname() {
+	var reg = /^[А-Яа-яЁё\s]+$/;
+	var surName = $('#userSurname').val();
+	if (reg.test(surName) == false || surName == '') {
+		$('#error').text("Введите корректную фамилию").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateName() {
+	var reg = /^[А-Яа-яЁё\s]+$/;
+	var user_name = $('#userName').val();
+	if (reg.test(user_name) == false || user_name == '') {
+		$('#error').text("Введите корректное имя").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validatePatronymic() {
+	var reg = /^[А-Яа-яЁё\s]+$/;
+	var patronymic = $('#patronymic').val();
+	if (reg.test(patronymic) == false || patronymic == '') {
+		$('#error').text("Введите корректное отчество").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateTel() {
+	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+	var userTel = $('#userTel').val();
+	if (reg.test(userTel) == false || userTel == '') {
+		$('#error').text("Введите корректный телефон").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validatePass() {
+	var new_pass = $('#newPassword').val();
+	var confirm_pass = $('#confirmPassword').val();
+	if (new_pass !== '' && new_pass.length < 6) {
+		$('#error').text("Введите корректный пароль мин 6 символов").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else if (new_pass !== '' && new_pass !== confirm_pass) {
+		$('#error').text("Пароли не совпадают").addClass('error').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+
+
+//show password************************************
+$('.showPass').click(function (e) {
+	$(this).next().attr("type", "text");
+	e.target.src = './img/eye-red.svg';
+});
+
+
+//Request edit data user*****************************
+$('.settings__save').click(function (e) {
+	e.preventDefault();
+	var confirmNewPass = $('#password').val();
+	var newPassword = $('#newPassword').val();
+	if (confirmNewPass == password && newPassword == '') {
+		confirmNewPass = password;
+	} else {
+		confirmNewPass = newPassword;
+	}
+	var data = {
+		first_name: $('#userName').val(),
+		last_name: $('#userSurname').val(),
+		patronymic: $('#patronymic').val(),
+		tel_number: $('#userSurname').val(),
+		email: $('#userEmail').val(),
+		date_of_birth: $('#userBothDate').val(),
+		avatar: $('#user-icon').attr('src'),
+		new_password: confirmNewPass
+	};
+	console.log(data);
+	if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
+		fetch(
+			`${api_url}user_edit`,
+			{
+				method: 'POST',
+				body: JSON.stringify(data),
+				headers: {
+					// 'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(response => response.json())
+			.then(json => {
+
+				if (json.error == 0) {
+					console.log("success get token");
+					setCookie(cookie_name_token, json.token, 3600);
+					cookie_token = getCookie(cookie_name_token);
+					$('#error').text("Данные успешно обновлены").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+					window.location.reload().delay(1000);
+				} else {
+					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+			});
+	}
+})
+
+
+
+//burger***************************************
+function burgerShow() {
+	//User or guest
+	if (user) {
+		$('#menu-user').toggleClass('open');
+		$('.burger').toggleClass('closed');
+		$('body').toggleClass('no-scroll');
+		$('.burger__bg-body').toggleClass('show-bgBody');
+	}
+};
+
+$('.burger').click(function () {
+	burgerShow();
+
+});
+$('.nav__link').click(function () {
+	burgerShow();
+});
+$('.burger__bg-body').click(function (e) {
+	var container = $('.burger-wrap');
+	if (container.has(e.target).length === 0) {
+		burgerShow();
+	}
+});
+
+
+//selects***********************************************
+
+$('#lang').each(function () {
+	var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+	$this.addClass('select-hidden');
+	$this.wrap('<div class="select select--lang"></div>');
+	$this.after('<div class="select-styled"></div>');
+
+	var $styledSelect = $this.next('div.select-styled');
+	$styledSelect.text($this.children('option').eq(0).text());
+
+	var $list = $('<ul />', {
+		'class': 'select-options select-options--lang'
+	}).insertAfter($styledSelect);
+
+	for (var i = 0; i < numberOfOptions; i++) {
+		$('<li />', {
+			text: $this.children('option').eq(i).text(),
+			rel: $this.children('option').eq(i).val()
+		}).appendTo($list);
+	}
+
+	var $listItems = $list.children('li');
+
+	$styledSelect.click(function (e) {
+		e.stopPropagation();
+		$('div.select-styled.select-active').not(this).each(function () {
+			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+		});
+		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+	});
+
+	$listItems.click(function (e) {
+		e.stopPropagation();
+		$styledSelect.text($(this).text()).removeClass('select-active');
+		$this.val($(this).attr('rel'));
+		$list.hide();
+		//console.log($this.val());
+	});
+
+	$(document).click(function () {
+		$styledSelect.removeClass('select-active');
+		$list.hide();
+	});
+
+});
+
+
+
+
+//show tabs in menu cabinet******************************
+$(".profile__tabs").not(":first").hide();
+$(".nav-tab").not(":first").removeClass("active-tab");
+
+$(".nav-tab1").click(function () {
+	$(".nav-tab").removeClass("active-tab");
+	$(".nav-tab1").addClass("active-tab");
+	$(".tab1").fadeIn().siblings('.profile__tabs').hide();
 	setTimeout(function () {
 		initClick();
 	}, 100);
 });
+$(".nav-tab2").click(function () {
+	$(".tab2").fadeIn().siblings('.profile__tabs').hide();
+	$(".nav-tab").removeClass("active-tab");
+	$(".nav-tab2").addClass("active-tab");
+	var sectionBookmark = $('.profile__bookmarks');
+	loadQuestionnaries(sectionBookmark, 'user-bookmark');
+	pagin2();
+	setTimeout(function () {
+		initClick();
+	}, 100);
+
+});
+$(".nav-tab3").click(function () {
+	$(".nav-tab").removeClass("active-tab");
+	$(".nav-tab3").addClass("active-tab");
+	$(".tab3").fadeIn().siblings('.profile__tabs').hide();
+});
+
+$(".nav-tab4").click(function () {
+	$(".nav-tab").removeClass("active-tab");
+	$(".nav-tab4").addClass("active-tab");
+	$(".tab4").fadeIn().siblings('.profile__tabs').hide();
+	$('#userName').val(userName);
+	$('#userSurname').val(userSurname);
+	$('#patronymic').val(userPatronymic);
+	$('#userEmail').val(userEmail);
+	$('#userTel').val(userTel);
+	$('#userBoth').val(userBoth);
+	$('#password').val(password);
+	if (!userAvatar === '') {
+		$('#userIcon').src = `data:image/png;base64,${userAvatar}`;
+	};
+	$('#userSurname').val(userSurname);
+});
+
+
+
+
+//upload avatar*************************************
+$('#editFoto').change(function (e) {
+	var foto = e.target;
+
+	var reader = new FileReader();
+	reader.onload = function () {
+		var dataURL = reader.result;
+		var output = $('#user-icon');
+		output.attr('src', dataURL);
+	};
+	reader.readAsDataURL(foto.files[0]);
+});
+
+
+//add date input of both***************************
+$('#userBoth').change(function () {
+	var date = $('#userBoth').val();
+	date = date.split('-').reverse().join('-');
+	$('#userBothDate').val(date);
+});
+
+
+//Show popup choice questionnaries***************
+$('#createQuestionnaries').click(function (e) {
+	e.preventDefault();
+	$('#popup-choice').addClass('opened');
+	$('body').toggleClass('no-scroll');
+
+});
+//Close popup***********************************
+$('.closeChoice').click(function () {
+	$('#popup-choice').removeClass('opened');
+	$('body').toggleClass('no-scroll');
+});
+
+
+
+
+
+
+//change icon like anb bookmarks when click*********
+function initClick() {
+	$('.user__candle').click(function () {
+		if ($(this).next().hasClass('active')) {
+			$(this).next().toggleClass('active');
+		} else {
+			$(this).next().toggleClass('active');
+
+		}
+	})
+	$('.user__like-icon').click(function () {
+		var countNum = $(this).next('.user__likeCount');
+		var count = countNum.text();
+		count = parseInt(count);
+		if ($(this).hasClass('active')) {
+			$(this).toggleClass('active');
+			$(this).attr('src', './img/heart.svg');
+			if (count > 0) {
+				count = count - 1;
+				countNum.html(count);
+			}
+		} else {
+			$(this).attr('src', './img/heart-black.svg');
+			$(this).toggleClass('active');
+			count = count + 1;
+			countNum.html(count);
+		}
+	})
+}
+setTimeout(function () {
+	initClick();
+}, 100);

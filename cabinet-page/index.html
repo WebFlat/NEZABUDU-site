@@ -140,6 +140,7 @@
 	        </div>
 	    </div>
 	</header>
+	<span id="error"></span>
 
 	<!-- контент страницы -->
 	<section class="profile">
@@ -264,6 +265,10 @@
 	                    <input type="text" name="userSurname" id="userSurname" class="settings__input">
 	                </div>
 	                <div class="settings__line">
+	                    <label for="patronymic" class="settings__label">Отчество</label>
+	                    <input type="text" name="patronymic" id="patronymic" class="settings__input">
+	                </div>
+	                <div class="settings__line">
 	                    <label for="userEmail" class="settings__label">Эл. почта</label>
 	                    <input type="email" name="userEmail" id="userEmail" class="settings__input">
 	                </div>
@@ -287,12 +292,22 @@
 	                    <div class="security__wrap">
 	                        <label for="password" class="settings__label">Сменить пароль</label>
 	                        <div class="settings__line security__input">
-	                            <input type="password" name="password" id="password" class="settings__input security__input"
-	                                placeholder="Текущий пароль">
-	                            <input type="password" name="newPassword" id="newPassword"
-	                                class="settings__input security__input" placeholder="Новый пароль">
-	                            <input type="password" name="confirmPassword" id="confirmPassword"
-	                                class="settings__input security__input" placeholder="Новый пароль еще раз">
+	                            <div style="width: 100%;max-width: 300px;" class="security__img-wrap">
+	                                <img src="./img/eye.svg" alt="eye" class="security__eye showPass">
+	                                <input type="password" name="password" id="password"
+	                                    class="settings__input security__input" placeholder="Текущий пароль" readonly>
+	
+	                            </div>
+	                            <div style="width: 100%;max-width: 300px;" class="security__img-wrap">
+	                                <img src="./img/eye.svg" alt="eye" class="security__eye showPass">
+	                                <input type="password" name="newPassword" id="newPassword"
+	                                    class="settings__input security__input" placeholder="Новый пароль">
+	                            </div>
+	                            <div style="width: 100%;max-width: 300px;" class="security__img-wrap">
+	                                <img src="./img/eye.svg" alt="eye" class="security__eye showPass">
+	                                <input type="password" name="confirmPassword" id="confirmPassword"
+	                                    class="settings__input security__input" placeholder="Новый пароль еще раз">
+	                            </div>
 	                        </div>
 	                    </div>
 	                    <div class="settings__btns">

@@ -10279,27 +10279,26 @@ $(document).ready(function () {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
             start();
         }
-    }
+    };
 
 
     function start() {
-
         fetch(
             `${api_url}get_start_info`,
             {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Token token=' + cookie_token,
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
             })
             .then(response => response.json())
             .then(json => {
-                document.location.href = '/index-auth.html';
+                document.location.href = './auth-user/index.html';
                 console.log('hello user');
             })
             .catch(error => console.error('error1:', error));
-    }
+    };
 
 
 
@@ -10307,7 +10306,7 @@ $(document).ready(function () {
 
 
 
-    //Registration****************************************************
+    //Registration input ****************************************************
     var registration = $('#sendReg');
     var formReg = $('#reg-form');
     var userName = $('#reg-name');
@@ -10318,7 +10317,7 @@ $(document).ready(function () {
     var userPassword = $('#reg-password');
 
 
-
+    //Validate input field************************************************
     function validateMail() {
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         var regEmail = $('#reg-email').val();
@@ -10390,25 +10389,26 @@ $(document).ready(function () {
 
 
 
-
-    //Registration**************************************************
+    //Registration user**************************************************
     registration.click(function (e) {
         e.preventDefault();
+        var data = {
+            first_name: userName.val(),
+            last_name: userSoname.val(),
+            patronymic: userPatronymic.val(),
+            tel_number: userTel.val(),
+            email: userEmail.val(),
+            password: userPassword.val(),
+        };
+        console.log(data);
         if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
             fetch(
                 `${api_url}user_create`,
                 {
                     method: 'POST',
-                    body: JSON.stringify({
-                        name: userName.value,
-                        surname: userSoname.value,
-                        patronymic: userPatronymic.value,
-                        tel: userTel.value,
-                        email: userEmail.value,
-                        password: userPassword.value,
-                    }),
+                    body: JSON.stringify(data),
                     headers: {
-                        'Authorization': 'Token token=' + cookie_token,
+                        // 'Authorization': 'Token token=' + cookie_token,
                         'Content-Type': 'application/json'
                     }
                 })
@@ -10422,24 +10422,24 @@ $(document).ready(function () {
                         $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
                         clearInput();
                         $('.reg__btn-enter').addClass('active').click();
-                        window.location.reload();
                     } else {
                         $('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
                         clearInput();
                     }
 
                 })
-                .catch(error => console.log('error:', error));
-            // $('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                .catch(error => {
+                    console.log('error:', error);
+                    $('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                });
         }
     });
 
 
 
-    //Login in**************************************************
+    //Auth user**************************************************
     $('#authSend').click(function (e) {
         e.preventDefault();
-
         function validateMail() {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             var email = $('#auth-email').val();
@@ -10465,30 +10465,32 @@ $(document).ready(function () {
                         method: 'GET',
                         headers: {
                             'Authorization': 'Basic ' + token_web,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         }
                     })
                     .then(response => response.json())
                     .then(json => {
-
-                        console.log("token ", json)
+                        // console.log("token ", json)
                         if (typeof json.token !== 'undefined') {
                             console.log("success get token");
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
                             $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
                             setTimeout(function () {
-                                document.location.href = 'index-auth.html';
+                                document.location.href = './auth-user/index.html';
                             }, 2000);
-                            window.location.reload();
+                            // window.location.reload();
                         } else {
                             // alert("Проверьте логин и пароль");
                             $('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                            clearInput();
                         }
 
                     })
-                    .catch(error => console.log('error:', error));
-                $('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                    .catch(error => {
+                        console.log('error:', error);
+                        $('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                    });
             }
             catch (err) {
                 console.log(err);
@@ -10534,7 +10536,7 @@ $(document).ready(function () {
 
 
 
-
+    //slider partners******************************************************
     $('.partners__items').slick({
         dots: true,
         slidesToShow: 4,
@@ -10563,7 +10565,7 @@ $(document).ready(function () {
             }
         ]
     });
-
+    //animate text********************************************************
     $('.about__subtitle').addClass("hidden").viewportChecker({
         classToAdd: 'visible animate__fadeInRight',
         // offset: 20
@@ -10581,6 +10583,8 @@ $(document).ready(function () {
         // offset: 20
     });
 
+
+    //code for custom select ************************************************ 
     $('.select__options').each(function () {
         var $this = $(this), numberOfOptions = $(this).children('option').length;
 
@@ -10775,6 +10779,8 @@ $(document).ready(function () {
 
         }
     })
+
+    //
     $('.personality__carusel').on('click', '.user__like-icon', function () {
         var countNum = $(this).next('.user__likeCount');
         var count = countNum.text();
@@ -10906,6 +10912,10 @@ $(document).ready(function () {
     // 		$(this).next().slideToggle();
     // 		$(this).toggleClass('minus');
     // 	});
+
+
+
+
 
     //Range**************************
     var lowerSlider = document.querySelector('#lower'); //Lower value slider
