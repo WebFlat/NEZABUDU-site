@@ -10597,8 +10597,10 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 !function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
-jQuery(function ($) {
-	'use strict';
+console.log("window loaded");
+
+
+$(document).ready(function () {
 
 	$(window).on('load', function () {
 		var $preloader = $('#p_prldr');
@@ -10635,50 +10637,302 @@ jQuery(function ($) {
 	loadQuestionnaries();
 
 
+	// var api_url = "http://localhost:3000/";
+	var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
 
-
-
-
-
-
+	var cookie_name_token = "project_token";
+	var cookie_token = getCookie(cookie_name_token);
 
 
 	//Зарегестрірованний юзер
 	var user = false;
+	var userAvatar = '';
+	ifLogin();
+	function ifLogin() {
+		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+			start();
+		} else {
+			confirmUser();
+		}
+	};
 
+	//Exit account***************************************************
+	$('#logout').click(function () {
+		deleteCookie(cookie_name_token)
+		window.location.reload();
+
+	});
+
+	//if user auth************************************************
+	function start() {
+
+		fetch(
+			`${api_url}get_start_info`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('wellcome');
+				console.log('Data:', JSON.stringify(data));
+				user = true;
+				confirmUser();
+				userAvatar = data.user.avatar;
+			})
+			.catch(error => console.error('error1:', error));
+	};
 
 	//Icon user if login**************************
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
-	} else {
-		$('.enter').addClass('active');
-		$('.loginIn').removeClass('active');
+	function confirmUser() {
+		if (user) {
+			$('.enter').removeClass('active');
+			$('.loginIn').addClass('active');
+			$('#menu-guest').hide();
+			$('#menu-user').show();
+		} else {
+			$('.enter').addClass('active');
+			$('.loginIn').removeClass('active');
+			$('#menu-user').hide();
+			$('#menu-guest').show();
+		};
+		if (!userAvatar === '') {
+			$('.header__user').src = `data:image/png;base64,${userAvatar}`;
+		}
 	};
-	if (!user.avatar === '') {
-		$('.header__user').src = user.avatar;
+
+
+
+	//Registration input ****************************************************
+	var registration = $('#sendReg');
+	var formReg = $('#reg-form');
+	var userName = $('#reg-name');
+	var userSoname = $('#reg-soname');
+	var userPatronymic = $('#reg-patronymic');
+	var userTel = $('#reg-tel');
+	var userEmail = $('#reg-email');
+	var userPassword = $('#reg-password');
+
+
+	//Validate input field************************************************
+	function validateMail() {
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		var regEmail = $('#reg-email').val();
+		if (reg.test(regEmail) == false || regEmail == '') {
+			$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateSoname() {
+		var reg = /^[А-Яа-яЁё\s]+$/;
+		var soname = $('#reg-soname').val();
+		if (reg.test(soname) == false || soname == '') {
+			$('#error').text("Введите корректную фамилию").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateName() {
+		var reg = /^[А-Яа-яЁё\s]+$/;
+		var name = $('#reg-name').val();
+		if (reg.test(name) == false || name == '') {
+			$('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validatePatronymic() {
+		var reg = /^[А-Яа-яЁё\s]+$/;
+		var patronymic = $('#reg-patronymic').val();
+		if (reg.test(patronymic) == false || patronymic == '') {
+			$('#error').text("Введите корректное отчество").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateTel() {
+		var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+		var tel = $('#reg-tel').val();
+		if (reg.test(tel) == false || tel == '') {
+			$('#error').text("Введите корректный телефон").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validatePass() {
+		var pass = $('#reg-password').val();
+		if (pass == '' || pass.length < 6) {
+			$('#error').text("Введите корректный пароль мин 6 символов").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+	function clearInput() {
+		$('#reg-name').val('');
+		$('#reg-soname').val('');
+		$('#reg-patronymic').val('');
+		$('#reg-tel').val('');
+		$('#reg-email').val('');
+		$('#reg-password').val('');
 	};
 
 
 
-	//tabs forms***********************************************
-	$(".reg__main").not(":first").hide();
-	$(".reg-tab").click(function () {
-		$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
-		$(".reg__main").hide().eq($(this).index()).fadeIn();
-	}).eq(0).addClass("active");
+	//Registration user**************************************************
+	registration.click(function (e) {
+		e.preventDefault();
+		var data = {
+			first_name: userName.val(),
+			last_name: userSoname.val(),
+			patronymic: userPatronymic.val(),
+			tel_number: userTel.val(),
+			email: userEmail.val(),
+			password: userPassword.val(),
+		};
+		console.log(data);
+		if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
+			fetch(
+				`${api_url}user_create`,
+				{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						// 'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(json => {
 
-	//close forms popup********************************************
-	$('.reg__close').click(function () {
-		$('.reg-bg').hide();
-		$('body').removeClass('no-scroll');
-	})
+					if (json.error == 0) {
+						console.log("success get token");
+						setCookie(cookie_name_token, json.token, 3600);
+						cookie_token = getCookie(cookie_name_token);
+						$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+						clearInput();
+						$('.reg__btn-enter').addClass('active').click();
+					} else {
+						$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+						clearInput();
+					}
 
-	//Show forms***************************************************
-	$('.enter').click(function () {
-		$('.reg-bg').show().css('display', 'flex');
-		$('body').addClass('no-scroll');
-	})
+				})
+				.catch(error => {
+					console.log('error:', error);
+					$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				});
+		}
+	});
+
+
+
+	//Auth user**************************************************
+	$('#authSend').click(function (e) {
+		e.preventDefault();
+		function validateMail() {
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			var email = $('#auth-email').val();
+			if (reg.test(email) == false || email == '') {
+				$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+				return false;
+			} else {
+				return true;
+			}
+		}
+		var authPassword = $('#auth-password').val();
+		if (authPassword === '') {
+			$('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		}
+		if (validateMail() && authPassword != '') {
+			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
+			console.log(token_web);
+			try {
+
+				fetch(
+					`${api_url}token`,
+					{
+						method: 'GET',
+						headers: {
+							'Authorization': 'Basic ' + token_web,
+							'Content-Type': 'application/json'
+						}
+					})
+					.then(response => response.json())
+					.then(json => {
+						// console.log("token ", json)
+						if (typeof json.token !== 'undefined') {
+							console.log("success get token");
+							setCookie(cookie_name_token, json.token, 3600);
+							cookie_token = getCookie(cookie_name_token);
+							$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+							setTimeout(function () {
+								window.location.reload();
+							}, 2000);
+						} else {
+							// alert("Проверьте логин и пароль");
+							$('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+							clearInput();
+						}
+
+					})
+					.catch(error => {
+						console.log('error:', error);
+						$('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					});
+			}
+			catch (err) {
+				console.log(err);
+			}
+		}
+
+	});
+
+
+
+	//Exit account***************************************************
+	$('#btn_exit').click(function () {
+		deleteCookie(cookie_name_token)
+		window.location.reload();
+
+	});
+
+
+
+
+
+	function setCookie(name, value, days) {
+		var expires = "";
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+			expires = "; expires=" + date.toUTCString();
+		}
+		document.cookie = name + "=" + (value || "") + expires + "; path=/";
+	}
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	}
+
+
+
 
 
 
@@ -10713,218 +10967,234 @@ jQuery(function ($) {
 		}
 	});
 
+});
 
-	$('#lang').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--lang"></div>');
-		$this.after('<div class="select-styled"></div>');
+//tabs forms***********************************************
+$(".reg__main").not(":first").hide();
+$(".reg-tab").click(function () {
+	$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
+	$(".reg__main").hide().eq($(this).index()).fadeIn();
+}).eq(0).addClass("active");
 
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
+//close forms popup********************************************
+$('.reg__close').click(function () {
+	$('.reg-bg').hide();
+	$('body').removeClass('no-scroll');
+})
 
-		var $list = $('<ul />', {
-			'class': 'select-options select-options--lang'
-		}).insertAfter($styledSelect);
+//Show forms***************************************************
+$('.enter').click(function () {
+	$('.reg-bg').show().css('display', 'flex');
+	$('body').addClass('no-scroll');
+})
 
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
+$('#lang').each(function () {
+	var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-		var $listItems = $list.children('li');
+	$this.addClass('select-hidden');
+	$this.wrap('<div class="select select--lang"></div>');
+	$this.after('<div class="select-styled"></div>');
 
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+	var $styledSelect = $this.next('div.select-styled');
+	$styledSelect.text($this.children('option').eq(0).text());
+
+	var $list = $('<ul />', {
+		'class': 'select-options select-options--lang'
+	}).insertAfter($styledSelect);
+
+	for (var i = 0; i < numberOfOptions; i++) {
+		$('<li />', {
+			text: $this.children('option').eq(i).text(),
+			rel: $this.children('option').eq(i).val()
+		}).appendTo($list);
+	}
+
+	var $listItems = $list.children('li');
+
+	$styledSelect.click(function (e) {
+		e.stopPropagation();
+		$('div.select-styled.select-active').not(this).each(function () {
+			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
 		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
+		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
 	});
 
-
-
-
-
-
-
-
-
-
-
-	//Search show***************************************
-
-	// $('.search__btn-showHide').click(function () {
-	// 	$('.search__more-wrap').toggleClass('show-select');
-	// 	$('.search__btn-showHide').toggleClass('active-btn');
-	// });
-
-
-
-	//Set data to input from calendar******************
-	// $('#user-both').change(function () {
-	// 	var dataBoth = $('#user-both').val();
-	// 	dataBoth = dataBoth.split('-').reverse().join('-');
-	// 	$('.user__both').val(dataBoth);
-	// });
-	// $('#user-die').change(function () {
-	// 	var dataDie = $('#user-die').val();
-	// 	dataDie = dataDie.split('-').reverse().join('-');
-	// 	$('.user__die').val(dataDie);
-	// });
-
-	//Show candle fire*************************************
-	$('#candle').click(function () {
-		$('#candleFire').toggleClass('active');
+	$listItems.click(function (e) {
+		e.stopPropagation();
+		$styledSelect.text($(this).text()).removeClass('select-active');
+		$this.val($(this).attr('rel'));
+		$list.hide();
+		//console.log($this.val());
 	});
 
-
-	//change icon bookmark when click*********
-	$('#bookmark').click(function () {
-		if ($(this).hasClass('active')) {
-			$(this).toggleClass('active');
-			$(this).attr('src', './img/bookmark.svg');
-		} else {
-			$(this).attr('src', './img/bookmark-black.svg');
-			$(this).toggleClass('active');
-
-		}
+	$(document).click(function () {
+		$styledSelect.removeClass('select-active');
+		$list.hide();
 	});
 
+});
 
-	//show text more description*******************************
-	$('.brief__descr').click(function () {
+
+
+
+
+
+
+
+
+
+
+//Search show***************************************
+
+// $('.search__btn-showHide').click(function () {
+// 	$('.search__more-wrap').toggleClass('show-select');
+// 	$('.search__btn-showHide').toggleClass('active-btn');
+// });
+
+
+
+//Set data to input from calendar******************
+// $('#user-both').change(function () {
+// 	var dataBoth = $('#user-both').val();
+// 	dataBoth = dataBoth.split('-').reverse().join('-');
+// 	$('.user__both').val(dataBoth);
+// });
+// $('#user-die').change(function () {
+// 	var dataDie = $('#user-die').val();
+// 	dataDie = dataDie.split('-').reverse().join('-');
+// 	$('.user__die').val(dataDie);
+// });
+
+//Show candle fire*************************************
+$('#candle').click(function () {
+	$('#candleFire').toggleClass('active');
+});
+
+
+//change icon bookmark when click*********
+$('#bookmark').click(function () {
+	if ($(this).hasClass('active')) {
 		$(this).toggleClass('active');
-	});
+		$(this).attr('src', './img/bookmark.svg');
+	} else {
+		$(this).attr('src', './img/bookmark-black.svg');
+		$(this).toggleClass('active');
+
+	}
+});
 
 
-	$('.more').click(function (e) {
-		$(this).prev().toggleClass('active');
-	});
+//show text more description*******************************
+$('.brief__descr').click(function () {
+	$(this).toggleClass('active');
+});
 
 
-
-
-	//Sудусе settings user***********************************
-	// $('#settings').click(function () {
-	// 	$('.about__subsettings').toggleClass('show-settings');
-	// })
-
-	// $('#settings-mob').click(function () {
-	// 	$('.profile__about').toggleClass('settings');
-	// })
-
-	$('.about__show-item').click(function (event) {
-		$(this).addClass('active');
-		$(this).siblings().removeClass('active');
-		$(this).next($(this)[0]).addClass('active');
-	});
+$('.more').click(function (e) {
+	$(this).prev().toggleClass('active');
+});
 
 
 
 
+//Sудусе settings user***********************************
+// $('#settings').click(function () {
+// 	$('.about__subsettings').toggleClass('show-settings');
+// })
 
-	//show questionnarie item menu(tabs)*******************
-	$('.data__tab').not(':first').hide();
-	$('.menu__item').click(function () {
-		if ($(window).width() < 935) {
-			$('.profile__about').hide();
-		}
-		$(this).addClass('active-items').siblings().removeClass('active-items');
-		$('.data__tab').hide().eq($(this).index()).fadeIn();
-		// $('.data__form-text').focus();
-		if ($(this).index() == 0) {
-			$('.profile__about').show();
-		}
+// $('#settings-mob').click(function () {
+// 	$('.profile__about').toggleClass('settings');
+// })
 
-	});
-
-	//show-hide live story*******************************
-	$('.btn-tab-link').click(function () {
-		$('.brief').fadeOut(0);
-		$('.story__back').show();
-		$('.story').fadeIn(1500);
-	});
-	$('.story__back').click(function () {
-		$('.story').fadeOut(0);
-		$('.story__back').hide();
-		$('body,html').scrollTop(0);
-		$('.brief').fadeIn(900);
-	});
+$('.about__show-item').click(function (event) {
+	$(this).addClass('active');
+	$(this).siblings().removeClass('active');
+	$(this).next($(this)[0]).addClass('active');
+});
 
 
 
 
 
+//show questionnarie item menu(tabs)*******************
+$('.data__tab').not(':first').hide();
+$('.menu__item').click(function () {
+	if ($(window).width() < 935) {
+		$('.profile__about').hide();
+	}
+	$(this).addClass('active-items').siblings().removeClass('active-items');
+	$('.data__tab').hide().eq($(this).index()).fadeIn();
+	// $('.data__form-text').focus();
+	if ($(this).index() == 0) {
+		$('.profile__about').show();
+	}
 
-	//upload avatar*************************************
-	// $('.about__upload-inpt--ava').change(function (e) {
-	// 	var input = e.target;
+});
 
-	// 	var reader = new FileReader();
-	// 	reader.onload = function () {
-	// 		var dataURL = reader.result;
-	// 		var output = $('#output');
-	// 		output.attr('src', dataURL);
-	// 	};
-	// 	reader.readAsDataURL(input.files[0]);
-	// });
-
-
-	//upload foto to fotoalbum****************************
-	// function hideAddfoto() {
-	// 	var foto = $('.about__gal-wrap');
-	// 	console.log(foto.length);
-	// 	if (foto.length >= 10) {
-	// 		$('.about__gal-wrap--def').hide();
-	// 	} else {
-	// 		$('.about__gal-wrap--def').show();
-	// 	}
-	// };
-
-	// $('#addFoto').change(function (e) {
-	// 	var input = e.target;
-	// 	hideAddfoto();
-	// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
-	// 	var reader = new FileReader();
-	// 	reader.onload = function () {
-	// 		var dataURL = reader.result;
-	// 		var output = elem.children();
-	// 		output.attr('src', dataURL);
-	// 	};
-	// 	$(elem).insertBefore($('#elem'));
-	// 	reader.readAsDataURL(input.files[0]);
-
-
-	// });
+//show-hide live story*******************************
+$('.btn-tab-link').click(function () {
+	$('.brief').fadeOut(0);
+	$('.story__back').show();
+	$('.story').fadeIn(1500);
+});
+$('.story__back').click(function () {
+	$('.story').fadeOut(0);
+	$('.story__back').hide();
+	$('body,html').scrollTop(0);
+	$('.brief').fadeIn(900);
+});
 
 
 
 
-	//Read more*************************************
-	$('#user-about').click(function () {
-		$('#user-about-short').toggleClass('more-text');
-	});
+
+
+//upload avatar*************************************
+// $('.about__upload-inpt--ava').change(function (e) {
+// 	var input = e.target;
+
+// 	var reader = new FileReader();
+// 	reader.onload = function () {
+// 		var dataURL = reader.result;
+// 		var output = $('#output');
+// 		output.attr('src', dataURL);
+// 	};
+// 	reader.readAsDataURL(input.files[0]);
+// });
+
+
+//upload foto to fotoalbum****************************
+// function hideAddfoto() {
+// 	var foto = $('.about__gal-wrap');
+// 	console.log(foto.length);
+// 	if (foto.length >= 10) {
+// 		$('.about__gal-wrap--def').hide();
+// 	} else {
+// 		$('.about__gal-wrap--def').show();
+// 	}
+// };
+
+// $('#addFoto').change(function (e) {
+// 	var input = e.target;
+// 	hideAddfoto();
+// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
+// 	var reader = new FileReader();
+// 	reader.onload = function () {
+// 		var dataURL = reader.result;
+// 		var output = elem.children();
+// 		output.attr('src', dataURL);
+// 	};
+// 	$(elem).insertBefore($('#elem'));
+// 	reader.readAsDataURL(input.files[0]);
+
+
+// });
 
 
 
 
+//Read more*************************************
+$('#user-about').click(function () {
+	$('#user-about-short').toggleClass('more-text');
 });
