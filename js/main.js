@@ -10328,31 +10328,41 @@ $(document).ready(function () {
             return true;
         }
     };
-    function validateSoname() {
-        var reg = /^[А-Яа-яЁё\s]+$/;
-        var soname = $('#reg-soname').val();
-        if (reg.test(soname) == false || soname == '') {
-            $('#error').text("Введите корректную фамилию").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+    function validateSurname() {
+        var reg = /^[A-zА-яЁё]+$/;
+        var surname = $('#reg-soname').val();
+        if (reg.test(surname) == false || surname == '') {
+            $('#error').text("Введите фамилию").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
             return false;
         } else {
             return true;
         }
     };
     function validateName() {
-        var reg = /^[А-Яа-яЁё\s]+$/;
+        var reg = /^[A-zА-яЁё]+$/;
         var name = $('#reg-name').val();
         if (reg.test(name) == false || name == '') {
-            $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+            $('#error').text("Введите имя").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
             return false;
         } else {
             return true;
         }
     };
+    // function validateName() {
+    //     var reg = /^[А-Яа-яЁё\s]+$/;
+    //     var name = $('#reg-name').val();
+    //     if (reg.test(name) == false || name == '') {
+    //         $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // };
     function validatePatronymic() {
-        var reg = /^[А-Яа-яЁё\s]+$/;
+        var reg = /^[A-zА-яЁё]+$/;
         var patronymic = $('#reg-patronymic').val();
         if (reg.test(patronymic) == false || patronymic == '') {
-            $('#error').text("Введите корректное отчество").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+            $('#error').text("Введите отчество").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
             return false;
         } else {
             return true;
@@ -10400,8 +10410,7 @@ $(document).ready(function () {
             email: userEmail.val(),
             password: userPassword.val(),
         };
-        console.log(data);
-        if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
+        if (validateSurname() && validateName() && validatePatronymic() && validateTel() && validateMail() && validatePass()) {
             fetch(
                 `${api_url}user_create`,
                 {
@@ -10419,11 +10428,11 @@ $(document).ready(function () {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
-                        $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+                        $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
                         clearInput();
                         $('.reg__btn-enter').addClass('active').click();
                     } else {
-                        $('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                        $('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(1500).fadeOut(300);
                         clearInput();
                     }
 
@@ -10475,11 +10484,8 @@ $(document).ready(function () {
                             console.log("success get token");
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
-                            $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-                            setTimeout(function () {
-                                document.location.href = './auth-user/index.html';
-                            }, 2000);
-                            // window.location.reload();
+                            // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+                            window.location.href = './cabinet-page/';
                         } else {
                             // alert("Проверьте логин и пароль");
                             $('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);

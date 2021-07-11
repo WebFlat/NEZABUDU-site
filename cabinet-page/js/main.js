@@ -11143,16 +11143,15 @@ var cookie_token = getCookie(cookie_name_token);
 
 //User if login*******************************
 var user = false;
-var userName = '';
-var userSurname = '';
-var userPatronymic = '';
-var userEmail = '';
-var userTel = '';
-var userBoth = '';
-var password = '';
-var userIcon = '';
-var userAvatar = '';
-var userId = '';
+var userName;
+var userSurname;
+var userPatronymic;
+var userEmail;
+var userTel;
+var userBoth;
+var password;
+var userAvatar;
+var userId;
 ifLogin();
 function ifLogin() {
 	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
@@ -11183,7 +11182,7 @@ function start() {
 		.then(response => response.json())
 		.then(data => {
 			console.log('wellcome');
-			console.log('Data:', JSON.stringify(data));
+			// console.log('Data:', JSON.stringify(data));
 			user = true;
 			userAvatar = data.user.avatar;
 			userName = data.user.first_name;
@@ -11191,9 +11190,8 @@ function start() {
 			userSurname = data.user.last_name;
 			userTel = data.user.tel_number;
 			userEmail = data.user.email;
-			userBoth = data.user.userBoth;
+			userBoth = data.user.birth_date;
 			password = data.user.password;
-			userIcon = data.user.avatar;
 			userId = data.user.id;
 			confirmUser();
 		})
@@ -11209,12 +11207,12 @@ function confirmUser() {
 		$('.enter').addClass('active');
 		$('.loginIn').removeClass('active');
 	};
-	if (!userAvatar === '') {
-		$('.header__user').src = `data:image/png;base64,${userAvatar}`;
-	}
-	if (userBoth == '' && userBoth == null) {
+	if (userAvatar) {
+		$('.header__user').attr('src', userAvatar);
+	};
+	if (userBoth == '' || userBoth == null) {
 		userBoth = '';
-	}
+	};
 };
 
 function getCookie(name) {
@@ -11229,46 +11227,46 @@ function deleteCookie(name) {
 };
 
 //Comfirm fields input*******************************
-function validateMail() {
-	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-	var user_email = $('#userEmail').val();
-	if (reg.test(user_email) == false || user_email == '') {
-		$('#error').text("Введите корректный e-mail").addClass('error').show().delay(2000).fadeOut(300);
-		return false;
-	} else {
-		return true;
-	}
-};
-function validateSoname() {
-	var reg = /^[А-Яа-яЁё\s]+$/;
-	var surName = $('#userSurname').val();
-	if (reg.test(surName) == false || surName == '') {
-		$('#error').text("Введите корректную фамилию").addClass('error').show().delay(2000).fadeOut(300);
-		return false;
-	} else {
-		return true;
-	}
-};
-function validateName() {
-	var reg = /^[А-Яа-яЁё\s]+$/;
-	var user_name = $('#userName').val();
-	if (reg.test(user_name) == false || user_name == '') {
-		$('#error').text("Введите корректное имя").addClass('error').show().delay(2000).fadeOut(300);
-		return false;
-	} else {
-		return true;
-	}
-};
-function validatePatronymic() {
-	var reg = /^[А-Яа-яЁё\s]+$/;
-	var patronymic = $('#patronymic').val();
-	if (reg.test(patronymic) == false || patronymic == '') {
-		$('#error').text("Введите корректное отчество").addClass('error').show().delay(2000).fadeOut(300);
-		return false;
-	} else {
-		return true;
-	}
-};
+// function validateMail() {
+// 	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+// 	var user_email = $('#userEmail').val();
+// 	if (reg.test(user_email) == false || user_email == '') {
+// 		$('#error').text("Введите корректный e-mail").addClass('error').show().delay(2000).fadeOut(300);
+// 		return false;
+// 	} else {
+// 		return true;
+// 	}
+// };
+// function validateSoname() {
+// 	var reg = /^[А-Яа-яЁё\s]+$/;
+// 	var surName = $('#userSurname').val();
+// 	if (reg.test(surName) == false || surName == '') {
+// 		$('#error').text("Введите корректную фамилию").addClass('error').show().delay(2000).fadeOut(300);
+// 		return false;
+// 	} else {
+// 		return true;
+// 	}
+// };
+// function validateName() {
+// 	var reg = /^[А-Яа-яЁё\s]+$/;
+// 	var user_name = $('#userName').val();
+// 	if (reg.test(user_name) == false || user_name == '') {
+// 		$('#error').text("Введите корректное имя").addClass('error').show().delay(2000).fadeOut(300);
+// 		return false;
+// 	} else {
+// 		return true;
+// 	}
+// };
+// function validatePatronymic() {
+// 	var reg = /^[А-Яа-яЁё\s]+$/;
+// 	var patronymic = $('#patronymic').val();
+// 	if (reg.test(patronymic) == false || patronymic == '') {
+// 		$('#error').text("Введите корректное отчество").addClass('error').show().delay(2000).fadeOut(300);
+// 		return false;
+// 	} else {
+// 		return true;
+// 	}
+// };
 function validateTel() {
 	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 	var userTel = $('#userTel').val();
@@ -11304,41 +11302,59 @@ $('.showPass').click(function (e) {
 //Request edit data user*****************************
 $('.settings__save').click(function (e) {
 	e.preventDefault();
-	var confirmNewPass = $('#password').val();
+	var data = {};
+	var passToSend = '';
+	var oldPass = $('#password').val()
+	var confirmNewPass = $('#confirmPassword').val();
 	var newPassword = $('#newPassword').val();
-	if (confirmNewPass == password && newPassword == '') {
-		confirmNewPass = password;
+	var checkDate = $('#userBothDate').val();
+	if (newPassword === oldPass || newPassword == '') {
+		passToSend = oldPass;
 	} else {
-		confirmNewPass = newPassword;
+		passToSend = newPassword;
 	}
-	var data = {
-		first_name: $('#userName').val(),
-		last_name: $('#userSurname').val(),
-		patronymic: $('#patronymic').val(),
-		tel_number: $('#userSurname').val(),
-		email: $('#userEmail').val(),
-		date_of_birth: $('#userBothDate').val(),
-		avatar: $('#user-icon').attr('src'),
-		new_password: confirmNewPass
+
+	if (checkDate !== '') {
+		data = {
+			first_name: $('#userName').val(),
+			last_name: $('#userSurname').val(),
+			patronymic: $('#patronymic').val(),
+			tel_number: $('#userTel').val(),
+			email: $('#userEmail').val(),
+			birth_date: $('#userBothDate').val(),
+			avatar: $('#user-icon').attr('src'),
+			password: passToSend
+		}
+	} else {
+		data = {
+			first_name: $('#userName').val(),
+			last_name: $('#userSurname').val(),
+			patronymic: $('#patronymic').val(),
+			tel_number: $('#userTel').val(),
+			email: $('#userEmail').val(),
+			avatar: $('#user-icon').attr('src'),
+			password: passToSend
+		};
 	};
 	console.log(data);
-	if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
+	if (validateTel() && validatePass()) {
 		fetch(
-			`${api_url}user_edit`,
+			`${api_url}user_update`,
 			{
 				method: 'POST',
 				body: JSON.stringify(data),
 				headers: {
-					// 'Authorization': 'Token token=' + cookie_token,
+					'Authorization': 'Token token=' + cookie_token,
 					'Content-Type': 'application/json'
 				}
 			})
+			.then($('body').css('opacity', .5))
 			.then(response => response.json())
 			.then(json => {
-
 				if (json.error == 0) {
 					console.log("success get token");
-					setCookie(cookie_name_token, json.token, 3600);
+					$('body').css('opacity', 1);
+					// setCookie(cookie_name_token, json.token, 3600);
 					cookie_token = getCookie(cookie_name_token);
 					$('#error').text("Данные успешно обновлены").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
 					setTimeout(function () {
@@ -11354,7 +11370,7 @@ $('.settings__save').click(function (e) {
 				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
 			});
 	}
-})
+});
 
 
 
@@ -11474,11 +11490,11 @@ $(".nav-tab4").click(function () {
 	$('#patronymic').val(userPatronymic);
 	$('#userEmail').val(userEmail);
 	$('#userTel').val(userTel);
-	$('#userBoth').val(userBoth);
+	$('#userBothDate').val(userBoth);
 	$('#password').val(password);
-	if (!userAvatar === '') {
-		$('#userIcon').src = `data:image/png;base64,${userAvatar}`;
-	};
+	if (userAvatar) {
+		$('#user-icon').attr('src', userAvatar);
+	}
 	$('#userSurname').val(userSurname);
 });
 
