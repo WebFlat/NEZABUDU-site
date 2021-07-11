@@ -10309,10 +10309,10 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(data => {
                 console.log('wellcome');
-                console.log('Data:', JSON.stringify(data));
+                // console.log('Data:', JSON.stringify(data));
                 user = true;
-                confirmUser();
                 userAvatar = data.user.avatar;
+                confirmUser();
             })
             .catch(error => console.error('error1:', error));
     };
@@ -10326,9 +10326,9 @@ $(document).ready(function () {
             $('.enter').addClass('active');
             $('.loginIn').removeClass('active');
         };
-        if (!userAvatar === '') {
-            $('.header__user').src = `data:image/png;base64,${userAvatar}`;
-        }
+        if (userAvatar) {
+            $('.header__user').attr('src', userAvatar);
+        };
     };
 
     function getCookie(name) {
