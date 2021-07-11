@@ -10600,374 +10600,441 @@ return jQuery;
 console.log("window loaded");
 
 
-$(document).ready(function () {
 
-	$(window).on('load', function () {
-		var $preloader = $('#p_prldr');
-		$preloader.delay(1000).fadeOut('slow');
-	});
+$(window).on('load', function () {
+	var $preloader = $('#p_prldr');
+	$preloader.delay(1000).fadeOut('slow');
+});
+
+// var api_url = "http://localhost:3000/";
+var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+
+var cookie_name_token = "project_token";
+var cookie_token = getCookie(cookie_name_token);
 
 
 
-	function loadQuestionnaries() {
-		$.getJSON('user_data.json', function (data) {
+
+//Load brief user info******************************************
+function loadQuestionnaries() {
+	var avaProfile = $('.brief__icon');
+	var birthProfile = $('.brief__both');
+	var dieProfile = $('.brief__die');
+	var ageProfile = $('#user-old');
+	var textProfile = $('#user-about-short');
+	var nameProfile = $('#user-name');
+	var surmaneProfile = $('#user-surname');
+	var patronimycProfile = $('#user-patronimyc');
+	var timelinebirthProfile = $('.brief__start-both');
+	var timelinedieProfile = $('.brief__start-both');
+	var cause = $('#cause');
+	var cemetery = $('#cemetery');
+	var sector = $('#sector');
+	var square = $('#square');
+	var row = $('#row');
+	var number = $('#number');
+
+	var profile = 4;
+	fetch(
+		`${api_url}get_profile?profile_id=${profile}`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('profile');
+			console.log('Data:', JSON.stringify(data));
 			var out = '';
-			$.each(data, function (key, val) {
-				console.log(data[key]);
-				// if (data.avatar == '') {
-				// 	data.avatar = "./img/user-def.svg";
-				// };
-				// if (data.candle) {
-				// 	$('#candleFire').addClass('active');
-				// };
-				// if (data[key].bookmark) {
-				// 	$('#bookmark').attr('src', './img/bookmark-black.svg').addClass('active');
-				// };
+			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
+				avaProfile.attr('src', data.profile.avatar);
+			}
+			var preBirth = (data.profile.birth_date).split('-').reverse().join('-');
+			var preDie = (data.profile.death_date).split('-').reverse().join('-');
+			var ageNum = preDie.split("-").pop() - preBirth.split("-").pop();
+			birthProfile.text(preBirth);
+			timelinebirthProfile.text(preBirth);
+			dieProfile.text(preDie);
+			timelinedieProfile.text(preDie);
+			ageProfile.text(ageNum);
+			nameProfile.text(data.profile.first_name);
+			surmaneProfile.text(data.profile.family_name);
+			patronimycProfile.text(data.profile.last_name);
+			if (data.profile.cementry_name) {
+				cemetery.text(data.profile.cementry_name);
+			}
+			if (data.profile.cementry_square) {
+				square.text(data.profile.cementry_square);
+			}
+			if (data.profile.cementry_row) {
+				row.text(data.profile.cementry_row);
+			}
+			if (data.profile.cementry_place) {
+				number.text(data.profile.cementry_place);
+			}
+			if (data.profile.cementry_sector) {
+				sector.text(data.profile.cementry_sector);
+			}
+			if (data.profile.profile_type !== 'open') {
+				$('.brief__timelaps').css('display', 'none');
+				$('.brief__location').css('display', 'none');
+				$('.data-tab-content').css('display', 'none');
+			};
+			if (data.profile.short_story == '') {
+				$('.brief__text').css('opacity', 0);
+				$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
+			} else {
+				textProfile.text(data.profile.short_story);
+			};
+			if (data.profile.family_name == 'hide') {
+				cause.text(data.profile.death_cause);
+			};
+		})
+		.catch(error => console.error('error1:', error));
+};
 
 
-				out += '<div class="brief__img-wrap"><img class="brief__icon" src="" alt="user"></div><div class="brief__info"><img src="./img/candle.png" alt="candle" class="brief__candle" id="candle"><img src="./img/candle-fire.png" alt="candle" class="brief__candle brief__candle--fire" id="candleFire"><h6 class="brief__titles"><span class="brief__name-user" id="user-surname">Савельев</span><span class="brief__surname" id="user-name">Илья</span><span class="brief__patronimyc" id="user-patronimyc">Михайлович</span></h6><div class="brief__years"><span class="brief__both">11.10.1952</span><span> - </span><span class="brief__die">11.10.1952</span><span class="brief__life-long">( <span class="brief__life-val" id="user-old">35</span> )</span></div><p class="brief__text" id="user-about-short">Художник, любящий дедушка,путешественник, которызанимался любимым делом.</p><div class="brief__bookmarks"><img class="brief__bookmark brief__bookmark--small" src="./img/my-boockmark.png"alt="bookmark"><img class="brief__bookmark" src="./img/bookmark.svg" alt="bookmark" id="bookmark"></div></div>';
 
 
-				// out+= '<div class="user item"><div class="user__info"><img src="./img/famous.png"  alt="icon star" class="user__isPubl"><div class="user__avatar-wrap"><img src="'+data[key].avatar+'" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">'+data[key].surname+'</span><span></span><span class="user__name">'+data[key].name+'</span><span class="user__patronymic">'+data[key].patronymic+'</span></div><div class="user__lives"><span class="user__both">'+data[key].both+'</span><span> - </span><span class="user__die">'+data[key].die+'</span><span>гг</span></div><div class="user__text"><p class="user__about">'+data[key].about+'</p></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">'+data[key].likesCount+'</span></div><a href="'+data[key].link+'" class="user__link-more">Читать дальше...</a><img class="user__bookmark" src="./img/bookmark.svg" alt="bookmark"></div></div></div>';
-
-				$('.brief__user').html(out);
-			});
-		});
-	};
-	loadQuestionnaries();
 
 
-	// var api_url = "http://localhost:3000/";
-	var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+//Зарегестрірованний юзер
+var user = false;
+var userAvatar = '';
+var user_data = false;
+ifLogin();
+function ifLogin() {
+	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+		start();
+		loadQuestionnaries();
+	} else {
+		confirmUser();
+		loadQuestionnaries();
+	}
+};
 
-	var cookie_name_token = "project_token";
-	var cookie_token = getCookie(cookie_name_token);
+//Exit account***************************************************
+$('#logout').click(function () {
+	deleteCookie(cookie_name_token)
+	window.location.reload();
 
+});
 
-	//Зарегестрірованний юзер
-	var user = false;
-	var userAvatar = '';
-	ifLogin();
-	function ifLogin() {
-		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-			start();
-		} else {
+//if user auth************************************************
+function start() {
+
+	fetch(
+		`${api_url}get_start_info`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('wellcome');
+			// console.log('Data:', JSON.stringify(data));
+			user = true;
+			userAvatar = data.user.avatar;
 			confirmUser();
-		}
+		})
+		.catch(error => console.error('error1:', error));
+};
+
+//Icon user if login**************************
+function confirmUser() {
+	if (user) {
+		$('.enter').removeClass('active');
+		$('.loginIn').addClass('active');
+		$('#menu-guest').hide();
+		$('#menu-user').show();
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+	} else {
+		$('.enter').addClass('active');
+		$('.loginIn').removeClass('active');
+		$('#menu-user').hide();
+		$('#menu-guest').show();
 	};
 
-	//Exit account***************************************************
-	$('#logout').click(function () {
-		deleteCookie(cookie_name_token)
-		window.location.reload();
+};
 
-	});
 
-	//if user auth************************************************
-	function start() {
 
+//Registration input ****************************************************
+var registration = $('#sendReg');
+var formReg = $('#reg-form');
+var userName = $('#reg-name');
+var userSoname = $('#reg-soname');
+var userPatronymic = $('#reg-patronymic');
+var userTel = $('#reg-tel');
+var userEmail = $('#reg-email');
+var userPassword = $('#reg-password');
+
+
+//Validate input field************************************************
+function validateMail() {
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	var regEmail = $('#reg-email').val();
+	if (reg.test(regEmail) == false || regEmail == '') {
+		$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateSurname() {
+	var reg = /^[A-zА-яЁё]+$/;
+	var surname = $('#reg-soname').val();
+	if (reg.test(surname) == false || surname == '') {
+		$('#error').text("Введите фамилию").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateName() {
+	var reg = /^[A-zА-яЁё]+$/;
+	var name = $('#reg-name').val();
+	if (reg.test(name) == false || name == '') {
+		$('#error').text("Введите имя").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+// function validateName() {
+//     var reg = /^[А-Яа-яЁё\s]+$/;
+//     var name = $('#reg-name').val();
+//     if (reg.test(name) == false || name == '') {
+//         $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+//         return false;
+//     } else {
+//         return true;
+//     }
+// };
+function validatePatronymic() {
+	var reg = /^[A-zА-яЁё]+$/;
+	var patronymic = $('#reg-patronymic').val();
+	if (reg.test(patronymic) == false || patronymic == '') {
+		$('#error').text("Введите отчество").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateTel() {
+	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+	var tel = $('#reg-tel').val();
+	if (reg.test(tel) == false || tel == '') {
+		$('#error').text("Введите корректный телефон").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validatePass() {
+	var pass = $('#reg-password').val();
+	if (pass == '' || pass.length < 6) {
+		$('#error').text("Введите корректный пароль мин 6 символов").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		return false;
+	} else {
+		return true;
+	}
+};
+
+function clearInput() {
+	$('#reg-name').val('');
+	$('#reg-soname').val('');
+	$('#reg-patronymic').val('');
+	$('#reg-tel').val('');
+	$('#reg-email').val('');
+	$('#reg-password').val('');
+};
+
+
+
+//Registration user**************************************************
+registration.click(function (e) {
+	e.preventDefault();
+	var data = {
+		first_name: userName.val(),
+		last_name: userSoname.val(),
+		patronymic: userPatronymic.val(),
+		tel_number: userTel.val(),
+		email: userEmail.val(),
+		password: userPassword.val(),
+	};
+	if (validateSurname() && validateName() && validatePatronymic() && validateTel() && validateMail() && validatePass()) {
 		fetch(
-			`${api_url}get_start_info`,
+			`${api_url}user_create`,
 			{
-				method: 'GET',
+				method: 'POST',
+				body: JSON.stringify(data),
 				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/x-www-form-urlencoded'
+					// 'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
 				}
 			})
 			.then(response => response.json())
-			.then(data => {
-				console.log('wellcome');
-				console.log('Data:', JSON.stringify(data));
-				user = true;
-				confirmUser();
-				userAvatar = data.user.avatar;
+			.then(json => {
+
+				if (json.error == 0) {
+					console.log("success get token");
+					setCookie(cookie_name_token, json.token, 3600);
+					cookie_token = getCookie(cookie_name_token);
+					$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+					clearInput();
+					$('.reg__btn-enter').addClass('active').click();
+				} else {
+					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(1500).fadeOut(300);
+					clearInput();
+				}
+
 			})
-			.catch(error => console.error('error1:', error));
-	};
-
-	//Icon user if login**************************
-	function confirmUser() {
-		if (user) {
-			$('.enter').removeClass('active');
-			$('.loginIn').addClass('active');
-			$('#menu-guest').hide();
-			$('#menu-user').show();
-		} else {
-			$('.enter').addClass('active');
-			$('.loginIn').removeClass('active');
-			$('#menu-user').hide();
-			$('#menu-guest').show();
-		};
-		if (!userAvatar === '') {
-			$('.header__user').src = `data:image/png;base64,${userAvatar}`;
-		}
-	};
+			.catch(error => {
+				console.log('error:', error);
+				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+			});
+	}
+});
 
 
 
-	//Registration input ****************************************************
-	var registration = $('#sendReg');
-	var formReg = $('#reg-form');
-	var userName = $('#reg-name');
-	var userSoname = $('#reg-soname');
-	var userPatronymic = $('#reg-patronymic');
-	var userTel = $('#reg-tel');
-	var userEmail = $('#reg-email');
-	var userPassword = $('#reg-password');
-
-
-	//Validate input field************************************************
+//Auth user**************************************************
+$('#authSend').click(function (e) {
+	e.preventDefault();
 	function validateMail() {
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		var regEmail = $('#reg-email').val();
-		if (reg.test(regEmail) == false || regEmail == '') {
+		var email = $('#auth-email').val();
+		if (reg.test(email) == false || email == '') {
 			$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
 			return false;
 		} else {
 			return true;
 		}
-	};
-	function validateSoname() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var soname = $('#reg-soname').val();
-		if (reg.test(soname) == false || soname == '') {
-			$('#error').text("Введите корректную фамилию").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateName() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var name = $('#reg-name').val();
-		if (reg.test(name) == false || name == '') {
-			$('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validatePatronymic() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var patronymic = $('#reg-patronymic').val();
-		if (reg.test(patronymic) == false || patronymic == '') {
-			$('#error').text("Введите корректное отчество").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateTel() {
-		var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
-		var tel = $('#reg-tel').val();
-		if (reg.test(tel) == false || tel == '') {
-			$('#error').text("Введите корректный телефон").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validatePass() {
-		var pass = $('#reg-password').val();
-		if (pass == '' || pass.length < 6) {
-			$('#error').text("Введите корректный пароль мин 6 символов").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
+	}
+	var authPassword = $('#auth-password').val();
+	if (authPassword === '') {
+		$('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+	}
+	if (validateMail() && authPassword != '') {
+		var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
+		console.log(token_web);
+		try {
 
-	function clearInput() {
-		$('#reg-name').val('');
-		$('#reg-soname').val('');
-		$('#reg-patronymic').val('');
-		$('#reg-tel').val('');
-		$('#reg-email').val('');
-		$('#reg-password').val('');
-	};
-
-
-
-	//Registration user**************************************************
-	registration.click(function (e) {
-		e.preventDefault();
-		var data = {
-			first_name: userName.val(),
-			last_name: userSoname.val(),
-			patronymic: userPatronymic.val(),
-			tel_number: userTel.val(),
-			email: userEmail.val(),
-			password: userPassword.val(),
-		};
-		console.log(data);
-		if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
 			fetch(
-				`${api_url}user_create`,
+				`${api_url}token`,
 				{
-					method: 'POST',
-					body: JSON.stringify(data),
+					method: 'GET',
 					headers: {
-						// 'Authorization': 'Token token=' + cookie_token,
+						'Authorization': 'Basic ' + token_web,
 						'Content-Type': 'application/json'
 					}
 				})
 				.then(response => response.json())
 				.then(json => {
-
-					if (json.error == 0) {
+					// console.log("token ", json)
+					if (typeof json.token !== 'undefined') {
 						console.log("success get token");
 						setCookie(cookie_name_token, json.token, 3600);
 						cookie_token = getCookie(cookie_name_token);
-						$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-						clearInput();
-						$('.reg__btn-enter').addClass('active').click();
+						// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+						window.location.href = '../cabinet-page/';
 					} else {
-						$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+						// alert("Проверьте логин и пароль");
+						$('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
 						clearInput();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					$('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
 				});
 		}
-	});
-
-
-
-	//Auth user**************************************************
-	$('#authSend').click(function (e) {
-		e.preventDefault();
-		function validateMail() {
-			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-			var email = $('#auth-email').val();
-			if (reg.test(email) == false || email == '') {
-				$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-				return false;
-			} else {
-				return true;
-			}
+		catch (err) {
+			console.log(err);
 		}
-		var authPassword = $('#auth-password').val();
-		if (authPassword === '') {
-			$('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-		}
-		if (validateMail() && authPassword != '') {
-			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
-			console.log(token_web);
-			try {
-
-				fetch(
-					`${api_url}token`,
-					{
-						method: 'GET',
-						headers: {
-							'Authorization': 'Basic ' + token_web,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(response => response.json())
-					.then(json => {
-						// console.log("token ", json)
-						if (typeof json.token !== 'undefined') {
-							console.log("success get token");
-							setCookie(cookie_name_token, json.token, 3600);
-							cookie_token = getCookie(cookie_name_token);
-							$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-							setTimeout(function () {
-								window.location.reload();
-							}, 2000);
-						} else {
-							// alert("Проверьте логин и пароль");
-							$('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
-							clearInput();
-						}
-
-					})
-					.catch(error => {
-						console.log('error:', error);
-						$('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
-					});
-			}
-			catch (err) {
-				console.log(err);
-			}
-		}
-
-	});
-
-
-
-	//Exit account***************************************************
-	$('#btn_exit').click(function () {
-		deleteCookie(cookie_name_token)
-		window.location.reload();
-
-	});
-
-
-
-
-
-	function setCookie(name, value, days) {
-		var expires = "";
-		if (days) {
-			var date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			expires = "; expires=" + date.toUTCString();
-		}
-		document.cookie = name + "=" + (value || "") + expires + "; path=/";
 	}
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	}
-
-	function deleteCookie(name) {
-		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	}
-
-
-
-
-
-
-
-	//burger***************************************
-	function burgerShow() {
-		//User or guest
-		if (user) {
-			$('#menu-user').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		} else {
-			$('#menu-guest').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		}
-	};
-
-	$('.burger').click(function () {
-		burgerShow();
-
-	});
-	$('.nav__link').click(function () {
-		burgerShow();
-	});
-	$('.burger__bg-body').click(function (e) {
-		var container = $('.burger-wrap');
-		if (container.has(e.target).length === 0) {
-			burgerShow();
-		}
-	});
 
 });
+
+
+
+//Exit account***************************************************
+$('#btn_exit').click(function () {
+	deleteCookie(cookie_name_token)
+	window.location.reload();
+
+});
+
+
+
+
+function setCookie(name, value, days) {
+	var expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function deleteCookie(name) {
+	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+}
+
+
+
+
+
+
+
+//burger***************************************
+function burgerShow() {
+	//User or guest
+	if (user) {
+		$('#menu-user').toggleClass('open');
+		$('.burger').toggleClass('closed');
+		$('body').toggleClass('no-scroll');
+		$('.burger__bg-body').toggleClass('show-bgBody');
+	} else {
+		$('#menu-guest').toggleClass('open');
+		$('.burger').toggleClass('closed');
+		$('body').toggleClass('no-scroll');
+		$('.burger__bg-body').toggleClass('show-bgBody');
+	}
+};
+
+$('.burger').click(function () {
+	burgerShow();
+
+});
+$('.nav__link').click(function () {
+	burgerShow();
+});
+$('.burger__bg-body').click(function (e) {
+	var container = $('.burger-wrap');
+	if (container.has(e.target).length === 0) {
+		burgerShow();
+	}
+});
+
+
 
 
 //tabs forms***********************************************
@@ -11065,35 +11132,37 @@ $('#lang').each(function () {
 // 	dataDie = dataDie.split('-').reverse().join('-');
 // 	$('.user__die').val(dataDie);
 // });
+setTimeout(function () {
+	//Show candle fire*************************************
+	$('#candle').click(function () {
+		$('#candleFire').toggleClass('active');
+	});
 
-//Show candle fire*************************************
-$('#candle').click(function () {
-	$('#candleFire').toggleClass('active');
-});
 
+	//change icon bookmark when click*********
+	$('#bookmark').click(function () {
+		if ($(this).hasClass('active')) {
+			$(this).toggleClass('active');
+			$(this).attr('src', './img/bookmark.svg');
+		} else {
+			$(this).attr('src', './img/bookmark-black.svg');
+			$(this).toggleClass('active');
 
-//change icon bookmark when click*********
-$('#bookmark').click(function () {
-	if ($(this).hasClass('active')) {
+		}
+	});
+
+	//show text more description*******************************
+	$('.brief__descr').click(function () {
 		$(this).toggleClass('active');
-		$(this).attr('src', './img/bookmark.svg');
-	} else {
-		$(this).attr('src', './img/bookmark-black.svg');
-		$(this).toggleClass('active');
-
-	}
-});
+	});
 
 
-//show text more description*******************************
-$('.brief__descr').click(function () {
-	$(this).toggleClass('active');
-});
+	$('.more').click(function (e) {
+		$(this).prev().toggleClass('active');
+	});
 
+}, 0);
 
-$('.more').click(function (e) {
-	$(this).prev().toggleClass('active');
-});
 
 
 
