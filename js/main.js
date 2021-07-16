@@ -10421,9 +10421,9 @@ $(document).ready(function () {
                         'Content-Type': 'application/json'
                     }
                 })
+                .then(registration.css('pointer-events', 'none'))
                 .then(response => response.json())
                 .then(json => {
-
                     if (json.error == 0) {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
@@ -10434,9 +10434,11 @@ $(document).ready(function () {
                     } else {
                         $('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(1500).fadeOut(300);
                         clearInput();
+                        registration.css('pointer-events', 'all');
                     }
 
                 })
+                .then(registration.css('pointer-events', 'all'))
                 .catch(error => {
                     console.log('error:', error);
                     $('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
@@ -10477,6 +10479,7 @@ $(document).ready(function () {
                             'Content-Type': 'application/json'
                         }
                     })
+                    .then(registration.css('pointer-events', 'none'))
                     .then(response => response.json())
                     .then(json => {
                         // console.log("token ", json)
@@ -10486,13 +10489,18 @@ $(document).ready(function () {
                             cookie_token = getCookie(cookie_name_token);
                             // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
                             window.location.href = './cabinet-page/';
+                            registration.css('pointer-events', 'all');
+
                         } else {
                             // alert("Проверьте логин и пароль");
                             $('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
                             clearInput();
+                            registration.css('pointer-events', 'all');
+
                         }
 
                     })
+                    .then(registration.css('pointer-events', 'all'))
                     .catch(error => {
                         console.log('error:', error);
                         $('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
