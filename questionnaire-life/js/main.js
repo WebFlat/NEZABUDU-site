@@ -10646,7 +10646,6 @@ function loadQuestionnaries() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			console.log('profile');
 			console.log('Data:', JSON.stringify(data));
 			var out = '';
 			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
@@ -11101,6 +11100,51 @@ $('#lang').each(function () {
 	});
 
 });
+$('#category').each(function () {
+	var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+	$this.addClass('select-hidden');
+	$this.wrap('<div class="select select--category"></div>');
+	$this.after('<div class="select-styled"></div>');
+
+	var $styledSelect = $this.next('div.select-styled');
+	$styledSelect.text($this.children('option').eq(0).text());
+
+	var $list = $('<ul />', {
+		'class': 'select-options select-options--category'
+	}).insertAfter($styledSelect);
+
+	for (var i = 0; i < numberOfOptions; i++) {
+		$('<li />', {
+			text: $this.children('option').eq(i).text(),
+			rel: $this.children('option').eq(i).val()
+		}).appendTo($list);
+	}
+
+	var $listItems = $list.children('li');
+
+	$styledSelect.click(function (e) {
+		e.stopPropagation();
+		$('div.select-styled.select-active').not(this).each(function () {
+			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+		});
+		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+	});
+
+	$listItems.click(function (e) {
+		e.stopPropagation();
+		$styledSelect.text($(this).text()).removeClass('select-active');
+		$this.val($(this).attr('rel'));
+		$list.hide();
+		//console.log($this.val());
+	});
+
+	$(document).click(function () {
+		$styledSelect.removeClass('select-active');
+		$list.hide();
+	});
+
+});
 
 
 
@@ -11214,51 +11258,60 @@ $('.story__back').click(function () {
 	$('.brief').fadeIn(900);
 });
 
+//story popup close*********************************
+$('#story-cancel').click(function (e) {
+	e.preventDefault();
+	$('.add-story').hide();
+	$('body').css('overflow', 'visible');
+});
+
+//story popup open********************************
+$('.default-add').click(function () {
+	$('.add-story').show().css('display', 'flex');
+	$('body').css('overflow', 'hidden');
+});
 
 
+//отправка сториз*********************************
+$('#story-add').click(function (e) {
+	e.preventDefault();
 
-
-
-//upload avatar*************************************
-// $('.about__upload-inpt--ava').change(function (e) {
-// 	var input = e.target;
-
-// 	var reader = new FileReader();
-// 	reader.onload = function () {
-// 		var dataURL = reader.result;
-// 		var output = $('#output');
-// 		output.attr('src', dataURL);
-// 	};
-// 	reader.readAsDataURL(input.files[0]);
-// });
+});
 
 
 //upload foto to fotoalbum****************************
-// function hideAddfoto() {
-// 	var foto = $('.about__gal-wrap');
-// 	console.log(foto.length);
-// 	if (foto.length >= 10) {
-// 		$('.about__gal-wrap--def').hide();
-// 	} else {
-// 		$('.about__gal-wrap--def').show();
-// 	}
-// };
+function hideAddfoto() {
+	var foto = $('.add-story__foto');
+	console.log(foto.length);
+	if (foto.length >= 3) {
+		$('.def-btn').hide();
+	} else {
+		$('.def-btn').show();
+	};
+};
 
-// $('#addFoto').change(function (e) {
-// 	var input = e.target;
-// 	hideAddfoto();
-// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
-// 	var reader = new FileReader();
-// 	reader.onload = function () {
-// 		var dataURL = reader.result;
-// 		var output = elem.children();
-// 		output.attr('src', dataURL);
-// 	};
-// 	$(elem).insertBefore($('#elem'));
-// 	reader.readAsDataURL(input.files[0]);
-
-
-// });
+$('#story_foto').change(function (e) {
+	var input = e.target;
+	var elem = $('<span class="add-story__foto"><img src="" alt="foto"><span class="add-story__foto-delete">&#x274C;</span></div>');
+	var reader = new FileReader();
+	reader.onload = function () {
+		var dataURL = reader.result;
+		var output = elem.children();
+		output.attr('src', dataURL);
+	};
+	$(elem).insertBefore($('.def-btn'));
+	reader.readAsDataURL(input.files[0]);
+	delFoto();
+	hideAddfoto();
+});
+//delete foto in form*************************
+function delFoto() {
+	$('.add-story__foto-delete').click(function (e) {
+		var targetFoto = $(this).parent();
+		targetFoto.remove();
+		hideAddfoto();
+	});
+};
 
 
 
@@ -11266,4 +11319,12 @@ $('.story__back').click(function () {
 //Read more*************************************
 $('#user-about').click(function () {
 	$('#user-about-short').toggleClass('more-text');
+});
+
+
+//Set data to input from calendar******************
+$('#calendar').change(function () {
+	var dataBoth = $('#calendar').val();
+	dataBoth = dataBoth.split('-').reverse().join('-');
+	$('.story-date').val(dataBoth);
 });

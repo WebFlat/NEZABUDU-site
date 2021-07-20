@@ -10402,6 +10402,7 @@ $(document).ready(function () {
     //Registration user**************************************************
     registration.click(function (e) {
         e.preventDefault();
+        registration.attr('disabled', true);
         var data = {
             first_name: userName.val(),
             last_name: userSoname.val(),
@@ -10421,41 +10422,45 @@ $(document).ready(function () {
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(registration.css('pointer-events', 'none'))
                 .then(response => response.json())
                 .then(json => {
                     if (json.error == 0) {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
-                        $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+                        $('#error').text("Вы успешно зарегистрировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
                         clearInput();
                         $('.reg__btn-enter').addClass('active').click();
                     } else {
                         $('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(1500).fadeOut(300);
                         clearInput();
-                        registration.css('pointer-events', 'all');
+                        registration.attr('disabled', false);
                     }
 
                 })
-                .then(registration.css('pointer-events', 'all'))
                 .catch(error => {
                     console.log('error:', error);
                     $('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                    registration.attr('disabled', false);
                 });
-        }
+        } else {
+            registration.attr('disabled', false);
+        };
     });
 
 
 
     //Auth user**************************************************
-    $('#authSend').click(function (e) {
+    var auth = $('#authSend');
+    auth.click(function (e) {
         e.preventDefault();
+        auth.attr('disabled', true);
         function validateMail() {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             var email = $('#auth-email').val();
             if (reg.test(email) == false || email == '') {
                 $('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+                auth.attr('disabled', false);
                 return false;
             } else {
                 return true;
@@ -10464,6 +10469,7 @@ $(document).ready(function () {
         var authPassword = $('#auth-password').val();
         if (authPassword === '') {
             $('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+            auth.attr('disabled', false);
         }
         if (validateMail() && authPassword != '') {
             var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
@@ -10479,7 +10485,6 @@ $(document).ready(function () {
                             'Content-Type': 'application/json'
                         }
                     })
-                    .then(registration.css('pointer-events', 'none'))
                     .then(response => response.json())
                     .then(json => {
                         // console.log("token ", json)
@@ -10487,23 +10492,19 @@ $(document).ready(function () {
                             console.log("success get token");
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
-                            // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
                             window.location.href = './cabinet-page/';
-                            registration.css('pointer-events', 'all');
-
                         } else {
-                            // alert("Проверьте логин и пароль");
                             $('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
                             clearInput();
-                            registration.css('pointer-events', 'all');
+                            auth.attr('disabled', false);
 
                         }
 
                     })
-                    .then(registration.css('pointer-events', 'all'))
                     .catch(error => {
                         console.log('error:', error);
                         $('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+                        auth.attr('disabled', false);
                     });
             }
             catch (err) {
