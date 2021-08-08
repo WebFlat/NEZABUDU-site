@@ -10749,6 +10749,7 @@ $('#sendFistRequest').click(function (e) {
 		death_cause: death_cause.val(),
 		profile_type: profile_type
 	};
+	console.log(first_data);
 	if (validateData()) {
 		fetch(
 			`${api_url}create_user_profile`,
@@ -10760,14 +10761,16 @@ $('#sendFistRequest').click(function (e) {
 					'Content-Type': 'application/json'
 				}
 			})
+			.then($('body').css('opacity', 0.5))
 			.then(response => response.json())
 			.then(data => {
 
 				if (data) {
+					$('body').css('opacity', 1);
 					console.log("success send");
-					// console.log('Data:', JSON.stringify(data));
+					console.log('Data:', JSON.stringify(data));
 					$('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
-					window.location.href = '../questionnaire-page/';
+					window.location.href = `../questionnaire-life/#${data.profile.id}`;
 				} else {
 					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
 				}

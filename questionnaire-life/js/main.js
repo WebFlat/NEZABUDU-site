@@ -10612,31 +10612,131 @@ var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
 var cookie_name_token = "project_token";
 var cookie_token = getCookie(cookie_name_token);
 
+var currentProfile = window.location.hash;
+currentProfile = currentProfile.substring(1);
 
+
+//if Register user*********************************
+var user = false;
+var userAvatar = '';
+var user_data = false;
+ifLogin();
+function ifLogin() {
+	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+		start();
+		loadQuestionnaries();
+	} else {
+		confirmUser();
+		loadQuestionnaries();
+	}
+};
+
+//if user auth************************************************
+function start() {
+
+	fetch(
+		`${api_url}get_start_info`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('wellcome');
+			// console.log('Data:', JSON.stringify(data));
+			user = true;
+			userAvatar = data.user.avatar;
+			confirmUser();
+		})
+		.catch(error => console.error('error1:', error));
+};
+
+
+//Icon user if login**************************
+function confirmUser() {
+	if (user) {
+		$('.enter').removeClass('active');
+		$('.loginIn').addClass('active');
+		$('#menu-guest').hide();
+		$('#menu-user').show();
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+	} else {
+		$('.enter').addClass('active');
+		$('.loginIn').removeClass('active');
+		$('#menu-user').hide();
+		$('#menu-guest').show();
+	};
+
+};
+
+
+//render timeline story**********************************
+async function loaddLiveFull(dataToLoad, outHtml) {
+	var outAll = '';
+	if (dataToLoad != []) {
+		for (var i = 0; i < dataToLoad.length; i++) {
+			if (dataToLoad[i].event_img != null) {
+				outAll += `<div class="story__content"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
+				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
+			} else {
+				outAll += `<div class="story__content"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
+			}
+		}
+		outHtml.append(outAll);
+	}
+};
+
+//render main short story*************************************
+async function loadLive(dataToRender, outHtml, linkToSection) {
+	var out = '';
+	if (dataToRender != []) {
+		for (var k = 0; k < dataToRender.length; k++) {
+			out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img src="${dataToRender[k].event_img}" alt="photo" class="brief__photo" loading="lazy"></a>`;
+		}
+		outHtml.append(out);
+	};
+};
 
 
 //Load brief user info******************************************
 function loadQuestionnaries() {
-	var avaProfile = $('.brief__icon');
-	var birthProfile = $('.brief__both');
-	var dieProfile = $('.brief__die');
-	var ageProfile = $('#user-old');
-	var textProfile = $('#user-about-short');
-	var nameProfile = $('#user-name');
-	var surmaneProfile = $('#user-surname');
-	var patronimycProfile = $('#user-patronimyc');
-	var timelinebirthProfile = $('.brief__start-both');
-	var timelinedieProfile = $('.brief__start-both');
-	var cause = $('#cause');
-	var cemetery = $('#cemetery');
-	var sector = $('#sector');
-	var square = $('#square');
-	var row = $('#row');
-	var number = $('#number');
+	var avaProfile = $('.brief__icon'),
+		birthProfile = $('.brief__both'),
+		dieProfile = $('.brief__die'),
+		ageProfile = $('#user-old'),
+		textProfile = $('#user-about-short'),
+		nameProfile = $('#user-name'),
+		surmaneProfile = $('#user-surname'),
+		patronimycProfile = $('#user-patronimyc'),
+		timelinebirthProfile = $('.data-birth'),
+		timelinedieProfile = $('.data-die'),
+		cause = $('#cause'),
+		cemetery = $('#cemetery'),
+		sector = $('#sector'),
+		square = $('#square'),
+		row = $('#row'),
+		number = $('#number'),
+		city_birth = $('.brief__city-birth'),
+		city_die = $('.brief__city-die'),
+		htmlOut1 = $('.brief__gall1'),
+		htmlOut2 = $('.brief__gall2'),
+		htmlOut3 = $('.brief__gall3'),
+		htmlOut4 = $('.brief__gall4'),
+		htmlOut5 = $('.brief__gall5'),
+		liveFull1 = $('#childhood'),
+		liveFull2 = $('#preyouth'),
+		liveFull3 = $('#youth'),
+		liveFull4 = $('#ripeness'),
+		liveFull5 = $('#elderhood');
 
-	var profile = 4;
+	//Execute number of profile to show and show it**********************
 	fetch(
-		`${api_url}get_profile?profile_id=${profile}`,
+		`${api_url}get_profile?profile_id=${currentProfile}`,
 		{
 			method: 'GET',
 			headers: {
@@ -10646,8 +10746,7 @@ function loadQuestionnaries() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			console.log('Data:', JSON.stringify(data));
-			var out = '';
+			//console.log('Data:', JSON.stringify(data));
 			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 				avaProfile.attr('src', data.profile.avatar);
 			}
@@ -10677,6 +10776,12 @@ function loadQuestionnaries() {
 			if (data.profile.cementry_sector) {
 				sector.text(data.profile.cementry_sector);
 			}
+			if (data.profile.death_city) {
+				city_die.text(data.profile.death_city);
+			}
+			if (data.profile.birth_city) {
+				city_birth.text(data.profile.birth_city);
+			}
 			if (data.profile.profile_type !== 'open') {
 				$('.brief__timelaps').css('display', 'none');
 				$('.brief__location').css('display', 'none');
@@ -10688,32 +10793,68 @@ function loadQuestionnaries() {
 			} else {
 				textProfile.text(data.profile.short_story);
 			};
-			if (data.profile.family_name == 'hide') {
+			if (data.profile.death_cause) {
 				cause.text(data.profile.death_cause);
 			};
+			loadLive(data.timelines.block1, htmlOut1, 'childhood');
+			loadLive(data.timelines.block2, htmlOut2, 'preyouth');
+			loadLive(data.timelines.block3, htmlOut3, 'youth');
+			loadLive(data.timelines.block4, htmlOut4, 'ripeness');
+			loadLive(data.timelines.block5, htmlOut5, 'elderhood');
+			var btnAddClick = $('.btn-tab-link');
+			if (btnAddClick) {
+				clickToLive(btnAddClick);
+			}
+			loaddLiveFull(data.timelines.block1, liveFull1);
+			loaddLiveFull(data.timelines.block2, liveFull2);
+			loaddLiveFull(data.timelines.block3, liveFull3);
+			loaddLiveFull(data.timelines.block4, liveFull4);
+			loaddLiveFull(data.timelines.block5, liveFull5);
+
+			initLoadMore();
 		})
 		.catch(error => console.error('error1:', error));
 };
 
+setTimeout(function () {
+	//Show candle fire*************************************
+	$('#candle').click(function () {
+		$('#candleFire').toggleClass('active');
+	});
+
+
+	//change icon bookmark when click*********
+	$('#bookmark').click(function () {
+		if ($(this).hasClass('active')) {
+			$(this).toggleClass('active');
+			$(this).attr('src', './img/bookmark.svg');
+		} else {
+			$(this).attr('src', './img/bookmark-black.svg');
+			$(this).toggleClass('active');
+
+		}
+	});
+
+	//show text more description*******************************
+	$('.brief__descr').click(function () {
+		$(this).toggleClass('active');
+	});
 
 
 
 
+}, 0);
 
-//Зарегестрірованний юзер
-var user = false;
-var userAvatar = '';
-var user_data = false;
-ifLogin();
-function ifLogin() {
-	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-		start();
-		loadQuestionnaries();
-	} else {
-		confirmUser();
-		loadQuestionnaries();
-	}
+//load more timeline******************************************
+function initLoadMore() {
+	$('.more').click(function (e) {
+		$(this).prev().toggleClass('active');
+	});
 };
+
+
+
+
 
 //Exit account***************************************************
 $('#logout').click(function () {
@@ -10722,47 +10863,7 @@ $('#logout').click(function () {
 
 });
 
-//if user auth************************************************
-function start() {
 
-	fetch(
-		`${api_url}get_start_info`,
-		{
-			method: 'GET',
-			headers: {
-				'Authorization': 'Token token=' + cookie_token,
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			console.log('wellcome');
-			// console.log('Data:', JSON.stringify(data));
-			user = true;
-			userAvatar = data.user.avatar;
-			confirmUser();
-		})
-		.catch(error => console.error('error1:', error));
-};
-
-//Icon user if login**************************
-function confirmUser() {
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
-		$('#menu-guest').hide();
-		$('#menu-user').show();
-		if (userAvatar) {
-			$('.header__user').attr('src', userAvatar);
-		};
-	} else {
-		$('.enter').addClass('active');
-		$('.loginIn').removeClass('active');
-		$('#menu-user').hide();
-		$('#menu-guest').show();
-	};
-
-};
 
 
 
@@ -10991,13 +11092,79 @@ function getCookie(name) {
 		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
 	));
 	return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+};
 
 function deleteCookie(name) {
 	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-}
+};
 
 
+
+
+//send story timeline**************************
+function validate_event() {
+	if (data_event.val() != '' && category_event.val() != '' && place_event.val() != '' && title_event.val() != '' && text_event.val() != '') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var data_event = $('.story-date');
+var category_event = $('#category');
+var place_event = $('#memory_place');
+var title_event = $('#memory_title');
+var text_event = $('#memory_text');
+
+$('#story-add').click(function (e) {
+	e.preventDefault();
+	var timeline_event = {
+		event_date: data_event.val(),
+		event_header: title_event.val(),
+		event_type: category_event.val(),
+		event_img: $('.memory_foto').attr('src'),
+		event_text: text_event.val(),
+		event_place: place_event.val(),
+		profile_id: currentProfile
+	};
+	//console.log(timeline_event);
+	if (validate_event()) {
+		fetch(
+			`${api_url}create_timeline_event`,
+			{
+				method: 'POST',
+				body: JSON.stringify(timeline_event),
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then($('body').css('opacity', 0.5))
+			.then(response => response.json())
+			.then(data => {
+				if (data) {
+					$('body').css('opacity', 1);
+					console.log("success send");
+					// console.log('Data:', JSON.stringify(data));
+					// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+					window.location.href = `#${currentProfile}`;
+					window.location.reload();
+				} else {
+					$('#error').text("Ошибка,попробуйте еще").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					$('body').css('opacity', 1);
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				$('body').css('opacity', 1);
+			});
+	} else {
+		$('#error').text('Заполните все поля').removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+		$('body').css('opacity', 1);
+
+	}
+})
 
 
 
@@ -11176,36 +11343,7 @@ $('#category').each(function () {
 // 	dataDie = dataDie.split('-').reverse().join('-');
 // 	$('.user__die').val(dataDie);
 // });
-setTimeout(function () {
-	//Show candle fire*************************************
-	$('#candle').click(function () {
-		$('#candleFire').toggleClass('active');
-	});
 
-
-	//change icon bookmark when click*********
-	$('#bookmark').click(function () {
-		if ($(this).hasClass('active')) {
-			$(this).toggleClass('active');
-			$(this).attr('src', './img/bookmark.svg');
-		} else {
-			$(this).attr('src', './img/bookmark-black.svg');
-			$(this).toggleClass('active');
-
-		}
-	});
-
-	//show text more description*******************************
-	$('.brief__descr').click(function () {
-		$(this).toggleClass('active');
-	});
-
-
-	$('.more').click(function (e) {
-		$(this).prev().toggleClass('active');
-	});
-
-}, 0);
 
 
 
@@ -11238,6 +11376,20 @@ $('.menu__item').click(function () {
 	}
 	$(this).addClass('active-items').siblings().removeClass('active-items');
 	$('.data__tab').hide().eq($(this).index()).fadeIn();
+	fetch(`${api_url}show_timeline?profile_id=${currentProfile}`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			//console.log('Data:', JSON.stringify(data));
+
+		})
+		.catch(error => console.error('error1:', error));
 	// $('.data__form-text').focus();
 	if ($(this).index() == 0) {
 		$('.profile__about').show();
@@ -11246,16 +11398,19 @@ $('.menu__item').click(function () {
 });
 
 //show-hide live story*******************************
-$('.btn-tab-link').click(function () {
-	$('.brief').fadeOut(0);
-	$('.story__back').show();
-	$('.story').fadeIn(1500);
-});
+function clickToLive(target) {
+	target.click(function () {
+		$('.brief').fadeOut(0);
+		$('.story__back').show();
+		$('.story').fadeIn(1500);
+	});
+};
 $('.story__back').click(function () {
 	$('.story').fadeOut(0);
 	$('.story__back').hide();
 	$('body,html').scrollTop(0);
 	$('.brief').fadeIn(900);
+	window.location.href = `#${currentProfile}`;
 });
 
 //story popup close*********************************
@@ -11272,18 +11427,13 @@ $('.default-add').click(function () {
 });
 
 
-//отправка сториз*********************************
-$('#story-add').click(function (e) {
-	e.preventDefault();
-
-});
 
 
 //upload foto to fotoalbum****************************
 function hideAddfoto() {
 	var foto = $('.add-story__foto');
-	console.log(foto.length);
-	if (foto.length >= 3) {
+	// console.log(foto.length);
+	if (foto.length >= 1) {
 		$('.def-btn').hide();
 	} else {
 		$('.def-btn').show();
@@ -11292,7 +11442,7 @@ function hideAddfoto() {
 
 $('#story_foto').change(function (e) {
 	var input = e.target;
-	var elem = $('<span class="add-story__foto"><img src="" alt="foto"><span class="add-story__foto-delete">&#x274C;</span></div>');
+	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete">&#x274C;</span></div>');
 	var reader = new FileReader();
 	reader.onload = function () {
 		var dataURL = reader.result;

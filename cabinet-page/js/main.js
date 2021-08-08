@@ -11168,6 +11168,8 @@ $('#logout').click(function () {
 
 });
 
+
+
 //if user auth************************************************
 function start() {
 	fetch(
@@ -11194,6 +11196,11 @@ function start() {
 			password = data.user.password;
 			userId = data.user.id;
 			confirmUser();
+			var currentTab = window.location.hash;
+			if (currentTab != '') {
+				$(currentTab).click();
+				burgerShow();
+			};
 		})
 		.catch(error => console.error('error1:', error));
 };

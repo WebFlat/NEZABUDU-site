@@ -107,13 +107,13 @@
 	                            <img class="burger-wrap__icon" src="./img/bookmark-2.svg" alt="bookmark"
 	                                style="height: 32px;">
 	                        </div>
-	                        <a href="..cabinet-page/" class="nav__link">Анкеты в закладках</a>
+	                        <a href="..cabinet-page/#tab2" class="nav__link">Анкеты в закладках</a>
 	                    </li>
 	                    <li>
 	                        <div class="burger-wrap__wrap-icon">
 	                            <img class="burger-wrap__icon" src="./img/bell.svg" alt="alarm">
 	                        </div>
-	                        <a href="../cabinet-page/" class="nav__link">Уведомления</a>
+	                        <a href="../cabinet-page/#tab3" class="nav__link">Уведомления</a>
 	                    </li>
 	                    <li>
 	                        <div class="burger-wrap__wrap-icon">
@@ -147,7 +147,7 @@
 	                        <div class="burger-wrap__wrap-icon">
 	                            <img class="burger-wrap__icon" src="./img/settings.svg" alt="settings">
 	                        </div>
-	                        <a href="../cabinet-page/" class="nav__link">Настройки</a>
+	                        <a href="../cabinet-page/#tab4" class="nav__link">Настройки</a>
 	                    </li>
 	                    <li>
 	                        <div class="burger-wrap__wrap-icon">
@@ -284,7 +284,6 @@
 	                </div>
 	            </div>
 	        </div>
-	        <span id="error"></span>
 	    </section>
 	</div>
 	<div id="p_prldr">
@@ -293,6 +292,7 @@
 	        <span class="svg_anm"></span>
 	    </div>
 	</div>
+	<span id="error"></span>
 	<!-- контент страницы -->
 	<section class="life">
 		<div class="life-profile">
@@ -388,9 +388,9 @@
 		                        <div class="brief__timelaps">
 		                            <span class="brief__start">
 		                                Рождение
-		                                <span class="brief__start-both"></span>
+		                                <span class="brief__start-both data-birth"></span>
 		                                <span>,</span>
-		                                <span class="brief__city">
+		                                <span class="brief__city brief__city-birth">
 		
 		                                </span>
 		                            </span>
@@ -409,7 +409,7 @@
 		
 		                                </div>
 		                                <div class="brief__block4">
-		                                    <div class="brief__gall">
+		                                    <div class="brief__gall brief__gall1">
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
@@ -445,7 +445,7 @@
 		
 		                                </div>
 		                                <div class="brief__block4">
-		                                    <div class="brief__gall">
+		                                    <div class="brief__gall brief__gall2">
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
@@ -471,7 +471,7 @@
 		
 		                                </div>
 		                                <div class="brief__block4">
-		                                    <div class="brief__gall">
+		                                    <div class="brief__gall brief__gall3">
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
@@ -508,7 +508,7 @@
 		                                <div class="brief__block3">
 		                                </div>
 		                                <div class="brief__block4">
-		                                    <div class="brief__gall">
+		                                    <div class="brief__gall brief__gall4">
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
@@ -545,7 +545,7 @@
 		                                <div class="brief__block3">
 		                                </div>
 		                                <div class="brief__block4">
-		                                    <div class="brief__gall">
+		                                    <div class="brief__gall brief__gall5">
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
@@ -564,9 +564,9 @@
 		                            </div>
 		                            <span class="brief__end brief__end--first">
 		                                Смерть
-		                                <span class="brief__start-both"></span>
+		                                <span class="brief__start-both data-die"></span>
 		                                <span>,</span>
-		                                <span class="brief__city">
+		                                <span class="brief__city brief__city-die">
 		
 		                                </span>
 		                            </span>
@@ -607,9 +607,9 @@
 		                        <button class="story__back">&#8592; назад</button>
 		                        <span class="brief__start">
 		                            Рождение
-		                            <span class="brief__start-both"></span>
+		                            <span class="brief__start-both data-birth"></span>
 		                            <span>,</span>
-		                            <span class="brief__city">
+		                            <span class="brief__city brief__city-birth">
 		                                Мариуполь
 		                            </span>
 		                        </span>
@@ -629,49 +629,7 @@
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <div class="story__img-wrap">
-		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                                </div>
-		                                <span class="story__content-title">
-		                                    В детском садике
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
+		
 		                        </div>
 		                        <div class="story__section" id="preyouth">
 		                            <h6 class="story__title">
@@ -688,49 +646,6 @@
 		                                    был у бабушки с дедушкой.
 		                                </p>
 		                                <button class="more">Подробнее</button>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <div class="story__img-wrap">
-		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                                </div>
-		                                <span class="story__content-title">
-		                                    В детском садике
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
 		                            </div>
 		                        </div>
 		                        <div class="story__section" id="youth">
@@ -749,49 +664,6 @@
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <div class="story__img-wrap">
-		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                                </div>
-		                                <span class="story__content-title">
-		                                    В детском садике
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
 		                        </div>
 		                        <div class="story__section" id="ripeness">
 		                            <h6 class="story__title">
@@ -808,49 +680,6 @@
 		                                    был у бабушки с дедушкой.
 		                                </p>
 		                                <button class="more">Подробнее</button>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <div class="story__img-wrap">
-		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                                </div>
-		                                <span class="story__content-title">
-		                                    В детском садике
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
 		                            </div>
 		                        </div>
 		                        <div class="story__section" id="elderhood">
@@ -869,141 +698,327 @@
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <div class="story__img-wrap">
-		                                    <img src="./img/dad.jpg" alt="photo" class="story__pict">
-		                                </div>
-		                                <span class="story__content-title">
-		                                    В детском садике
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
-		                            <div class="story__content">
-		                                <span class="story__date">
-		                                    18.05.1987
-		                                </span>
-		                                <span class="story__content-title">
-		                                    У бабушки в деревне
-		                                </span>
-		                                <div class="story__text story__text--content">
-		                                    <p class="story__descr">
-		                                        Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                        школу, учился 9 классов, на выходных
-		                                        был у бабушки с дедушкой.
-		                                    </p>
-		                                    <button class="more">Подробнее</button>
-		                                </div>
-		                            </div>
 		                        </div>
 		                        <span class="brief__end">
 		                            Смерть
-		                            <span class="brief__start-both">xxxxxx</span>
+		                            <span class="brief__start-both data-die"></span>
 		                            <span>,</span>
-		                            <span class="brief__city">
+		                            <span class="brief__city brief__city-die">
 		                                Мариуполь
 		                            </span>
 		                        </span>
 		                    </article>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        2
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="family">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        СЕМЬЯ
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="family-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="parents" class="tab__label">
+		                                        1. ФИО родителей?
+		                                    </label>
+		                                    <textarea name="parents" id="parents" cols="30" rows="2"></textarea>
+		                                    <label for="relatives" class="tab__label">
+		                                        2.Сколько братьев и сестер в семье
+		                                        (родные, двоюродные)?
+		                                    </label>
+		                                    <textarea name="relatives" id="relatives" cols="30" rows="2"></textarea>
+		                                    <label for="nationality" class="tab__label">
+		                                        3. Какие национальности в роду?
+		                                    </label>
+		                                    <textarea name="nationality" id="nationality" cols="30" rows="2"></textarea>
+		                                    <label for="cities" class="tab__label">
+		                                        4. В каких городах, странах живут родственники?
+		                                    </label>
+		                                    <textarea name="cities" id="cities" cols="30" rows="2"></textarea>
+		                                    <label for="values" class="tab__label">
+		                                        5. Главные семейные ценности?
+		                                    </label>
+		                                    <textarea name="values" id="values" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Семья
+		                                </h6>
+		
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        3
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="holiday">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Традиции/Праздники
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="holiday-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="holiday-favorite" class="tab__label">
+		                                        1. Любимый праздник?
+		                                    </label>
+		                                    <textarea name="holiday-favorite" id="holiday-favorite" cols="30"
+		                                        rows="2"></textarea>
+		                                    <label for="newyear" class="tab__label">
+		                                        2. Традиции на Новый год?
+		                                    </label>
+		                                    <textarea name="newyear" id="newyear" cols="30" rows="2"></textarea>
+		                                    <label for="recipes" class="tab__label">
+		                                        3. Фирменные блюда/любимые рецепты?
+		                                    </label>
+		                                    <textarea name="recipes" id="recipes" cols="30" rows="2"></textarea>
+		                                    <label for="famity-recipes" class="tab__label">
+		                                        4. Семейные традиции?
+		                                    </label>
+		                                    <textarea name="famity-recipes" id="famity-recipes" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Традиции/Праздники
+		                                </h6>
+		
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        4
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="works">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Деятельность/работа
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="works-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="works" class="tab__label">
+		                                        1. Сфера деятельности?
+		                                    </label>
+		                                    <textarea name="works" id="works" cols="30" rows="2"></textarea>
+		                                    <label for="first" class="tab__label">
+		                                        2. Первая работа?
+		                                    </label>
+		                                    <textarea name="first" id="first" cols="30" rows="2"></textarea>
+		                                    <label for="carrier" class="tab__label">
+		                                        3. Карьерная лестница?
+		                                    </label>
+		                                    <textarea name="carrier" id="carrier" cols="30" rows="2"></textarea>
+		                                    <label for="public" class="tab__label">
+		                                        4. Общественная деятельность?
+		                                    </label>
+		                                    <textarea name="public" id="public" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Деятельность/работа
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        5
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="interest">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Увлечения/интересы
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="interest-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="spots" class="tab__label">
+		                                        1. Любимый вид спорта?
+		                                    </label>
+		                                    <textarea name="spots" id="spots" cols="30" rows="2"></textarea>
+		                                    <label for="hobies" class="tab__label">
+		                                        2. Какие любимые хобби/увлечения?
+		                                    </label>
+		                                    <textarea name="hobies" id="hobies" cols="30" rows="2"></textarea>
+		                                    <label for="books" class="tab__label">
+		                                        3. Любимые книжки?
+		                                    </label>
+		                                    <textarea name="books" id="books" cols="30" rows="2"></textarea>
+		                                    <label for="favorite" class="tab__label">
+		                                        4. Любимый фильм, актер, музыка?
+		                                    </label>
+		                                    <textarea name="favorite" id="favorite" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Увлечения/интересы
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        6
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="travel">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Путешествия/поездки
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="travel-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="travel-city" class="tab__label">
+		                                        1. В каких городах бывал(а)?
+		                                    </label>
+		                                    <textarea name="travel-city" id="travel-city"" cols=" 30" rows="2"></textarea>
+		                                    <label for="travel-country" class="tab__label">
+		                                        2. Какие страны посещал(а)?
+		                                    </label>
+		                                    <textarea name="travel-country" id="travel-country" cols="30" rows="2"></textarea>
+		                                    <label for="travel-school" class="tab__label">
+		                                        3. Школьные/студенческие поездки?
+		                                    </label>
+		                                    <textarea name="travel-school" id="travel-school" cols="30" rows="2"></textarea>
+		                                    <label for="travel-family" class="tab__label">
+		                                        4. Поездки семьей?
+		                                    </label>
+		                                    <textarea name="travel-family" id="travel-family" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Путешествия/поездки
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        7
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="friends">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Друзья/учеба?
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="friends-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="best-friend" class="tab__label">
+		                                        1. Лучший друг?
+		                                    </label>
+		                                    <textarea name="best-friend" id="best-friend" cols="30" rows="2"></textarea>
+		                                    <label for="friends" class="tab__label">
+		                                        2. Школьные друзья?
+		                                    </label>
+		                                    <textarea name="friends" id="friends" cols="30" rows="2"></textarea>
+		                                    <label for="teacher" class="tab__label">
+		                                        3. Первая учительница?
+		                                    </label>
+		                                    <textarea name="teacher" id="teacher" cols="30" rows="2"></textarea>
+		                                    <label for="school" class="tab__label">
+		                                        4. В какой школе учился(ась)?
+		                                    </label>
+		                                    <textarea name="school" id="school" cols="30" rows="2"></textarea>
+		                                    <label for="college" class="tab__label">
+		                                        5. В каком колледже/университете учился(ась)?
+		                                    </label>
+		                                    <textarea name="college" id="college" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Друзья/учеба
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        8
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="heritage">
+		                                <div class="tab__header">
+		                                    <h6 class="tab__title">
+		                                        Наследие
+		                                    </h6>
+		                                    <p class="tab__descr">
+		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
+		                                        родственников
+		                                    </p>
+		                                </div>
+		                                <form action="" class="tab__form" id="heritage-form">
+		                                    <span class="tab__form-title">
+		                                        Вопросы:
+		                                    </span>
+		                                    <label for="links" class="tab__label">
+		                                        1. Название или ссылка на стих/рассказ/книгу/блог?
+		                                    </label>
+		                                    <textarea name="links" id="links" cols="30" rows="2"></textarea>
+		                                    <label for="house" class="tab__label">
+		                                        2. Дом/квартира/имение?
+		                                    </label>
+		                                    <textarea name="house" id="house" cols="30" rows="2"></textarea>
+		                                    <label for="child" class="tab__label">
+		                                        3. Дети?
+		                                    </label>
+		                                    <textarea name="child" id="child" cols="30" rows="2"></textarea>
+		                                    <label for="achievement" class="tab__label">
+		                                        4. Успехи/достижения?
+		                                    </label>
+		                                    <textarea name="achievement" id="achievement" cols="30" rows="2"></textarea>
+		                                </form>
+		                                <h6 class="story__title">
+		                                    Наследие
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
 		                <article class="data__tab">
-		                    <div class="data-tab-content">
-		                        9
+		                    <div class="tab__content">
+		                        <article class="story wrapper story__tab">
+		                            <div class="story__section story__section--tab" id="happy-history">
+		                                <h6 class="story__title">
+		                                    Веселые истории
+		                                </h6>
+		                            </div>
+		                        </article>
 		                    </div>
 		                </article>
-		            </div>
 		        </section>
 		        <section class="profile__menu">
 		            <div class="menu__items">
@@ -1045,15 +1060,15 @@
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
-		                        <span>Наследие</span>
-		                    </div>
-		                    <img src="./img/icon7.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
 		                        <span>Учеба/друзья</span>
 		                    </div>
 		                    <img src="./img/icon8.png" alt="icon" class="menu__img">
+		                </a>
+		                <a href="#" class="menu__item">
+		                    <div class="menu__description">
+		                        <span>Наследие</span>
+		                    </div>
+		                    <img src="./img/icon7.png" alt="icon" class="menu__img">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
@@ -1163,12 +1178,7 @@
 		                <button class="add-story__header-btn add" id="story-add" type="submit">Добавить воспоминание</button>
 		            </div>
 		            <select name="tabs" id="category" class="add-story__category">
-		                <option value=" hide">Категория</option>
-		                <option value="Детство">Детство</option>
-		                <option value="Юность">Юность</option>
-		                <option value="Молодость">Молодость</option>
-		                <option value="Зрелость">Зрелость</option>
-		                <option value="Преклонный возраст">Преклонный возраст</option>
+		                <option value="hide">Категория</option>
 		                <option value="Семья">Семья</option>
 		                <option value="Традиции">Традиции</option>
 		                <option value="Деятельность">Деятельность</option>
