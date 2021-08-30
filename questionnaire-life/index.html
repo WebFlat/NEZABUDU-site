@@ -90,10 +90,10 @@
 	        </div>
 	        <div class="burger-wrap" id="menu-user">
 	            <div class="burger-wrap__links">
-	                <form action="GET" class="burger-search">
+	                <!-- <form action="GET" class="burger-search">
 	                    <input class="burger-search__input" type="text" placeholder="Поиск по всем анкетам">
 	                    <img src="./img/search-burger.png" alt="search" class="burger-search__search">
-	                </form>
+	                </form> -->
 	                <ul class="withBorder">
 	                    <li>
 	                        <div class="burger-wrap__wrap-icon">
@@ -292,54 +292,218 @@
 	        <span class="svg_anm"></span>
 	    </div>
 	</div>
+	<form method="POST" class="data__form-default data__form" id="editOldData">
+	    <span class="about__close">
+	        &#x2715
+	    </span>
+	    <input type="text" name="whois" id="whois" placeholder="Кем вы ему(ей) приходитесь?" class="data__relative">
+	    <div class="about__subsettings">
+	        <div class="about__show">
+	            <div class="about__show-wrap">
+	                <img class="about__visible" src="./img/lock.png" alt="lock">
+	                <input class="about__check" type="radio" name="type" id="close" data-status="close">
+	                <label for="close">Закрытая</label>
+	            </div>
+	            <div class="about__show-wrap">
+	                <img class="about__visible" src="./img/unlock.png" alt="lock">
+	                <input type="radio" class="about__check" name="type" id="open" checked data-status="open">
+	                <label for="open">Открытая</label>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="about__wrap">
+	        <div class="about__img-wrap">
+	            <img src="./img/default-foto.png" alt="foto" class="about__img" id="output">
+	        </div>
+	        <div class="about__upload about__upload--ava">
+	            <input class="about__upload-inpt about__upload-inpt--ava" type="file" size="1" name="upload"
+	                id="fileFotoAvatar" accept='image/*'>
+	            <span class="about__upload-text about__upload-text--ava">
+	                Добавить фото
+	            </span>
+	        </div>
+	    </div>
+	    <div class="data__user">
+	        <div class="user__inp-wrap">
+	            <div class="user__names">
+	                <input type="text" class="user__surname" required placeholder="Фамилия">
+	            </div>
+	            <div class="user__names">
+	                <input type="text" class="user__name" required placeholder="Имя">
+	            </div>
+	            <input type="text" class="user__patronymic" placeholder="Отчество">
+	            <input type="text" class="user__surname-girl user__soname-girl" placeholder="Девичья фамилия">
+	        </div>
+	        <div class="user__lives-data">
+	            <div class="user__lives-wrap">
+	                <div class="user__inp-wrap">
+	                    <span class="user__cal" id="btn-both">
+	                        <input type="date" name="calendar1" id="user-both">
+	                    </span>
+	                    <input type="text" class="user__both" required placeholder="Дата рождения" readonly>
+	                    <button class="user__remind" id="remind-both"></button>
+	                </div>
+	                <div class="user__inp-wrap">
+	                    <span class="user__cal"><input type="date" name="calendar2" id="user-die"></span>
+	                    <input type="text" class="user__die" required placeholder="Дата смерти" readonly>
+	                    <button class="user__remind" id="remind-die"></button>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="user__lives-loc">
+	            <input type="text" class="user__both-loc" placeholder="Место рождения">
+	            <input type="text" class="user__die-loc" placeholder="Место смерти">
+	        </div>
+	        <label class="user__title-second" for="area-lives">
+	            Расскажите основную информацию:
+	        </label>
+	        <textarea name="main-info" id="area-lives" rows="5"
+	            placeholder="расскажите о характере, деятельности, особенностях и др.."></textarea>
+	    </div>
+	    <h6 class="data__title-location">Где покоится:</h6>
+	    <div class="data__locations">
+	        <input type="text" name="city" id="city" class="data__loc-city" placeholder="Город">
+	        <input type="text" name="cemetery" id="cemetery" class="data__loc-cemetery" placeholder="Кладбище">
+	    </div>
+	    <div class="data__loc-wrap">
+	        <div class="data__loc-axacts">
+	            <input type="number" class="data__loc-axact" placeholder="Сектор" id="cementry_sector">
+	            <input type="number" class="data__loc-axact" placeholder="Квадрат" id="cementry_square">
+	        </div>
+	        <div class="data__loc-axacts">
+	            <input type="number" class="data__loc-axact" placeholder="Ряд" id="cementry_row">
+	            <input type="number" class="data__loc-axact" placeholder="Место" id="cementry_place">
+	        </div>
+	    </div>
+	    <div class="data__map">
+	        <div class="map__links">
+	            <a href="https://www.google.com/maps" class="map__google-link" target="_blank"></a>
+	            <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="50.059535" id="grave_lon">
+	            <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="36.195110" id="grave_lat">
+	        </div>
+	        <div class="map__prev">
+	            <iframe
+	                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4542.600346842682!2d37.49132871703975!3d47.14172791894545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e6e23a95b001e9%3A0xb635713259c723a6!2z0JzQsNGA0ZbRg9C_0L7Qu9GM0YHRjNC60LUg0JrQu9Cw0LTQvtCy0LjRidC1!5e0!3m2!1suk!2sua!4v1607212174526!5m2!1suk!2sua"
+	                frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"
+	                key='AIzaSyA1CqxmxvB0H0I_KZJArCWzNvdFmegf0Qo'></iframe>
+	        </div>
+	    </div>
+	    <div class="user__die-about">
+	        <label for="die-select">Причина смерти</label>
+	        <select name="die" id="die-select" class="die__select">
+	            <option value="hide">Список</option>
+	            <option value="Болезни системы кровообращения
+	                        ">Болезни системы кровообращения
+	            </option>
+	            <option value="Ишемическая болезнь сердца ">Ишемическая болезнь сердца </option>
+	            <option value="Инсульт, инфаркт
+	                        ">Инсульт, инфаркт
+	            </option>
+	            <option value="Болезни нервной системы
+	                        ">Болезни нервной системы
+	            </option>
+	            <option value="Болезни органов пищеварения
+	                        ">Болезни органов пищеварения
+	            </option>
+	            <option value="Отравления
+	                        ">Отравления
+	            </option>
+	            <option value="Травмы">Травмы</option>
+	            <option value="Самоубийство">Самоубийство</option>
+	            <option value="Несчастный случай
+	                        ">Несчастный случай
+	            </option>
+	            <option value="ДТП">ДТП</option>
+	            <option value="Инфекционные и вирусные заболевания
+	                        ">Инфекционные и вирусные заболевания
+	            </option>
+	            <option value="Исполнение служебного долга
+	                        ">Исполнение служебного долга
+	            </option>
+	            <option value="Возрастные заболевания">Возрастные заболевания</option>
+	            <option value="Неонатальные заболевания
+	                        ">Неонатальные заболевания
+	            </option>
+	            <option value="Материнские болезни, роды
+	                        ">Материнские болезни, роды
+	            </option>
+	            <option value="COVID-19
+	                        ">COVID-19
+	            </option>
+	            <option value="Военные действия
+	                        ">Военные действия
+	            </option>
+	            <option value="Онкология дыхательных путей
+	                        ">Онкология дыхательных путей
+	            </option>
+	            <option value="Онкология костных тканей">Онкология костных тканей
+	            </option>
+	            <option value="Онкология">Онкология</option>
+	            <option value="Другое">Другое</option>
+	            <option value="Не хочу рассказывать">Не хочу рассказывать</option>
+	        </select>
+	    </div>
+	    <div class="data__btns">
+	        <button class="btn data__btn-close" id="sendFistRequest">Сохранить</button>
+	    </div>
+	</form>
 	<span id="error"></span>
 	<!-- контент страницы -->
 	<section class="life">
 		<div class="life-profile">
 		    <section class="profile__menu profile__menu--mob">
-		        <section class="profile__menu profile__menu--mob">
-		            <div class="menu__items menu__items--mob">
-		                <a href="#" class="menu__item menu__item--mob active-items main">
-		                    <img src="./img/icon1.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon2.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon3.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon4.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon5.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		                <a href="#" class="menu__item menu__item--mob">
-		                    <img src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob">
-		                </a>
-		            </div>
-		        </section>
+		        <div class="menu__items menu__items--mob">
+		            <a href="#" class="menu__item menu__item--mob active-items main">
+		                <img src="./img/icon1.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon2.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon3.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon4.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon5.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob">
+		            </a>
+		        </div>
 		    </section>
 		    <div class="profile__wrap">
+		        <button class="add-story-force default-add">
+		            <span></span>
+		            <span></span>
+		        </button>
 		        <section class="profile__data">
 		            <div class="data__form-tabs">
 		                <article class="data__tab">
 		                    <article class="brief">
 		                        <div class="wrapper">
 		                            <div class="brief__user">
+		                                <div class="brief__context context">
+		                                    <button class="context__item editOLdData ">Редактировать</button>
+		                                    <button class="context__item">Удалить</button>
+		                                </div>
 		                                <div class="brief__img-wrap">
 		                                    <img class="brief__icon" src="./img/user-def-black.png" alt=" user">
 		                                </div>
 		                                <div class="brief__info">
+		                                    <span class="brief__edit">
+		                                        <span></span><span></span><span></span>
+		                                    </span>
 		                                    <img src="./img/candle.png" alt="candle" class="brief__candle" id="candle">
 		                                    <img src="./img/candle-fire.png" alt="candle"
 		                                        class="brief__candle brief__candle--fire" id="candleFire">
@@ -355,7 +519,7 @@
 		                                        <span class="brief__die">смерть</span>
 		                                        <span class="brief__life-long">
 		                                            (
-		                                            <span class="brief__life-val" id="user-old">xx</span>
+		                                            <span class="brief__life-val" id="user-old"></span>
 		                                            )
 		                                        </span>
 		                                    </div>
@@ -419,6 +583,9 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
+		                                        <span class="brief__descr-edit">
+		                                            &#9998;
+		                                        </span>
 		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
 		                                        provident
 		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
@@ -452,7 +619,9 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
-		
+		                                        <span class="brief__descr-edit">
+		                                            &#9998;
+		                                        </span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -483,6 +652,9 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
+		                                        <span class="brief__descr-edit">
+		                                            &#9998;
+		                                        </span>
 		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
 		                                        provident
 		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
@@ -520,6 +692,9 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
+		                                        <span class="brief__descr-edit">
+		                                            &#9998;
+		                                        </span>
 		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
 		                                        provident
 		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
@@ -551,6 +726,9 @@
 		                                        </span>
 		                                    </div>
 		                                    <p class="brief__descr">
+		                                        <span class="brief__descr-edit">
+		                                            &#9998;
+		                                        </span>
 		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
 		                                        provident
 		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
@@ -713,7 +891,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="family">
-		                                <div class="tab__header">
+		                                <div class="tab__header family">
 		                                    <h6 class="tab__title">
 		                                        СЕМЬЯ
 		                                    </h6>
@@ -722,33 +900,41 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="family-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="parents" class="tab__label">
 		                                        1. ФИО родителей?
 		                                    </label>
-		                                    <textarea name="parents" id="parents" cols="30" rows="2"></textarea>
+		                                    <span name="parents" id="parents" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="relatives" class="tab__label">
 		                                        2.Сколько братьев и сестер в семье
 		                                        (родные, двоюродные)?
 		                                    </label>
-		                                    <textarea name="relatives" id="relatives" cols="30" rows="2"></textarea>
+		                                    <span name="relatives" id="relatives" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="nationality" class="tab__label">
 		                                        3. Какие национальности в роду?
 		                                    </label>
-		                                    <textarea name="nationality" id="nationality" cols="30" rows="2"></textarea>
+		                                    <span name="nationality" id="nationality" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="cities" class="tab__label">
 		                                        4. В каких городах, странах живут родственники?
 		                                    </label>
-		                                    <textarea name="cities" id="cities" cols="30" rows="2"></textarea>
+		                                    <span name="cities" id="cities" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="values" class="tab__label">
 		                                        5. Главные семейные ценности?
 		                                    </label>
-		                                    <textarea name="values" id="values" cols="30" rows="2"></textarea>
+		                                    <span name="values" id="values" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title family">
 		                                    Семья
 		                                </h6>
 		
@@ -760,7 +946,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="holiday">
-		                                <div class="tab__header">
+		                                <div class="tab__header holiday">
 		                                    <h6 class="tab__title">
 		                                        Традиции/Праздники
 		                                    </h6>
@@ -769,32 +955,38 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="holiday-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="holiday-favorite" class="tab__label">
 		                                        1. Любимый праздник?
 		                                    </label>
-		                                    <textarea name="holiday-favorite" id="holiday-favorite" cols="30"
-		                                        rows="2"></textarea>
+		                                    <span name="holiday-favorite" id="holiday-favorite" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="newyear" class="tab__label">
 		                                        2. Традиции на Новый год?
 		                                    </label>
-		                                    <textarea name="newyear" id="newyear" cols="30" rows="2"></textarea>
+		                                    <span name="newyear" id="newyear" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="recipes" class="tab__label">
 		                                        3. Фирменные блюда/любимые рецепты?
 		                                    </label>
-		                                    <textarea name="recipes" id="recipes" cols="30" rows="2"></textarea>
+		                                    <span name="recipes" id="recipes" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		
 		                                    <label for="famity-recipes" class="tab__label">
 		                                        4. Семейные традиции?
 		                                    </label>
-		                                    <textarea name="famity-recipes" id="famity-recipes" cols="30" rows="2"></textarea>
+		                                    <span name="famity-recipes" id="famity-recipes" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title holiday">
 		                                    Традиции/Праздники
 		                                </h6>
-		
 		                            </div>
 		                        </article>
 		                    </div>
@@ -803,7 +995,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="works">
-		                                <div class="tab__header">
+		                                <div class="tab__header works">
 		                                    <h6 class="tab__title">
 		                                        Деятельность/работа
 		                                    </h6>
@@ -812,28 +1004,35 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="works-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="works" class="tab__label">
 		                                        1. Сфера деятельности?
 		                                    </label>
-		                                    <textarea name="works" id="works" cols="30" rows="2"></textarea>
+		                                    <span name="works" id="works" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="first" class="tab__label">
 		                                        2. Первая работа?
 		                                    </label>
-		                                    <textarea name="first" id="first" cols="30" rows="2"></textarea>
+		                                    <span name="first" id="first" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="carrier" class="tab__label">
 		                                        3. Карьерная лестница?
 		                                    </label>
-		                                    <textarea name="carrier" id="carrier" cols="30" rows="2"></textarea>
+		                                    <span name="carrier" id="carrier" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="public" class="tab__label">
 		                                        4. Общественная деятельность?
 		                                    </label>
-		                                    <textarea name="public" id="public" cols="30" rows="2"></textarea>
+		                                    <span name="public" id="public" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title works">
 		                                    Деятельность/работа
 		                                </h6>
 		                            </div>
@@ -844,7 +1043,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="interest">
-		                                <div class="tab__header">
+		                                <div class="tab__header interest">
 		                                    <h6 class="tab__title">
 		                                        Увлечения/интересы
 		                                    </h6>
@@ -853,28 +1052,35 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="interest-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="spots" class="tab__label">
 		                                        1. Любимый вид спорта?
 		                                    </label>
-		                                    <textarea name="spots" id="spots" cols="30" rows="2"></textarea>
+		                                    <span name="spots" id="spots" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="hobies" class="tab__label">
 		                                        2. Какие любимые хобби/увлечения?
 		                                    </label>
-		                                    <textarea name="hobies" id="hobies" cols="30" rows="2"></textarea>
+		                                    <span name="hobies" id="hobies" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="books" class="tab__label">
 		                                        3. Любимые книжки?
 		                                    </label>
-		                                    <textarea name="books" id="books" cols="30" rows="2"></textarea>
+		                                    <span name="books" id="books" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="favorite" class="tab__label">
 		                                        4. Любимый фильм, актер, музыка?
 		                                    </label>
-		                                    <textarea name="favorite" id="favorite" cols="30" rows="2"></textarea>
+		                                    <span name="favorite" id="favorite" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title interest">
 		                                    Увлечения/интересы
 		                                </h6>
 		                            </div>
@@ -885,7 +1091,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="travel">
-		                                <div class="tab__header">
+		                                <div class="tab__header travel">
 		                                    <h6 class="tab__title">
 		                                        Путешествия/поездки
 		                                    </h6>
@@ -894,28 +1100,35 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="travel-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="travel-city" class="tab__label">
 		                                        1. В каких городах бывал(а)?
 		                                    </label>
-		                                    <textarea name="travel-city" id="travel-city"" cols=" 30" rows="2"></textarea>
+		                                    <span name="travel-city" id="travel-city" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="travel-country" class="tab__label">
 		                                        2. Какие страны посещал(а)?
 		                                    </label>
-		                                    <textarea name="travel-country" id="travel-country" cols="30" rows="2"></textarea>
+		                                    <span name="travel-country" id="travel-country" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="travel-school" class="tab__label">
 		                                        3. Школьные/студенческие поездки?
 		                                    </label>
-		                                    <textarea name="travel-school" id="travel-school" cols="30" rows="2"></textarea>
+		                                    <span name="travel-country" id="travel-school" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="travel-family" class="tab__label">
 		                                        4. Поездки семьей?
 		                                    </label>
-		                                    <textarea name="travel-family" id="travel-family" cols="30" rows="2"></textarea>
+		                                    <span name="travel-family" id="travel-family" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title travel">
 		                                    Путешествия/поездки
 		                                </h6>
 		                            </div>
@@ -926,7 +1139,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="friends">
-		                                <div class="tab__header">
+		                                <div class="tab__header friends">
 		                                    <h6 class="tab__title">
 		                                        Друзья/учеба?
 		                                    </h6>
@@ -935,32 +1148,40 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="friends-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="best-friend" class="tab__label">
 		                                        1. Лучший друг?
 		                                    </label>
-		                                    <textarea name="best-friend" id="best-friend" cols="30" rows="2"></textarea>
+		                                    <span name="best-friend" id="best-friend" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="friends" class="tab__label">
 		                                        2. Школьные друзья?
 		                                    </label>
-		                                    <textarea name="friends" id="friends" cols="30" rows="2"></textarea>
+		                                    <span name="friends" id="friends" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="teacher" class="tab__label">
 		                                        3. Первая учительница?
 		                                    </label>
-		                                    <textarea name="teacher" id="teacher" cols="30" rows="2"></textarea>
+		                                    <span name="teacher" id="teacher" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="school" class="tab__label">
 		                                        4. В какой школе учился(ась)?
 		                                    </label>
-		                                    <textarea name="school" id="school" cols="30" rows="2"></textarea>
+		                                    <span name="school" id="school" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="college" class="tab__label">
 		                                        5. В каком колледже/университете учился(ась)?
 		                                    </label>
-		                                    <textarea name="college" id="college" cols="30" rows="2"></textarea>
+		                                    <span name="college" id="college" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title friends">
 		                                    Друзья/учеба
 		                                </h6>
 		                            </div>
@@ -971,7 +1192,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="heritage">
-		                                <div class="tab__header">
+		                                <div class="tab__header heritage">
 		                                    <h6 class="tab__title">
 		                                        Наследие
 		                                    </h6>
@@ -980,28 +1201,35 @@
 		                                        родственников
 		                                    </p>
 		                                </div>
+		                                <span class="tab__form-title active">
+		                                    Вопросы:
+		                                </span>
 		                                <form action="" class="tab__form" id="heritage-form">
-		                                    <span class="tab__form-title">
-		                                        Вопросы:
-		                                    </span>
 		                                    <label for="links" class="tab__label">
 		                                        1. Название или ссылка на стих/рассказ/книгу/блог?
 		                                    </label>
-		                                    <textarea name="links" id="links" cols="30" rows="2"></textarea>
+		                                    <span name="links" id="links" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="house" class="tab__label">
 		                                        2. Дом/квартира/имение?
 		                                    </label>
-		                                    <textarea name="house" id="house" cols="30" rows="2"></textarea>
+		                                    <span name="house" id="house" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="child" class="tab__label">
 		                                        3. Дети?
 		                                    </label>
-		                                    <textarea name="child" id="child" cols="30" rows="2"></textarea>
+		                                    <span name="child" id="child" class="textarea" role="textbox"
+		                                        contenteditable></span>
 		                                    <label for="achievement" class="tab__label">
 		                                        4. Успехи/достижения?
 		                                    </label>
-		                                    <textarea name="achievement" id="achievement" cols="30" rows="2"></textarea>
+		                                    <span name="achievement" id="achievement" class="textarea" role="textbox"
+		                                        contenteditable></span>
+		                                    <div class="tab__save">
+		                                        <span class="tab__btn-save">Сохранить</span>
+		                                    </div>
 		                                </form>
-		                                <h6 class="story__title">
+		                                <h6 class="story__title heritage">
 		                                    Наследие
 		                                </h6>
 		                            </div>
@@ -1012,7 +1240,7 @@
 		                    <div class="tab__content">
 		                        <article class="story wrapper story__tab">
 		                            <div class="story__section story__section--tab" id="happy-history">
-		                                <h6 class="story__title">
+		                                <h6 class="story__title happy-history">
 		                                    Веселые истории
 		                                </h6>
 		                            </div>
@@ -1080,96 +1308,6 @@
 		        </section>
 		    </div>
 		</div>
-		<footer class="footer">
-		    <div class="wrapper">
-		        <div class="footer__info">
-		            <div class="footer__contacts">
-		                <h6 class="footer__title">Контакты</h6>
-		                <nav class="footer__social">
-		                    <a href="https://www.facebook.com/nezabudu.com.ua/" target="_blank" class="footer__soc-link">
-		                        <!-- facebook -->
-		                        <!-- <img alt="facebook" src="data:image/svg+xml;base64,PHN2ZyBpZD0iQm9sZCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTE1Ljk5NyAzLjk4NWgyLjE5MXYtMy44MTZjLS4zNzgtLjA1Mi0xLjY3OC0uMTY5LTMuMTkyLS4xNjktMy4xNTkgMC01LjMyMyAxLjk4Ny01LjMyMyA1LjYzOXYzLjM2MWgtMy40ODZ2NC4yNjZoMy40ODZ2MTAuNzM0aDQuMjc0di0xMC43MzNoMy4zNDVsLjUzMS00LjI2NmgtMy44Nzd2LTIuOTM5Yy4wMDEtMS4yMzMuMzMzLTIuMDc3IDIuMDUxLTIuMDc3eiIvPjwvc3ZnPg==" /> -->
-		                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-		                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="96.124px"
-		                            height="96.123px" viewBox="0 0 96.124 96.123"
-		                            style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
-		                            <g>
-		                                <path
-		                                    d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803
-		                                c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654
-		                                c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246
-		                                c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" />
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                            <g>
-		                            </g>
-		                        </svg>
-		                    </a>
-		                    <a href="https://www.instagram.com/nezabudu.com.ua" target="_blank" class="footer__soc-link">
-		                        <!-- insta -->
-		                        <svg viewBox="0 0 512.00096 512.00096" xmlns="http://www.w3.org/2000/svg">
-		                            <path
-		                                d="m373.40625 0h-234.8125c-76.421875 0-138.59375 62.171875-138.59375 138.59375v234.816406c0 76.417969 62.171875 138.589844 138.59375 138.589844h234.816406c76.417969 0 138.589844-62.171875 138.589844-138.589844v-234.816406c0-76.421875-62.171875-138.59375-138.59375-138.59375zm-117.40625 395.996094c-77.195312 0-139.996094-62.800782-139.996094-139.996094s62.800782-139.996094 139.996094-139.996094 139.996094 62.800782 139.996094 139.996094-62.800782 139.996094-139.996094 139.996094zm143.34375-246.976563c-22.8125 0-41.367188-18.554687-41.367188-41.367187s18.554688-41.371094 41.367188-41.371094 41.371094 18.558594 41.371094 41.371094-18.558594 41.367187-41.371094 41.367187zm0 0" />
-		                            <path
-		                                d="m256 146.019531c-60.640625 0-109.980469 49.335938-109.980469 109.980469 0 60.640625 49.339844 109.980469 109.980469 109.980469 60.644531 0 109.980469-49.339844 109.980469-109.980469 0-60.644531-49.335938-109.980469-109.980469-109.980469zm0 0" />
-		                            <path
-		                                d="m399.34375 96.300781c-6.257812 0-11.351562 5.09375-11.351562 11.351563 0 6.257812 5.09375 11.351562 11.351562 11.351562 6.261719 0 11.355469-5.089844 11.355469-11.351562 0-6.261719-5.09375-11.351563-11.355469-11.351563zm0 0" />
-		                        </svg>
-		                        <!-- <img alt="instagram" src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMXB0IiB2aWV3Qm94PSIwIDAgNTExIDUxMS45IiB3aWR0aD0iNTExcHQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTUxMC45NDkyMTkgMTUwLjVjLTEuMTk5MjE5LTI3LjE5OTIxOS01LjU5NzY1Ny00NS44OTg0MzgtMTEuODk4NDM4LTYyLjEwMTU2Mi02LjUtMTcuMTk5MjE5LTE2LjUtMzIuNTk3NjU3LTI5LjYwMTU2Mi00NS4zOTg0MzgtMTIuODAwNzgxLTEzLTI4LjMwMDc4MS0yMy4xMDE1NjItNDUuMzAwNzgxLTI5LjUtMTYuMjk2ODc2LTYuMzAwNzgxLTM0Ljg5ODQzOC0xMC42OTkyMTktNjIuMDk3NjU3LTExLjg5ODQzOC0yNy40MDIzNDMtMS4zMDA3ODEtMzYuMTAxNTYyLTEuNjAxNTYyLTEwNS42MDE1NjItMS42MDE1NjJzLTc4LjE5OTIxOS4zMDA3ODEtMTA1LjUgMS41Yy0yNy4xOTkyMTkgMS4xOTkyMTktNDUuODk4NDM4IDUuNjAxNTYyLTYyLjA5NzY1NyAxMS44OTg0MzgtMTcuMjAzMTI0IDYuNS0zMi42MDE1NjIgMTYuNS00NS40MDIzNDMgMjkuNjAxNTYyLTEzIDEyLjgwMDc4MS0yMy4wOTc2NTcgMjguMzAwNzgxLTI5LjUgNDUuMzAwNzgxLTYuMzAwNzgxIDE2LjMwMDc4MS0xMC42OTkyMTkgMzQuODk4NDM4LTExLjg5ODQzOCA2Mi4wOTc2NTctMS4zMDA3ODEgMjcuNDAyMzQzLTEuNjAxNTYyIDM2LjEwMTU2Mi0xLjYwMTU2MiAxMDUuNjAxNTYycy4zMDA3ODEgNzguMTk5MjE5IDEuNSAxMDUuNWMxLjE5OTIxOSAyNy4xOTkyMTkgNS42MDE1NjIgNDUuODk4NDM4IDExLjkwMjM0MyA2Mi4xMDE1NjIgNi41IDE3LjE5OTIxOSAxNi41OTc2NTcgMzIuNTk3NjU3IDI5LjU5NzY1NyA0NS4zOTg0MzggMTIuODAwNzgxIDEzIDI4LjMwMDc4MSAyMy4xMDE1NjIgNDUuMzAwNzgxIDI5LjUgMTYuMzAwNzgxIDYuMzAwNzgxIDM0Ljg5ODQzOCAxMC42OTkyMTkgNjIuMTAxNTYyIDExLjg5ODQzOCAyNy4yOTY4NzYgMS4yMDMxMjQgMzYgMS41IDEwNS41IDEuNXM3OC4xOTkyMTktLjI5Njg3NiAxMDUuNS0xLjVjMjcuMTk5MjE5LTEuMTk5MjE5IDQ1Ljg5ODQzOC01LjU5NzY1NyA2Mi4wOTc2NTctMTEuODk4NDM4IDM0LjQwMjM0My0xMy4zMDA3ODEgNjEuNjAxNTYyLTQwLjUgNzQuOTAyMzQzLTc0Ljg5ODQzOCA2LjI5Njg3Ni0xNi4zMDA3ODEgMTAuNjk5MjE5LTM0LjkwMjM0MyAxMS44OTg0MzgtNjIuMTAxNTYyIDEuMTk5MjE5LTI3LjMwMDc4MSAxLjUtMzYgMS41LTEwNS41cy0uMTAxNTYyLTc4LjE5OTIxOS0xLjMwMDc4MS0xMDUuNXptLTQ2LjA5NzY1NyAyMDljLTEuMTAxNTYyIDI1LTUuMzAwNzgxIDM4LjUtOC44MDA3ODEgNDcuNS04LjYwMTU2MiAyMi4zMDA3ODEtMjYuMzAwNzgxIDQwLTQ4LjYwMTU2MiA0OC42MDE1NjItOSAzLjUtMjIuNTk3NjU3IDcuNjk5MjE5LTQ3LjUgOC43OTY4NzYtMjcgMS4yMDMxMjQtMzUuMDk3NjU3IDEuNS0xMDMuMzk4NDM4IDEuNXMtNzYuNS0uMjk2ODc2LTEwMy40MDIzNDMtMS41Yy0yNS0xLjA5NzY1Ny0zOC41LTUuMjk2ODc2LTQ3LjUtOC43OTY4NzYtMTEuMDk3NjU3LTQuMTAxNTYyLTIxLjE5OTIxOS0xMC42MDE1NjItMjkuMzk4NDM4LTE5LjEwMTU2Mi04LjUtOC4zMDA3ODEtMTUtMTguMzAwNzgxLTE5LjEwMTU2Mi0yOS4zOTg0MzgtMy41LTktNy42OTkyMTktMjIuNjAxNTYyLTguNzk2ODc2LTQ3LjUtMS4yMDMxMjQtMjctMS41LTM1LjEwMTU2Mi0xLjUtMTAzLjQwMjM0M3MuMjk2ODc2LTc2LjUgMS41LTEwMy4zOTg0MzhjMS4wOTc2NTctMjUgNS4yOTY4NzYtMzguNSA4Ljc5Njg3Ni00Ny41IDQuMTAxNTYyLTExLjEwMTU2MiAxMC42MDE1NjItMjEuMTk5MjE5IDE5LjIwMzEyNC0yOS40MDIzNDMgOC4yOTY4NzYtOC41IDE4LjI5Njg3Ni0xNSAyOS4zOTg0MzgtMTkuMDk3NjU3IDktMy41IDIyLjYwMTU2Mi03LjY5OTIxOSA0Ny41LTguODAwNzgxIDI3LTEuMTk5MjE5IDM1LjEwMTU2Mi0xLjUgMTAzLjM5ODQzOC0xLjUgNjguNDAyMzQzIDAgNzYuNS4zMDA3ODEgMTAzLjQwMjM0MyAxLjUgMjUgMS4xMDE1NjIgMzguNSA1LjMwMDc4MSA0Ny41IDguODAwNzgxIDExLjA5NzY1NyA0LjA5NzY1NyAyMS4xOTkyMTkgMTAuNTk3NjU3IDI5LjM5ODQzOCAxOS4wOTc2NTcgOC41IDguMzAwNzgxIDE1IDE4LjMwMDc4MSAxOS4xMDE1NjIgMjkuNDAyMzQzIDMuNSA5IDcuNjk5MjE5IDIyLjU5NzY1NyA4LjgwMDc4MSA0Ny41IDEuMTk5MjE5IDI3IDEuNSAzNS4wOTc2NTcgMS41IDEwMy4zOTg0MzhzLS4zMDA3ODEgNzYuMzAwNzgxLTEuNSAxMDMuMzAwNzgxem0wIDAiLz48cGF0aCBkPSJtMjU2LjQ0OTIxOSAxMjQuNWMtNzIuNTk3NjU3IDAtMTMxLjUgNTguODk4NDM4LTEzMS41IDEzMS41czU4LjkwMjM0MyAxMzEuNSAxMzEuNSAxMzEuNWM3Mi42MDE1NjIgMCAxMzEuNS01OC44OTg0MzggMTMxLjUtMTMxLjVzLTU4Ljg5ODQzOC0xMzEuNS0xMzEuNS0xMzEuNXptMCAyMTYuODAwNzgxYy00Ny4wOTc2NTcgMC04NS4zMDA3ODEtMzguMTk5MjE5LTg1LjMwMDc4MS04NS4zMDA3ODFzMzguMjAzMTI0LTg1LjMwMDc4MSA4NS4zMDA3ODEtODUuMzAwNzgxYzQ3LjEwMTU2MiAwIDg1LjMwMDc4MSAzOC4xOTkyMTkgODUuMzAwNzgxIDg1LjMwMDc4MXMtMzguMTk5MjE5IDg1LjMwMDc4MS04NS4zMDA3ODEgODUuMzAwNzgxem0wIDAiLz48cGF0aCBkPSJtNDIzLjg1MTU2MiAxMTkuMzAwNzgxYzAgMTYuOTUzMTI1LTEzLjc0NjA5MyAzMC42OTkyMTktMzAuNzAzMTI0IDMwLjY5OTIxOS0xNi45NTMxMjYgMC0zMC42OTkyMTktMTMuNzQ2MDk0LTMwLjY5OTIxOS0zMC42OTkyMTkgMC0xNi45NTcwMzEgMTMuNzQ2MDkzLTMwLjY5OTIxOSAzMC42OTkyMTktMzAuNjk5MjE5IDE2Ljk1NzAzMSAwIDMwLjcwMzEyNCAxMy43NDIxODggMzAuNzAzMTI0IDMwLjY5OTIxOXptMCAwIi8+PC9zdmc+" /> -->
-		                    </a>
-		                    <a href="#" targt="_blank" class="footer__soc-link">
-		                        <!-- youtube -->
-		                        <!-- <img alt="youtube" src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMXB0IiB2aWV3Qm94PSIwIC03MSA1MTEuOTk5MTIgNTExIiB3aWR0aD0iNTExcHQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTI1NS45ODA0NjkgMzcwLjQ5MjE4OGMtLjA0Mjk2OSAwLS4wODk4NDQgMC0uMTM2NzE5IDAtMTUuNDQ5MjE5LS4xMDU0NjktMTUyLjAyNzM0NC0xLjM1MTU2My0xOTAuNzIyNjU2LTExLjgxNjQwNy0yNy4wNDI5NjktNy4yNjk1MzEtNDguMzkwNjI1LTI4LjU5Mzc1LTU1LjY3OTY4OC01NS42NDA2MjUtMTAuMTI1LTM4LjAxMTcxOC05LjQ4MDQ2ODUtMTExLjE5NTMxMi05LjQxMDE1Ni0xMTcuMDM5MDYyLS4wNjY0MDYyLTUuODE2NDA2LS43MTg3NS03OS42MDU0NjkgOS4zNzg5MDYtMTE3LjkyOTY4OC4wMTE3MTktLjAzNTE1Ni4wMTk1MzItLjA3NDIxOC4wMzEyNS0uMTA5Mzc1IDcuMjA3MDMyLTI2LjczODI4MSAyOS4wMzUxNTYtNDguNzIyNjU2IDU1LjYxMzI4Mi01Ni4wMTE3MTkuMDY2NDA2LS4wMTk1MzEuMTM2NzE4LS4wMzUxNTYuMjAzMTI0LS4wNTQ2ODcgMzguMjU3ODEzLTEwLjA1NDY4NyAxNzUuMTA1NDY5LTExLjI4NTE1NiAxOTAuNTg1OTM4LTExLjM5MDYyNWguMjc3MzQ0YzE1LjQ4ODI4MS4xMDU0NjkgMTUyLjQyOTY4NyAxLjM1MTU2MiAxOTAuNzY5NTMxIDExLjgzMjAzMSAyNi45NzI2NTYgNy4yNSA0OC4zMDQ2ODcgMjguNTQ2ODc1IDU1LjYxMzI4MSA1NS41NTg1OTQgMTAuNTAzOTA2IDM4LjM1MTU2MyA5LjUzMTI1IDExMi4zMDA3ODEgOS40MjU3ODIgMTE4LjU0Mjk2OS4wNzQyMTggNi4xNDg0MzcuNjg3NSA3OC42NzU3ODEtOS4zNzg5MDcgMTE2Ljg3ODkwNi0uMDA3ODEyLjAzOTA2Mi0uMDE5NTMxLjA3NDIxOS0uMDI3MzQzLjEwOTM3NS03LjI5Mjk2OSAyNy4wNDY4NzUtMjguNjM2NzE5IDQ4LjM3MTA5NC01NS43MTA5MzggNTUuNjQ4NDM3LS4wMzUxNTYuMDExNzE5LS4wNzQyMTkuMDE5NTMyLS4xMDkzNzUuMDMxMjUtMzguMjUzOTA2IDEwLjA1MDc4Mi0xNzUuMTA1NDY5IDExLjI4MTI1LTE5MC41ODIwMzEgMTEuMzkwNjI2LS4wNDY4NzUgMC0uMDkzNzUgMC0uMTQwNjI1IDB6bS0yMDcuOTA2MjUtMjkyLjE2Nzk2OWMtOC44OTA2MjUgMzMuODI4MTI1LTguMDUwNzgxIDEwNi42NzU3ODEtOC4wNDI5NjkgMTA3LjQxMDE1NnYuNTI3MzQ0Yy0uMjY1NjI1IDIwLjIwMzEyNS42Njc5NjkgNzguNzEwOTM3IDguMDQ2ODc1IDEwNi40MjE4NzUgMy41NzgxMjUgMTMuMjY5NTMxIDE0LjEwNTQ2OSAyMy43ODEyNSAyNy40NTcwMzEgMjcuMzcxMDk0IDI4LjU1MDc4MiA3LjcyMjY1NiAxMzkuNzg5MDYzIDEwLjE1MjM0MyAxODAuNDQ1MzEzIDEwLjQzNzUgNDAuNzYxNzE5LS4yODUxNTcgMTUyLjE2NDA2Mi0yLjY0ODQzOCAxODAuNTAzOTA2LTEwLjA2MjUgMTMuMzA4NTk0LTMuNjAxNTYzIDIzLjgwMDc4MS0xNC4wNzgxMjYgMjcuNDAyMzQ0LTI3LjM2MzI4MiA3LjM4NjcxOS0yOC4xMTcxODcgOC4zMTI1LTg2LjMzOTg0NCA4LjA0Mjk2OS0xMDYuNDE0MDYyIDAtLjIxMDkzOCAwLS40MjE4NzUuMDAzOTA2LS42MzI4MTMuMzY3MTg3LTIwLjQ0NTMxMi0uMzU1NDY5LTc5LjYzNjcxOS04LjAxMTcxOS0xMDcuNTcwMzEyLS4wMDc4MTMtLjAyNzM0NC0uMDE1NjI1LS4wNTQ2ODgtLjAxOTUzMS0uMDgyMDMxLTMuNTkzNzUtMTMuMzI4MTI2LTE0LjEyNS0yMy44Mzk4NDQtMjcuNDc2NTYzLTI3LjQyOTY4OC0yOC4yNzM0MzctNy43MzA0NjktMTM5LjY5MTQwNi0xMC4xNTIzNDQtMTgwLjQ0NTMxMi0xMC40Mzc1LTQwLjczNDM3NS4yODUxNTYtMTUyLjAyNzM0NCAyLjY0NDUzMS0xODAuNDUzMTI1IDEwLjA1MDc4MS0xMy4wOTc2NTYgMy42MzI4MTMtMjMuODYzMjgyIDE0LjUxOTUzMS0yNy40NTMxMjUgMjcuNzczNDM4em00MzUuMTM2NzE5IDIxOS44OTQ1MzFoLjAxMTcxOHptLTI3OC4yMTA5MzgtMzEuNzI2NTYydi0xNjEuOTk2MDk0bDE0MCA4MXptMCAwIi8+PC9zdmc+" /> -->
-		                        <svg height="682pt" viewBox="-21 -117 682.66672 682" width="682pt"
-		                            xmlns="http://www.w3.org/2000/svg">
-		                            <path
-		                                d="m626.8125 64.035156c-7.375-27.417968-28.992188-49.03125-56.40625-56.414062-50.082031-13.703125-250.414062-13.703125-250.414062-13.703125s-200.324219 0-250.40625 13.183593c-26.886719 7.375-49.03125 29.519532-56.40625 56.933594-13.179688 50.078125-13.179688 153.933594-13.179688 153.933594s0 104.378906 13.179688 153.933594c7.382812 27.414062 28.992187 49.027344 56.410156 56.410156 50.605468 13.707031 250.410156 13.707031 250.410156 13.707031s200.324219 0 250.40625-13.183593c27.417969-7.378907 49.03125-28.992188 56.414062-56.40625 13.175782-50.082032 13.175782-153.933594 13.175782-153.933594s.527344-104.382813-13.183594-154.460938zm-370.601562 249.878906v-191.890624l166.585937 95.945312zm0 0" />
-		                        </svg>
-		
-		                    </a>
-		                </nav>
-		                <a href="tel:+380965636858" class="footer__link-tel">+38 (096) 563-68-58</a>
-		                <a href="mailto:nezabudu.team@gmail.com" class="footer__link-mail">nezabudu.team@gmail.com</a>
-		            </div>
-		            <div class="footer__docs">
-		                <h6 class="footer__title">Документы</h6>
-		                <a href="privacy.html" target="_blank" class="footer__doc-link">Политика конфиденциальности</a>
-		                <a href="terms.html" target="_blank" class="footer__doc-link">Пользовательское соглашение</a>
-		                <a href="#" class="footer__doc-link">Этика заполения анкет</a>
-		            </div>
-		        </div>
-		        <div class="footer__copy">
-		            <p class="footer__copy-text">Copyright © 2021 Незабуду. Все права защищены.</p>
-		        </div>
-		    </div>
-		</footer>
 		<div class="add-story">
 		    <form class="add-story__wrap">
 		        <div class="wrapper">
@@ -1182,9 +1320,11 @@
 		                <option value="Семья">Семья</option>
 		                <option value="Традиции">Традиции</option>
 		                <option value="Деятельность">Деятельность</option>
-		                <option value="Увлечениsя">Увлечения</option>
+		                <option value="Увлечения">Увлечения</option>
 		                <option value="Путешествия">Путешествия</option>
+		                <option value="Учеба/Друзья">Учеба/Друзья</option>
 		                <option value="Наследие">Наследие</option>
+		                <option value="Веселые истории">Веселые истории</option>
 		            </select>
 		
 		            <div class="user__inp-wrap">
@@ -1204,6 +1344,18 @@
 		                    <img src="./img/default-foto.png" alt="add">
 		                </span>
 		            </div>
+		        </div>
+		    </form>
+		</div>
+		<div class="edit-story-descr">
+		    <form class="add-story__wrap">
+		        <div class="wrapper">
+		            <div class="add-story__header">
+		                <span class="add-story__header-btn" id="edit-cancel">Отменить</span>
+		                <button class="add-story__header-btn add" id="story-add" type="submit">Готово</button>
+		            </div>
+		            <textarea class="add-story__input" name="text" id="memory_text" cols="30" rows="10" maxlength="300"
+		                placeholder="Добавьте описание периода жизни"></textarea>
 		        </div>
 		    </form>
 		</div>

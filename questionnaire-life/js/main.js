@@ -10681,13 +10681,16 @@ async function loaddLiveFull(dataToLoad, outHtml) {
 	if (dataToLoad != []) {
 		for (var i = 0; i < dataToLoad.length; i++) {
 			if (dataToLoad[i].event_img != null) {
-				outAll += `<div class="story__content"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
+				var dateLoad = dataToLoad[i].event_date;
+				dateLoad = dateLoad.split('-').reverse().join('-');
+				outAll += `<div class="story__content"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
 				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
 			} else {
 				outAll += `<div class="story__content"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
 			}
 		}
 		outHtml.append(outAll);
+		initLoadMore();
 	}
 };
 
@@ -10698,11 +10701,23 @@ async function loadLive(dataToRender, outHtml, linkToSection) {
 		for (var k = 0; k < dataToRender.length; k++) {
 			out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img src="${dataToRender[k].event_img}" alt="photo" class="brief__photo" loading="lazy"></a>`;
 		}
-		outHtml.append(out);
+		outHtml.prepend(out);
 	};
 };
 
+//collects events******************************
+var arrData = [];
+function collectArr($data) {
+	var arrData1 = $data.timelines.block1;
+	var arrData2 = $data.timelines.block2;
+	var arrData3 = $data.timelines.block3;
+	var arrData4 = $data.timelines.block4;
+	var arrData5 = $data.timelines.block5;
+	arrData = arrData1.concat(arrData2, arrData3, arrData4, arrData5);
+};
 
+//global data for tabs*************
+var allData = [];
 //Load brief user info******************************************
 function loadQuestionnaries() {
 	var avaProfile = $('.brief__icon'),
@@ -10746,6 +10761,7 @@ function loadQuestionnaries() {
 		})
 		.then(response => response.json())
 		.then(data => {
+			allData = data;
 			//console.log('Data:', JSON.stringify(data));
 			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 				avaProfile.attr('src', data.profile.avatar);
@@ -10812,18 +10828,49 @@ function loadQuestionnaries() {
 			loaddLiveFull(data.timelines.block5, liveFull5);
 
 			initLoadMore();
+			collectArr(allData);
+			renderEvents();
 		})
 		.catch(error => console.error('error1:', error));
 };
 
+//show form edit profile****************************
+$('.editOLdData').click(function () {
+	$('#editOldData').css('display', 'block');
+	$('.life').css('opacity', '0.1');
+	$('body').css('background', 'rgba(0,0,0, .9)').css('z-index', '-1');
+	$('.header').css('opacity', '0');
+	$('.brief__context').removeClass('active');
+});
+
+//show-hide context menu****************************
+$('.brief__edit').click(function () {
+	$('.brief__context').addClass('active');
+	function hideBlock(e) {
+		if ($(e.target).closest('.brief__context').length) {
+			return;
+		} else {
+			$('.brief__context').removeClass('active');
+		}
+	}
+	setTimeout(() => {
+		$(document).on('click', function (e) {
+			hideBlock(e);
+			$(document).off('click', hideBlock(e));
+		});
+
+	}, 0);
+});
+
+
+
+//add event to candle and bookmark***************
 setTimeout(function () {
-	//Show candle fire*************************************
+	//Show candle fire
 	$('#candle').click(function () {
 		$('#candleFire').toggleClass('active');
 	});
-
-
-	//change icon bookmark when click*********
+	//change icon bookmark when click
 	$('#bookmark').click(function () {
 		if ($(this).hasClass('active')) {
 			$(this).toggleClass('active');
@@ -10831,25 +10878,23 @@ setTimeout(function () {
 		} else {
 			$(this).attr('src', './img/bookmark-black.svg');
 			$(this).toggleClass('active');
-
 		}
 	});
-
 	//show text more description*******************************
 	$('.brief__descr').click(function () {
 		$(this).toggleClass('active');
 	});
-
-
-
-
 }, 0);
 
 //load more timeline******************************************
 function initLoadMore() {
-	$('.more').click(function (e) {
-		$(this).prev().toggleClass('active');
-	});
+	// $('.more').forEach(function (element, g) {
+	// 	element.click(function (e) {
+	// 		var targets = e.target;
+	// 		console.log(targets);
+
+	// 	})
+	// });
 };
 
 
@@ -10989,7 +11034,7 @@ registration.click(function (e) {
 					console.log("success get token");
 					setCookie(cookie_name_token, json.token, 3600);
 					cookie_token = getCookie(cookie_name_token);
-					$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+					//$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
 					clearInput();
 					$('.reg__btn-enter').addClass('active').click();
 				} else {
@@ -11200,6 +11245,24 @@ $('.burger__bg-body').click(function (e) {
 	}
 });
 
+//hive nav on scroll*******************
+var navbar = document.querySelector('.header');
+var hightlight = document.querySelector('.profile__menu--mob');
+//console.log(hightlight);
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+	var currentScrollPos = window.pageYOffset;
+	if (prevScrollpos > currentScrollPos) {
+		console.log(currentScrollPos);
+		navbar.style.top = "0";
+		hightlight.style.top = "50px";
+	} else {
+		navbar.style.top = "-57px";
+		hightlight.style.top = "0";
+	}
+	prevScrollpos = currentScrollPos;
+};
+
 
 
 
@@ -11222,6 +11285,9 @@ $('.enter').click(function () {
 	$('body').addClass('no-scroll');
 })
 
+
+
+//select lang*****************************
 $('#lang').each(function () {
 	var $this = $(this), numberOfOptions = $(this).children('option').length;
 
@@ -11267,6 +11333,7 @@ $('#lang').each(function () {
 	});
 
 });
+//select category***************************
 $('#category').each(function () {
 	var $this = $(this), numberOfOptions = $(this).children('option').length;
 
@@ -11312,6 +11379,62 @@ $('#category').each(function () {
 	});
 
 });
+
+
+//select category***************************
+$('.die__select').each(function () {
+	var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+	$this.addClass('select-hidden');
+	$this.wrap('<div class="select"></div>');
+	$this.after('<div class="select-styled"></div>');
+
+	var $styledSelect = $this.next('div.select-styled');
+	$styledSelect.text($this.children('option').eq(0).text());
+
+	var $list = $('<ul />', {
+		'class': 'select-options'
+	}).insertAfter($styledSelect);
+
+	for (var i = 0; i < numberOfOptions; i++) {
+		$('<li />', {
+			text: $this.children('option').eq(i).text(),
+			rel: $this.children('option').eq(i).val()
+		}).appendTo($list);
+	}
+
+	var $listItems = $list.children('li');
+
+	$styledSelect.click(function (e) {
+		e.stopPropagation();
+		$('div.select-styled.select-active').not(this).each(function () {
+			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+		});
+		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '186px');
+	});
+
+	$listItems.click(function (e) {
+		e.stopPropagation();
+		$styledSelect.text($(this).text()).removeClass('select-active');
+		$this.val($(this).attr('rel'));
+		$list.hide();
+		//console.log($this.val());
+	});
+
+	$(document).click(function () {
+		$styledSelect.removeClass('select-active');
+		$list.hide();
+	});
+
+});
+
+//close edit form*******************************
+$('.about__close').click(function () {
+	$('#editOldData').hide();
+	$('.life').css('opacity', '1');
+	$('body').css('background', 'none').css('z-index', '0');
+	$('.header').css('opacity', '1');
+})
 
 
 
@@ -11366,50 +11489,129 @@ $('.about__show-item').click(function (event) {
 
 
 
+function renderEvents() {
+	//filter events****************************************
+	function filterEvent(events, event1, event2, event3, event4, event5, event6, event7, event8) {
+		for (var x = 0; x < events.length; x++) {
+			var typeEvent = events[x].event_type;
+			switch (typeEvent) {
+				case 'Семья':
+					event1.push(events[x]);
+					break;
+				case 'Традиции':
+					event2.push(events[x]);
+					break;
+				case 'Деятельность':
+					event3.push(events[x]);
+					break;
+				case 'Увлечения':
+					event4.push(events[x]);
+					break;
+				case 'Путешествия':
+					event5.push(events[x]);
+					break;
+				case 'Учеба/Друзья':
+					event6.push(events[x]);
+					break;
+				case 'Наследие':
+					event7.push(events[x]);
+					break;
+				case 'Веселые истории':
+					event8.push(events[x]);
+					break;
+			}
+		};
+	};
+
+	//show questionnarie item menu(tabs)*******************
+	var event_1 = [],
+		event_2 = [],
+		event_3 = [],
+		event_4 = [],
+		event_5 = [],
+		event_6 = [],
+		event_7 = [],
+		event_8 = [];
+	var liveEventFamily = $('#family');
+	var liveEventHoliday = $('#holiday');
+	var liveEventWorks = $('#works');
+	var liveEventInterest = $('#interest');
+	var liveEventTravel = $('#travel');
+	var liveEventFriends = $('#friends');
+	var liveEventHeritage = $('#heritage');
+	var liveEventHistory = $('#happy-history');
+	filterEvent(arrData, event_1, event_2, event_3, event_4, event_5, event_6, event_7, event_8);
+	loaddLiveFull(event_1, liveEventFamily);
+	loaddLiveFull(event_2, liveEventHoliday);
+	loaddLiveFull(event_3, liveEventWorks);
+	loaddLiveFull(event_4, liveEventInterest);
+	loaddLiveFull(event_5, liveEventTravel);
+	loaddLiveFull(event_6, liveEventFriends);
+	loaddLiveFull(event_7, liveEventHeritage);
+	loaddLiveFull(event_8, liveEventHistory);
+};
 
 
-//show questionnarie item menu(tabs)*******************
 $('.data__tab').not(':first').hide();
-$('.menu__item').click(function () {
+$('.menu__item').click(function (e) {
+	e.preventDefault();
 	if ($(window).width() < 935) {
 		$('.profile__about').hide();
 	}
 	$(this).addClass('active-items').siblings().removeClass('active-items');
 	$('.data__tab').hide().eq($(this).index()).fadeIn();
-	fetch(`${api_url}show_timeline?profile_id=${currentProfile}`,
-		{
-			method: 'GET',
-			headers: {
-				'Authorization': 'Token token=' + cookie_token,
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			//console.log('Data:', JSON.stringify(data));
+	window.location.href = `#${currentProfile}`;
+	// fetch(`${api_url}show_timeline?profile_id=${currentProfile}`,
+	// 	{
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'Authorization': 'Token token=' + cookie_token,
+	// 			'Content-Type': 'application/json'
+	// 		}
+	// 	})
+	// 	.then(response => response.json())
+	// 	.then(data => {
+	// 		//console.log('Data:', JSON.stringify(data));
 
-		})
-		.catch(error => console.error('error1:', error));
+	// 	})
+	// 	.catch(error => console.error('error1:', error));
 	// $('.data__form-text').focus();
 	if ($(this).index() == 0) {
 		$('.profile__about').show();
-	}
+	};
 
 });
+
+
+$('.tab__form-title').each(function () {
+	$(this).on('click', function () {
+		$(this).siblings().toggleClass('active');
+		$(this).toggleClass('active');
+		if ($(this).next('.tab__form').hasClass('active')) {
+			$(this).next('.tab__form').slideUp();
+		} else {
+			$(this).next('.tab__form').slideDown();
+
+		};
+	});
+})
+
+
+
 
 //show-hide live story*******************************
 function clickToLive(target) {
 	target.click(function () {
 		$('.brief').fadeOut(0);
 		$('.story__back').show();
-		$('.story').fadeIn(1500);
+		$('.story').fadeIn(500);
 	});
 };
 $('.story__back').click(function () {
 	$('.story').fadeOut(0);
 	$('.story__back').hide();
 	$('body,html').scrollTop(0);
-	$('.brief').fadeIn(900);
+	$('.brief').fadeIn(500);
 	window.location.href = `#${currentProfile}`;
 });
 
@@ -11424,6 +11626,19 @@ $('#story-cancel').click(function (e) {
 $('.default-add').click(function () {
 	$('.add-story').show().css('display', 'flex');
 	$('body').css('overflow', 'hidden');
+});
+
+
+//edit popup edit descr*************************
+$('.brief__descr-edit').click(function () {
+	$('.edit-story-descr').show().css('display', 'flex');
+	$('body').css('overflow', 'hidden');
+});
+//story popup close*********************************
+$('#edit-cancel').click(function (e) {
+	e.preventDefault();
+	$('.edit-story-descr').hide();
+	$('body').css('overflow', 'visible');
 });
 
 
@@ -11442,7 +11657,7 @@ function hideAddfoto() {
 
 $('#story_foto').change(function (e) {
 	var input = e.target;
-	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete">&#x274C;</span></div>');
+	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-gray.png"></span></div>');
 	var reader = new FileReader();
 	reader.onload = function () {
 		var dataURL = reader.result;
