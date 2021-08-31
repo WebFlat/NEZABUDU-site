@@ -11246,22 +11246,55 @@ $('.burger__bg-body').click(function (e) {
 });
 
 //hive nav on scroll*******************
-var navbar = document.querySelector('.header');
-var hightlight = document.querySelector('.profile__menu--mob');
-//console.log(hightlight);
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function () {
-	var currentScrollPos = window.pageYOffset;
-	if (prevScrollpos > currentScrollPos) {
-		console.log(currentScrollPos);
-		navbar.style.top = "0";
-		hightlight.style.top = "50px";
-	} else {
-		navbar.style.top = "-57px";
-		hightlight.style.top = "0";
+var navbar = $('.header');
+var hightlight = $('.profile__menu--mob');
+var backStory = $('.story__back');
+var storyTitle = $('.story__title');
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function (event) {
+	didScroll = true;
+});
+
+setInterval(function () {
+	if (didScroll) {
+		hasScrolled();
+		didScroll = false;
 	}
-	prevScrollpos = currentScrollPos;
-};
+}, 250);
+
+function hasScrolled() {
+	var st = $(this).scrollTop();
+
+	// Make sure they scroll more than delta
+	if (Math.abs(lastScrollTop - st) <= delta)
+		return;
+
+	// If they scrolled down and are past the navbar, add class .nav-up.
+	// This is necessary so you never see what is "behind" the navbar.
+	if (st > lastScrollTop && st > navbarHeight) {
+		// Scroll Down
+		navbar.css('top', '-100%');
+		hightlight.css('top', '0');
+		backStory.css('top', '94px');
+		storyTitle.css('top', '105px');
+	} else {
+		// Scroll Up
+		if (st + $(window).height() < $(document).height()) {
+			navbar.css('top', '0');
+			hightlight.css('top', '50px');
+			backStory.css('top', '135px');
+			storyTitle.css('top', '138px');
+		}
+	}
+
+	lastScrollTop = st;
+}
+
 
 
 
@@ -11657,7 +11690,7 @@ function hideAddfoto() {
 
 $('#story_foto').change(function (e) {
 	var input = e.target;
-	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-gray.png"></span></div>');
+	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-with-white.png"></span></div>');
 	var reader = new FileReader();
 	reader.onload = function () {
 		var dataURL = reader.result;
