@@ -10614,6 +10614,19 @@ var cookie_token = getCookie(cookie_name_token);
 
 var currentProfile = window.location.hash;
 currentProfile = currentProfile.substring(1);
+var currentUser = '';
+
+
+
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+	$('#error-message').addClass('show');
+	$('.success').text(textToShow);
+	setTimeout(() => {
+		$('#error-message').removeClass('show');
+	}, time);
+};
+
 
 
 //if Register user*********************************
@@ -10720,7 +10733,7 @@ function collectArr($data) {
 var allData = [];
 //Load brief user info******************************************
 function loadQuestionnaries() {
-	var avaProfile = $('.brief__icon'),
+	let avaProfile = $('.brief__icon'),
 		birthProfile = $('.brief__both'),
 		dieProfile = $('.brief__die'),
 		ageProfile = $('#user-old'),
@@ -10731,7 +10744,7 @@ function loadQuestionnaries() {
 		timelinebirthProfile = $('.data-birth'),
 		timelinedieProfile = $('.data-die'),
 		cause = $('#cause'),
-		cemetery = $('#cemetery'),
+		cemeteryName = $('#cemetery_name'),
 		sector = $('#sector'),
 		square = $('#square'),
 		row = $('#row'),
@@ -10763,6 +10776,7 @@ function loadQuestionnaries() {
 		.then(data => {
 			allData = data;
 			//console.log('Data:', JSON.stringify(data));
+			currentUser = data.profile.user_id;
 			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 				avaProfile.attr('src', data.profile.avatar);
 			}
@@ -10778,7 +10792,7 @@ function loadQuestionnaries() {
 			surmaneProfile.text(data.profile.family_name);
 			patronimycProfile.text(data.profile.last_name);
 			if (data.profile.cementry_name) {
-				cemetery.text(data.profile.cementry_name);
+				cemeteryName.text(data.profile.cementry_name);
 			}
 			if (data.profile.cementry_square) {
 				square.text(data.profile.cementry_square);
@@ -10834,14 +10848,200 @@ function loadQuestionnaries() {
 		.catch(error => console.error('error1:', error));
 };
 
+
+//User input first screen**********************************
+var status_prof = '';
+$('.about__check').on('change', function () {
+	status_prof = $(this).attr('data-status');
+});
 //show form edit profile****************************
 $('.editOLdData').click(function () {
+	let whois = $('#whois');
+	let userName = $('.user__name');
+	let userSurname = $('.user__surname');
+	let userPatronymic = $('.user__patronymic');
+	let userGirlName = $('.user__surname-girl');
+	let ava = $('#output');
+	let both = $('.user__both');
+	let die = $('.user__die');
+	let cityBoth = $('.user__both-loc');
+	let cityDie = $('.user__die-loc');
+	let info = $('#area-lives');
+	let cityCemetery = $('#city');
+	let cemetery = $('#cemetery');
+	let sector = $('#cementry_sector');
+	let square = $('#cementry_square');
+	let row = $('#cementry_row');
+	let place = $('#cementry_place');
+	let lon = $('#grave_lon');
+	let lat = $('#grave_lat');
+	let cause = $('#die-select');
+	cause.val(allData.profile.death_cause);
 	$('#editOldData').css('display', 'block');
 	$('.life').css('opacity', '0.1');
 	$('body').css('background', 'rgba(0,0,0, .9)').css('z-index', '-1');
 	$('.header').css('opacity', '0');
 	$('.brief__context').removeClass('active');
+	console.log(allData.profile);
+	if (allData.profile.who_for_profile != '') {
+		whois.val(allData.profile.who_for_profile);
+	};
+	if (allData.profile.avatar != '') {
+		ava.attr('src', allData.profile.avatar);
+	};
+	if (allData.profile.profile_type == 'open') {
+		$('#open').click();
+	} else {
+		$('#close').click();
+	};
+	if (allData.profile.last_name != null) {
+		userSurname.val(allData.profile.last_name);
+	}
+	if (allData.profile.first_name != null) {
+		userName.val(allData.profile.first_name);
+	}
+	if (allData.profile.patronymic != null) {
+		userPatronymic.val(allData.profile.patronymic);
+	}
+	if (allData.profile.maiden_name != null) {
+		userGirlName.val(allData.profile.maiden_name);
+	};
+	both.val(allData.profile.birth_date.split('-').reverse().join('-'));
+	die.val(allData.profile.death_date.split('-').reverse().join('-'));
+	if (allData.profile.birth_city != null) {
+		cityBoth.val(allData.profile.birth_city);
+	};
+	if (allData.profile.death_city != null) {
+		cityDie.val(allData.profile.death_city);
+	};
+	if (allData.profile.short_story != null) {
+		info.val(allData.profile.short_story);
+	};
+	if (allData.profile.cementry_city != null) {
+		cityCemetery.val(allData.profile.cementry_city);
+	};
+	if (allData.profile.cementry_name != null) {
+		cemetery.val(allData.profile.cementry_name);
+	};
+	if (allData.profile.cementry_sector != null) {
+		sector.val(allData.profile.cementry_sector);
+	};
+	if (allData.profile.cementry_square != null) {
+		square.val(allData.profile.cementry_square);
+	};
+	if (allData.profile.cementry_row != null) {
+		row.val(allData.profile.cementry_row);
+	};
+	if (allData.profile.cementry_place != null) {
+		place.val(allData.profile.cementry_place);
+	};
+	if (allData.profile.grave_lon != null) {
+		lon.val(allData.profile.grave_lon);
+	};
+	if (allData.profile.grave_lat != null) {
+		lat.val(allData.profile.grave_lat);
+	};
+	if (allData.profile.death_cause != null) {
+		$('#die-select-val').text(allData.profile.death_cause);
+	};
+
+
+	//Edit data to input from calendar******************
+	$('#user-both').change(function () {
+		var dataBoth = $('#user-both').val();
+		dataBoth = dataBoth.split('-').reverse().join('-');
+		$('.user__both').val(dataBoth);
+	});
+	$('#user-die').change(function () {
+		var dataDie = $('#user-die').val();
+		dataDie = dataDie.split('-').reverse().join('-');
+		$('.user__die').val(dataDie);
+	});
+
+	//Edit avatar*************************************
+	$('.about__upload-inpt--ava').change(function (e) {
+		var input = e.target;
+
+		var reader = new FileReader();
+		reader.onload = function () {
+			var dataURL = reader.result;
+			var output = $('#output');
+			output.attr('src', dataURL);
+		};
+		reader.readAsDataURL(input.files[0]);
+	});
+	//force click upload avatar*********************
+	$('.about__img-wrap').click(function () {
+		$('#fileFotoAvatar').click();
+	});
+
+
+	//send first request**************************
+	$('#sendEditRequest').click(function (e) {
+		e.preventDefault();
+		var edit_data = {
+			who_for_profile: whois.val(),
+			avatar: ava.attr('src'),
+			first_name: userSurname.val(),
+			last_name: userName.val(),
+			family_name: userPatronymic.val(),
+			surname_girl: userGirlName.val(),
+			birth_date: both.val(),
+			death_date: die.val(),
+			birth_city: cityBoth.val(),
+			death_city: cityDie.val(),
+			short_story: info.val(),
+			cementry_city: cityCemetery.val(),
+			cementry_name: cemetery.val(),
+			cementry_sector: sector.val(),
+			cementry_square: square.val(),
+			cementry_row: row.val(),
+			cementry_place: place.val(),
+			grave_lon: lon.val(),
+			grave_lat: lat.val(),
+			death_cause: cause.val(),
+			profile_type: status_prof,
+			profile_id: currentProfile
+		};
+		console.log(edit_data);
+		fetch(
+			`${api_url}update_profile`,
+			{
+				method: 'POST',
+				body: JSON.stringify(edit_data),
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then($('body').css('opacity', 0.5))
+			.then(response => response.json())
+			.then(data => {
+
+				if (data) {
+					$('body').css('opacity', 1);
+					console.log("success send");
+					console.log('Data:', JSON.stringify(data));
+					showErrorSuccess(data.status, 300);
+					window.location.reload();
+				} else {
+					showErrorSuccess('Ошибка сохранения', 300);
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				showErrorSuccess('Ошибка соединения', 300);
+			});
+	});
+
 });
+
+
+
+
+
+
 
 //show-hide context menu****************************
 $('.brief__edit').click(function () {
@@ -10863,12 +11063,68 @@ $('.brief__edit').click(function () {
 });
 
 
+//show delete profile popup*****************************
+$('#delete-profile').click(function () {
+	$('body').addClass('no-scroll');
+	$('.form-del-profile').css('display', 'flex');
+	$('.context').removeClass('active');
+});
+//close delete profile popup**************************
+$('#del-cancel').click(function () {
+	$('body').removeClass('no-scroll');
+	$('.form-del-profile').css('display', 'none');
+});
+
+//request to delete profiel**************************
+$('#del-confirm').click(function () {
+	var del_data = {
+		id: currentProfile,
+		user_id: currentUser
+	};
+	console.log(del_data);
+	fetch(
+		`${api_url}destroy_user_profile`,
+		{
+			method: 'DELETE',
+			body: JSON.stringify(del_data),
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/json'
+			}
+		})
+		.then($('body').css('opacity', 0.5))
+		.then(response => response.json())
+		.then(data => {
+
+			if (data) {
+				$('body').css('opacity', 1);
+				console.log("success send");
+				console.log('Data:', JSON.stringify(data));
+				showErrorSuccess(data.status, 300);
+				window.location.reload();
+			} else {
+				$('body').css('opacity', 1);
+				showErrorSuccess('Ошибка сохранения', 300);
+				window.location.reload();
+			}
+
+		})
+		.catch(error => {
+			$('body').css('opacity', 1);
+			console.log('error:', error);
+			showErrorSuccess('Ошибка соединения', 3000);
+			window.location.reload();
+		});
+})
+
+
+
 
 //add event to candle and bookmark***************
 setTimeout(function () {
 	//Show candle fire
 	$('#candle').click(function () {
-		$('#candleFire').toggleClass('active');
+		$('#candle').toggleClass('active');
 	});
 	//change icon bookmark when click
 	$('#bookmark').click(function () {
@@ -10928,7 +11184,8 @@ function validateMail() {
 	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var regEmail = $('#reg-email').val();
 	if (reg.test(regEmail) == false || regEmail == '') {
-		$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Введите корректный e-mail', 300);
+
 		return false;
 	} else {
 		return true;
@@ -10938,7 +11195,7 @@ function validateSurname() {
 	var reg = /^[A-zА-яЁё]+$/;
 	var surname = $('#reg-soname').val();
 	if (reg.test(surname) == false || surname == '') {
-		$('#error').text("Введите фамилию").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		showErrorSuccess('Введите фамилию', 300);
 		return false;
 	} else {
 		return true;
@@ -10948,7 +11205,7 @@ function validateName() {
 	var reg = /^[A-zА-яЁё]+$/;
 	var name = $('#reg-name').val();
 	if (reg.test(name) == false || name == '') {
-		$('#error').text("Введите имя").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		showErrorSuccess('Введите имя', 300);
 		return false;
 	} else {
 		return true;
@@ -10968,7 +11225,7 @@ function validatePatronymic() {
 	var reg = /^[A-zА-яЁё]+$/;
 	var patronymic = $('#reg-patronymic').val();
 	if (reg.test(patronymic) == false || patronymic == '') {
-		$('#error').text("Введите отчество").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+		showErrorSuccess('Введите отчество', 300);
 		return false;
 	} else {
 		return true;
@@ -10978,7 +11235,7 @@ function validateTel() {
 	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 	var tel = $('#reg-tel').val();
 	if (reg.test(tel) == false || tel == '') {
-		$('#error').text("Введите корректный телефон").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Введите корректный телефон', 300);
 		return false;
 	} else {
 		return true;
@@ -10987,7 +11244,7 @@ function validateTel() {
 function validatePass() {
 	var pass = $('#reg-password').val();
 	if (pass == '' || pass.length < 6) {
-		$('#error').text("Введите корректный пароль мин 6 символов").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Введите корректный пароль мин 6 символов', 300);
 		return false;
 	} else {
 		return true;
@@ -11038,14 +11295,14 @@ registration.click(function (e) {
 					clearInput();
 					$('.reg__btn-enter').addClass('active').click();
 				} else {
-					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(1500).fadeOut(300);
+					showErrorSuccess('Такой пользователь уже существует', 300);
 					clearInput();
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				showErrorSuccess('Ошибка соединения', 300);
 			});
 	}
 });
@@ -11059,7 +11316,7 @@ $('#authSend').click(function (e) {
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var email = $('#auth-email').val();
 		if (reg.test(email) == false || email == '') {
-			$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+			showErrorSuccess('Введите корректный e-mail', 300);
 			return false;
 		} else {
 			return true;
@@ -11067,7 +11324,7 @@ $('#authSend').click(function (e) {
 	}
 	var authPassword = $('#auth-password').val();
 	if (authPassword === '') {
-		$('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Введите пароль', 300);
 	}
 	if (validateMail() && authPassword != '') {
 		var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
@@ -11093,15 +11350,14 @@ $('#authSend').click(function (e) {
 						// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
 						window.location.href = '../cabinet-page/';
 					} else {
-						// alert("Проверьте логин и пароль");
-						$('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+						showErrorSuccess('Проверьте логин и пароль', 300);
 						clearInput();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					$('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					showErrorSuccess('Ошибка подключения', 300);
 				});
 		}
 		catch (err) {
@@ -11158,7 +11414,7 @@ var data_event = $('.story-date');
 var category_event = $('#category');
 var place_event = $('#memory_place');
 var title_event = $('#memory_title');
-var text_event = $('#memory_text');
+var text_event = $('#memory_text-add');
 
 $('#story-add').click(function (e) {
 	e.preventDefault();
@@ -11194,18 +11450,18 @@ $('#story-add').click(function (e) {
 					window.location.href = `#${currentProfile}`;
 					window.location.reload();
 				} else {
-					$('#error').text("Ошибка,попробуйте еще").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					showErrorSuccess('Ошибка,попробуйте еще', 300);
 					$('body').css('opacity', 1);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				showErrorSuccess('Ошибка соединения', 300);
 				$('body').css('opacity', 1);
 			});
 	} else {
-		$('#error').text('Заполните все поля').removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Заполните все поля', 300);
 		$('body').css('opacity', 1);
 
 	}
@@ -11265,7 +11521,7 @@ setInterval(function () {
 		hasScrolled();
 		didScroll = false;
 	}
-}, 250);
+}, 150);
 
 function hasScrolled() {
 	var st = $(this).scrollTop();
@@ -11280,7 +11536,7 @@ function hasScrolled() {
 		// Scroll Down
 		navbar.css('top', '-100%');
 		hightlight.css('top', '0');
-		backStory.css('top', '94px');
+		backStory.css('top', '84px');
 		storyTitle.css('top', '105px');
 	} else {
 		// Scroll Up
@@ -11420,7 +11676,7 @@ $('.die__select').each(function () {
 
 	$this.addClass('select-hidden');
 	$this.wrap('<div class="select"></div>');
-	$this.after('<div class="select-styled"></div>');
+	$this.after('<div class="select-styled" id="die-select-val"></div>');
 
 	var $styledSelect = $this.next('div.select-styled');
 	$styledSelect.text($this.children('option').eq(0).text());
