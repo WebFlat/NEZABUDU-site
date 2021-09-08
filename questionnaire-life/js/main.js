@@ -10780,17 +10780,17 @@ function loadQuestionnaries() {
 			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 				avaProfile.attr('src', data.profile.avatar);
 			}
-			var preBirth = (data.profile.birth_date).split('-').reverse().join('-');
-			var preDie = (data.profile.death_date).split('-').reverse().join('-');
-			var ageNum = preDie.split("-").pop() - preBirth.split("-").pop();
+			var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+			var preDie = (data.profile.death_date).split('-').reverse().join('.');
+			var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
 			birthProfile.text(preBirth);
 			timelinebirthProfile.text(preBirth);
 			dieProfile.text(preDie);
 			timelinedieProfile.text(preDie);
 			ageProfile.text(ageNum);
-			nameProfile.text(data.profile.first_name);
-			surmaneProfile.text(data.profile.family_name);
-			patronimycProfile.text(data.profile.last_name);
+			nameProfile.text(data.profile.last_name);
+			surmaneProfile.text(data.profile.last_name);
+			patronimycProfile.text(data.profile.patronymic);
 			if (data.profile.cementry_name) {
 				cemeteryName.text(data.profile.cementry_name);
 			}
@@ -10906,8 +10906,8 @@ $('.editOLdData').click(function () {
 	if (allData.profile.maiden_name != null) {
 		userGirlName.val(allData.profile.maiden_name);
 	};
-	both.val(allData.profile.birth_date.split('-').reverse().join('-'));
-	die.val(allData.profile.death_date.split('-').reverse().join('-'));
+	both.val(allData.profile.birth_date.split('-').reverse().join('.'));
+	die.val(allData.profile.death_date.split('-').reverse().join('.'));
 	if (allData.profile.birth_city != null) {
 		cityBoth.val(allData.profile.birth_city);
 	};
@@ -10949,12 +10949,12 @@ $('.editOLdData').click(function () {
 	//Edit data to input from calendar******************
 	$('#user-both').change(function () {
 		var dataBoth = $('#user-both').val();
-		dataBoth = dataBoth.split('-').reverse().join('-');
+		dataBoth = dataBoth.split('-').reverse().join('.');
 		$('.user__both').val(dataBoth);
 	});
 	$('#user-die').change(function () {
 		var dataDie = $('#user-die').val();
-		dataDie = dataDie.split('-').reverse().join('-');
+		dataDie = dataDie.split('-').reverse().join('.');
 		$('.user__die').val(dataDie);
 	});
 
@@ -10984,8 +10984,8 @@ $('.editOLdData').click(function () {
 			avatar: ava.attr('src'),
 			first_name: userSurname.val(),
 			last_name: userName.val(),
-			family_name: userPatronymic.val(),
-			surname_girl: userGirlName.val(),
+			patronymic: userPatronymic.val(),
+			maiden_name: userGirlName.val(),
 			birth_date: both.val(),
 			death_date: die.val(),
 			birth_city: cityBoth.val(),

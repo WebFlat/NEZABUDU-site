@@ -10996,47 +10996,30 @@ return jQuery;
 })(jQuery);
 
 
-
-function loadQuestionnarieMy() {
-    var myQuestionnary = $('#myItems');
-    $.getJSON('questionnarie_my.json', function (data) {
-        var outMy = '';
-        for (var key in data) {
-            if (data[key].avatar == '') {
-                data[key].avatar = "./img/user-def.png";
-            } else {
-                data[key].avatar = data[key].avatar;
-            }
-            outMy += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-        };
-        myQuestionnary.html(outMy);
-    });
-};
-loadQuestionnarieMy();
-
-var sectionCreate = $('#createItmes');
-var sectionAdded = $('#addItems');
-function loadQuestionnaries(section, users) {
-    $.getJSON('questionnaries.json', function (data) {
-        var out = '';
-        for (var key in data) {
-            if (data[key].avatar == '') {
-                data[key].avatar = "./img/user-def.png";
-                if (data[key].isLife == true) {
-                    out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-                }
-            } else {
-                out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span> - </span><span class="user__die">' + data[key].die + '</span></div><img class="user__candle" src="./img/candle.png" alt="candle"><img class="user__candle-fire" src="./img/candle-fire.png" alt="candle-fire"></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-            }
-        }
-        section.html(out);
-
-    });
-}
+var myQuestionnary = $('#myItems');
 
 
-loadQuestionnaries(sectionCreate, 'user-relative');
-loadQuestionnaries(sectionAdded, 'user-added');
+
+
+// function loadQuestionnarieMy() {
+//         var outMy = '';
+//         for (var key in data) {
+//             if (data[key].avatar == '') {
+//                 data[key].avatar = "./img/user-def.png";
+//             } else {
+//                 data[key].avatar = data[key].avatar;
+//             }
+//             outMy += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше</a></div></div></div>';
+//         };
+//         myQuestionnary.html(outMy);
+// };
+// loadQuestionnarieMy();
+
+
+
+
+//loadQuestionnaries(sectionCreate, 'user-relative');
+//loadQuestionnaries(sectionAdded, 'user-added');
 
 
 
@@ -11048,23 +11031,26 @@ function pagin() {
         var numItems = items.length;
         var perPage = 4;
 
+        if (numItems > 4) {
+            items.slice(perPage).hide();
 
-        items.slice(perPage).hide();
+            $('#pagination-container').pagination({
+                items: numItems,
+                itemsOnPage: perPage,
+                edges: 1,
+                displayedPages: 3,
+                prevText: '<',
+                nextText: '>',
+                cssStyle: 'light-theme',
+                onPageClick: function (pageNumber) {
+                    var showFrom = perPage * (pageNumber - 1);
+                    var showTo = showFrom + perPage;
+                    items.hide().slice(showFrom, showTo).show();
+                }
+            });
 
-        $('#pagination-container').pagination({
-            items: numItems,
-            itemsOnPage: perPage,
-            edges: 1,
-            displayedPages: 3,
-            prevText: '<',
-            nextText: '>',
-            cssStyle: 'light-theme',
-            onPageClick: function (pageNumber) {
-                var showFrom = perPage * (pageNumber - 1);
-                var showTo = showFrom + perPage;
-                items.hide().slice(showFrom, showTo).show();
-            }
-        });
+        }
+
     }, 1000);
 
 };
@@ -11075,23 +11061,25 @@ function pagin2() {
         var numItems = items.length;
         var perPage = 6;
 
+        if (numItems > 4) {
 
-        items.slice(perPage).hide();
+            items.slice(perPage).hide();
 
-        $('#pagination-container3').pagination({
-            items: numItems,
-            itemsOnPage: perPage,
-            edges: 1,
-            displayedPages: 3,
-            prevText: '<',
-            nextText: '>',
-            cssStyle: 'light-theme',
-            onPageClick: function (pageNumber) {
-                var showFrom = perPage * (pageNumber - 1);
-                var showTo = showFrom + perPage;
-                items.hide().slice(showFrom, showTo).show();
-            }
-        });
+            $('#pagination-container3').pagination({
+                items: numItems,
+                itemsOnPage: perPage,
+                edges: 1,
+                displayedPages: 3,
+                prevText: '<',
+                nextText: '>',
+                cssStyle: 'light-theme',
+                onPageClick: function (pageNumber) {
+                    var showFrom = perPage * (pageNumber - 1);
+                    var showTo = showFrom + perPage;
+                    items.hide().slice(showFrom, showTo).show();
+                }
+            });
+        }
     }, 100);
 
 };
@@ -11102,28 +11090,38 @@ function pagin3() {
         var numItems = items.length;
         var perPage = 4;
 
+        if (numItems > 4) {
+            items.slice(perPage).hide();
 
-        items.slice(perPage).hide();
-
-        $('#pagination-container2').pagination({
-            items: numItems,
-            itemsOnPage: perPage,
-            edges: 1,
-            displayedPages: 3,
-            prevText: '<',
-            nextText: '>',
-            cssStyle: 'light-theme',
-            onPageClick: function (pageNumber) {
-                var showFrom = perPage * (pageNumber - 1);
-                var showTo = showFrom + perPage;
-                items.hide().slice(showFrom, showTo).show();
-            }
-        });
+            $('#pagination-container2').pagination({
+                items: numItems,
+                itemsOnPage: perPage,
+                edges: 1,
+                displayedPages: 3,
+                prevText: '<',
+                nextText: '>',
+                cssStyle: 'light-theme',
+                onPageClick: function (pageNumber) {
+                    var showFrom = perPage * (pageNumber - 1);
+                    var showTo = showFrom + perPage;
+                    items.hide().slice(showFrom, showTo).show();
+                }
+            });
+        }
     }, 1000);
 
 };
 pagin();
 pagin3();
+
+
+
+
+
+
+
+
+{/* <div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>'; */ }
 
 'use strict';
 
@@ -11152,6 +11150,11 @@ var userBoth;
 var password;
 var userAvatar;
 var userId;
+var data_users;
+var sectionCreate = $('#createItmes');
+var sectionAdded = $('#addItems');
+
+
 ifLogin();
 function ifLogin() {
 	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
@@ -11184,7 +11187,9 @@ function start() {
 		.then(response => response.json())
 		.then(data => {
 			console.log('wellcome');
-			// console.log('Data:', JSON.stringify(data));
+			//console.log('Data:', JSON.stringify(data));
+			data_users = data.profiles;
+			console.log(data_users);
 			user = true;
 			userAvatar = data.user.avatar;
 			userName = data.user.first_name;
@@ -11201,6 +11206,7 @@ function start() {
 				$(currentTab).click();
 				burgerShow();
 			};
+			loadQuestionnaries(sectionCreate, 'user-added', data_users);
 		})
 		.catch(error => console.error('error1:', error));
 };
@@ -11232,6 +11238,48 @@ function getCookie(name) {
 function deleteCookie(name) {
 	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
 };
+
+
+
+
+
+
+function loadQuestionnaries(section, users, data) {
+	var out = '';
+	for (var key in data) {
+		let birth = data[key].birth_date.split('-').reverse().join('.');
+		let die = data[key].death_date.split('-').reverse().join('.');
+		if (data[key].avatar == '') {
+			data[key].avatar = "./img/user-def.png";
+		}
+		if (data[key].profile_status == true) {
+			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+		} else {
+			out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+		}
+
+	}
+	section.html(out);
+}
+
+
+//loadQuestionnaries(sectionCreate, 'user-relative');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Comfirm fields input*******************************
 // function validateMail() {
@@ -11343,7 +11391,7 @@ $('.settings__save').click(function (e) {
 			password: passToSend
 		};
 	};
-	console.log(data);
+	//console.log(data);
 	if (validateTel() && validatePass()) {
 		fetch(
 			`${api_url}user_update`,
