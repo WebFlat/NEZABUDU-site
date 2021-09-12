@@ -10613,8 +10613,8 @@ var cookie_name_token = "project_token";
 var cookie_token = getCookie(cookie_name_token);
 
 var currentProfile = window.location.hash;
-currentProfile = currentProfile.substring(1);
-var currentUser = '';
+currentProfile = +currentProfile.substring(1);
+var currentUser;
 
 
 
@@ -10659,7 +10659,7 @@ function start() {
 		.then(response => response.json())
 		.then(data => {
 			console.log('wellcome');
-			// console.log('Data:', JSON.stringify(data));
+			//console.log('Data:', JSON.stringify(data));
 			user = true;
 			userAvatar = data.user.avatar;
 			confirmUser();
@@ -10703,7 +10703,6 @@ async function loaddLiveFull(dataToLoad, outHtml) {
 			}
 		}
 		outHtml.append(outAll);
-		initLoadMore();
 	}
 };
 
@@ -10841,9 +10840,9 @@ function loadQuestionnaries() {
 			loaddLiveFull(data.timelines.block4, liveFull4);
 			loaddLiveFull(data.timelines.block5, liveFull5);
 
-			initLoadMore();
 			collectArr(allData);
 			renderEvents();
+			initMore();
 		})
 		.catch(error => console.error('error1:', error));
 };
@@ -10979,6 +10978,14 @@ $('.editOLdData').click(function () {
 	//send first request**************************
 	$('#sendEditRequest').click(function (e) {
 		e.preventDefault();
+		// let foto;
+		// let fotoNotFull = $('#fileFotoAvatar');
+		// console.log(fotoNotFull[0].files[0]);
+		// if (fotoNotFull[0].files[0] != undefined) {
+		// 	foto = fotoNotFull[0].files[0];
+		// } else {
+		// 	foto = ava.attr('src');
+		// };
 		var edit_data = {
 			who_for_profile: whois.val(),
 			avatar: ava.attr('src'),
@@ -11003,7 +11010,7 @@ $('.editOLdData').click(function () {
 			profile_type: status_prof,
 			profile_id: currentProfile
 		};
-		console.log(edit_data);
+		//console.log(edit_data);
 		fetch(
 			`${api_url}update_profile`,
 			{
@@ -11081,7 +11088,7 @@ $('#del-confirm').click(function () {
 		id: currentProfile,
 		user_id: currentUser
 	};
-	console.log(del_data);
+	console.log(JSON.stringify(del_data));
 	fetch(
 		`${api_url}destroy_user_profile`,
 		{
@@ -11101,11 +11108,11 @@ $('#del-confirm').click(function () {
 				console.log("success send");
 				console.log('Data:', JSON.stringify(data));
 				showErrorSuccess(data.status, 300);
-				window.location.reload();
+				//window.location.reload();
 			} else {
 				$('body').css('opacity', 1);
 				showErrorSuccess('Ошибка сохранения', 300);
-				window.location.reload();
+				//window.location.reload();
 			}
 
 		})
@@ -11113,7 +11120,7 @@ $('#del-confirm').click(function () {
 			$('body').css('opacity', 1);
 			console.log('error:', error);
 			showErrorSuccess('Ошибка соединения', 3000);
-			window.location.reload();
+			//window.location.reload();
 		});
 })
 
@@ -11140,18 +11147,22 @@ setTimeout(function () {
 	$('.brief__descr').click(function () {
 		$(this).toggleClass('active');
 	});
+
+
 }, 0);
 
 //load more timeline******************************************
-function initLoadMore() {
-	// $('.more').forEach(function (element, g) {
-	// 	element.click(function (e) {
-	// 		var targets = e.target;
-	// 		console.log(targets);
-
-	// 	})
-	// });
+function initMore() {
+	let list = document.querySelectorAll('.more');
+	for (let i = 0; i < list.length; i++) {
+		list[i].addEventListener('click', function (e) {
+			let target = e.target;
+			console.log(target.previousElementSibling);
+			target.previousElementSibling.classList.toggle('active');
+		});
+	};
 };
+
 
 
 
@@ -11369,13 +11380,6 @@ $('#authSend').click(function (e) {
 
 
 
-//Exit account***************************************************
-$('#btn_exit').click(function () {
-	deleteCookie(cookie_name_token)
-	window.location.reload();
-
-});
-
 
 
 
@@ -11491,9 +11495,9 @@ $('.burger').click(function () {
 	burgerShow();
 
 });
-$('.nav__link').click(function () {
-	burgerShow();
-});
+// $('.nav__link').click(function () {
+// 	burgerShow();
+// });
 $('.burger__bg-body').click(function (e) {
 	var container = $('.burger-wrap');
 	if (container.has(e.target).length === 0) {
@@ -11502,53 +11506,55 @@ $('.burger__bg-body').click(function (e) {
 });
 
 //hive nav on scroll*******************
-var navbar = $('.header');
-var hightlight = $('.profile__menu--mob');
-var backStory = $('.story__back');
-var storyTitle = $('.story__title');
-// Hide Header on on scroll down
-var didScroll;
-var lastScrollTop = 0;
-var delta = 5;
-var navbarHeight = $('header').outerHeight();
+if ($(window).width() < 935) {
+	var navbar = $('.header');
+	var hightlight = $('.profile__menu--mob');
+	var backStory = $('.story__back');
+	var storyTitle = $('.story__title');
+	// Hide Header on on scroll down
+	var didScroll;
+	var lastScrollTop = 0;
+	var delta = 5;
+	var navbarHeight = $('header').outerHeight();
 
-$(window).scroll(function (event) {
-	didScroll = true;
-});
+	$(window).scroll(function (event) {
+		didScroll = true;
+	});
 
-setInterval(function () {
-	if (didScroll) {
-		hasScrolled();
-		didScroll = false;
-	}
-}, 150);
-
-function hasScrolled() {
-	var st = $(this).scrollTop();
-
-	// Make sure they scroll more than delta
-	if (Math.abs(lastScrollTop - st) <= delta)
-		return;
-
-	// If they scrolled down and are past the navbar, add class .nav-up.
-	// This is necessary so you never see what is "behind" the navbar.
-	if (st > lastScrollTop && st > navbarHeight) {
-		// Scroll Down
-		navbar.css('top', '-100%');
-		hightlight.css('top', '0');
-		backStory.css('top', '84px');
-		storyTitle.css('top', '105px');
-	} else {
-		// Scroll Up
-		if (st + $(window).height() < $(document).height()) {
-			navbar.css('top', '0');
-			hightlight.css('top', '50px');
-			backStory.css('top', '135px');
-			storyTitle.css('top', '138px');
+	setInterval(function () {
+		if (didScroll) {
+			hasScrolled();
+			didScroll = false;
 		}
-	}
+	}, 150);
 
-	lastScrollTop = st;
+	function hasScrolled() {
+		var st = $(this).scrollTop();
+
+		// Make sure they scroll more than delta
+		if (Math.abs(lastScrollTop - st) <= delta)
+			return;
+
+		// If they scrolled down and are past the navbar, add class .nav-up.
+		// This is necessary so you never see what is "behind" the navbar.
+		if (st > lastScrollTop && st > navbarHeight) {
+			// Scroll Down
+			navbar.css('z-index', '1');
+			hightlight.css('top', '0');
+			backStory.css('top', '84px');
+			storyTitle.css('top', '100px');
+		} else {
+			// Scroll Up
+			if (st + $(window).height() < $(document).height()) {
+				navbar.css('z-index', '100');
+				hightlight.css('top', '50px');
+				backStory.css('top', '133px');
+				storyTitle.css('top', '136px');
+			}
+		}
+
+		lastScrollTop = st;
+	}
 }
 
 
