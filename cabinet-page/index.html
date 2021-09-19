@@ -142,9 +142,10 @@
 
 	<!-- контент страницы -->
 	<section class="profile">
+	    <img class="profile__bg" src="../img/bg-cabinet.png">
 	    <div class="profile__tabs tab1">
 	        <div class="wrapper">
-	            <h3 class="profile__title-main">
+	            <!-- <h3 class="profile__title-main">
 	                Сохрани свою историю и историю своих предков
 	            </h3>
 	            <div class="profile__add-quest">
@@ -155,12 +156,23 @@
 	                            xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAACWUlEQVRoge2au2sUURSHv0xCFLTYYVSMooUIQsDKQgstLBSMgg8Sg41lwAcWCkFsTAgEbQTBwj9A8LE+Iprgf6AWVlYWaUTNkrDsihYSVOTEM5IsM5tJZi97Ru5X7eMy9/vtzN55nNNRqcyRQDdwGjgJ9ALbgHVJAx0zD8wA74BnwCP9bAlJIUR+HNgCTAJvgC9AYlrHbFSPfcBR9bimYf7Rteh1J3AHGALuAqPAbBvE09gEXAfuAweBi8AvGkLcBM4Cp4DnhuRj5Ae9ALwAngC/9T2BDhgELgNnjAZYzCv1PKfeC/+JtcC0yp83o7o8t4F+YIfsiQEg1P9AkRhT7wHZE49VvL9gIQRx75A9sVuX0ZZTrdV7HYd4DewJdB3+5GiSTkfbjfkM9EiI9cA3x5O5Qry7g/bM3Vp8CCv4EFbwIazgQ1jhvwjRlWFMKtVaPdeYKCzl1P9L5hDVWn2XXmethJ365CRtm2lfzUVh6WPLQ0Rh6cMKJGLk8cr7JtvMOn1Tch1Oy0lIyFaJNsOvTlbwIazgQ1jBh7CCD2EF1yEyX8TlwWmIKCx9dZ7AH06GkBDfgTUF9Rfv+UDLqtsNCK0Gqa/PBHrntb94/gsckEJ9oAXHPq0TF4kNwBFgQkKUgRowUrAQ0lkgN/llCfFDa9jSSXDIgFwWxPMScEX84yX2odaFnwLHbftzWD3F9wEN54lh4J4OuCUn3PZ5JhKp15R6DseD0rpsbgCbgZfAWwNdNnuBY0AFuNrYZdOs30n6Jk5InRjYmvcZ1Sr5qWVe6Xea0MN+ab8T8AcdI3xvt/QcLAAAAABJRU5ErkJggg==" />
 	                    </svg>
 	                </a>
-	            </div>
+	            </div> -->
 	
 	            <h3 class="profile__title">
 	                Моя анкета
 	            </h3>
+	            <p class="profile__descr">Заполни свою линию жизни воспоминаниями,
+	                историями, фотографиями</p>
 	            <div class="profile__my" id="myItems">
+	                <div class="user-added user item">
+	                    <div class="user__info user__info--add">
+	                        <div class="user__avatar-wrap user__avatar-wrap--add user__avatar-wrap--my">
+	                            <img src="../img/add-icon.png" alt="plus">
+	                        </div>
+	                        <a href="../questionnaire-page-customer/index.html" class="user__link-more user__link-more--add"
+	                            id="customer">Cоздать</a>
+	                    </div>
+	                </div>
 	                <!-- <div class="brief__user">
 	                    <div class="brief__img-wrap">
 	                        <img class="brief__icon" src="./img/pensioner2.jpg" alt="user">
@@ -200,21 +212,42 @@
 	                </div> -->
 	            </div>
 	            <h3 class="profile__title">
-	                Созданные анкеты
+	                Бабушки, дедушки, родители, другие родственники
 	            </h3>
+	            <p class="profile__descr">Распроси своих родственников и запиши
+	                воспоминания и истории из их жизни, загрузи фото</p>
 	            <div class="profile__items">
 	                <div id="createItmes" class="profile__created">
+	                    <div class="user-added user item">
+	                        <div class="user__info user__info--add">
+	                            <div class="user__avatar-wrap user__avatar-wrap--add user__avatar-wrap--life">
+	                                <img src="../img/add-icon.png" alt="plus">
+	                            </div>
+	                            <a href="../questionnaire-page-relative-live/index.html"
+	                                class="user__link-more user__link-more--add">Cоздать</a>
+	                        </div>
+	                    </div>
 	
 	                </div>
 	                <div id="pagination-container"></div>
 	
 	            </div>
 	            <h3 class="profile__title">
-	                Добавленные анкеты
+	                Ушедшие из жизни
 	            </h3>
+	            <p class="profile__descr">Сохрани теплую память, воспоминания, истории
+	                и фото о тех, кого уже нет в живых.</p>
 	            <div class="profile__items">
 	                <div id="addItems" class="profile__created">
-	
+	                    <div class="user-added user item">
+	                        <div class="user__info user__info--add">
+	                            <div class="user__avatar-wrap user__avatar-wrap--add user__avatar-wrap--death">
+	                                <img src="../img/add-icon.png" alt="plus">
+	                            </div>
+	                            <a href="../questionnaire-page/index.html"
+	                                class="user__link-more user__link-more--add">Cоздать</a>
+	                        </div>
+	                    </div>
 	                </div>
 	                <div id="pagination-container2"></div>
 	

@@ -10996,7 +10996,7 @@ return jQuery;
 })(jQuery);
 
 
-var myQuestionnary = $('#myItems');
+//var myQuestionnary = $('#myItems');
 
 
 
@@ -11111,8 +11111,8 @@ function pagin3() {
     }, 1000);
 
 };
-pagin();
-pagin3();
+//pagin();
+//pagin3();
 
 
 
@@ -11259,7 +11259,7 @@ function loadQuestionnaries(section, users, data) {
 		}
 
 	}
-	section.html(out);
+	section.append(out);
 }
 
 
