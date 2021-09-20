@@ -10597,7 +10597,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 !function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
-console.log("window loaded");
+//console.log("window loaded");
 
 
 
@@ -10616,7 +10616,6 @@ var cookie_token = getCookie(cookie_name_token);
 
 
 //Зарегестрірованний юзер
-var user = false;
 var userAvatar = '';
 var user_data = false;
 ifLogin();
@@ -10630,8 +10629,8 @@ function ifLogin() {
 
 //Exit account***************************************************
 $('#logout').click(function () {
-	deleteCookie(cookie_name_token)
-	window.location.reload();
+	deleteCookie(cookie_name_token);
+	window.location.href = '../index.html';
 
 });
 
@@ -10651,7 +10650,6 @@ function start() {
 		.then(data => {
 			console.log('wellcome');
 			// console.log('Data:', JSON.stringify(data));
-			user = true;
 			userAvatar = data.user.avatar;
 			confirmUser();
 		})
@@ -10660,17 +10658,10 @@ function start() {
 
 //Icon user if login**************************
 function confirmUser() {
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
-		showTabs(user_data);
-	} else {
-		$('.enter').addClass('active');
-		$('.loginIn').removeClass('active');
-	};
 	if (userAvatar) {
 		$('.header__user').attr('src', userAvatar);
 	};
+	showTabs();
 };
 
 function getCookie(name) {
@@ -10684,17 +10675,25 @@ function deleteCookie(name) {
 	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
 }
 
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+	$('#error-message').addClass('show');
+	$('.success').text(textToShow);
+	setTimeout(() => {
+		$('#error-message').removeClass('show');
+	}, time);
+};
 
 
 //User input first screen**********************************
-var status = 'open';
+var statusProf = true;
 $('.about__check').on('change', function () {
-	status = $(this).attr('data-status');
+	statusProf = $(this).attr('data-status');
 });
 
 
 var who_for_profile = $('#whois');
-var profile_type = status;
+var profile_open = statusProf;
 var avatar_death = $('#output');
 var first_name = $('.user__name');
 var last_name = $('.user__patronymic');
@@ -10747,9 +10746,9 @@ $('#sendFistRequest').click(function (e) {
 		grave_lon: grave_lon.val(),
 		grave_lat: grave_lat.val(),
 		death_cause: death_cause.val(),
-		profile_type: profile_type
+		profile_open: profile_open
 	};
-	console.log(first_data);
+	//console.log(first_data);
 	if (validateData()) {
 		fetch(
 			`${api_url}create_user_profile`,
@@ -10769,19 +10768,20 @@ $('#sendFistRequest').click(function (e) {
 					$('body').css('opacity', 1);
 					console.log("success send");
 					console.log('Data:', JSON.stringify(data));
-					$('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+					showErrorSuccess('Данные сохранены', 1000);
 					window.location.href = `../questionnaire-life/#${data.profile.id}`;
 				} else {
-					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					showErrorSuccess('Такой пользователь уже существует', 500);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				showErrorSuccess('Ошибка соединения', 1000);
 			});
 	} else {
-		$('#error').text('Заполните обязательные поля').removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+		showErrorSuccess('Заполните обязательные поля', 1000);
+
 	}
 })
 
@@ -10814,19 +10814,8 @@ if ($(window).width() < 935) {
 	$('.profile__about').hide();
 };
 //Opacity tabs when not data user******************************
-function showTabs(data) {
-	if (data) {
-		$('.menu__item').click(function () {
-			$(this).addClass('active-items').siblings().removeClass('active-items');
-			$('.data__form').hide().eq($(this).index()).fadeIn();
-			// $('.data__form-text').focus();
-			if ($(this).index() == 0) {
-				$('.profile__about').show();
-			}
-		});
-	} else {
-		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
-	};
+function showTabs() {
+	$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
 };
 
 

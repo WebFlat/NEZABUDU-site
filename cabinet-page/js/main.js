@@ -10995,134 +10995,6 @@ return jQuery;
 
 })(jQuery);
 
-
-//var myQuestionnary = $('#myItems');
-
-
-
-
-// function loadQuestionnarieMy() {
-//         var outMy = '';
-//         for (var key in data) {
-//             if (data[key].avatar == '') {
-//                 data[key].avatar = "./img/user-def.png";
-//             } else {
-//                 data[key].avatar = data[key].avatar;
-//             }
-//             outMy += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше</a></div></div></div>';
-//         };
-//         myQuestionnary.html(outMy);
-// };
-// loadQuestionnarieMy();
-
-
-
-
-//loadQuestionnaries(sectionCreate, 'user-relative');
-//loadQuestionnaries(sectionAdded, 'user-added');
-
-
-
-//Init pagination**************************************
-function pagin() {
-    setTimeout(function () {
-
-        var items = $('.user-relative');
-        var numItems = items.length;
-        var perPage = 4;
-
-        if (numItems > 4) {
-            items.slice(perPage).hide();
-
-            $('#pagination-container').pagination({
-                items: numItems,
-                itemsOnPage: perPage,
-                edges: 1,
-                displayedPages: 3,
-                prevText: '<',
-                nextText: '>',
-                cssStyle: 'light-theme',
-                onPageClick: function (pageNumber) {
-                    var showFrom = perPage * (pageNumber - 1);
-                    var showTo = showFrom + perPage;
-                    items.hide().slice(showFrom, showTo).show();
-                }
-            });
-
-        }
-
-    }, 1000);
-
-};
-function pagin2() {
-    setTimeout(function () {
-
-        var items = $('.user-bookmark');
-        var numItems = items.length;
-        var perPage = 6;
-
-        if (numItems > 4) {
-
-            items.slice(perPage).hide();
-
-            $('#pagination-container3').pagination({
-                items: numItems,
-                itemsOnPage: perPage,
-                edges: 1,
-                displayedPages: 3,
-                prevText: '<',
-                nextText: '>',
-                cssStyle: 'light-theme',
-                onPageClick: function (pageNumber) {
-                    var showFrom = perPage * (pageNumber - 1);
-                    var showTo = showFrom + perPage;
-                    items.hide().slice(showFrom, showTo).show();
-                }
-            });
-        }
-    }, 100);
-
-};
-function pagin3() {
-    setTimeout(function () {
-
-        var items = $('.user-added');
-        var numItems = items.length;
-        var perPage = 4;
-
-        if (numItems > 4) {
-            items.slice(perPage).hide();
-
-            $('#pagination-container2').pagination({
-                items: numItems,
-                itemsOnPage: perPage,
-                edges: 1,
-                displayedPages: 3,
-                prevText: '<',
-                nextText: '>',
-                cssStyle: 'light-theme',
-                onPageClick: function (pageNumber) {
-                    var showFrom = perPage * (pageNumber - 1);
-                    var showTo = showFrom + perPage;
-                    items.hide().slice(showFrom, showTo).show();
-                }
-            });
-        }
-    }, 1000);
-
-};
-//pagin();
-//pagin3();
-
-
-
-
-
-
-
-
-{/* <div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>'; */ }
-
 'use strict';
 
 
@@ -11152,7 +11024,9 @@ var userAvatar;
 var userId;
 var data_users;
 var sectionCreate = $('#createItmes');
-var sectionAdded = $('#addItems');
+var sectionCreateDeath = $('#addItems');
+var sectionMy = $('#myItems');
+var sectionBookmark = $('.profile__bookmarks');
 
 
 ifLogin();
@@ -11189,7 +11063,7 @@ function start() {
 			console.log('wellcome');
 			//console.log('Data:', JSON.stringify(data));
 			data_users = data.profiles;
-			console.log(data_users);
+			//console.log(data_users);
 			user = true;
 			userAvatar = data.user.avatar;
 			userName = data.user.first_name;
@@ -11206,7 +11080,7 @@ function start() {
 				$(currentTab).click();
 				burgerShow();
 			};
-			loadQuestionnaries(sectionCreate, 'user-added', data_users);
+			loadQuestionnaries(sectionCreate, sectionCreateDeath, sectionMy, 'user-added', data_users);
 		})
 		.catch(error => console.error('error1:', error));
 };
@@ -11244,26 +11118,47 @@ function deleteCookie(name) {
 
 
 
-function loadQuestionnaries(section, users, data) {
+function loadQuestionnaries(section_life, section_death, section_my, users, data) {
 	var out = '';
+	var out2 = '';
 	for (var key in data) {
 		let birth = data[key].birth_date.split('-').reverse().join('.');
 		let die = data[key].death_date.split('-').reverse().join('.');
 		if (data[key].avatar == '') {
 			data[key].avatar = "./img/user-def.png";
 		}
-		if (data[key].profile_status == true) {
+		if (data[key].death_date == null) {
 			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+			if (data[key].profile_mine) {
+				section_my.append(out);
+			}
+			section_life.append(out);
 		} else {
-			out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+			section_death.append(out2);
 		}
 
 	}
-	section.append(out);
+
 }
+function loadQuestionnariesBookmark(section, users, data) {
+	let out = '';
+	for (let key in data) {
+		let birth = data[key].birth_date.split('-').reverse().join('.');
+		let die = data[key].death_date.split('-').reverse().join('.');
+		if (data[key].avatar == '') {
+			data[key].avatar = "./img/user-def.png";
+		}
+		if (data[key].death_date == null) {
+			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+		} else {
+			out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+		}
 
+		section.html(out);
+	}
 
-//loadQuestionnaries(sectionCreate, 'user-relative');
+}
 
 
 
@@ -11522,9 +11417,8 @@ $(".nav-tab2").click(function () {
 	$(".tab2").fadeIn().siblings('.profile__tabs').hide();
 	$(".nav-tab").removeClass("active-tab");
 	$(".nav-tab2").addClass("active-tab");
-	var sectionBookmark = $('.profile__bookmarks');
-	loadQuestionnaries(sectionBookmark, 'user-bookmark');
-	pagin2();
+	loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
+	//pagin2();
 	setTimeout(function () {
 		initClick();
 	}, 100);

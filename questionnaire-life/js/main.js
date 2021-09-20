@@ -10615,6 +10615,7 @@ var cookie_token = getCookie(cookie_name_token);
 var currentProfile = window.location.hash;
 currentProfile = +currentProfile.substring(1);
 var currentUser;
+var userParent = 0;
 
 
 
@@ -10637,7 +10638,6 @@ ifLogin();
 function ifLogin() {
 	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
 		start();
-		loadQuestionnaries();
 	} else {
 		confirmUser();
 		loadQuestionnaries();
@@ -10660,11 +10660,14 @@ function start() {
 		.then(data => {
 			console.log('wellcome');
 			//console.log('Data:', JSON.stringify(data));
+			userParent = data.user.id;
 			user = true;
 			userAvatar = data.user.avatar;
 			confirmUser();
+			loadQuestionnaries();
 		})
 		.catch(error => console.error('error1:', error));
+
 };
 
 
@@ -10687,6 +10690,20 @@ function confirmUser() {
 
 };
 
+//If user is not parent****************************
+function isNotParentUser() {
+	$('.brief__edit').remove();
+	$('.brief__descr-edit').remove();
+	$('.default-add').remove();
+	$('.tab__btn-save').remove();
+	$('.story__edit-cont').remove();
+};
+function isLife() {
+	$('.brief__location').remove();
+	$('.brief__end').remove();
+	$('.brief__img-wrap').css('border-color', '#fce176');
+};
+
 
 //render timeline story**********************************
 async function loaddLiveFull(dataToLoad, outHtml) {
@@ -10696,13 +10713,19 @@ async function loaddLiveFull(dataToLoad, outHtml) {
 			if (dataToLoad[i].event_img != null) {
 				var dateLoad = dataToLoad[i].event_date;
 				dateLoad = dateLoad.split('-').reverse().join('-');
-				outAll += `<div class="story__content"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
-				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
+				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
+				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory">Редактировать</button>
+				<button class="context-story__item" id="delete-story">Удалить</button>
+			</div></div></div>`;
 			} else {
-				outAll += `<div class="story__content"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button></div></div>`;
+				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button>
+				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory">Редактировать</button>
+				<button class="context-story__item" id="delete-story">Удалить</button>
+			</div></div></div>`;
 			}
 		}
 		outHtml.append(outAll);
+		initDelStory();
 	}
 };
 
@@ -10774,75 +10797,153 @@ function loadQuestionnaries() {
 		.then(response => response.json())
 		.then(data => {
 			allData = data;
-			//console.log('Data:', JSON.stringify(data));
+			//console.log('Data:', JSON.stringify(data.profile));
 			currentUser = data.profile.user_id;
-			if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
-				avaProfile.attr('src', data.profile.avatar);
-			}
-			var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
-			var preDie = (data.profile.death_date).split('-').reverse().join('.');
-			var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
-			birthProfile.text(preBirth);
-			timelinebirthProfile.text(preBirth);
-			dieProfile.text(preDie);
-			timelinedieProfile.text(preDie);
-			ageProfile.text(ageNum);
-			nameProfile.text(data.profile.last_name);
-			surmaneProfile.text(data.profile.last_name);
-			patronimycProfile.text(data.profile.patronymic);
-			if (data.profile.cementry_name) {
-				cemeteryName.text(data.profile.cementry_name);
-			}
-			if (data.profile.cementry_square) {
-				square.text(data.profile.cementry_square);
-			}
-			if (data.profile.cementry_row) {
-				row.text(data.profile.cementry_row);
-			}
-			if (data.profile.cementry_place) {
-				number.text(data.profile.cementry_place);
-			}
-			if (data.profile.cementry_sector) {
-				sector.text(data.profile.cementry_sector);
-			}
-			if (data.profile.death_city) {
-				city_die.text(data.profile.death_city);
-			}
-			if (data.profile.birth_city) {
-				city_birth.text(data.profile.birth_city);
-			}
-			if (data.profile.profile_type !== 'open') {
-				$('.brief__timelaps').css('display', 'none');
-				$('.brief__location').css('display', 'none');
-				$('.data-tab-content').css('display', 'none');
-			};
-			if (data.profile.short_story == '') {
-				$('.brief__text').css('opacity', 0);
-				$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
-			} else {
-				textProfile.text(data.profile.short_story);
-			};
-			if (data.profile.death_cause) {
-				cause.text(data.profile.death_cause);
-			};
-			loadLive(data.timelines.block1, htmlOut1, 'childhood');
-			loadLive(data.timelines.block2, htmlOut2, 'preyouth');
-			loadLive(data.timelines.block3, htmlOut3, 'youth');
-			loadLive(data.timelines.block4, htmlOut4, 'ripeness');
-			loadLive(data.timelines.block5, htmlOut5, 'elderhood');
-			var btnAddClick = $('.btn-tab-link');
-			if (btnAddClick) {
-				clickToLive(btnAddClick);
-			}
-			loaddLiveFull(data.timelines.block1, liveFull1);
-			loaddLiveFull(data.timelines.block2, liveFull2);
-			loaddLiveFull(data.timelines.block3, liveFull3);
-			loaddLiveFull(data.timelines.block4, liveFull4);
-			loaddLiveFull(data.timelines.block5, liveFull5);
+			//console.log(currentUser, userParent);
+			if (currentUser == userParent) {
+				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
+					avaProfile.attr('src', data.profile.avatar);
+				}
+				var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+				var preDie = (data.profile.death_date).split('-').reverse().join('.');
+				var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+				birthProfile.text(preBirth);
+				timelinebirthProfile.text(preBirth);
+				dieProfile.text(preDie);
+				timelinedieProfile.text(preDie);
+				ageProfile.text(ageNum);
+				nameProfile.text(data.profile.last_name);
+				surmaneProfile.text(data.profile.last_name);
+				patronimycProfile.text(data.profile.patronymic);
+				if (data.profile.cementry_name) {
+					cemeteryName.text(data.profile.cementry_name);
+				}
+				if (data.profile.cementry_square) {
+					square.text(data.profile.cementry_square);
+				}
+				if (data.profile.cementry_row) {
+					row.text(data.profile.cementry_row);
+				}
+				if (data.profile.cementry_place) {
+					number.text(data.profile.cementry_place);
+				}
+				if (data.profile.cementry_sector) {
+					sector.text(data.profile.cementry_sector);
+				}
+				if (data.profile.death_city) {
+					city_die.text(data.profile.death_city);
+				}
+				if (data.profile.birth_city) {
+					city_birth.text(data.profile.birth_city);
+				}
+				if (data.profile.short_story == '') {
+					$('.brief__text').css('opacity', 0);
+					$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
+				} else {
+					textProfile.text(data.profile.short_story);
+				};
+				if (data.profile.death_cause) {
+					cause.text(data.profile.death_cause);
+				};
+				loadLive(data.timelines.block1, htmlOut1, 'childhood');
+				loadLive(data.timelines.block2, htmlOut2, 'preyouth');
+				loadLive(data.timelines.block3, htmlOut3, 'youth');
+				loadLive(data.timelines.block4, htmlOut4, 'ripeness');
+				loadLive(data.timelines.block5, htmlOut5, 'elderhood');
+				var btnAddClick = $('.btn-tab-link');
+				if (btnAddClick) {
+					clickToLive(btnAddClick);
+				}
+				loaddLiveFull(data.timelines.block1, liveFull1);
+				loaddLiveFull(data.timelines.block2, liveFull2);
+				loaddLiveFull(data.timelines.block3, liveFull3);
+				loaddLiveFull(data.timelines.block4, liveFull4);
+				loaddLiveFull(data.timelines.block5, liveFull5);
 
-			collectArr(allData);
-			renderEvents();
-			initMore();
+				collectArr(allData);
+				renderEvents();
+				initMore();
+			} else {
+				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
+					avaProfile.attr('src', data.profile.avatar);
+				}
+				var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+				var preDie = (data.profile.death_date).split('-').reverse().join('.');
+				var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+				birthProfile.text(preBirth);
+				timelinebirthProfile.text(preBirth);
+				dieProfile.text(preDie);
+				timelinedieProfile.text(preDie);
+				ageProfile.text(ageNum);
+				nameProfile.text(data.profile.last_name);
+				surmaneProfile.text(data.profile.last_name);
+				patronimycProfile.text(data.profile.patronymic);
+				if (data.profile.profile_type !== 'true') {
+					$('.brief__timelaps').css('display', 'none');
+					$('.brief__location').css('display', 'none');
+					$('.data-tab-content').css('display', 'none');
+					$('.menu__item').css('pointer-events', 'none').css('opacity', '.5');
+					$('.profile__data').append(`<p class="life-profile-notification">Это закрытая анкета</p>`)
+					isNotParentUser();
+				} else {
+					if (data.profile.cementry_name) {
+						cemeteryName.text(data.profile.cementry_name);
+					}
+					if (data.profile.cementry_square) {
+						square.text(data.profile.cementry_square);
+					}
+					if (data.profile.cementry_row) {
+						row.text(data.profile.cementry_row);
+					}
+					if (data.profile.cementry_place) {
+						number.text(data.profile.cementry_place);
+					}
+					if (data.profile.cementry_sector) {
+						sector.text(data.profile.cementry_sector);
+					}
+					if (data.profile.death_city) {
+						city_die.text(data.profile.death_city);
+					}
+					if (data.profile.birth_city) {
+						city_birth.text(data.profile.birth_city);
+					}
+					if (data.profile.profile_type !== 'true') {
+						$('.brief__timelaps').css('display', 'none');
+						$('.brief__location').css('display', 'none');
+						$('.data-tab-content').css('display', 'none');
+					};
+					if (data.profile.short_story == '') {
+						$('.brief__text').css('opacity', 0);
+						$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
+					} else {
+						textProfile.text(data.profile.short_story);
+					};
+					if (data.profile.death_cause) {
+						cause.text(data.profile.death_cause);
+					};
+					loadLive(data.timelines.block1, htmlOut1, 'childhood');
+					loadLive(data.timelines.block2, htmlOut2, 'preyouth');
+					loadLive(data.timelines.block3, htmlOut3, 'youth');
+					loadLive(data.timelines.block4, htmlOut4, 'ripeness');
+					loadLive(data.timelines.block5, htmlOut5, 'elderhood');
+					var btnAddClick = $('.btn-tab-link');
+					if (btnAddClick) {
+						clickToLive(btnAddClick);
+					}
+					loaddLiveFull(data.timelines.block1, liveFull1);
+					loaddLiveFull(data.timelines.block2, liveFull2);
+					loaddLiveFull(data.timelines.block3, liveFull3);
+					loaddLiveFull(data.timelines.block4, liveFull4);
+					loaddLiveFull(data.timelines.block5, liveFull5);
+
+					collectArr(allData);
+					renderEvents();
+					initMore();
+					isNotParentUser();
+
+				}
+			}
+
 		})
 		.catch(error => console.error('error1:', error));
 };
@@ -10986,7 +11087,7 @@ $('.editOLdData').click(function () {
 		// } else {
 		// 	foto = ava.attr('src');
 		// };
-		var edit_data = {
+		let edit_data = {
 			who_for_profile: whois.val(),
 			avatar: ava.attr('src'),
 			first_name: userSurname.val(),
@@ -11033,12 +11134,14 @@ $('.editOLdData').click(function () {
 					window.location.reload();
 				} else {
 					showErrorSuccess('Ошибка сохранения', 300);
+					window.location.reload();
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
 				showErrorSuccess('Ошибка соединения', 300);
+				window.location.reload();
 			});
 	});
 
@@ -11082,7 +11185,7 @@ $('#del-cancel').click(function () {
 	$('.form-del-profile').css('display', 'none');
 });
 
-//request to delete profiel**************************
+//request to delete profile**************************
 $('#del-confirm').click(function () {
 	var del_data = {
 		id: currentProfile,
@@ -11127,6 +11230,93 @@ $('#del-confirm').click(function () {
 
 
 
+
+//show-hide context menu****************************
+function initDelStory() {
+	let storyItem = $('.story__edit-cont');
+	for (let i = 0; i < storyItem.length; i++) {
+		storyItem[i].addEventListener('click', function () {
+			let editBnt = $(this);
+			editBnt.siblings('.story__context').addClass('active');
+			function hideBlock(e) {
+				if ($(e.target).closest('.story__context').length) {
+					return;
+				} else {
+					$('.story__context').removeClass('active');
+				}
+			}
+			setTimeout(() => {
+				$(document).on('click', function (e) {
+					hideBlock(e);
+					$(document).off('click', hideBlock(e));
+				});
+
+			}, 0);
+		});
+		//show delete story popup*****************************
+		$('#delete-story').click(function () {
+			$('body').addClass('no-scroll');
+			$('.form-del-story').css('display', 'flex');
+			$('.context-story').removeClass('active');
+		});
+		//close delete story popup**************************
+		$('#del-cancel-story').click(function () {
+			$('body').removeClass('no-scroll');
+			$('.form-del-story').css('display', 'none');
+		});
+
+		//request to delete story**************************
+		$('#del-confirm-story').click(function () {
+			var del_data = {
+				id: currentProfile,
+				user_id: currentUser
+			};
+			console.log(JSON.stringify(del_data));
+			fetch(
+				`${api_url}destroy_user_profile`,
+				{
+					method: 'DELETE',
+					body: JSON.stringify(del_data),
+					headers: {
+						'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then($('body').css('opacity', 0.5))
+				.then(response => response.json())
+				.then(data => {
+
+					if (data) {
+						$('body').css('opacity', 1);
+						console.log("success send");
+						console.log('Data:', JSON.stringify(data));
+						showErrorSuccess(data.status, 300);
+						//window.location.reload();
+					} else {
+						$('body').css('opacity', 1);
+						showErrorSuccess('Ошибка сохранения', 300);
+						//window.location.reload();
+					}
+
+				})
+				.catch(error => {
+					$('body').css('opacity', 1);
+					console.log('error:', error);
+					showErrorSuccess('Ошибка соединения', 3000);
+					//window.location.reload();
+				});
+		})
+	}
+
+};
+
+
+
+
+
+
+
+
 //add event to candle and bookmark***************
 setTimeout(function () {
 	//Show candle fire
@@ -11157,7 +11347,7 @@ function initMore() {
 	for (let i = 0; i < list.length; i++) {
 		list[i].addEventListener('click', function (e) {
 			let target = e.target;
-			console.log(target.previousElementSibling);
+			//console.log(target.previousElementSibling);
 			target.previousElementSibling.classList.toggle('active');
 		});
 	};
@@ -11314,6 +11504,7 @@ registration.click(function (e) {
 			.catch(error => {
 				console.log('error:', error);
 				showErrorSuccess('Ошибка соединения', 300);
+				window.location.reload();
 			});
 	}
 });
@@ -11369,6 +11560,7 @@ $('#authSend').click(function (e) {
 				.catch(error => {
 					console.log('error:', error);
 					showErrorSuccess('Ошибка подключения', 300);
+					window.location.reload();
 				});
 		}
 		catch (err) {
@@ -11541,7 +11733,7 @@ if ($(window).width() < 935) {
 			// Scroll Down
 			navbar.css('z-index', '1');
 			hightlight.css('top', '0');
-			backStory.css('top', '84px');
+			backStory.css('top', '82px');
 			storyTitle.css('top', '100px');
 		} else {
 			// Scroll Up
@@ -11925,9 +12117,87 @@ $('.default-add').click(function () {
 
 
 //edit popup edit descr*************************
-$('.brief__descr-edit').click(function () {
+$('.brief__descr-edit').click(function (e) {
 	$('.edit-story-descr').show().css('display', 'flex');
 	$('body').css('overflow', 'hidden');
+	let shortStory = $(this).attr('data-shot-story');
+	let shortStoryText = $(this).next().text();
+	let oldText = $('#memory_text');
+	if (shortStoryText != '') {
+		oldText.val(shortStoryText);
+	} else {
+		oldText.val('');
+	};
+	$('#story-add-description').click(function (e) {
+		e.preventDefault();
+		let newText = $('#memory_text').val();
+		let edit_data;
+		switch (shortStory) {
+			case ('1'):
+				edit_data = {
+					profile_id: currentProfile,
+					short_life_1: newText
+				};
+				break;
+			case ('2'):
+				edit_data = {
+					profile_id: currentProfile,
+					short_life_2: newText
+				};
+				break;
+			case ('3'):
+				edit_data = {
+					profile_id: currentProfile,
+					short_life_3: newText
+				};
+				break;
+			case ('4'):
+				edit_data = {
+					profile_id: currentProfile,
+					short_life_4: newText
+				};
+				break;
+			case ('5'):
+				edit_data = {
+					profile_id: currentProfile,
+					short_life_5: newText
+				};
+				break;
+		}
+		console.log(edit_data);
+
+		fetch(
+			`${api_url}update_profile`,
+			{
+				method: 'POST',
+				body: JSON.stringify(edit_data),
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then($('body').css('opacity', 0.5))
+			.then(response => response.json())
+			.then(data => {
+
+				if (data) {
+					$('body').css('opacity', 1);
+					console.log("success send");
+					console.log('Data:', JSON.stringify(data));
+					showErrorSuccess(data.status, 300);
+					window.location.reload();
+				} else {
+					showErrorSuccess('Ошибка сохранения', 300);
+					window.location.reload();
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				showErrorSuccess('Ошибка соединения', 300);
+				window.location.reload();
+			});
+	});
 });
 //story popup close*********************************
 $('#edit-cancel').click(function (e) {
@@ -11935,6 +12205,7 @@ $('#edit-cancel').click(function (e) {
 	$('.edit-story-descr').hide();
 	$('body').css('overflow', 'visible');
 });
+
 
 
 

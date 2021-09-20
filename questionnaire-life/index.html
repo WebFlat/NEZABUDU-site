@@ -177,7 +177,7 @@
 	            </select>
 	            <span class="header__enter-link enter active">
 	                <span>Вход</span>
-	                <img alt="enter"
+	                <img class="header__enter-arrow" alt="enter"
 	                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzg0Ljk3IDM4NC45NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzg0Ljk3IDM4NC45NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGcgaWQ9IlNpZ25fSW4iPg0KCQk8cGF0aCBkPSJNMzcyLjkzOSwwSDIwNC41MTVjLTYuNjQxLDAtMTIuMDMsNS4zOS0xMi4wMywxMi4wM3M1LjM5LDEyLjAzLDEyLjAzLDEyLjAzaDE1Ni4zOTR2MzM2Ljg0OEgyMDQuNTE1DQoJCQljLTYuNjQxLDAtMTIuMDMsNS4zOS0xMi4wMywxMi4wM3M1LjM5LDEyLjAzLDEyLjAzLDEyLjAzaDE2OC40MjRjNi42NDEsMCwxMi4wMy01LjM5LDEyLjAzLTEyLjAzVjEyLjAzDQoJCQlDMzg0Ljk3LDUuMzksMzc5LjU4LDAsMzcyLjkzOSwweiIvPg0KCQk8cGF0aCBkPSJNMTk3LjIxMywyNjguMjc2Yy00LjcwNCw0Ljc1Mi00LjcwNCwxMi40MzksMCwxNy4xNzljNC43MDQsNC43NTIsMTIuMzE5LDQuNzUyLDE3LjAxMSwwbDgyLjk5Ny04NC4yDQoJCQljNC42MzItNC42OCw0LjY4LTEyLjUxMiwwLTE3LjE5MWwtODMuMDA5LTg0LjJjLTQuNzA0LTQuNzUyLTEyLjMxOS00Ljc0LTE3LjAxMSwwYy00LjcwNCw0Ljc0LTQuNzA0LDEyLjQzOSwwLDE3LjE3OQ0KCQkJbDYyLjU1OCw2My40NkgxMi4wM0M1LjM5LDE4MC41MDMsMCwxODUuOTQsMCwxOTIuNjUzYzAsNi43MTMsNS4zOSwxMi4xNTEsMTIuMDMsMTIuMTUxaDI0Ny43NEwxOTcuMjEzLDI2OC4yNzZ6Ii8+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" />
 	            </span>
 	            <a href="../cabinet-page/" class="header__enter-link loginIn">
@@ -454,6 +454,47 @@
 	        </div>
 	    </div>
 	</div>
+	<div class="form-del-story">
+	    <div class="form-del-profile__popup">
+	        <p class="form-del-profile__title">
+	            Вы действительно хотите удалить историю?
+	        </p>
+	        <div class="form-del-profile__btns">
+	            <button class="form-del-profile__btn" id="del-cancel-story">Отмена</button>
+	            <button class="form-del-profile__btn form-del-profile__btn--delete" id="del-confirm-story">Удалить</button>
+	        </div>
+	    </div>
+	</div>
+	<div class="edit-story">
+	    <form class="add-story__wrap">
+	        <div class="wrapper">
+	            <div class="add-story__header">
+	                <span class="add-story__header-btn" id="story-edit-cancel">Отменить</span>
+	                <button class="add-story__header-btn add" id="story-edit" type="submit">Добавить воспоминание</button>
+	            </div>
+	            <select name="tabs" id="category-story-edit" class="add-story__category">
+	                <option value="hide">Категория</option>
+	                <option value="Семья">Семья</option>
+	                <option value="Традиции">Традиции</option>
+	                <option value="Деятельность">Деятельность</option>
+	                <option value="Увлечения">Увлечения</option>
+	                <option value="Путешествия">Путешествия</option>
+	                <option value="Учеба/Друзья">Учеба/Друзья</option>
+	                <option value="Наследие">Наследие</option>
+	                <option value="Веселые истории">Веселые истории</option>
+	            </select>
+	
+	            <div class="user__inp-wrap">
+	                <span class="user__cal"><input type="date" name="calendar" id="calendar-edit"></span>
+	                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly="">
+	            </div>
+	            <input class="add-story__input" type="text" name="place" id="memory_place-edit" placeholder="Введите место">
+	            <input type="text" name="title" id="memory_title-edit" placeholder="Название" class="add-story__input">
+	            <textarea class="add-story__input" name="text" id="memory_text-edit" cols="30" rows="10" maxlength="3000"
+	                placeholder="Воспоминание(макс. 3000 символов)"></textarea>
+	        </div>
+	    </form>
+	</div>
 	<span id="error-message">
 		<span id="error" class="success"></span>
 	</span>
@@ -592,17 +633,10 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit">
+		                                        <span class="brief__descr-edit" data-shot-story="1">
 		                                            &#9998;
 		                                        </span>
-		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
-		                                        provident
-		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
-		                                        esse
-		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
-		                                        enim?
-		                                        Nostrum, dolorum
+		                                        <span></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -628,9 +662,10 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit">
+		                                        <span class="brief__descr-edit" data-shot-story="2">
 		                                            &#9998;
 		                                        </span>
+		                                        <span></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -661,17 +696,10 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit">
+		                                        <span class="brief__descr-edit" data-shot-story="3">
 		                                            &#9998;
 		                                        </span>
-		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
-		                                        provident
-		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
-		                                        esse
-		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
-		                                        enim?
-		                                        Nostrum, dolorum
+		                                        <span></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -701,17 +729,10 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit">
+		                                        <span class="brief__descr-edit" data-shot-story="4">
 		                                            &#9998;
 		                                        </span>
-		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
-		                                        provident
-		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
-		                                        esse
-		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
-		                                        enim?
-		                                        Nostrum, dolorum
+		                                        <span></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -735,17 +756,11 @@
 		                                        </span>
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit">
+		                                        <span class="brief__descr-edit" data-shot-story="5">
 		                                            &#9998;
 		                                        </span>
-		                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque adipisci
-		                                        provident
-		                                        inventore, exercitationem quod accusamus sequi similique? Repellendus pariatur
-		                                        magnam placeat, velit repudiandae consequatur quod voluptatum a amet ex libero
-		                                        esse
-		                                        commodi, delectus facilis deserunt accusamus officia iste quia reprehenderit
-		                                        enim?
-		                                        Nostrum, dolorum
+		                                        <span></span>
+		
 		                                    </p>
 		                                </div>
 		                            </div>

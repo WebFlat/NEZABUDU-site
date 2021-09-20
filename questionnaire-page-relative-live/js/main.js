@@ -10597,389 +10597,382 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 !function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
-jQuery(function ($) {
-	'use strict';
-
-	$(window).on('load', function () {
-		var $preloader = $('#p_prldr');
-		$preloader.delay(1000).fadeOut('slow');
-	});
+//console.log("window loaded");
 
 
-	//Зарегестрірованний юзер
-	var user = true;
-	var user_data = false;
+
+$(window).on('load', function () {
+	var $preloader = $('#p_prldr');
+	$preloader.delay(1000).fadeOut('slow');
+});
 
 
-	//Icon user if login**************************
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
+
+// var api_url = "http://localhost:3000/";
+var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+
+var cookie_name_token = "project_token";
+var cookie_token = getCookie(cookie_name_token);
+
+
+//Зарегестрірованний юзер
+var userAvatar = '';
+var user_data = false;
+ifLogin();
+function ifLogin() {
+	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+		start();
 	} else {
 		window.location.href = '../index.html';
-	};
-	//If not empty foto user
-	if (!user.avatar === '') {
-		$('.header__user').src = user.avatar;
-	};
-
-
-
-	//Icon not active*****************************
-
-
-	//burger***************************************
-	function burgerShow() {
-		//User or guest
-		if (user) {
-			$('#menu-user').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		} else {
-			$('#menu-guest').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		}
-	};
-
-	$('.burger').click(function () {
-		burgerShow();
-
-	});
-	$('.nav__link').click(function () {
-		burgerShow();
-	});
-	$('.burger__bg-body').click(function (e) {
-		var container = $('.burger-wrap');
-		if (container.has(e.target).length === 0) {
-			burgerShow();
-		}
-	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// $('.data__relative').each(function () {
-	// 	var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-	// 	$this.addClass('select-hidden');
-	// 	$this.wrap('<div class="select"></div>');
-	// 	$this.after('<div class="select-styled"></div>');
-
-	// 	var $styledSelect = $this.next('div.select-styled');
-	// 	$styledSelect.text($this.children('option').eq(0).text());
-
-	// 	var $list = $('<ul />', {
-	// 		'class': 'select-options'
-	// 	}).insertAfter($styledSelect);
-
-	// 	for (var i = 0; i < numberOfOptions; i++) {
-	// 		$('<li />', {
-	// 			text: $this.children('option').eq(i).text(),
-	// 			rel: $this.children('option').eq(i).val()
-	// 		}).appendTo($list);
-	// 	}
-
-	// 	var $listItems = $list.children('li');
-
-	// 	$styledSelect.click(function (e) {
-	// 		e.stopPropagation();
-	// 		$('div.select-styled.select-active').not(this).each(function () {
-	// 			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-	// 		});
-	// 		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-	// 	});
-
-	// 	$listItems.click(function (e) {
-	// 		e.stopPropagation();
-	// 		$styledSelect.text($(this).text()).removeClass('select-active');
-	// 		$this.val($(this).attr('rel'));
-	// 		$list.hide();
-	// 	});
-
-	// 	$(document).click(function () {
-	// 		$styledSelect.removeClass('select-active');
-	// 		$list.hide();
-	// 	});
-
-	// });
-	$('#lang').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--lang"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options select-options--lang'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-	$('.die__select').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '400px');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-	$('.die__opinion').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '400px');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-
-
-
-
-
-
-	//Search show***************************************
-
-	$('.search__btn-showHide').click(function () {
-		$('.search__more-wrap').toggleClass('show-select');
-		$('.search__btn-showHide').toggleClass('active-btn');
-	});
-
-
-
-	//Set data to input from calendar******************
-	$('#user-both').change(function () {
-		var dataBoth = $('#user-both').val();
-		dataBoth = dataBoth.split('-').reverse().join('-');
-		$('.user__both').val(dataBoth);
-	});
-	$('#user-die').change(function () {
-		var dataDie = $('#user-die').val();
-		dataDie = dataDie.split('-').reverse().join('-');
-		$('.user__die').val(dataDie);
-	});
-
-
-
-
-	//Sудусе settings user***********************************
-	// $('#settings').click(function () {
-	// 	$('.about__subsettings').toggleClass('show-settings');
-	// })
-
-	// $('#settings-mob').click(function () {
-	// 	$('.profile__about').toggleClass('settings');
-	// })
-
-	// $('.about__show-item').click(function (event) {
-	// 	$(this).addClass('active');
-	// 	$(this).siblings().removeClass('active');
-	// 	$(this).next($(this)[0]).addClass('active');
-	// });
-
-
-
-
-
-	//show questionnarie item menu right********************
-	$('.data__form').not(':first').hide();
-	if ($(window).width() < 935) {
-		$('.profile__about').hide();
-	};
-	//Opacity tabs when not data user******************************
-	if (user_data) {
-		$('.menu__item').click(function () {
-			$(this).addClass('active-items').siblings().removeClass('active-items');
-			$('.data__form').hide().eq($(this).index()).fadeIn();
-			// $('.data__form-text').focus();
-			if ($(this).index() == 0) {
-				$('.profile__about').show();
-			}
-		});
-	} else {
-		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
-	};
-
-	//upload avatar*************************************
-	$('.about__upload-inpt--ava').change(function (e) {
-		var input = e.target;
-
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = $('#output');
-			output.attr('src', dataURL);
-		};
-		reader.readAsDataURL(input.files[0]);
-	});
-
-
-	//upload foto to fotoalbum****************************
-	function hideAddfoto() {
-		var foto = $('.about__gal-wrap');
-		console.log(foto.length);
-		if (foto.length >= 10) {
-			$('.about__gal-wrap--def').hide();
-		} else {
-			$('.about__gal-wrap--def').show();
-		}
-	};
-
-	$('#addFoto').change(function (e) {
-		var input = e.target;
-		hideAddfoto();
-		var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = elem.children();
-			output.attr('src', dataURL);
-		};
-		$(elem).insertBefore($('#elem'));
-		reader.readAsDataURL(input.files[0]);
-
-
-	});
-
-
-	//Remind both and die*****************************************
-	$('.user__remind').click(function (e) {
-		e.preventDefault();
-		$(this).toggleClass('active');
-	});
-
-	$('.user__die').click(function (e) {
-		e.preventDefault();
-		$('#user-die').click();
-
-	});
-	$('.user__both').click(function (e) {
-		e.preventDefault();
-		$('#user-both').click();
-
-	});
-
-
-
+	}
+};
+
+//Exit account***************************************************
+$('#logout').click(function () {
+	deleteCookie(cookie_name_token);
+	window.location.href = '../index.html';
 
 });
+
+//if user auth************************************************
+function start() {
+
+	fetch(
+		`${api_url}get_start_info`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('wellcome');
+			// console.log('Data:', JSON.stringify(data));
+			userAvatar = data.user.avatar;
+			confirmUser();
+		})
+		.catch(error => console.error('error1:', error));
+};
+
+//Icon user if login**************************
+function confirmUser() {
+	if (userAvatar) {
+		$('.header__user').attr('src', userAvatar);
+	};
+	showTabs();
+};
+
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function deleteCookie(name) {
+	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+}
+
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+	$('#error-message').addClass('show');
+	$('.success').text(textToShow);
+	setTimeout(() => {
+		$('#error-message').removeClass('show');
+	}, time);
+};
+
+
+//User input first screen**********************************
+var statusProf = true;
+$('.about__check').on('change', function () {
+	statusProf = $(this).attr('data-status');
+});
+
+var profile_open = statusProf;
+var avatar_death = $('#output');
+var first_name = $('.user__name');
+var last_name = $('.user__patronymic');
+var family_name = $('.user__surname');
+var surname_girl = $('.user__surname-girl');
+var birth_date = $('.user__both');
+var birth_city = $('.user__both-loc');
+var short_story = $('#area-lives');
+
+
+function validateData() {
+	if ($('.user__name').val() == '' || $('.user__surname').val() == '' || $('.user__both').val() == '') {
+		return false;
+	} else {
+		return true;
+	}
+};
+
+//send first request**************************
+$('#sendFistRequest').click(function (e) {
+	e.preventDefault();
+	var first_data = {
+		avatar: avatar_death.attr('src'),
+		first_name: first_name.val(),
+		last_name: last_name.val(),
+		family_name: family_name.val(),
+		surname_girl: surname_girl.val(),
+		birth_date: birth_date.val(),
+		birth_city: birth_city.val(),
+		short_story: short_story.val(),
+		profile_open: profile_open
+	};
+	//console.log(first_data);
+	if (validateData()) {
+		fetch(
+			`${api_url}create_user_profile`,
+			{
+				method: 'POST',
+				body: JSON.stringify(first_data),
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then($('body').css('opacity', 0.5))
+			.then(response => response.json())
+			.then(data => {
+
+				if (data) {
+					$('body').css('opacity', 1);
+					console.log("success send");
+					console.log('Data:', JSON.stringify(data));
+					showErrorSuccess('Данные сохранены', 1000);
+					window.location.href = `../questionnaire-life/#${data.profile.id}`;
+				} else {
+					showErrorSuccess('Такой пользователь уже существует', 500);
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				showErrorSuccess('Ошибка соединения', 1000);
+			});
+	} else {
+		showErrorSuccess('Заполните обязательные поля', 1000);
+
+	}
+})
+
+
+//burger***************************************
+function burgerShow() {
+	$('.burger-wrap').toggleClass('open');
+	$('.burger').toggleClass('closed');
+	$('body').toggleClass('no-scroll');
+	$('.burger__bg-body').toggleClass('show-bgBody');
+}
+$('.burger').click(function () {
+	burgerShow();
+
+});
+$('.nav__link').click(function () {
+	burgerShow();
+});
+$('.burger__bg-body').click(function (e) {
+	var container = $('.burger-wrap');
+	if (container.has(e.target).length === 0) {
+		burgerShow();
+	}
+});
+
+
+//show questionnarie item menu right********************
+$('.data__form').not(':first').hide();
+if ($(window).width() < 935) {
+	$('.profile__about').hide();
+};
+//Opacity tabs when not data user******************************
+function showTabs() {
+	$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $('.data__relative').each(function () {
+// 	var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+// 	$this.addClass('select-hidden');
+// 	$this.wrap('<div class="select"></div>');
+// 	$this.after('<div class="select-styled"></div>');
+
+// 	var $styledSelect = $this.next('div.select-styled');
+// 	$styledSelect.text($this.children('option').eq(0).text());
+
+// 	var $list = $('<ul />', {
+// 		'class': 'select-options'
+// 	}).insertAfter($styledSelect);
+
+// 	for (var i = 0; i < numberOfOptions; i++) {
+// 		$('<li />', {
+// 			text: $this.children('option').eq(i).text(),
+// 			rel: $this.children('option').eq(i).val()
+// 		}).appendTo($list);
+// 	}
+
+// 	var $listItems = $list.children('li');
+
+// 	$styledSelect.click(function (e) {
+// 		e.stopPropagation();
+// 		$('div.select-styled.select-active').not(this).each(function () {
+// 			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+// 		});
+// 		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+// 	});
+
+// 	$listItems.click(function (e) {
+// 		e.stopPropagation();
+// 		$styledSelect.text($(this).text()).removeClass('select-active');
+// 		$this.val($(this).attr('rel'));
+// 		$list.hide();
+// 	});
+
+// 	$(document).click(function () {
+// 		$styledSelect.removeClass('select-active');
+// 		$list.hide();
+// 	});
+
+// });
+$('#lang').each(function () {
+	var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+	$this.addClass('select-hidden');
+	$this.wrap('<div class="select select--lang"></div>');
+	$this.after('<div class="select-styled"></div>');
+
+	var $styledSelect = $this.next('div.select-styled');
+	$styledSelect.text($this.children('option').eq(0).text());
+
+	var $list = $('<ul />', {
+		'class': 'select-options select-options--lang'
+	}).insertAfter($styledSelect);
+
+	for (var i = 0; i < numberOfOptions; i++) {
+		$('<li />', {
+			text: $this.children('option').eq(i).text(),
+			rel: $this.children('option').eq(i).val()
+		}).appendTo($list);
+	}
+
+	var $listItems = $list.children('li');
+
+	$styledSelect.click(function (e) {
+		e.stopPropagation();
+		$('div.select-styled.select-active').not(this).each(function () {
+			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+		});
+		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+	});
+
+	$listItems.click(function (e) {
+		e.stopPropagation();
+		$styledSelect.text($(this).text()).removeClass('select-active');
+		$this.val($(this).attr('rel'));
+		$list.hide();
+		//console.log($this.val());
+	});
+
+	$(document).click(function () {
+		$styledSelect.removeClass('select-active');
+		$list.hide();
+	});
+
+});
+
+
+
+
+
+
+
+
+//Search show***************************************
+
+// $('.search__btn-showHide').click(function () {
+// 	$('.search__more-wrap').toggleClass('show-select');
+// 	$('.search__btn-showHide').toggleClass('active-btn');
+// });
+
+
+
+//Set data to input from calendar******************
+$('#user-both').change(function () {
+	var dataBoth = $('#user-both').val();
+	dataBoth = dataBoth.split('-').reverse().join('-');
+	$('.user__both').val(dataBoth);
+});
+
+
+
+
+
+//upload avatar*************************************
+$('.about__upload-inpt--ava').change(function (e) {
+	var input = e.target;
+
+	var reader = new FileReader();
+	reader.onload = function () {
+		var dataURL = reader.result;
+		var output = $('#output');
+		output.attr('src', dataURL);
+	};
+	reader.readAsDataURL(input.files[0]);
+});
+//force click upload avatar*********************
+$('.about__img-wrap').click(function () {
+	$('#fileFotoAvatar').click();
+});
+
+
+
+
+
+//upload foto to fotoalbum****************************
+// function hideAddfoto() {
+// 	var foto = $('.about__gal-wrap');
+// 	console.log(foto.length);
+// 	if (foto.length >= 10) {
+// 		$('.about__gal-wrap--def').hide();
+// 	} else {
+// 		$('.about__gal-wrap--def').show();
+// 	}
+// };
+
+// $('#addFoto').change(function (e) {
+// 	var input = e.target;
+// 	hideAddfoto();
+// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
+// 	var reader = new FileReader();
+// 	reader.onload = function () {
+// 		var dataURL = reader.result;
+// 		var output = elem.children();
+// 		output.attr('src', dataURL);
+// 	};
+// 	$(elem).insertBefore($('#elem'));
+// 	reader.readAsDataURL(input.files[0]);
+
+
+// });
