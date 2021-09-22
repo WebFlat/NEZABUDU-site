@@ -10607,7 +10607,7 @@ $(window).on('load', function () {
 });
 
 // var api_url = "http://localhost:3000/";
-var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
 var cookie_name_token = "project_token";
 var cookie_token = getCookie(cookie_name_token);
@@ -10704,6 +10704,14 @@ function isLife() {
 	$('.brief__img-wrap').css('border-color', '#fce176');
 };
 
+function renderDescrFull(data) {
+	$('.brief__descr-1').text(data.profile.short_life_1);
+	$('.brief__descr-2').text(data.profile.short_life_2);
+	$('.brief__descr-3').text(data.profile.short_life_3);
+	$('.brief__descr-4').text(data.profile.short_life_4);
+	$('.brief__descr-5').text(data.profile.short_life_5);
+};
+
 
 //render timeline story**********************************
 async function loaddLiveFull(dataToLoad, outHtml) {
@@ -10783,6 +10791,11 @@ function loadQuestionnaries() {
 		liveFull3 = $('#youth'),
 		liveFull4 = $('#ripeness'),
 		liveFull5 = $('#elderhood');
+	shortlife1 = $('.brief__descr-edit-1 + span');
+	shortlife2 = $('.brief__descr-edit-2 + span');
+	shortlife3 = $('.brief__descr-edit-3 + span');
+	shortlife4 = $('.brief__descr-edit-4 + span');
+	shortlife5 = $('.brief__descr-edit-5 + span');
 
 	//Execute number of profile to show and show it**********************
 	fetch(
@@ -10803,47 +10816,71 @@ function loadQuestionnaries() {
 			if (currentUser == userParent) {
 				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 					avaProfile.attr('src', data.profile.avatar);
-				}
-				var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
-				var preDie = (data.profile.death_date).split('-').reverse().join('.');
-				var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+				};
+				var preBirth;
+				if (data.profile.birth_date) {
+					preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+				};
+				var ageNum;
+				if (data.profile.death_date) {
+					var preDie = (data.profile.death_date).split('-').reverse().join('.');
+					ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+					if (data.profile.cementry_name) {
+						cemeteryName.text(data.profile.cementry_name);
+					};
+					if (data.profile.cementry_square) {
+						square.text(data.profile.cementry_square);
+					};
+					if (data.profile.cementry_row) {
+						row.text(data.profile.cementry_row);
+					};
+					if (data.profile.cementry_place) {
+						number.text(data.profile.cementry_place);
+					};
+					if (data.profile.cementry_sector) {
+						sector.text(data.profile.cementry_sector);
+					};
+					if (data.profile.death_city) {
+						city_die.text(data.profile.death_city);
+					};
+					if (data.profile.birth_city) {
+						city_birth.text(data.profile.birth_city);
+					};
+					dieProfile.text(preDie);
+					timelinedieProfile.text(preDie);
+				} else {
+					isLife();
+				};
+				var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
+				ageProfile.text(ageNumBirth);
 				birthProfile.text(preBirth);
 				timelinebirthProfile.text(preBirth);
-				dieProfile.text(preDie);
-				timelinedieProfile.text(preDie);
-				ageProfile.text(ageNum);
 				nameProfile.text(data.profile.last_name);
-				surmaneProfile.text(data.profile.last_name);
+				surmaneProfile.text(data.profile.first_name);
 				patronimycProfile.text(data.profile.patronymic);
-				if (data.profile.cementry_name) {
-					cemeteryName.text(data.profile.cementry_name);
-				}
-				if (data.profile.cementry_square) {
-					square.text(data.profile.cementry_square);
-				}
-				if (data.profile.cementry_row) {
-					row.text(data.profile.cementry_row);
-				}
-				if (data.profile.cementry_place) {
-					number.text(data.profile.cementry_place);
-				}
-				if (data.profile.cementry_sector) {
-					sector.text(data.profile.cementry_sector);
-				}
-				if (data.profile.death_city) {
-					city_die.text(data.profile.death_city);
-				}
 				if (data.profile.birth_city) {
 					city_birth.text(data.profile.birth_city);
-				}
+				};
 				if (data.profile.short_story == '') {
 					$('.brief__text').css('opacity', 0);
 					$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
 				} else {
 					textProfile.text(data.profile.short_story);
 				};
-				if (data.profile.death_cause) {
-					cause.text(data.profile.death_cause);
+				if (data.profile.short_life_1) {
+					shortlife1.text(data.profile.short_life_1);
+				};
+				if (data.profile.short_life_2) {
+					shortlife2.text(data.profile.short_life_2);
+				};
+				if (data.profile.short_life_3) {
+					shortlife3.text(data.profile.short_life_3);
+				};
+				if (data.profile.short_life_4) {
+					shortlife4.text(data.profile.short_life_4);
+				};
+				if (data.profile.short_life_5) {
+					shortlife5.text(data.profile.short_life_5);
 				};
 				loadLive(data.timelines.block1, htmlOut1, 'childhood');
 				loadLive(data.timelines.block2, htmlOut2, 'preyouth');
@@ -10853,20 +10890,20 @@ function loadQuestionnaries() {
 				var btnAddClick = $('.btn-tab-link');
 				if (btnAddClick) {
 					clickToLive(btnAddClick);
-				}
+				};
 				loaddLiveFull(data.timelines.block1, liveFull1);
 				loaddLiveFull(data.timelines.block2, liveFull2);
 				loaddLiveFull(data.timelines.block3, liveFull3);
 				loaddLiveFull(data.timelines.block4, liveFull4);
 				loaddLiveFull(data.timelines.block5, liveFull5);
-
+				renderDescrFull(data);
 				collectArr(allData);
 				renderEvents();
 				initMore();
 			} else {
 				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 					avaProfile.attr('src', data.profile.avatar);
-				}
+				};
 				var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
 				var preDie = (data.profile.death_date).split('-').reverse().join('.');
 				var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
@@ -10876,7 +10913,7 @@ function loadQuestionnaries() {
 				timelinedieProfile.text(preDie);
 				ageProfile.text(ageNum);
 				nameProfile.text(data.profile.last_name);
-				surmaneProfile.text(data.profile.last_name);
+				surmaneProfile.text(data.profile.first_name);
 				patronimycProfile.text(data.profile.patronymic);
 				if (data.profile.profile_type !== 'true') {
 					$('.brief__timelaps').css('display', 'none');
@@ -10888,26 +10925,26 @@ function loadQuestionnaries() {
 				} else {
 					if (data.profile.cementry_name) {
 						cemeteryName.text(data.profile.cementry_name);
-					}
+					};
 					if (data.profile.cementry_square) {
 						square.text(data.profile.cementry_square);
-					}
+					};
 					if (data.profile.cementry_row) {
 						row.text(data.profile.cementry_row);
-					}
+					};
 					if (data.profile.cementry_place) {
 						number.text(data.profile.cementry_place);
-					}
+					};
 					if (data.profile.cementry_sector) {
 						sector.text(data.profile.cementry_sector);
-					}
+					};
 					if (data.profile.death_city) {
 						city_die.text(data.profile.death_city);
-					}
+					};
 					if (data.profile.birth_city) {
 						city_birth.text(data.profile.birth_city);
-					}
-					if (data.profile.profile_type !== 'true') {
+					};
+					if (data.profile.profile_open !== true) {
 						$('.brief__timelaps').css('display', 'none');
 						$('.brief__location').css('display', 'none');
 						$('.data-tab-content').css('display', 'none');
@@ -10929,18 +10966,17 @@ function loadQuestionnaries() {
 					var btnAddClick = $('.btn-tab-link');
 					if (btnAddClick) {
 						clickToLive(btnAddClick);
-					}
+					};
 					loaddLiveFull(data.timelines.block1, liveFull1);
 					loaddLiveFull(data.timelines.block2, liveFull2);
 					loaddLiveFull(data.timelines.block3, liveFull3);
 					loaddLiveFull(data.timelines.block4, liveFull4);
 					loaddLiveFull(data.timelines.block5, liveFull5);
-
+					renderDescrFull(data);
 					collectArr(allData);
 					renderEvents();
 					initMore();
 					isNotParentUser();
-
 				}
 			}
 
@@ -10982,14 +11018,14 @@ $('.editOLdData').click(function () {
 	$('body').css('background', 'rgba(0,0,0, .9)').css('z-index', '-1');
 	$('.header').css('opacity', '0');
 	$('.brief__context').removeClass('active');
-	console.log(allData.profile);
+	//console.log(allData.profile);
 	if (allData.profile.who_for_profile != '') {
 		whois.val(allData.profile.who_for_profile);
 	};
 	if (allData.profile.avatar != '') {
 		ava.attr('src', allData.profile.avatar);
 	};
-	if (allData.profile.profile_type == 'open') {
+	if (allData.profile.profile_open == true) {
 		$('#open').click();
 	} else {
 		$('#close').click();
@@ -11006,8 +11042,19 @@ $('.editOLdData').click(function () {
 	if (allData.profile.maiden_name != null) {
 		userGirlName.val(allData.profile.maiden_name);
 	};
-	both.val(allData.profile.birth_date.split('-').reverse().join('.'));
-	die.val(allData.profile.death_date.split('-').reverse().join('.'));
+	if (allData.profile.death_date) {
+		die.val(allData.profile.death_date.split('-').reverse().join('.'));
+
+	} else {
+		$('.data__relative').remove();
+		$('.user__die-loc').remove();
+		$('.data__title-location').remove();
+		$('.user__inp-wrap-die').remove();
+		$('.data-place').remove();
+	}
+	if (allData.profile.birth_date) {
+		both.val(allData.profile.birth_date.split('-').reverse().join('.'));
+	}
 	if (allData.profile.birth_city != null) {
 		cityBoth.val(allData.profile.birth_city);
 	};
@@ -11087,30 +11134,47 @@ $('.editOLdData').click(function () {
 		// } else {
 		// 	foto = ava.attr('src');
 		// };
-		let edit_data = {
-			who_for_profile: whois.val(),
-			avatar: ava.attr('src'),
-			first_name: userSurname.val(),
-			last_name: userName.val(),
-			patronymic: userPatronymic.val(),
-			maiden_name: userGirlName.val(),
-			birth_date: both.val(),
-			death_date: die.val(),
-			birth_city: cityBoth.val(),
-			death_city: cityDie.val(),
-			short_story: info.val(),
-			cementry_city: cityCemetery.val(),
-			cementry_name: cemetery.val(),
-			cementry_sector: sector.val(),
-			cementry_square: square.val(),
-			cementry_row: row.val(),
-			cementry_place: place.val(),
-			grave_lon: lon.val(),
-			grave_lat: lat.val(),
-			death_cause: cause.val(),
-			profile_type: status_prof,
-			profile_id: currentProfile
-		};
+		let edit_data = {};
+		if (!die.val()) {
+			edit_data = {
+				avatar: ava.attr('src'),
+				first_name: userSurname.val(),
+				last_name: userName.val(),
+				patronymic: userPatronymic.val(),
+				maiden_name: userGirlName.val(),
+				birth_date: both.val(),
+				birth_city: cityBoth.val(),
+				short_story: info.val(),
+				profile_type: status_prof,
+				profile_id: currentProfile
+			};
+		} else {
+			edit_data = {
+				who_for_profile: whois.val(),
+				avatar: ava.attr('src'),
+				first_name: userSurname.val(),
+				last_name: userName.val(),
+				patronymic: userPatronymic.val(),
+				maiden_name: userGirlName.val(),
+				birth_date: both.val(),
+				death_date: die.val(),
+				birth_city: cityBoth.val(),
+				death_city: cityDie.val(),
+				short_story: info.val(),
+				cementry_city: cityCemetery.val(),
+				cementry_name: cemetery.val(),
+				cementry_sector: sector.val(),
+				cementry_square: square.val(),
+				cementry_row: row.val(),
+				cementry_place: place.val(),
+				grave_lon: lon.val(),
+				grave_lat: lat.val(),
+				death_cause: cause.val(),
+				profile_type: status_prof,
+				profile_id: currentProfile
+			};
+		}
+
 		//console.log(edit_data);
 		fetch(
 			`${api_url}update_profile`,
@@ -11129,7 +11193,7 @@ $('.editOLdData').click(function () {
 				if (data) {
 					$('body').css('opacity', 1);
 					console.log("success send");
-					console.log('Data:', JSON.stringify(data));
+					//console.log('Data:', JSON.stringify(data));
 					showErrorSuccess(data.status, 300);
 					window.location.reload();
 				} else {
@@ -11191,7 +11255,7 @@ $('#del-confirm').click(function () {
 		id: currentProfile,
 		user_id: currentUser
 	};
-	console.log(JSON.stringify(del_data));
+	//console.log(JSON.stringify(del_data));
 	fetch(
 		`${api_url}destroy_user_profile`,
 		{
@@ -11209,13 +11273,13 @@ $('#del-confirm').click(function () {
 			if (data) {
 				$('body').css('opacity', 1);
 				console.log("success send");
-				console.log('Data:', JSON.stringify(data));
-				showErrorSuccess(data.status, 300);
-				//window.location.reload();
+				//console.log('Data:', JSON.stringify(data));
+				showErrorSuccess(data.status, 1000);
+				window.location.href = '../cabinet-page/';
 			} else {
 				$('body').css('opacity', 1);
-				showErrorSuccess('Ошибка сохранения', 300);
-				//window.location.reload();
+				showErrorSuccess('Ошибка сохранения', 1000);
+				window.location.reload();
 			}
 
 		})
@@ -11223,7 +11287,7 @@ $('#del-confirm').click(function () {
 			$('body').css('opacity', 1);
 			console.log('error:', error);
 			showErrorSuccess('Ошибка соединения', 3000);
-			//window.location.reload();
+			window.location.reload();
 		});
 })
 
@@ -11271,7 +11335,7 @@ function initDelStory() {
 				id: currentProfile,
 				user_id: currentUser
 			};
-			console.log(JSON.stringify(del_data));
+			//console.log(JSON.stringify(del_data));
 			fetch(
 				`${api_url}destroy_user_profile`,
 				{
@@ -11289,13 +11353,13 @@ function initDelStory() {
 					if (data) {
 						$('body').css('opacity', 1);
 						console.log("success send");
-						console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 300);
-						//window.location.reload();
+						//console.log('Data:', JSON.stringify(data));
+						showErrorSuccess(data.status, 1000);
+						window.location.reload();
 					} else {
 						$('body').css('opacity', 1);
-						showErrorSuccess('Ошибка сохранения', 300);
-						//window.location.reload();
+						showErrorSuccess('Ошибка сохранения', 1000);
+						window.location.reload();
 					}
 
 				})
@@ -11303,7 +11367,7 @@ function initDelStory() {
 					$('body').css('opacity', 1);
 					console.log('error:', error);
 					showErrorSuccess('Ошибка соединения', 3000);
-					//window.location.reload();
+					window.location.reload();
 				});
 		})
 	}
@@ -12164,7 +12228,7 @@ $('.brief__descr-edit').click(function (e) {
 				};
 				break;
 		}
-		console.log(edit_data);
+		//console.log(edit_data);
 
 		fetch(
 			`${api_url}update_profile`,
@@ -12183,18 +12247,18 @@ $('.brief__descr-edit').click(function (e) {
 				if (data) {
 					$('body').css('opacity', 1);
 					console.log("success send");
-					console.log('Data:', JSON.stringify(data));
-					showErrorSuccess(data.status, 300);
+					//console.log('Data:', JSON.stringify(data));
+					showErrorSuccess(data.status, 1000);
 					window.location.reload();
 				} else {
-					showErrorSuccess('Ошибка сохранения', 300);
+					showErrorSuccess('Ошибка сохранения', 1000);
 					window.location.reload();
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 300);
+				showErrorSuccess('Ошибка соединения', 1000);
 				window.location.reload();
 			});
 	});

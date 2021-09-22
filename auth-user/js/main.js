@@ -10269,7 +10269,7 @@ $(document).ready(function () {
 
 
     // var api_url = "http://localhost:3000/";
-    var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+    var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
     var cookie_name_token = "project_token";
     var cookie_token = getCookie(cookie_name_token);

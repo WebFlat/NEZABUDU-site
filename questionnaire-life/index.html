@@ -339,7 +339,7 @@
 	                    <input type="text" class="user__both" required placeholder="Дата рождения" readonly>
 	                    <button class="user__remind" id="remind-both"></button>
 	                </div>
-	                <div class="user__inp-wrap">
+	                <div class="user__inp-wrap user__inp-wrap-die">
 	                    <span class="user__cal"><input type="date" name="calendar2" id="user-die"></span>
 	                    <input type="text" class="user__die" required placeholder="Дата смерти" readonly>
 	                    <button class="user__remind" id="remind-die"></button>
@@ -356,88 +356,90 @@
 	        <textarea name="main-info" id="area-lives" rows="5"
 	            placeholder="расскажите о характере, деятельности, особенностях и др.."></textarea>
 	    </div>
-	    <h6 class="data__title-location">Где покоится:</h6>
-	    <div class="data__locations">
-	        <input type="text" name="city" id="city" class="data__loc-city" placeholder="Город">
-	        <input type="text" name="cemetery" id="cemetery" class="data__loc-cemetery" placeholder="Кладбище">
-	    </div>
-	    <div class="data__loc-wrap">
-	        <div class="data__loc-axacts">
-	            <input type="number" class="data__loc-axact" placeholder="Сектор" id="cementry_sector">
-	            <input type="number" class="data__loc-axact" placeholder="Квадрат" id="cementry_square">
+	    <div class="data-place">
+	        <h6 class="data__title-location">Где покоится:</h6>
+	        <div class="data__locations">
+	            <input type="text" name="city" id="city" class="data__loc-city" placeholder="Город">
+	            <input type="text" name="cemetery" id="cemetery" class="data__loc-cemetery" placeholder="Кладбище">
 	        </div>
-	        <div class="data__loc-axacts">
-	            <input type="number" class="data__loc-axact" placeholder="Ряд" id="cementry_row">
-	            <input type="number" class="data__loc-axact" placeholder="Место" id="cementry_place">
+	        <div class="data__loc-wrap">
+	            <div class="data__loc-axacts">
+	                <input type="number" class="data__loc-axact" placeholder="Сектор" id="cementry_sector">
+	                <input type="number" class="data__loc-axact" placeholder="Квадрат" id="cementry_square">
+	            </div>
+	            <div class="data__loc-axacts">
+	                <input type="number" class="data__loc-axact" placeholder="Ряд" id="cementry_row">
+	                <input type="number" class="data__loc-axact" placeholder="Место" id="cementry_place">
+	            </div>
 	        </div>
-	    </div>
-	    <div class="data__map">
-	        <div class="map__links">
-	            <a href="https://www.google.com/maps" class="map__google-link" target="_blank"></a>
-	            <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="50.059535" id="grave_lon">
-	            <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="36.195110" id="grave_lat">
+	        <div class="data__map">
+	            <div class="map__links">
+	                <a href="https://www.google.com/maps" class="map__google-link" target="_blank"></a>
+	                <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="50.059535" id="grave_lon">
+	                <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="36.195110" id="grave_lat">
+	            </div>
+	            <div class="map__prev">
+	                <iframe
+	                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4542.600346842682!2d37.49132871703975!3d47.14172791894545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e6e23a95b001e9%3A0xb635713259c723a6!2z0JzQsNGA0ZbRg9C_0L7Qu9GM0YHRjNC60LUg0JrQu9Cw0LTQvtCy0LjRidC1!5e0!3m2!1suk!2sua!4v1607212174526!5m2!1suk!2sua"
+	                    frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"
+	                    key='AIzaSyA1CqxmxvB0H0I_KZJArCWzNvdFmegf0Qo'></iframe>
+	            </div>
 	        </div>
-	        <div class="map__prev">
-	            <iframe
-	                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4542.600346842682!2d37.49132871703975!3d47.14172791894545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e6e23a95b001e9%3A0xb635713259c723a6!2z0JzQsNGA0ZbRg9C_0L7Qu9GM0YHRjNC60LUg0JrQu9Cw0LTQvtCy0LjRidC1!5e0!3m2!1suk!2sua!4v1607212174526!5m2!1suk!2sua"
-	                frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"
-	                key='AIzaSyA1CqxmxvB0H0I_KZJArCWzNvdFmegf0Qo'></iframe>
+	        <div class="user__die-about">
+	            <label for="die-select">Причина смерти</label>
+	            <select name="die" id="die-select" class="die__select">
+	                <option value="hide">Список</option>
+	                <option value="Болезни системы кровообращения
+	                            ">Болезни системы кровообращения
+	                </option>
+	                <option value="Ишемическая болезнь сердца ">Ишемическая болезнь сердца </option>
+	                <option value="Инсульт, инфаркт
+	                            ">Инсульт, инфаркт
+	                </option>
+	                <option value="Болезни нервной системы
+	                            ">Болезни нервной системы
+	                </option>
+	                <option value="Болезни органов пищеварения
+	                            ">Болезни органов пищеварения
+	                </option>
+	                <option value="Отравления
+	                            ">Отравления
+	                </option>
+	                <option value="Травмы">Травмы</option>
+	                <option value="Самоубийство">Самоубийство</option>
+	                <option value="Несчастный случай
+	                            ">Несчастный случай
+	                </option>
+	                <option value="ДТП">ДТП</option>
+	                <option value="Инфекционные и вирусные заболевания
+	                            ">Инфекционные и вирусные заболевания
+	                </option>
+	                <option value="Исполнение служебного долга
+	                            ">Исполнение служебного долга
+	                </option>
+	                <option value="Возрастные заболевания">Возрастные заболевания</option>
+	                <option value="Неонатальные заболевания
+	                            ">Неонатальные заболевания
+	                </option>
+	                <option value="Материнские болезни, роды
+	                            ">Материнские болезни, роды
+	                </option>
+	                <option value="COVID-19
+	                            ">COVID-19
+	                </option>
+	                <option value="Военные действия
+	                            ">Военные действия
+	                </option>
+	                <option value="Онкология дыхательных путей
+	                            ">Онкология дыхательных путей
+	                </option>
+	                <option value="Онкология костных тканей">Онкология костных тканей
+	                </option>
+	                <option value="Онкология">Онкология</option>
+	                <option value="Другое">Другое</option>
+	                <option value="Не хочу рассказывать">Не хочу рассказывать</option>
+	            </select>
 	        </div>
-	    </div>
-	    <div class="user__die-about">
-	        <label for="die-select">Причина смерти</label>
-	        <select name="die" id="die-select" class="die__select">
-	            <option value="hide">Список</option>
-	            <option value="Болезни системы кровообращения
-	                        ">Болезни системы кровообращения
-	            </option>
-	            <option value="Ишемическая болезнь сердца ">Ишемическая болезнь сердца </option>
-	            <option value="Инсульт, инфаркт
-	                        ">Инсульт, инфаркт
-	            </option>
-	            <option value="Болезни нервной системы
-	                        ">Болезни нервной системы
-	            </option>
-	            <option value="Болезни органов пищеварения
-	                        ">Болезни органов пищеварения
-	            </option>
-	            <option value="Отравления
-	                        ">Отравления
-	            </option>
-	            <option value="Травмы">Травмы</option>
-	            <option value="Самоубийство">Самоубийство</option>
-	            <option value="Несчастный случай
-	                        ">Несчастный случай
-	            </option>
-	            <option value="ДТП">ДТП</option>
-	            <option value="Инфекционные и вирусные заболевания
-	                        ">Инфекционные и вирусные заболевания
-	            </option>
-	            <option value="Исполнение служебного долга
-	                        ">Исполнение служебного долга
-	            </option>
-	            <option value="Возрастные заболевания">Возрастные заболевания</option>
-	            <option value="Неонатальные заболевания
-	                        ">Неонатальные заболевания
-	            </option>
-	            <option value="Материнские болезни, роды
-	                        ">Материнские болезни, роды
-	            </option>
-	            <option value="COVID-19
-	                        ">COVID-19
-	            </option>
-	            <option value="Военные действия
-	                        ">Военные действия
-	            </option>
-	            <option value="Онкология дыхательных путей
-	                        ">Онкология дыхательных путей
-	            </option>
-	            <option value="Онкология костных тканей">Онкология костных тканей
-	            </option>
-	            <option value="Онкология">Онкология</option>
-	            <option value="Другое">Другое</option>
-	            <option value="Не хочу рассказывать">Не хочу рассказывать</option>
-	        </select>
 	    </div>
 	    <div class="data__btns">
 	        <button class="btn data__btn-close" id="sendEditRequest">Сохранить</button>
@@ -558,15 +560,15 @@
 		                                    <!-- <img src="./img/candle-fire.png" alt="candle"
 		                                        class="brief__candle brief__candle--fire" id="candleFire"> -->
 		                                    <h6 class="brief__titles">
-		                                        <span class="brief__name-user" id="user-surname">Фамилия</span>
-		                                        <span class="brief__surname" id="user-name">Имя</span>
-		                                        <span class="brief__patronimyc" id="user-patronimyc">Отчество
+		                                        <span class="brief__name-user" id="user-surname"></span>
+		                                        <span class="brief__surname" id="user-name"></span>
+		                                        <span class="brief__patronimyc" id="user-patronimyc">
 		                                        </span>
 		                                    </h6>
 		                                    <div class="brief__years">
-		                                        <span class="brief__both">рождение</span>
+		                                        <span class="brief__both"></span>
 		                                        <span> - </span>
-		                                        <span class="brief__die">смерть</span>
+		                                        <span class="brief__die"></span>
 		                                        <span class="brief__life-long">
 		                                            (
 		                                            <span class="brief__life-val" id="user-old"></span>
@@ -574,20 +576,6 @@
 		                                        </span>
 		                                    </div>
 		                                    <p class="brief__text" id="user-about-short">
-		                                        Художник, любящий дедушка,
-		                                        путешественник, который
-		                                        занимался любимым делом.
-		                                        Художник, любящий дедушка,
-		                                        путешественник, который
-		                                        занимался любимым делом.
-		                                        Художник, любящий дедушка,
-		                                        путешественник, который
-		                                        занимался любимым делом.
-		                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores
-		                                        delectus odit
-		                                        dignissimos nulla quia, aspernatur provident consequatur odio corporis
-		                                        doloremque
-		                                        accusantium fugit id et illum exercitationem eos, sed maiores.
 		                                    </p>
 		                                    <p id="user-about" class="brief__more"> Читать дальше...</p>
 		                                    <div class="brief__bookmarks">
@@ -633,7 +621,7 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit" data-shot-story="1">
+		                                        <span class="brief__descr-edit brief__descr-edit-1" data-shot-story="1">
 		                                            &#9998;
 		                                        </span>
 		                                        <span></span>
@@ -662,7 +650,7 @@
 		
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit" data-shot-story="2">
+		                                        <span class="brief__descr-edit brief__descr-edit-2" data-shot-story="2">
 		                                            &#9998;
 		                                        </span>
 		                                        <span></span>
@@ -696,7 +684,7 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit" data-shot-story="3">
+		                                        <span class="brief__descr-edit brief__descr-edit-3" data-shot-story="3">
 		                                            &#9998;
 		                                        </span>
 		                                        <span></span>
@@ -729,7 +717,7 @@
 		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit" data-shot-story="4">
+		                                        <span class="brief__descr-edit brief__descr-edit-4" data-shot-story="4">
 		                                            &#9998;
 		                                        </span>
 		                                        <span></span>
@@ -756,7 +744,7 @@
 		                                        </span>
 		                                    </div>
 		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit" data-shot-story="5">
+		                                        <span class="brief__descr-edit brief__descr-edit-5" data-shot-story="5">
 		                                            &#9998;
 		                                        </span>
 		                                        <span></span>
@@ -820,14 +808,7 @@
 		                                Детство
 		                            </h6>
 		                            <div class="story__text">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
+		                                <p class="story__descr brief__descr-1">
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
@@ -838,14 +819,7 @@
 		                                Юность
 		                            </h6>
 		                            <div class="story__text">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
+		                                <p class="story__descr brief__descr-2">
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
@@ -855,14 +829,7 @@
 		                                Молодость
 		                            </h6>
 		                            <div class="story__text">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
+		                                <p class="story__descr brief__descr-3">
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
@@ -872,14 +839,7 @@
 		                                Зрелость
 		                            </h6>
 		                            <div class="story__text">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
+		                                <p class="story__descr brief__descr-4">
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>
@@ -889,14 +849,7 @@
 		                                Преклонный возраст
 		                            </h6>
 		                            <div class="story__text">
-		                                <p class="story__descr">
-		                                    Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.Детство прошло возле моря, ходил в
-		                                    школу, учился 9 классов, на выходных
-		                                    был у бабушки с дедушкой.
+		                                <p class="story__descr brief__descr-5">
 		                                </p>
 		                                <button class="more">Подробнее</button>
 		                            </div>

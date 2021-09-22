@@ -11005,7 +11005,7 @@ $(window).on('load', function () {
 
 //Request to server*****************************
 // var api_url = "http://localhost:3000/";
-var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
 var cookie_name_token = "project_token";
 var cookie_token = getCookie(cookie_name_token);
@@ -11121,17 +11121,22 @@ function deleteCookie(name) {
 function loadQuestionnaries(section_life, section_death, section_my, users, data) {
 	var out = '';
 	var out2 = '';
+	var out3 = '';
 	for (var key in data) {
 		let birth = data[key].birth_date.split('-').reverse().join('.');
-		let die = data[key].death_date.split('-').reverse().join('.');
+		let die;
+		if (data[key].death_date) {
+			die = data[key].death_date.split('-').reverse().join('.');
+		}
 		if (data[key].avatar == '') {
 			data[key].avatar = "./img/user-def.png";
 		}
-		if (data[key].death_date == null) {
+		if (data[key].profile_mine && !data[key].death_date) {
+			out3 += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+			section_my.html(out3);
+			$('.customer').remove();
+		} else if (!data[key].death_date && !data[key].profile_mine) {
 			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
-			if (data[key].profile_mine) {
-				section_my.append(out);
-			}
 			section_life.append(out);
 		} else {
 			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
@@ -11145,7 +11150,10 @@ function loadQuestionnariesBookmark(section, users, data) {
 	let out = '';
 	for (let key in data) {
 		let birth = data[key].birth_date.split('-').reverse().join('.');
-		let die = data[key].death_date.split('-').reverse().join('.');
+		let die;
+		if (data[key].death_date) {
+			die = data[key].death_date.split('-').reverse().join('.');
+		}
 		if (data[key].avatar == '') {
 			data[key].avatar = "./img/user-def.png";
 		}

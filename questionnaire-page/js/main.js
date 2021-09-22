@@ -10609,7 +10609,7 @@ $(window).on('load', function () {
 
 
 // var api_url = "http://localhost:3000/";
-var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
 var cookie_name_token = "project_token";
 var cookie_token = getCookie(cookie_name_token);
@@ -10695,10 +10695,10 @@ $('.about__check').on('change', function () {
 var who_for_profile = $('#whois');
 var profile_open = statusProf;
 var avatar_death = $('#output');
-var first_name = $('.user__name');
-var last_name = $('.user__patronymic');
-var family_name = $('.user__surname');
-var surname_girl = $('.user__surname-girl');
+var last_name = $('.user__name');
+var patronymic = $('.user__patronymic');
+var first_name = $('.user__surname');
+var maiden_name = $('.user__surname-girl');
 var birth_date = $('.user__both');
 var death_date = $('.user__die');
 var birth_city = $('.user__both-loc');
@@ -10728,10 +10728,10 @@ $('#sendFistRequest').click(function (e) {
 	var first_data = {
 		who_for_profile: who_for_profile.val(),
 		avatar: avatar_death.attr('src'),
-		first_name: first_name.val(),
 		last_name: last_name.val(),
-		family_name: family_name.val(),
-		surname_girl: surname_girl.val(),
+		patronymic: patronymic.val(),
+		first_name: first_name.val(),
+		maiden_name: maiden_name.val(),
 		birth_date: birth_date.val(),
 		death_date: death_date.val(),
 		birth_city: birth_city.val(),
@@ -10746,7 +10746,8 @@ $('#sendFistRequest').click(function (e) {
 		grave_lon: grave_lon.val(),
 		grave_lat: grave_lat.val(),
 		death_cause: death_cause.val(),
-		profile_open: profile_open
+		profile_open: profile_open,
+		profile_mine: false
 	};
 	//console.log(first_data);
 	if (validateData()) {
