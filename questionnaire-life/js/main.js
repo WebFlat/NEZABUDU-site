@@ -10698,10 +10698,20 @@ function isNotParentUser() {
 	$('.tab__btn-save').remove();
 	$('.story__edit-cont').remove();
 };
+
+//if user parent*************
+function parentUser() {
+	$('#candle').remove();
+	$('#bookmark').remove();
+}
+
+
 function isLife() {
 	$('.brief__location').remove();
 	$('.brief__end').remove();
 	$('.brief__img-wrap').css('border-color', '#fce176');
+	$('#candle').remove();
+	$('#bookmark').remove();
 };
 
 function renderDescrFull(data) {
@@ -10721,19 +10731,20 @@ async function loaddLiveFull(dataToLoad, outHtml) {
 			if (dataToLoad[i].event_img != null) {
 				var dateLoad = dataToLoad[i].event_date;
 				dateLoad = dateLoad.split('-').reverse().join('-');
-				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
-				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory">Редактировать</button>
-				<button class="context-story__item" id="delete-story">Удалить</button>
+				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
+				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
+				<button class="context-story__item delete-story">Удалить</button>
 			</div></div></div>`;
 			} else {
-				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button>
-				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory">Редактировать</button>
-				<button class="context-story__item" id="delete-story">Удалить</button>
+				outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button>
+				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
+				<button class="context-story__item delete-story">Удалить</button>
 			</div></div></div>`;
 			}
 		}
 		outHtml.append(outAll);
 		initDelStory();
+		initEditStory();
 	}
 };
 
@@ -10814,16 +10825,17 @@ function loadQuestionnaries() {
 			currentUser = data.profile.user_id;
 			//console.log(currentUser, userParent);
 			if (currentUser == userParent) {
+				parentUser();
 				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 					avaProfile.attr('src', data.profile.avatar);
 				};
-				var preBirth;
+				let preBirth;
 				if (data.profile.birth_date) {
 					preBirth = (data.profile.birth_date).split('-').reverse().join('.');
 				};
-				var ageNum;
+				let ageNum;
 				if (data.profile.death_date) {
-					var preDie = (data.profile.death_date).split('-').reverse().join('.');
+					let preDie = (data.profile.death_date).split('-').reverse().join('.');
 					ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
 					if (data.profile.cementry_name) {
 						cemeteryName.text(data.profile.cementry_name);
@@ -10904,9 +10916,46 @@ function loadQuestionnaries() {
 				if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 					avaProfile.attr('src', data.profile.avatar);
 				};
-				var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
-				var preDie = (data.profile.death_date).split('-').reverse().join('.');
-				var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+				let preBirth;
+				if (data.profile.birth_date) {
+					preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+				};
+				let ageNum;
+				if (data.profile.death_date) {
+					var preDie = (data.profile.death_date).split('-').reverse().join('.');
+					ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+					if (data.profile.cementry_name) {
+						cemeteryName.text(data.profile.cementry_name);
+					};
+					if (data.profile.cementry_square) {
+						square.text(data.profile.cementry_square);
+					};
+					if (data.profile.cementry_row) {
+						row.text(data.profile.cementry_row);
+					};
+					if (data.profile.cementry_place) {
+						number.text(data.profile.cementry_place);
+					};
+					if (data.profile.cementry_sector) {
+						sector.text(data.profile.cementry_sector);
+					};
+					if (data.profile.death_city) {
+						city_die.text(data.profile.death_city);
+					};
+					if (data.profile.birth_city) {
+						city_birth.text(data.profile.birth_city);
+					};
+					dieProfile.text(preDie);
+					timelinedieProfile.text(preDie);
+				} else {
+					isLife();
+				};
+				// var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
+				// var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+				// var preDie = (data.profile.death_date).split('-').reverse().join('.');
+				// var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
+				var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
+				ageProfile.text(ageNumBirth);
 				birthProfile.text(preBirth);
 				timelinebirthProfile.text(preBirth);
 				dieProfile.text(preDie);
@@ -10915,7 +10964,22 @@ function loadQuestionnaries() {
 				nameProfile.text(data.profile.last_name);
 				surmaneProfile.text(data.profile.first_name);
 				patronimycProfile.text(data.profile.patronymic);
-				if (data.profile.profile_type !== 'true') {
+				if (data.profile.short_life_1) {
+					shortlife1.text(data.profile.short_life_1);
+				};
+				if (data.profile.short_life_2) {
+					shortlife2.text(data.profile.short_life_2);
+				};
+				if (data.profile.short_life_3) {
+					shortlife3.text(data.profile.short_life_3);
+				};
+				if (data.profile.short_life_4) {
+					shortlife4.text(data.profile.short_life_4);
+				};
+				if (data.profile.short_life_5) {
+					shortlife5.text(data.profile.short_life_5);
+				};
+				if (data.profile.profile_open !== true) {
 					$('.brief__timelaps').css('display', 'none');
 					$('.brief__location').css('display', 'none');
 					$('.data-tab-content').css('display', 'none');
@@ -11251,7 +11315,7 @@ $('#del-cancel').click(function () {
 
 //request to delete profile**************************
 $('#del-confirm').click(function () {
-	var del_data = {
+	let del_data_prof = {
 		id: currentProfile,
 		user_id: currentUser
 	};
@@ -11260,7 +11324,7 @@ $('#del-confirm').click(function () {
 		`${api_url}destroy_user_profile`,
 		{
 			method: 'DELETE',
-			body: JSON.stringify(del_data),
+			body: JSON.stringify(del_data_prof),
 			headers: {
 				'Authorization': 'Token token=' + cookie_token,
 				'Content-Type': 'application/json'
@@ -11293,14 +11357,25 @@ $('#del-confirm').click(function () {
 
 
 
-
-
+//data for event*********************************
+var id_timeline,
+	event_date,
+	event_type,
+	event_header,
+	event_place,
+	event_text;
 //show-hide context menu****************************
 function initDelStory() {
 	let storyItem = $('.story__edit-cont');
 	for (let i = 0; i < storyItem.length; i++) {
 		storyItem[i].addEventListener('click', function () {
 			let editBnt = $(this);
+			id_timeline = editBnt.parent().parent().attr('data-id');
+			event_text = editBnt.siblings('.story__context').text();
+			event_date = editBnt.parent().siblings('.story__date > span').text();
+			event_title = editBnt.parent().siblings('.story__content-title').text();
+			event_place = editBnt.parent().siblings('.story__date').children('.story__data-place').text();
+			event_type = editBnt.parent().parent().attr('data-type');
 			editBnt.siblings('.story__context').addClass('active');
 			function hideBlock(e) {
 				if ($(e.target).closest('.story__context').length) {
@@ -11317,61 +11392,150 @@ function initDelStory() {
 
 			}, 0);
 		});
-		//show delete story popup*****************************
-		$('#delete-story').click(function () {
-			$('body').addClass('no-scroll');
-			$('.form-del-story').css('display', 'flex');
-			$('.context-story').removeClass('active');
-		});
-		//close delete story popup**************************
-		$('#del-cancel-story').click(function () {
-			$('body').removeClass('no-scroll');
-			$('.form-del-story').css('display', 'none');
-		});
+	};
 
-		//request to delete story**************************
-		$('#del-confirm-story').click(function () {
-			var del_data = {
-				id: currentProfile,
-				user_id: currentUser
-			};
-			//console.log(JSON.stringify(del_data));
-			fetch(
-				`${api_url}destroy_user_profile`,
-				{
-					method: 'DELETE',
-					body: JSON.stringify(del_data),
-					headers: {
-						'Authorization': 'Token token=' + cookie_token,
-						'Content-Type': 'application/json'
-					}
-				})
-				.then($('body').css('opacity', 0.5))
-				.then(response => response.json())
-				.then(data => {
-
-					if (data) {
-						$('body').css('opacity', 1);
-						console.log("success send");
-						//console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 1000);
-						window.location.reload();
-					} else {
-						$('body').css('opacity', 1);
-						showErrorSuccess('Ошибка сохранения', 1000);
-						window.location.reload();
-					}
-
-				})
-				.catch(error => {
-					$('body').css('opacity', 1);
-					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 3000);
-					window.location.reload();
-				});
+};
+//show delete story popup*****************************
+$('.delete-story').on('click', function () {
+	$('body').addClass('no-scroll');
+	$('.form-del-story').css('display', 'flex');
+	$('.context-story').removeClass('active');
+});
+//close delete story popup**************************
+$('#del-cancel-story').click(function () {
+	$('body').removeClass('no-scroll');
+	$('.form-del-story').css('display', 'none');
+});
+//request to delete story**************************
+$('#del-confirm-stories').click(function () {
+	let del_data_event = {
+		timeline_id: id_timeline
+	};
+	fetch(
+		`${api_url}destroy_timeline_event`,
+		{
+			method: 'DELETE',
+			body: JSON.stringify(del_data_event),
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/json'
+			}
 		})
-	}
+		.then($('body').css('opacity', 0.5))
+		.then(response => response.json())
+		.then(data => {
 
+			if (data) {
+				$('body').css('opacity', 1);
+				console.log("success send");
+				//console.log('Data:', JSON.stringify(data));
+				showErrorSuccess('Событие удалено', 1000);
+				window.location.href = `#${currentProfile}`;
+				window.location.reload();
+			} else {
+				$('body').css('opacity', 1);
+				showErrorSuccess('Ошибка сохранения', 1000);
+				window.location.href = `#${currentProfile}`;
+				window.location.reload();
+			}
+
+		})
+		.catch(error => {
+			$('body').css('opacity', 1);
+			console.log('error:', error);
+			showErrorSuccess('Ошибка соединения', 3000);
+			window.location.href = `#${currentProfile}`;
+			window.location.reload();
+		});
+})
+
+
+
+//Edit stoty event*************************************
+function initEditStory() {
+	//show edit story popup*****************************
+	$('.editOLdStory').on('click', function () {
+		$('body').addClass('no-scroll');
+		$('.edit-story').css('display', 'flex');
+		$('.context-story').removeClass('active');
+		// initDelStory();
+		// console.log(id_timeline,
+		// 	event_date,
+		// 	event_type,
+		// 	event_header,
+		// 	event_place,
+		// 	event_text)
+
+
+
+	});
+	//close delete story popup**************************
+	$('#story-edit-cancel').click(function () {
+		$('body').removeClass('no-scroll');
+		$('.edit-story').css('display', 'none');
+	});
+
+
+	// if (data_event.val() != '' && category_event.val() != '' && place_event.val() != '' && title_event.val() != '' && text_event.val() != '') {
+	// 	return true;
+	// } else {
+	// 	return false;
+	// }
+	// var data_event_add = $('.story-date');
+	// var category_event_add = $('#category');
+	// var place_event = $('#memory_place');
+	// var title_event = $('#memory_title');
+	// var text_event = $('#memory_text-add');
+
+	// $('#story-add').click(function (e) {
+	// 	e.preventDefault();
+	// 	var timeline_event = {
+	// 		event_date: data_event.val(),
+	// 		event_header: title_event.val(),
+	// 		event_type: category_event.val(),
+	// 		event_img: $('.memory_foto').attr('src'),
+	// 		event_text: text_event.val(),
+	// 		event_place: place_event.val(),
+	// 		profile_id: currentProfile
+	// 	};
+	//console.log(timeline_event);
+	// 	if (validate_event()) {
+	// 		fetch(
+	// 			`${api_url}create_timeline_event`,
+	// 			{
+	// 				method: 'POST',
+	// 				body: JSON.stringify(timeline_event),
+	// 				headers: {
+	// 					'Authorization': 'Token token=' + cookie_token,
+	// 					'Content-Type': 'application/json'
+	// 				}
+	// 			})
+	// 			.then($('body').css('opacity', 0.5))
+	// 			.then(response => response.json())
+	// 			.then(data => {
+	// 				if (data) {
+	// 					$('body').css('opacity', 1);
+	// 					console.log("success send");
+	// 					// console.log('Data:', JSON.stringify(data));
+	// 					// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+	// 					window.location.href = `#${currentProfile}`;
+	// 					window.location.reload();
+	// 				} else {
+	// 					showErrorSuccess('Ошибка,попробуйте еще', 300);
+	// 					$('body').css('opacity', 1);
+	// 				}
+
+	// 			})
+	// 			.catch(error => {
+	// 				console.log('error:', error);
+	// 				showErrorSuccess('Ошибка соединения', 300);
+	// 				$('body').css('opacity', 1);
+	// 			});
+	// 	} else {
+	// 		showErrorSuccess('Заполните все поля', 300);
+	// 		$('body').css('opacity', 1);
+	// 	}
+	// })
 };
 
 
@@ -11449,7 +11613,7 @@ function validateMail() {
 	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var regEmail = $('#reg-email').val();
 	if (reg.test(regEmail) == false || regEmail == '') {
-		showErrorSuccess('Введите корректный e-mail', 300);
+		showErrorSuccess('Введите корректный e-mail', 1000);
 
 		return false;
 	} else {
@@ -11457,20 +11621,20 @@ function validateMail() {
 	}
 };
 function validateSurname() {
-	var reg = /^[A-zА-яЁё]+$/;
+	//var reg = /^[A-zА-яЁё]+$/;
 	var surname = $('#reg-soname').val();
-	if (reg.test(surname) == false || surname == '') {
-		showErrorSuccess('Введите фамилию', 300);
+	if (surname == '') {
+		showErrorSuccess('Введите фамилию', 1000);
 		return false;
 	} else {
 		return true;
 	}
 };
 function validateName() {
-	var reg = /^[A-zА-яЁё]+$/;
+	//var reg = /^[A-zА-яЁё]+$/;
 	var name = $('#reg-name').val();
-	if (reg.test(name) == false || name == '') {
-		showErrorSuccess('Введите имя', 300);
+	if (name == '') {
+		showErrorSuccess('Введите имя', 1000);
 		return false;
 	} else {
 		return true;
@@ -11487,20 +11651,20 @@ function validateName() {
 //     }
 // };
 function validatePatronymic() {
-	var reg = /^[A-zА-яЁё]+$/;
+	//var reg = /^[A-zА-яЁё]+$/;
 	var patronymic = $('#reg-patronymic').val();
-	if (reg.test(patronymic) == false || patronymic == '') {
-		showErrorSuccess('Введите отчество', 300);
+	if (patronymic == '') {
+		showErrorSuccess('Введите отчество', 1000);
 		return false;
 	} else {
 		return true;
 	}
 };
 function validateTel() {
-	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+	//var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 	var tel = $('#reg-tel').val();
-	if (reg.test(tel) == false || tel == '') {
-		showErrorSuccess('Введите корректный телефон', 300);
+	if (tel == '') {
+		showErrorSuccess('Введите корректный телефон', 1000);
 		return false;
 	} else {
 		return true;
@@ -11509,7 +11673,7 @@ function validateTel() {
 function validatePass() {
 	var pass = $('#reg-password').val();
 	if (pass == '' || pass.length < 6) {
-		showErrorSuccess('Введите корректный пароль мин 6 символов', 300);
+		showErrorSuccess('Введите корректный пароль мин 6 символов', 1000);
 		return false;
 	} else {
 		return true;
@@ -11582,7 +11746,7 @@ $('#authSend').click(function (e) {
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var email = $('#auth-email').val();
 		if (reg.test(email) == false || email == '') {
-			showErrorSuccess('Введите корректный e-mail', 300);
+			showErrorSuccess('Введите корректный e-mail', 1000);
 			return false;
 		} else {
 			return true;
@@ -11590,7 +11754,7 @@ $('#authSend').click(function (e) {
 	}
 	var authPassword = $('#auth-password').val();
 	if (authPassword === '') {
-		showErrorSuccess('Введите пароль', 300);
+		showErrorSuccess('Введите пароль', 1000);
 	}
 	if (validateMail() && authPassword != '') {
 		var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
@@ -11616,14 +11780,14 @@ $('#authSend').click(function (e) {
 						// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
 						window.location.href = '../cabinet-page/';
 					} else {
-						showErrorSuccess('Проверьте логин и пароль', 300);
+						showErrorSuccess('Проверьте логин и пароль', 1000);
 						clearInput();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess('Ошибка подключения', 300);
+					showErrorSuccess('Ошибка подключения', 1000);
 					window.location.reload();
 				});
 		}
@@ -11710,18 +11874,18 @@ $('#story-add').click(function (e) {
 					window.location.href = `#${currentProfile}`;
 					window.location.reload();
 				} else {
-					showErrorSuccess('Ошибка,попробуйте еще', 300);
+					showErrorSuccess('Ошибка,попробуйте еще', 1000);
 					$('body').css('opacity', 1);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 300);
+				showErrorSuccess('Ошибка соединения', 1000);
 				$('body').css('opacity', 1);
 			});
 	} else {
-		showErrorSuccess('Заполните все поля', 300);
+		showErrorSuccess('Заполните все поля', 1000);
 		$('body').css('opacity', 1);
 
 	}
