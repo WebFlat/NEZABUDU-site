@@ -13607,334 +13607,319 @@ return jQuery;
     };
 
 }));
-/*
-
- bootpag - jQuery plugin for dynamic pagination
-
- Copyright (c) 2015 botmonster@7items.com
-
- Licensed under the MIT license:
-   http://www.opensource.org/licenses/mit-license.php
-
- Project home:
-   http://botmonster.com/jquery-bootpag/
-
- Version:  1.0.7
-
-*/
-(function(h,q){h.fn.bootpag=function(p){function m(c,b){b=parseInt(b,10);var d,e=0==a.maxVisible?1:a.maxVisible,k=1==a.maxVisible?0:1,n=Math.floor((b-1)/e)*e,f=c.find("li");a.page=b=0>b?0:b>a.total?a.total:b;f.removeClass(a.activeClass);d=1>b-1?1:a.leaps&&b-1>=a.maxVisible?Math.floor((b-1)/e)*e:b-1;a.firstLastUse&&f.first().toggleClass(a.disabledClass,1===b);e=f.first();a.firstLastUse&&(e=e.next());e.toggleClass(a.disabledClass,1===b).attr("data-lp",d).find("a").attr("href",g(d));k=1==a.maxVisible?
-0:1;d=b+1>a.total?a.total:a.leaps&&b+1<a.total-a.maxVisible?n+a.maxVisible+k:b+1;e=f.last();a.firstLastUse&&(e=e.prev());e.toggleClass(a.disabledClass,b===a.total).attr("data-lp",d).find("a").attr("href",g(d));f.last().toggleClass(a.disabledClass,b===a.total);e=f.filter("[data-lp="+b+"]");k="."+[a.nextClass,a.prevClass,a.firstClass,a.lastClass].join(",.");if(!e.not(k).length){var m=b<=n?-a.maxVisible:0;f.not(k).each(function(b){d=b+1+n+m;h(this).attr("data-lp",d).toggle(d<=a.total).find("a").html(d).attr("href",
-g(d))});e=f.filter("[data-lp="+b+"]")}e.not(k).addClass(a.activeClass);l.data("settings",a)}function g(c){return a.href.replace(a.hrefVariable,c)}var l=this,a=h.extend({total:0,page:1,maxVisible:null,leaps:!0,href:"javascript:void(0);",hrefVariable:"{{number}}",next:"&raquo;",prev:"&laquo;",firstLastUse:!1,first:'<span aria-hidden="true">&larr;</span>',last:'<span aria-hidden="true">&rarr;</span>',wrapClass:"pagination",activeClass:"active",disabledClass:"disabled",nextClass:"next",prevClass:"prev",
-lastClass:"last",firstClass:"first"},l.data("settings")||{},p||{});if(0>=a.total)return this;h.isNumeric(a.maxVisible)||a.maxVisible||(a.maxVisible=parseInt(a.total,10));l.data("settings",a);return this.each(function(){var c,b,d=h(this);c=['<ul class="',a.wrapClass,' bootpag">'];a.firstLastUse&&(c=c.concat(['<li data-lp="1" class="',a.firstClass,'"><a href="',g(1),'">',a.first,"</a></li>"]));a.prev&&(c=c.concat(['<li data-lp="1" class="',a.prevClass,'"><a href="',g(1),'">',a.prev,"</a></li>"]));for(b=
-1;b<=Math.min(a.total,a.maxVisible);b++)c=c.concat(['<li data-lp="',b,'"><a href="',g(b),'">',b,"</a></li>"]);a.next&&(b=a.leaps&&a.total>a.maxVisible?Math.min(a.maxVisible+1,a.total):2,c=c.concat(['<li data-lp="',b,'" class="',a.nextClass,'"><a href="',g(b),'">',a.next,"</a></li>"]));a.firstLastUse&&(c=c.concat(['<li data-lp="',a.total,'" class="last"><a href="',g(a.total),'">',a.last,"</a></li>"]));c.push("</ul>");d.find("ul.bootpag").remove();d.append(c.join(""));c=d.find("ul.bootpag");d.find("li").click(function(){var b=
-h(this);if(!b.hasClass(a.disabledClass)&&!b.hasClass(a.activeClass)){var c=parseInt(b.attr("data-lp"),10);l.find("ul.bootpag").each(function(){m(h(this),c)});l.trigger("page",c)}});m(c,a.page)})}})(jQuery,window);
 !function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
 
 console.log("window loaded");
 
 
 
+$(window).on('load', function () {
+	var $preloader = $('#p_prldr');
+	$preloader.delay(1000).fadeOut('slow');
+});
 
-$(document).ready(function () {
-	$(window).on('load', function () {
-		var $preloader = $('#p_prldr');
-		$preloader.delay(1000).fadeOut('slow');
-	});
+// var api_url = "http://localhost:3000/";
+var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
-	// var api_url = "http://localhost:3000/";
-	var api_url = "https://nezabuduapi0.herokuapp.com/" // real project
+var cookie_name_token = "project_token";
+var cookie_token = getCookie(cookie_name_token);
 
-	var cookie_name_token = "project_token";
-	var cookie_token = getCookie(cookie_name_token);
+//if Register user*********************************
+var user = false;
+var userAvatar = '';
+var user_data = false;
+ifLogin();
+function ifLogin() {
+	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+		start();
+	} else {
+		confirmUser();
+	}
+};
+
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+	$('#error-message').addClass('show');
+	$('.success').text(textToShow);
+	setTimeout(() => {
+		$('#error-message').removeClass('show');
+	}, time);
+};
 
 
-	//Зарегестрірованний юзер
-	var user = false;
-	var userAvatar = '';
-	ifLogin();
-	function ifLogin() {
-		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-			start();
-		} else {
+
+//if user auth************************************************
+function start() {
+
+	fetch(
+		`${api_url}get_start_info`,
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('wellcome');
+			//console.log('Data:', JSON.stringify(data));
+			user = true;
+			userAvatar = data.user.avatar;
 			confirmUser();
-		}
+		})
+		.catch(error => console.error('error1:', error));
+
+};
+
+
+//Icon user if login**************************
+function confirmUser() {
+	if (user) {
+		$('.enter').removeClass('active');
+		$('.loginIn').addClass('active');
+		$('#menu-guest').hide();
+		$('#menu-user').show();
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+	} else {
+		$('.enter').addClass('active');
+		$('.loginIn').removeClass('active');
+		$('#menu-user').hide();
+		$('#menu-guest').show();
 	};
 
-	//Exit account***************************************************
-	$('#logout').click(function () {
-		deleteCookie(cookie_name_token)
-		window.location.reload();
+};
 
-	});
 
-	//if user auth************************************************
-	function start() {
+//Exit account***************************************************
+$('#logout').click(function () {
+	deleteCookie(cookie_name_token)
+	window.location.reload();
 
+});
+
+
+//Registration input ****************************************************
+var registration = $('#sendReg');
+var formReg = $('#reg-form');
+var userName = $('#reg-name');
+var userSoname = $('#reg-soname');
+var userPatronymic = $('#reg-patronymic');
+var userTel = $('#reg-tel');
+var userEmail = $('#reg-email');
+var userPassword = $('#reg-password');
+
+
+//Validate input field************************************************
+function validateMail() {
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	var regEmail = $('#reg-email').val();
+	if (reg.test(regEmail) == false || regEmail == '') {
+		showErrorSuccess('Введите корректный e-mail', 300);
+
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateSurname() {
+	//var reg = /^[A-zА-яЁё]+$/;
+	var surname = $('#reg-soname').val();
+	if (surname == '') {
+		showErrorSuccess('Введите фамилию', 300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateName() {
+	//var reg = /^[A-zА-яЁё]+$/;
+	var name = $('#reg-name').val();
+	if (name == '') {
+		showErrorSuccess('Введите имя', 300);
+		return false;
+	} else {
+		return true;
+	}
+};
+// function validateName() {
+//     var reg = /^[А-Яа-яЁё\s]+$/;
+//     var name = $('#reg-name').val();
+//     if (reg.test(name) == false || name == '') {
+//         $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+//         return false;
+//     } else {
+//         return true;
+//     }
+// };
+function validatePatronymic() {
+	//var reg = /^[A-zА-яЁё]+$/;
+	var patronymic = $('#reg-patronymic').val();
+	if (patronymic == '') {
+		showErrorSuccess('Введите отчество', 300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validateTel() {
+	//var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+	var tel = $('#reg-tel').val();
+	if (tel == '') {
+		showErrorSuccess('Введите корректный телефон', 300);
+		return false;
+	} else {
+		return true;
+	}
+};
+function validatePass() {
+	var pass = $('#reg-password').val();
+	if (pass == '' || pass.length < 6) {
+		showErrorSuccess('Введите корректный пароль мин 6 символов', 300);
+		return false;
+	} else {
+		return true;
+	}
+};
+
+function clearInput() {
+	$('#reg-name').val('');
+	$('#reg-soname').val('');
+	$('#reg-patronymic').val('');
+	$('#reg-tel').val('');
+	$('#reg-email').val('');
+	$('#reg-password').val('');
+};
+
+
+
+//Registration user**************************************************
+registration.click(function (e) {
+	e.preventDefault();
+	var data = {
+		first_name: userName.val(),
+		last_name: userSoname.val(),
+		patronymic: userPatronymic.val(),
+		tel_number: userTel.val(),
+		email: userEmail.val(),
+		password: userPassword.val(),
+	};
+	if (validateSurname() && validateName() && validatePatronymic() && validateTel() && validateMail() && validatePass()) {
 		fetch(
-			`${api_url}get_start_info`,
+			`${api_url}user_create`,
 			{
-				method: 'GET',
+				method: 'POST',
+				body: JSON.stringify(data),
 				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/x-www-form-urlencoded'
+					// 'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
 				}
 			})
 			.then(response => response.json())
-			.then(data => {
-				console.log('wellcome');
-				console.log('Data:', JSON.stringify(data));
-				user = true;
-				confirmUser();
-				userAvatar = data.user.avatar;
+			.then(json => {
+
+				if (json.error == 0) {
+					console.log("success get token");
+					setCookie(cookie_name_token, json.token, 3600);
+					cookie_token = getCookie(cookie_name_token);
+					//$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+					clearInput();
+					$('.reg__btn-enter').addClass('active').click();
+				} else {
+					showErrorSuccess('Такой пользователь уже существует', 300);
+					clearInput();
+				}
+
 			})
-			.catch(error => console.error('error1:', error));
-	};
-
-	//Icon user if login**************************
-	function confirmUser() {
-		if (user) {
-			$('.enter').removeClass('active');
-			$('.loginIn').addClass('active');
-			$('#menu-guest').hide();
-			$('#menu-user').show();
-		} else {
-			$('.enter').addClass('active');
-			$('.loginIn').removeClass('active');
-			$('#menu-user').hide();
-			$('#menu-guest').show();
-		};
-		if (!userAvatar === '') {
-			$('.header__user').src = `data:image/png;base64,${userAvatar}`;
-		}
-	};
+			.catch(error => {
+				console.log('error:', error);
+				showErrorSuccess('Ошибка соединения', 300);
+				window.location.reload();
+			});
+	}
+});
 
 
 
-	//Registration input ****************************************************
-	var registration = $('#sendReg');
-	var formReg = $('#reg-form');
-	var userName = $('#reg-name');
-	var userSoname = $('#reg-soname');
-	var userPatronymic = $('#reg-patronymic');
-	var userTel = $('#reg-tel');
-	var userEmail = $('#reg-email');
-	var userPassword = $('#reg-password');
-
-
-	//Validate input field************************************************
+//Auth user**************************************************
+$('#authSend').click(function (e) {
+	e.preventDefault();
 	function validateMail() {
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		var regEmail = $('#reg-email').val();
-		if (reg.test(regEmail) == false || regEmail == '') {
-			$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+		var email = $('#auth-email').val();
+		if (reg.test(email) == false || email == '') {
+			showErrorSuccess('Введите корректный e-mail', 300);
 			return false;
 		} else {
 			return true;
 		}
-	};
-	function validateSoname() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var soname = $('#reg-soname').val();
-		if (reg.test(soname) == false || soname == '') {
-			$('#error').text("Введите корректную фамилию").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateName() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var name = $('#reg-name').val();
-		if (reg.test(name) == false || name == '') {
-			$('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validatePatronymic() {
-		var reg = /^[А-Яа-яЁё\s]+$/;
-		var patronymic = $('#reg-patronymic').val();
-		if (reg.test(patronymic) == false || patronymic == '') {
-			$('#error').text("Введите корректное отчество").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateTel() {
-		var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
-		var tel = $('#reg-tel').val();
-		if (reg.test(tel) == false || tel == '') {
-			$('#error').text("Введите корректный телефон").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validatePass() {
-		var pass = $('#reg-password').val();
-		if (pass == '' || pass.length < 6) {
-			$('#error').text("Введите корректный пароль мин 6 символов").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-			return false;
-		} else {
-			return true;
-		}
-	};
+	}
+	var authPassword = $('#auth-password').val();
+	if (authPassword === '') {
+		showErrorSuccess('Введите пароль', 300);
+	}
+	if (validateMail() && authPassword != '') {
+		var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
+		console.log(token_web);
+		try {
 
-	function clearInput() {
-		$('#reg-name').val('');
-		$('#reg-soname').val('');
-		$('#reg-patronymic').val('');
-		$('#reg-tel').val('');
-		$('#reg-email').val('');
-		$('#reg-password').val('');
-	};
-
-
-
-	//Registration user**************************************************
-	registration.click(function (e) {
-		e.preventDefault();
-		var data = {
-			first_name: userName.val(),
-			last_name: userSoname.val(),
-			patronymic: userPatronymic.val(),
-			tel_number: userTel.val(),
-			email: userEmail.val(),
-			password: userPassword.val(),
-		};
-		console.log(data);
-		if (validateSoname() && validatePatronymic() && validateName() && validateTel() && validateMail() && validatePass()) {
 			fetch(
-				`${api_url}user_create`,
+				`${api_url}token`,
 				{
-					method: 'POST',
-					body: JSON.stringify(data),
+					method: 'GET',
 					headers: {
-						// 'Authorization': 'Token token=' + cookie_token,
+						'Authorization': 'Basic ' + token_web,
 						'Content-Type': 'application/json'
 					}
 				})
 				.then(response => response.json())
 				.then(json => {
-
-					if (json.error == 0) {
+					// console.log("token ", json)
+					if (typeof json.token !== 'undefined') {
 						console.log("success get token");
 						setCookie(cookie_name_token, json.token, 3600);
 						cookie_token = getCookie(cookie_name_token);
-						$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-						clearInput();
-						$('.reg__btn-enter').addClass('active').click();
+						// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+						window.location.href = '../cabinet-page/';
 					} else {
-						$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+						showErrorSuccess('Проверьте логин и пароль', 300);
 						clearInput();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					showErrorSuccess('Ошибка подключения', 300);
+					window.location.reload();
 				});
 		}
-	});
-
-
-
-	//Auth user**************************************************
-	$('#authSend').click(function (e) {
-		e.preventDefault();
-		function validateMail() {
-			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-			var email = $('#auth-email').val();
-			if (reg.test(email) == false || email == '') {
-				$('#error').text("Введите корректный e-mail").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-				return false;
-			} else {
-				return true;
-			}
+		catch (err) {
+			console.log(err);
 		}
-		var authPassword = $('#auth-password').val();
-		if (authPassword === '') {
-			$('#error').text("Введите пароль").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-		}
-		if (validateMail() && authPassword != '') {
-			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
-			console.log(token_web);
-			try {
-
-				fetch(
-					`${api_url}token`,
-					{
-						method: 'GET',
-						headers: {
-							'Authorization': 'Basic ' + token_web,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(response => response.json())
-					.then(json => {
-						// console.log("token ", json)
-						if (typeof json.token !== 'undefined') {
-							console.log("success get token");
-							setCookie(cookie_name_token, json.token, 3600);
-							cookie_token = getCookie(cookie_name_token);
-							$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-							setTimeout(function () {
-								window.location.reload();
-							}, 2000);
-						} else {
-							// alert("Проверьте логин и пароль");
-							$('#error').text("Проверьте логин и пароль").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
-							clearInput();
-						}
-
-					})
-					.catch(error => {
-						console.log('error:', error);
-						$('#error').text("Ошибка подключения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
-					});
-			}
-			catch (err) {
-				console.log(err);
-			}
-		}
-
-	});
-
-
-
-	//Exit account***************************************************
-	$('#btn_exit').click(function () {
-		deleteCookie(cookie_name_token)
-		window.location.reload();
-
-	});
-
-
-
-
-
-	function setCookie(name, value, days) {
-		var expires = "";
-		if (days) {
-			var date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			expires = "; expires=" + date.toUTCString();
-		}
-		document.cookie = name + "=" + (value || "") + expires + "; path=/";
-	}
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
 
-	function deleteCookie(name) {
-		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	}
 });
+function setCookie(name, value, days) {
+	var expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+function deleteCookie(name) {
+	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+};
 
 //burger***************************************
 function burgerShow() {
@@ -13951,6 +13936,23 @@ function burgerShow() {
 		$('.burger__bg-body').toggleClass('show-bgBody');
 	}
 };
+
+$('.burger').click(function () {
+	burgerShow();
+
+});
+$('.nav__link').click(function () {
+	burgerShow();
+});
+$('.burger__bg-body').click(function (e) {
+	var container = $('.burger-wrap');
+	if (container.has(e.target).length === 0) {
+		burgerShow();
+	}
+});
+
+
+
 
 //tabs forms***********************************************
 $(".reg__main").not(":first").hide();
@@ -13973,26 +13975,6 @@ $('.enter').click(function () {
 
 
 
-//burger***************************************
-function burgerShow() {
-	$('.burger-wrap').toggleClass('open');
-	$('.burger').toggleClass('closed');
-	$('body').toggleClass('no-scroll');
-	$('.burger__bg-body').toggleClass('show-bgBody');
-}
-$('.burger').click(function () {
-	burgerShow();
-
-});
-$('.nav__link').click(function () {
-	burgerShow();
-});
-$('.burger__bg-body').click(function (e) {
-	var container = $('.burger-wrap');
-	if (container.has(e.target).length === 0) {
-		burgerShow();
-	}
-});
 
 
 
@@ -14142,28 +14124,6 @@ $('#lang').each(function () {
 });
 
 
-
-
-
-
-//tabs forms***********************************************
-$(".reg__main").not(":first").hide();
-$(".reg-tab").click(function () {
-	$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
-	$(".reg__main").hide().eq($(this).index()).fadeIn();
-}).eq(0).addClass("active");
-
-//close forms popup********************************************
-$('.reg__close').click(function () {
-	$('.reg-bg').hide();
-	$('body').removeClass('no-scroll');
-});
-
-//Show forms***************************************************
-$('.enter').click(function () {
-	$('.reg-bg').show().css('display', 'flex');
-	$('body').addClass('no-scroll');
-});
 
 
 
