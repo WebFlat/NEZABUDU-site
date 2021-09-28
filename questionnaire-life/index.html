@@ -10,8 +10,8 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#92e4fc">
 	<meta name="theme-color" content="#ffffff">
 	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
@@ -297,12 +297,12 @@
 	        <div class="about__show">
 	            <div class="about__show-wrap">
 	                <img class="about__visible" src="./img/lock.png" alt="lock">
-	                <input class="about__check" type="radio" name="type" id="close" data-status="close">
+	                <input class="about__check" type="radio" name="type" id="close" data-status="false">
 	                <label for="close">Закрытая</label>
 	            </div>
 	            <div class="about__show-wrap">
 	                <img class="about__visible" src="./img/unlock.png" alt="lock">
-	                <input type="radio" class="about__check" name="type" id="open" data-status="open">
+	                <input type="radio" class="about__check" name="type" id="open" data-status="true">
 	                <label for="open">Открытая</label>
 	            </div>
 	        </div>
@@ -909,7 +909,7 @@
 		                                    <span name="values" id="values" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-family">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title family">
@@ -959,7 +959,7 @@
 		                                    <span name="famity-recipes" id="famity-recipes" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-holiday">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title holiday">
@@ -989,8 +989,7 @@
 		                                    <label for="works" class="tab__label">
 		                                        1. Сфера деятельности?
 		                                    </label>
-		                                    <span name="works" id="works" class="textarea" role="textbox"
-		                                        contenteditable></span>
+		                                    <span name="works" id="work" class="textarea" role="textbox" contenteditable></span>
 		                                    <label for="first" class="tab__label">
 		                                        2. Первая работа?
 		                                    </label>
@@ -1007,7 +1006,7 @@
 		                                    <span name="public" id="public" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-activity">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title works">
@@ -1055,7 +1054,7 @@
 		                                    <span name="favorite" id="favorite" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-interest">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title interest">
@@ -1103,7 +1102,7 @@
 		                                    <span name="travel-family" id="travel-family" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-travel">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title travel">
@@ -1138,7 +1137,7 @@
 		                                    <label for="friends" class="tab__label">
 		                                        2. Школьные друзья?
 		                                    </label>
-		                                    <span name="friends" id="friends" class="textarea" role="textbox"
+		                                    <span name="friends" id="friends-all" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <label for="teacher" class="tab__label">
 		                                        3. Первая учительница?
@@ -1148,7 +1147,7 @@
 		                                    <label for="school" class="tab__label">
 		                                        4. В какой школе учился(ась)?
 		                                    </label>
-		                                    <span name="school" id="school" class="textarea" role="textbox"
+		                                    <span name="school" id="schooll" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <label for="college" class="tab__label">
 		                                        5. В каком колледже/университете учился(ась)?
@@ -1156,7 +1155,7 @@
 		                                    <span name="college" id="college" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-friends">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title friends">
@@ -1203,7 +1202,7 @@
 		                                    <span name="achievement" id="achievement" class="textarea" role="textbox"
 		                                        contenteditable></span>
 		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save">Сохранить</span>
+		                                        <span class="tab__btn-save" id="question-heritage">Сохранить</span>
 		                                    </div>
 		                                </form>
 		                                <h6 class="story__title heritage">

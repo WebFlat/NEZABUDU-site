@@ -10979,6 +10979,12 @@ function loadQuestionnaries() {
 				if (data.profile.short_life_5) {
 					shortlife5.text(data.profile.short_life_5);
 				};
+				if (data.profile.short_story == '') {
+					$('.brief__text').css('opacity', 0);
+					$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
+				} else {
+					textProfile.text(data.profile.short_story);
+				};
 				if (data.profile.profile_open !== true) {
 					$('.brief__timelaps').css('display', 'none');
 					$('.brief__location').css('display', 'none');
@@ -11209,7 +11215,7 @@ $('.editOLdData').click(function () {
 				birth_date: both.val(),
 				birth_city: cityBoth.val(),
 				short_story: info.val(),
-				profile_type: status_prof,
+				profile_open: status_prof,
 				profile_id: currentProfile
 			};
 		} else {
@@ -11234,12 +11240,12 @@ $('.editOLdData').click(function () {
 				grave_lon: lon.val(),
 				grave_lat: lat.val(),
 				death_cause: cause.val(),
-				profile_type: status_prof,
+				profile_open: status_prof,
 				profile_id: currentProfile
 			};
 		}
 
-		//console.log(edit_data);
+		console.log(edit_data);
 		fetch(
 			`${api_url}update_profile`,
 			{
@@ -11258,17 +11264,17 @@ $('.editOLdData').click(function () {
 					$('body').css('opacity', 1);
 					console.log("success send");
 					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess(data.status, 300);
-					window.location.reload();
+					showErrorSuccess(data.status, 1000);
+					//window.location.reload();
 				} else {
-					showErrorSuccess('Ошибка сохранения', 300);
+					showErrorSuccess('Ошибка сохранения', 1000);
 					window.location.reload();
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 300);
+				showErrorSuccess('Ошибка соединения', 1000);
 				window.location.reload();
 			});
 	});
@@ -11540,6 +11546,153 @@ function initEditStory() {
 
 
 
+//edit text of questions************************
+function sendQuestions(tetx) {
+	fetch(
+		`${api_url}update_highlight`,
+		{
+			method: 'POST',
+			body: JSON.stringify(tetx),
+			headers: {
+				'Authorization': 'Token token=' + cookie_token,
+				'Content-Type': 'application/json'
+			}
+		})
+		.then($('body').css('opacity', 0.5))
+		.then(response => response.json())
+		.then(data => {
+			if (data) {
+				$('body').css('opacity', 1);
+				console.log("success send");
+				console.log('Data:', JSON.stringify(data));
+				showErrorSuccess('Данные сохранены', 1000);
+			} else {
+				showErrorSuccess('Ошибка,попробуйте еще', 1000);
+				$('body').css('opacity', 1);
+			}
+
+		})
+		.catch(error => {
+			console.log('error:', error);
+			showErrorSuccess('Ошибка соединения', 1000);
+			$('body').css('opacity', 1);
+		});
+}
+
+//family
+$('#question-family').click(function () {
+	let text1 = $('#parents').text();
+	let text2 = $('#relatives').text();
+	let text3 = $('#nationality').text();
+	let text4 = $('#cities').text();
+	let text5 = $('#values').text();
+	let saveText = {
+		family_parents: text1,
+		family_siblings: text2,
+		family_nationalities: text3,
+		family_country: text4,
+		family_values: text5,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//holiday
+$('#question-holiday').click(function () {
+	let text1 = $('#holiday-favorite').text();
+	let text2 = $('#newyear').text();
+	let text3 = $('#recipes').text();
+	let text4 = $('#famity-recipes').text();
+	let saveText = {
+		holiday_favorite: text1,
+		holiday_new_year: text2,
+		holiday_recipes: text3,
+		holiday_traditions: text4,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//Activity
+$('#question-activity').click(function () {
+	let text1 = $('#work').text();
+	let text2 = $('#first').text();
+	let text3 = $('#carrier').text();
+	let text4 = $('#public').text();
+	let saveText = {
+		activity_field: text1,
+		activity_first: text2,
+		activity_career: text3,
+		activity_social: text4,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//Interest
+$('#question-interest').click(function () {
+	let text1 = $('#spots').text();
+	let text2 = $('#hobies').text();
+	let text3 = $('#books').text();
+	let text4 = $('#favorite').text();
+	let saveText = {
+		passion_sport: text1,
+		passion_hobbie: text2,
+		passion_book: text3,
+		passion_cinema: text4,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//Travel
+$('#question-travel').click(function () {
+	let text1 = $('#travel-city').text();
+	let text2 = $('#travel-country').text();
+	let text3 = $('#travel-school').text();
+	let text4 = $('#travel-family').text();
+	let saveText = {
+		trip_city: text1,
+		trip_country: text2,
+		trip_student: text3,
+		trip_family: text4,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//Friends
+$('#question-friends').click(function () {
+	let text1 = $('#best-friend').text();
+	let text2 = $('#friends-all').text();
+	let text3 = $('#teacher').text();
+	let text4 = $('#schooll').text();
+	let text5 = $('#college').text();
+	let saveText = {
+		studies_best_friend: text1,
+		studies_school_friend: text2,
+		studies_teacher: text3,
+		studies_school: text4,
+		studies_university: text5,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+//heritage
+$('#question-heritage').click(function () {
+	let text1 = $('#links').text();
+	let text2 = $('#house').text();
+	let text3 = $('#teacher').text();
+	let text4 = $('#child').text();
+	let text5 = $('#achievement').text();
+	let saveText = {
+		heritage_blog: text1,
+		heritage_house: text2,
+		studies_teacher: text3,
+		heritage_children: text4,
+		heritage_progress: text5,
+		profile_id: currentProfile
+	};
+	sendQuestions(saveText);
+});
+
+
+
 
 
 
@@ -11720,18 +11873,18 @@ registration.click(function (e) {
 					console.log("success get token");
 					setCookie(cookie_name_token, json.token, 3600);
 					cookie_token = getCookie(cookie_name_token);
-					//$('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
 					clearInput();
-					$('.reg__btn-enter').addClass('active').click();
+					window.location.href = '../cabinet-page';
+					//$('.reg__btn-enter').addClass('active').click();
 				} else {
-					showErrorSuccess('Такой пользователь уже существует', 300);
+					showErrorSuccess('Такой пользователь уже существует', 1000);
 					clearInput();
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 300);
+				showErrorSuccess('Ошибка соединения', 1000);
 				window.location.reload();
 			});
 	}
@@ -11758,7 +11911,7 @@ $('#authSend').click(function (e) {
 	}
 	if (validateMail() && authPassword != '') {
 		var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
-		console.log(token_web);
+		//console.log(token_web);
 		try {
 
 			fetch(
@@ -11778,7 +11931,7 @@ $('#authSend').click(function (e) {
 						setCookie(cookie_name_token, json.token, 3600);
 						cookie_token = getCookie(cookie_name_token);
 						// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-						window.location.href = '../cabinet-page/';
+						window.location.reload();
 					} else {
 						showErrorSuccess('Проверьте логин и пароль', 1000);
 						clearInput();
@@ -12203,11 +12356,87 @@ $('.about__show-item').click(function (event) {
 });
 
 
+async function renderQuestions() {
+	let text1 = $('#parents');
+	let text2 = $('#relatives');
+	let text3 = $('#nationality');
+	let text4 = $('#cities');
+	let text5 = $('#values');
+	let text6 = $('#holiday-favorite');
+	let text7 = $('#newyear');
+	let text8 = $('#recipes');
+	let text9 = $('#famity-recipes');
+	let text10 = $('#work');
+	let text11 = $('#first');
+	let text12 = $('#carrier');
+	let text13 = $('#public');
+	let text14 = $('#spots');
+	let text15 = $('#hobies');
+	let text16 = $('#books');
+	let text17 = $('#favorite');
+	let text18 = $('#travel-city');
+	let text19 = $('#travel-country');
+	let text20 = $('#travel-school');
+	let text21 = $('#travel-family');
+	let text22 = $('#best-friend');
+	let text23 = $('#friends-all');
+	let text24 = $('#teacher');
+	let text25 = $('#schooll');
+	let text26 = $('#college');
+	let text27 = $('#links');
+	let text28 = $('#house');
+	let text29 = $('#child');
+	let text30 = $('#achievement');
 
-function renderEvents() {
+
+	fetch(
+		`${api_url}get_highlight?profile_id=${currentProfile}`,
+		{
+			method: 'GET'
+		})
+		.then(response => response.json())
+		.then(data => {
+			text1.text(data.highlight.family_highlight.family_parents);
+			text2.text(data.highlight.family_highlight.family_siblings);
+			text3.text(data.highlight.family_highlight.family_nationalities);
+			text4.text(data.highlight.family_highlight.family_country);
+			text5.text(data.highlight.family_highlight.family_values);
+			text6.text(data.highlight.holiday_highlight.holiday_favorite);
+			text7.text(data.highlight.holiday_highlight.holiday_new_year);
+			text8.text(data.highlight.holiday_highlight.holiday_recipes);
+			text9.text(data.highlight.holiday_highlight.holiday_traditions);
+			text10.text(data.highlight.activity_highlight.activity_field);
+			text11.text(data.highlight.activity_highlight.activity_first);
+			text12.text(data.highlight.activity_highlight.activity_career);
+			text13.text(data.highlight.activity_highlight.activity_social);
+			text14.text(data.highlight.passion_highlight.passion_sport);
+			text15.text(data.highlight.passion_highlight.passion_hobbie);
+			text16.text(data.highlight.passion_highlight.passion_book);
+			text17.text(data.highlight.passion_highlight.passion_cinema);
+			text18.text(data.highlight.trip_highlight.trip_city);
+			text19.text(data.highlight.trip_highlight.trip_country);
+			text20.text(data.highlight.trip_highlight.trip_student);
+			text21.text(data.highlight.trip_highlight.trip_family);
+			text22.text(data.highlight.studies_highlight.studies_best_friend);
+			text23.text(data.highlight.studies_highlight.studies_school_friend);
+			text24.text(data.highlight.studies_highlight.studies_teacher);
+			text25.text(data.highlight.studies_highlight.studies_school);
+			text26.text(data.highlight.studies_highlight.studies_university);
+			text27.text(data.highlight.heritage_highlight.heritage_blog);
+			text28.text(data.highlight.heritage_highlight.heritage_house);
+			text29.text(data.highlight.heritage_highlight.heritage_children);
+			text30.text(data.highlight.heritage_highlight.heritage_progress);
+
+		})
+		.catch(error => console.error('error1:', error));
+
+};
+
+
+async function renderEvents() {
 	//filter events****************************************
 	function filterEvent(events, event1, event2, event3, event4, event5, event6, event7, event8) {
-		for (var x = 0; x < events.length; x++) {
+		for (let x = 0; x < events.length; x++) {
 			var typeEvent = events[x].event_type;
 			switch (typeEvent) {
 				case 'Семья':
@@ -12264,6 +12493,7 @@ function renderEvents() {
 	loaddLiveFull(event_6, liveEventFriends);
 	loaddLiveFull(event_7, liveEventHeritage);
 	loaddLiveFull(event_8, liveEventHistory);
+	renderQuestions();
 };
 
 
