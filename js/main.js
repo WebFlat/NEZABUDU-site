@@ -10288,7 +10288,7 @@ $(document).ready(function () {
             })
             .then(response => response.json())
             .then(json => {
-                document.location.href = './auth-user';
+                window.location.href = './auth-user';
                 console.log('hello user');
             })
             .catch(error => console.error('error1:', error));
@@ -10479,7 +10479,7 @@ $(document).ready(function () {
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
                             // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-                            window.location.reload();
+                            window.location.href = './auth-user';
                         } else {
                             showErrorSuccess('Проверьте логин и пароль', 1000);
                             clearInput();
@@ -10489,7 +10489,7 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('error:', error);
                         showErrorSuccess('Ошибка подключения', 1000);
-                        window.location.href = 'index-auth.html';
+                        window.location.reload();
                     });
             }
             catch (err) {
