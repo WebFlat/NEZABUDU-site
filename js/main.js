@@ -10419,10 +10419,9 @@ $(document).ready(function () {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
-                        showErrorSuccess("Введите корректный пароль мин 6 символов", 1000);
                         window.location.href = link2;
                     } else {
-                        showErrorSuccess("Такой пользователь уже существует", 1000);
+                        showErrorSuccess("Такой пользователь уже существует", 2000);
                         clearInput();
                         registration.attr('disabled', false);
                     }
