@@ -10261,7 +10261,7 @@ $(document).ready(function () {
     });
 
 
-
+    let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
@@ -10420,7 +10420,7 @@ $(document).ready(function () {
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
                         showErrorSuccess("Введите корректный пароль мин 6 символов", 1000);
-                        window.location.href = '../cabinet-page';
+                        window.location.href = link2;
                     } else {
                         showErrorSuccess("Такой пользователь уже существует", 1000);
                         clearInput();
@@ -10479,7 +10479,7 @@ $(document).ready(function () {
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
                             // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-                            window.location.href = './auth-user';
+                            window.location.href = link2;
                         } else {
                             showErrorSuccess('Проверьте логин и пароль', 1000);
                             clearInput();
