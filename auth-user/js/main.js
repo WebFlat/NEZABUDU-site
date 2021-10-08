@@ -10254,12 +10254,6 @@ return jQuery;
 console.log("window loaded");
 
 
-
-
-
-
-
-
 $(document).ready(function () {
     $(window).on('load', function () {
         var $preloader = $('#p_prldr');
@@ -10267,13 +10261,12 @@ $(document).ready(function () {
     });
 
 
-
+    let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
     var cookie_name_token = "project_token";
     var cookie_token = getCookie(cookie_name_token);
-
 
     //Зарегестрірованний юзер
     var user = false;
@@ -10287,12 +10280,6 @@ $(document).ready(function () {
         }
     };
 
-    //Exit account***************************************************
-    $('#logout').click(function () {
-        deleteCookie(cookie_name_token)
-        window.location.reload();
-
-    });
 
     //if user auth************************************************
     function start() {
@@ -10317,15 +10304,20 @@ $(document).ready(function () {
             .catch(error => console.error('error1:', error));
     };
 
+
+    //show message notifications*********************************
+    function showErrorSuccess(textToShow, time) {
+        $('#error-message').addClass('show');
+        $('.success').text(textToShow);
+        setTimeout(() => {
+            $('#error-message').removeClass('show');
+        }, time);
+    };
+
+
+
     //Icon user if login**************************
     function confirmUser() {
-        if (user) {
-            $('.enter').removeClass('active');
-            $('.loginIn').addClass('active');
-        } else {
-            $('.enter').addClass('active');
-            $('.loginIn').removeClass('active');
-        };
         if (userAvatar) {
             $('.header__user').attr('src', userAvatar);
         };
@@ -10345,455 +10337,226 @@ $(document).ready(function () {
 
 
 
-
-    //slider partners******************************************************
-    $('.partners__items').slick({
-        dots: true,
-        slidesToShow: 4,
-        infinite: true,
-        speed: 500,
-        arrows: false,
-        autoplay: true,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                }
-            },
-            {
-                breakpoint: 470,
-                settings: {
-                    slidesToShow: 1,
-                }
-            }
-        ]
-    });
-    //animate text********************************************************
-    $('.about__subtitle').addClass("hidden").viewportChecker({
-        classToAdd: 'visible animate__fadeInRight',
-        // offset: 20
-    });
-    $('.questionnaires').addClass("hidden").viewportChecker({
-        classToAdd: 'animate__animated visible animate__fadeIn',
-        // offset: 20
-    });
-    $('.reviews').addClass("hidden").viewportChecker({
-        classToAdd: 'animate__animated visible animate__fadeIn',
-        // offset: 20
-    });
-    $('.posibility__item').addClass("hidden").viewportChecker({
-        classToAdd: 'animate__animated visible animate__fadeIn',
-        // offset: 20
+    //Exit account***************************************************
+    $('#logout').click(function (e) {
+        e.preventDefault();
+        deleteCookie(cookie_name_token);
+        window.location.href = '../index.html';
     });
 
 
-    //code for custom select ************************************************ 
-    $('.select__options').each(function () {
-        var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-        $this.addClass('select-hidden');
-        $this.wrap('<div class="select"></div>');
-        $this.after('<div class="select-styled"></div>');
 
-        var $styledSelect = $this.next('div.select-styled');
-        $styledSelect.text($this.children('option').eq(0).text());
 
-        var $list = $('<ul />', {
-            'class': 'select-options'
-        }).insertAfter($styledSelect);
-
-        for (var i = 0; i < numberOfOptions; i++) {
-            $('<li />', {
-                text: $this.children('option').eq(i).text(),
-                rel: $this.children('option').eq(i).val()
-            }).appendTo($list);
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
         }
-
-        var $listItems = $list.children('li');
-
-        $styledSelect.click(function (e) {
-            e.stopPropagation();
-            $('div.select-styled.select-active').not(this).each(function () {
-                $(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-            });
-            $(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-        });
-
-        $listItems.click(function (e) {
-            e.stopPropagation();
-            $styledSelect.text($(this).text()).removeClass('select-active');
-            $this.val($(this).attr('rel'));
-            $list.hide();
-            //refocus on this select
-            $('#input__val').focus();
-            $('#input__val').blur();
-            //console.log($this.val());
-        });
-
-        $(document).click(function () {
-            $styledSelect.removeClass('select-active');
-            $list.hide();
-        });
-
-    });
-    $('#lang').each(function () {
-        var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-        $this.addClass('select-hidden');
-        $this.wrap('<div class="select select--lang"></div>');
-        $this.after('<div class="select-styled"></div>');
-
-        var $styledSelect = $this.next('div.select-styled');
-        $styledSelect.text($this.children('option').eq(0).text());
-
-        var $list = $('<ul />', {
-            'class': 'select-options select-options--lang'
-        }).insertAfter($styledSelect);
-
-        for (var i = 0; i < numberOfOptions; i++) {
-            $('<li />', {
-                text: $this.children('option').eq(i).text(),
-                rel: $this.children('option').eq(i).val()
-            }).appendTo($list);
-        }
-
-        var $listItems = $list.children('li');
-
-        $styledSelect.click(function (e) {
-            e.stopPropagation();
-            $('div.select-styled.select-active').not(this).each(function () {
-                $(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-            });
-            $(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-        });
-
-        $listItems.click(function (e) {
-            e.stopPropagation();
-            $styledSelect.text($(this).text()).removeClass('select-active');
-            $this.val($(this).attr('rel'));
-            $list.hide();
-            //console.log($this.val());
-        });
-
-        $(document).click(function () {
-            $styledSelect.removeClass('select-active');
-            $list.hide();
-        });
-
-    });
-    $('#helps').each(function () {
-        var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-        $this.addClass('select-hidden');
-        $this.wrap('<div class="select select--helps"></div>');
-        $this.after('<div class="select-styled"></div>');
-
-        var $styledSelect = $this.next('div.select-styled');
-        $styledSelect.text($this.children('option').eq(0).text());
-
-        var $list = $('<ul />', {
-            'class': 'select-options select-options--helps'
-        }).insertAfter($styledSelect);
-
-        for (var i = 0; i < numberOfOptions; i++) {
-            $('<li />', {
-                text: $this.children('option').eq(i).text(),
-                rel: $this.children('option').eq(i).val()
-            }).appendTo($list);
-        }
-
-        var $listItems = $list.children('li');
-
-        $styledSelect.click(function (e) {
-            e.stopPropagation();
-            $('div.select-styled.select-active').not(this).each(function () {
-                $(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-            });
-            $(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-        });
-
-        $listItems.click(function (e) {
-            e.stopPropagation();
-            $styledSelect.text($(this).text()).removeClass('select-active');
-            $this.val($(this).attr('rel'));
-            $list.hide();
-            $('.volunteers__helps').val($this.val());
-            // console.log($('.volunteers__helps').val());
-        });
-
-        $(document).click(function () {
-            $styledSelect.removeClass('select-active');
-            $list.hide();
-        });
-
-    });
-
-    //tabs forms***********************************************
-    $(".reg__main").not(":first").hide();
-    $(".reg-tab").click(function () {
-        $(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
-        $(".reg__main").hide().eq($(this).index()).fadeIn();
-    }).eq(0).addClass("active");
-
-    //close forms popup********************************************
-    $('.reg__close').click(function () {
-        $('.reg-bg').hide();
-        $('body').removeClass('no-scroll');
-    })
-
-    //Show forms***************************************************
-    $('.enter').click(function () {
-        $('.reg-bg').show().css('display', 'flex');
-        $('body').addClass('no-scroll');
-    })
-
-
-
-    //burger***************************************
-    function burgerShow() {
-        $('.burger-wrap').toggleClass('open');
-        $('.burger').toggleClass('closed');
-        $('body').toggleClass('no-scroll');
-        $('.burger__bg-body').toggleClass('show-bgBody');
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
-    $('.burger').click(function () {
-        burgerShow();
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
 
+    function deleteCookie(name) {
+        document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    }
+
+
+
+
+
+
+
+
+
+    //close burger******************
+    $('.drawer__link').click(function () {
+        $('#drawer-close').click();
     });
-    $('.nav__link').click(function () {
-        burgerShow();
-    });
-    $('.burger__bg-body').click(function (e) {
-        var container = $('.burger-wrap');
-        if (container.has(e.target).length === 0) {
-            burgerShow();
+
+    let dots = true;
+    let speed = 400;
+    let autoplay = false;
+    let autoplaySpeed = 3000;
+    let infinite = true;
+    let arrows = false;
+
+
+    let touchMove = true;
+    let mobileFirst = true;
+    let waitForAnimate = true;
+    let pauseOnFocus = true;
+    let pauseOnHover = true;
+    let swipeToSlide = true;
+    let swipe = true;
+    let touchThreshold = 15;
+    let slidesToScroll = 1;
+
+
+
+    if (window.screen.width < 710) {
+        $('.slide').slick({
+            // arrows: arrows,
+            touchMove: touchMove,
+            mobileFirst: mobileFirst,
+            waitForAnimate: waitForAnimate,
+            swipeToSlide: swipeToSlide,
+            slidesToScroll: slidesToScroll,
+            swipe: swipe,
+            touchThreshold: touchThreshold,
+            pauseOnHover: pauseOnHover,
+            pauseOnFocus: pauseOnFocus,
+
+            dots: dots,
+            infinite: infinite,
+            speed: speed,
+            slidesToShow: 1,
+            centerMode: false,
+            variableWidth: true,
+            autoplay: autoplay,
+            autoplaySpeed: autoplaySpeed,
+        });
+    } else if (window.screen.width < 1024) {
+        $('.famous-profiles-block.slide').slick({
+            // arrows: arrows,
+            touchMove: touchMove,
+            mobileFirst: mobileFirst,
+            waitForAnimate: waitForAnimate,
+            swipeToSlide: swipeToSlide,
+            slidesToScroll: slidesToScroll,
+            swipe: swipe,
+            touchThreshold: touchThreshold,
+            pauseOnHover: pauseOnHover,
+            pauseOnFocus: pauseOnFocus,
+
+            dots: dots,
+            infinite: infinite,
+            speed: speed,
+            slidesToShow: 1,
+            centerMode: false,
+            variableWidth: true,
+            autoplay: autoplay,
+            autoplaySpeed: autoplaySpeed,
+        });
+        $('.memory-desc-block').slick({
+            // arrows: arrows,
+            touchMove: touchMove,
+            mobileFirst: mobileFirst,
+            waitForAnimate: waitForAnimate,
+            swipeToSlide: swipeToSlide,
+            slidesToScroll: slidesToScroll,
+            swipe: swipe,
+            touchThreshold: touchThreshold,
+            pauseOnHover: pauseOnHover,
+            pauseOnFocus: pauseOnFocus,
+
+            dots: dots,
+            infinite: infinite,
+            speed: speed,
+            slidesToShow: 1,
+            centerMode: false,
+            variableWidth: true,
+            autoplay: autoplay,
+            autoplaySpeed: autoplaySpeed,
+        });
+
+    }
+
+    let languages = [
+        "Русский",
+        "Українська",
+        "English"
+
+    ];
+    autocomplete(document.getElementById("select-language"), languages);
+
+
+    let work_type = [
+        "Работа с музеями",
+        "Написание статей о личностях",
+        "Интервьюирование ветеранов",
+        "Уборка захоронений ветеранов",
+        "Возложение цветов ветеранам",
+        "Сотрудничество с гос. организациями",
+        "Сотрудничество с общинами",
+        "Работа по уборке на кладбище",
+        "Оцифровка архивов",
+        "Оцифровка данных с памятников",
+        "Партнерство по установке памятнико",
+        "Партнерство по уходу за захоронениями"
+    ];
+    autocomplete(document.getElementById("volunteer-work"), work_type)
+
+    function autocomplete(inp, arr) {
+
+        let currentFocus;
+
+
+        inp.addEventListener("click", showAutocompleteList);
+
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
         }
-    });
-
-
-
-    //change icon like anb bookmarks when click*********
-    $('.personality__carusel').on('click', '.user__candle', function () {
-        console.log('click');
-        if ($(this).next().hasClass('active')) {
-            $(this).next().toggleClass('active');
-        } else {
-            $(this).next().toggleClass('active');
-
-        }
-    })
-
-    //
-    $('.personality__carusel').on('click', '.user__like-icon', function () {
-        var countNum = $(this).next('.user__likeCount');
-        var count = countNum.text();
-        count = parseInt(count);
-        if ($(this).hasClass('active')) {
-            $(this).toggleClass('active');
-            $(this).attr('src', './img/heart.svg');
-            if (count > 0) {
-                count = count - 1;
-                countNum.html(count);
-            }
-        } else {
-            $(this).attr('src', './img/heart-black.svg');
-            $(this).toggleClass('active');
-            count = count + 1;
-            countNum.html(count);
-        }
-    })
-
-
-    //Search show***************************************
-
-    $('.search__btn-showHide').click(function () {
-        $('.search__more-wrap').toggleClass('show-select');
-        $('.search__btn-showHide').toggleClass('active-btn');
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // 	$(document).mouseup(function(e){ 
-    // 		var main= $('.nav')
-    // 		var div = $('.burger');
-    // 		var div2=  $('.burger-wrap');
-    // 		if (!main.is(e.target) && main.has(e.target).length === 0) { 
-    // 			div2.removeClass('open');
-    // 			div.removeClass('closed');
-    // 		}
-    // 	});
-    // 	$('.burger').click(function() {
-    // 		$('.burger-wrap').toggleClass('open');
-    // 		$('.burger').toggleClass('closed');
-    // 	});
-    // 	$('.nav__link').click(function() {
-    // 		$('.burger-wrap').removeClass('open');
-    // 		$('.burger').removeClass('closed');
-    // 	});
-
-    // //change background nav when scroll************************
-    // 	$(window).scroll(function() {
-    // 		if ($(this).scrollTop() >= 600) { 
-    // 			$('.nav').css('background-color', 'rgba(25,25,25, 1)');
-    // 		} else if ($(this).scrollTop() < 600 && $(this).scrollTop() > 100) {
-    // 			$('.nav').css('background-color', 'rgba(25,25,25, .75)');
-    // 		}
-    // 	});
-
-
-
-    // 	//Show-hide submunu registration*****************************
-    // 	$('#registration-btn').click(function() {
-    // 		$('#submenu').addClass('showMenu');
-    // 		$('.nav__popup-menu').show();
-    // 		$('html').css('overflow', 'hidden');
-    // 	});
-
-    // 	function show() {
-    // 		$('#submenu').addClass('showMenu');
-    // 		$('.nav__popup-menu').hide();
-    // 		$('html').css('overflow', 'hidden');
-
-    // 	}
-    // 	//show-hide form************************************************
-    // 	$('.showDoc1').click(function() {
-    // 		show();
-    // 		$('#popup1').show('fast', 'linear');
-    // 	});
-    // 	$('.showDoc2').click(function() {
-    // 		show();	
-    // 		$('#popup2').show('fast', 'linear');
-    // 	});
-    // 	$('.showDoc3').click(function() {
-    // 		show();
-    // 		$('#popup3').show('fast', 'linear');
-
-    // 	});
-    // 	$('.btn-close').click(function() {
-    // 		$('.popup1').hide();
-    // 		$('html').css('overflow', 'visible');
-    // 		$('#submenu').removeClass('showMenu');
-
-    // 	});
-
-
-
-
-    // 	//Accardion submenu**************************************  
-    // 	$('.burger-wrap__submenu').click(function(event){
-    // 		$(this).toggleClass('active');
-    // 		$(this).next().slideToggle(300);
-    // 	});  
-
-
-
-    // 	//Accardion text show*************************************
-    // 	$('.questions__item').click(function(event){
-    // 		// $(this).toggleClass('active');
-    // 		$(this).next().slideToggle();
-    // 		$(this).toggleClass('minus');
-    // 	});
-
-
-
-
-
-    //Range**************************
-    var lowerSlider = document.querySelector('#lower'); //Lower value slider
-    var upperSlider = document.querySelector('#upper'); //Upper value slider
-
-    // var lowerVal = parseInt(lowerSlider.value); //Value of lower slider
-    // var upperVal = parseInt(upperSlider.value); // Value of upper slider
-
-    var rangeColor = document.querySelector('#range-color'); //Range color
-
-    //When the upper value slider is moved.
-    upperSlider.oninput = function () {
-        lowerVal = parseInt(lowerSlider.value); //Get lower slider value
-        upperVal = parseInt(upperSlider.value); //Get upper slider value
-
-        //If the upper value slider is LESS THAN the lower value slider plus one.
-        if (upperVal < lowerVal + 1) {
-            //The lower slider value is set to equal the upper value slider minus one.
-            lowerSlider.value = upperVal - 1;
-            //If the lower value slider equals its set minimum.
-            if (lowerVal == lowerSlider.min) {
-                //Set the upper slider value to equal 1.
-                upperSlider.value = 1;
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
             }
         }
 
 
-        //Setting the margin left of the middle range color.
-        //Taking the value of the lower value times 10 and then turning it into a percentage.
-        rangeColor.style.marginLeft = (lowerSlider.value) + '%';
+        function showAutocompleteList(e) {
 
-        //Setting the width of the middle range color.
-        //Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
-        rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
-
-
-        document.getElementById('upperValue').value = (upperSlider.value + ' год');
-    };
-
-    //When the lower value slider is moved.
-    lowerSlider.oninput = function () {
-        lowerVal = parseInt(lowerSlider.value); //Get lower slider value
-        upperVal = parseInt(upperSlider.value); //Get upper slider value
-
-        //If the lower value slider is GREATER THAN the upper value slider minus one.
-        if (lowerVal > upperVal - 1) {
-            //The upper slider value is set to equal the lower value slider plus one.
-            upperSlider.value = lowerVal + 1;
-
-            //If the upper value slider equals its set maximum.
-            if (upperVal == upperSlider.max) {
-                //Set the lower slider value to equal the upper value slider's maximum value minus one.
-                lowerSlider.value = parseInt(upperSlider.max) - 1;
+            inp.selectionStart = inp.value.length;
+            let a, b, i, k, val = this.value;
+            if (document.getElementById(this.id + "autocomplete-list")) {
+                closeAllLists();
+                //  if (!val) { return false; }
+            } else {
+                currentFocus = -1;
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(a);
+                for (i = 0; i < arr.length; i++) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function (e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
             }
-
         }
-
-        //Setting the margin left of the middle range color.
-        //Taking the value of the lower value times 10 and then turning it into a percentage.
-        rangeColor.style.marginLeft = (lowerSlider.value) + '%';
-
-        //Setting the width of the middle range color.
-        //Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
-        rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
-
-        document.getElementById('lowerValue').value = (lowerSlider.value + ' год');
-    };
-
+        document.addEventListener("click", function (e) {
+            if (e.target != inp) {
+                closeAllLists(e.target);
+                if (valueFromArrOnly && !arr.includes(inp.value)) {
+                    inp.value = defaultValue;
+                }
+            }
+        }, true);
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+    }
 });
 /*
      _ _      _       _
@@ -13806,119 +13569,67 @@ $(document).ready(function () {
     };
 
 }));
-jQuery(function ($) {
-    'use strict';
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+    $('#error-message').addClass('show');
+    $('.success').text(textToShow);
+    setTimeout(() => {
+        $('#error-message').removeClass('show');
+    }, time);
+};
 
-    function startSlider() {
-        $('.personality__carusel').slick({
-            dots: false,
-            slidesToShow: 3,
-            infinite: true,
-            speed: 1000,
-            arrows: true,
-            autoplay: true,
-            responsive: [
-                {
-                    breakpoint: 1025,
-                    settings: {
-                        slidesToShow: 3,
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToShow: 1,
-                    }
-                }
-            ]
 
-        });
+function validateName(name) {
+    //var reg = /^[А-Яа-яЁё\s]+$/;
+    var name = $('#volunteer-name').val();
+    if (name == '') {
+        return false;
     }
-
-
-
-    function loadQuestionnaries() {
-        $.getJSON('questionnaries.json', function (data) {
-            var out = '';
-            for (var key in data) {
-                if (data[key].avatar == '') {
-                    data[key].avatar = "./img/user-def.png";
-                    if (data[key].isLife == true) {
-                        out += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-                    }
-                } else {
-                    out += '<div class="user  item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span> - </span><span class="user__die">' + data[key].die + '</span></div><img class="user__candle" src="./img/candle.png" alt="candle"><img class="user__candle-fire" src="./img/candle-fire.png" alt="candle-fire"></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-                }
-            }
-            $('.personality__carusel').html(out);
-        });
+}
+function validateTel(tel) {
+    var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+    var tel = $('#volunteer-tel').val();
+    if (!reg.test(tel) || tel == '') {
+        return false;
     }
+}
 
 
-    function runSlider(item1, item2) {
-        item1();
-        setTimeout(function () {
-            item2();
+$('.volunteer-form').submit(function (e) {
+    e.preventDefault();
+    var form = $('#volunteers');
+    var name = $('#volunteer-name');
+    var tel = $('#volunteer-tel');
+    var helps = $('#volunteer-work');
+    //var message = $('.volunteers__mess');
+    var btn = $('.volunteers__btn');
 
-        }, 250);
+    let sendData = {
+        name: name.val(),
+        helps: helps.val(),
+        tel: tel.val(),
     };
-    runSlider(loadQuestionnaries, startSlider);
-})
-!function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
- 
+    console.log(sendData);
+    if (validateName() == false || validateTel() == false) {
+        showErrorSuccess("Данные введены не верно!", 1000);
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "sendEmail.php",
+            data: sendData,
+            success: function (data) {
+                showErrorSuccess("Сообщение отправлено. Спасибо Вам, мы скоро свяжемся с Вами!", 1000);
+                name.val('');
+                tel.val('');
+                console.log('data', data);
+            },
 
-
-    function validateName(name) {
-        var reg = /^[А-Яа-яЁё\s]+$/;
-        var name = $('.volunteers__name').val();
-        if(!reg.test(name)) {
-            return false;
-        }
+            error: function () {
+                showErrorSuccess("Ошибка отправки", 1000);
+                name.val('');
+                tel.val('');
+                console.log('data', data);
+            }
+        })
     }
-    function validateTel(tel) {
-        var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
-        var tel = $('.volunteers__tel').val();
-        if(!reg.test(tel)) {
-           return false;
-        }
-     }
-
-
-  $('#volunteers').submit(function(e) {
-        e.preventDefault();
-        var form = $('#volunteers');
-        var name = $('.volunteers__name');
-        var tel = $('.volunteers__tel');
-        var helps = $('.volunteers__helps');
-        var message = $('.volunteers__mess');
-        var btn = $('.volunteers__btn');
-
-        if (name.val() == '' || validateName() == false || tel.val() == '' || validateTel() == false) {
-            message.html('<p class="volunteers__mess-text">Данные введены не верно!</p>').show().delay(4000).fadeOut(300);
-            tel.val('');
-            return false;
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "sendEmail.php",
-                data: {
-                    name: name.val(),
-                    helps: helps.val(),
-                    tel: tel.val(),
-                },
-                success: function(data) {
-                        message.html('<p class="volunteers__mess-text">Сообщение отправлено. Спасибо Вам, мы скоро свяжемся с Вами.</p>').show().delay(4000).fadeOut(300);
-                        name.val('');
-                        tel.val('');
-                        console.log('data', data);     
-                }, 
-                
-                error: function() {
-                    message.html('<p class="volunteers__mess-text">Ошибка отправки!</p>').show().delay(4000).fadeOut(300);
-                    name.val('');
-                    tel.val('');
-                    console.log('data', data);     
-                }
-            })
-        }    
-    })
+})

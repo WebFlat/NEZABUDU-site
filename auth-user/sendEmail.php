@@ -1,6 +1,6 @@
 <?php
 $to = 'y.vacheslav@gmail.com';
-$from = "From: предложение о сотрудничестве с сайта <nezabudu.com.ua>\n\r";
+$from = "From: Предложение о сотрудничестве с сайта <nezabudu.com>\n\r";
 $name = $_POST['name'];
 $tel = $_POST['tel'];
 $helps = $_POST['helps'];
@@ -30,7 +30,9 @@ $message = '
         </center>	
         </body>
     </html>'; 
-$headers  = "Content-type: text/html; charset=utf-8\r\n";
+
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers  .= $from;
 
 
