@@ -10979,22 +10979,6 @@ let languages = [
 autocomplete(document.getElementById("select-language"), languages);
 
 
-let work_type = [
-	"Работа с музеями",
-	"Написание статей о личностях",
-	"Интервьюирование ветеранов",
-	"Уборка захоронений ветеранов",
-	"Возложение цветов ветеранам",
-	"Сотрудничество с гос. организациями",
-	"Сотрудничество с общинами",
-	"Работа по уборке на кладбище",
-	"Оцифровка архивов",
-	"Оцифровка данных с памятников",
-	"Партнерство по установке памятнико",
-	"Партнерство по уходу за захоронениями"
-];
-autocomplete(document.getElementById("volunteer-work"), work_type)
-
 function autocomplete(inp, arr) {
 
 	let currentFocus;
@@ -11044,7 +11028,7 @@ function autocomplete(inp, arr) {
 	document.addEventListener("click", function (e) {
 		if (e.target != inp) {
 			closeAllLists(e.target);
-			if (valueFromArrOnly && !arr.includes(inp.value)) {
+			if (!arr.includes(inp.value)) {
 				inp.value = defaultValue;
 			}
 		}

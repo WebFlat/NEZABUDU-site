@@ -10543,9 +10543,6 @@ $(document).ready(function () {
         document.addEventListener("click", function (e) {
             if (e.target != inp) {
                 closeAllLists(e.target);
-                if (valueFromArrOnly && !arr.includes(inp.value)) {
-                    inp.value = defaultValue;
-                }
             }
         }, true);
         function closeAllLists(elmnt) {

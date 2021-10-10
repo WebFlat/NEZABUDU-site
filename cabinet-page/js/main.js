@@ -11141,11 +11141,11 @@ function loadQuestionnaries(section_life, section_death, section_my, users, data
 			section_my.html(out3);
 			$('.customer').remove();
 		} else if (!data[key].death_date && !data[key].profile_mine) {
-			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
 			section_life.append(out);
 			section_life.addClass('not-empty');
 		} else {
-			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
 			section_death.append(out2);
 			section_death.addClass('not-empty');
 		}
@@ -11644,7 +11644,6 @@ let work_type = [
 	"Партнерство по установке памятнико",
 	"Партнерство по уходу за захоронениями"
 ];
-autocomplete(document.getElementById("volunteer-work"), work_type)
 
 function autocomplete(inp, arr) {
 
@@ -11695,7 +11694,7 @@ function autocomplete(inp, arr) {
 	document.addEventListener("click", function (e) {
 		if (e.target != inp) {
 			closeAllLists(e.target);
-			if (valueFromArrOnly && !arr.includes(inp.value)) {
+			if (!arr.includes(inp.value)) {
 				inp.value = defaultValue;
 			}
 		}
