@@ -11029,6 +11029,9 @@ var sectionMy = $('#myItems');
 var sectionBookmark = $('.profile__bookmarks');
 
 
+
+
+
 ifLogin();
 function ifLogin() {
 	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
@@ -11038,11 +11041,20 @@ function ifLogin() {
 	}
 };
 
+//show message notifications*********************************
+function showErrorSuccess(textToShow, time) {
+	$('#error-message').addClass('show');
+	$('.success').text(textToShow);
+	setTimeout(() => {
+		$('#error-message').removeClass('show');
+	}, time);
+};
+
+
 //Exit account***************************************************
 $('#logout').click(function () {
-	deleteCookie(cookie_name_token)
-	window.location.reload();
-
+	deleteCookie(cookie_name_token);
+	window.location.href = '../index.html';
 });
 
 
@@ -11087,13 +11099,6 @@ function start() {
 
 //Icon user if login**************************
 function confirmUser() {
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
-	} else {
-		$('.enter').addClass('active');
-		$('.loginIn').removeClass('active');
-	};
 	if (userAvatar) {
 		$('.header__user').attr('src', userAvatar);
 	};
@@ -11132,15 +11137,17 @@ function loadQuestionnaries(section_life, section_death, section_my, users, data
 			data[key].avatar = "./img/user-def.png";
 		}
 		if (data[key].profile_mine && !data[key].death_date) {
-			out3 += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+			out3 += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--my"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
 			section_my.html(out3);
 			$('.customer').remove();
 		} else if (!data[key].death_date && !data[key].profile_mine) {
 			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
 			section_life.append(out);
+			section_life.addClass('not-empty');
 		} else {
 			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
 			section_death.append(out2);
+			section_death.addClass('not-empty');
 		}
 
 	}
@@ -11164,6 +11171,7 @@ function loadQuestionnariesBookmark(section, users, data) {
 		}
 
 		section.html(out);
+		section.addClass('not-empty');
 	}
 
 }
@@ -11229,7 +11237,7 @@ function validateTel() {
 	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 	var userTel = $('#userTel').val();
 	if (reg.test(userTel) == false || userTel == '') {
-		$('#error').text("Введите корректный телефон").addClass('error').show().delay(2000).fadeOut(300);
+		showErrorSuccess("Введите корректный телефон", 1000);
 		return false;
 	} else {
 		return true;
@@ -11239,10 +11247,10 @@ function validatePass() {
 	var new_pass = $('#newPassword').val();
 	var confirm_pass = $('#confirmPassword').val();
 	if (new_pass !== '' && new_pass.length < 6) {
-		$('#error').text("Введите корректный пароль мин 6 символов").addClass('error').show().delay(2000).fadeOut(300);
+		showErrorSuccess("Введите корректный пароль мин 6 символов", 1000);
 		return false;
 	} else if (new_pass !== '' && new_pass !== confirm_pass) {
-		$('#error').text("Пароли не совпадают").addClass('error').show().delay(2000).fadeOut(300);
+		showErrorSuccess("Пароли не совпадают", 1000);
 		return false;
 	} else {
 		return true;
@@ -11263,7 +11271,7 @@ $('.settings__save').click(function (e) {
 	var data = {};
 	var passToSend = '';
 	var oldPass = $('#password').val()
-	var confirmNewPass = $('#confirmPassword').val();
+	//var confirmNewPass = $('#confirmPassword').val();
 	var newPassword = $('#newPassword').val();
 	var checkDate = $('#userBothDate').val();
 	if (newPassword === oldPass || newPassword == '') {
@@ -11314,18 +11322,20 @@ $('.settings__save').click(function (e) {
 					$('body').css('opacity', 1);
 					// setCookie(cookie_name_token, json.token, 3600);
 					cookie_token = getCookie(cookie_name_token);
-					$('#error').text("Данные успешно обновлены").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+					showErrorSuccess("Данные успешно обновлены", 1000);
 					setTimeout(function () {
 						window.location.reload();
 					}, 2000);
 				} else {
-					$('#error').text("Такой пользователь уже существует").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+					$('body').css('opacity', 1);
+					showErrorSuccess("Такой пользователь уже существует", 1000);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				$('#error').text("Ошибка соединения").removeClass('success').addClass('error').show().delay(2000).fadeOut(300);
+				$('body').css('opacity', 1);
+				showErrorSuccess("Ошибка соединения", 1000);
 			});
 	}
 });
@@ -11334,80 +11344,33 @@ $('.settings__save').click(function (e) {
 
 //burger***************************************
 function burgerShow() {
-	//User or guest
-	if (user) {
-		$('#menu-user').toggleClass('open');
-		$('.burger').toggleClass('closed');
-		$('body').toggleClass('no-scroll');
-		$('.burger__bg-body').toggleClass('show-bgBody');
-	}
+	$('body').toggleClass('no-scroll');
 };
-
-$('.burger').click(function () {
+$('.drawer-burg').click(function () {
 	burgerShow();
 
 });
-$('.nav__link').click(function () {
+$('#drawer-close').click(function () {
 	burgerShow();
 });
-$('.burger__bg-body').click(function (e) {
-	var container = $('.burger-wrap');
-	if (container.has(e.target).length === 0) {
-		burgerShow();
-	}
+$('.drawer__link').click(function () {
+	$('#drawer-close').click();
 });
-
-
-//selects***********************************************
-
-$('#lang').each(function () {
-	var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-	$this.addClass('select-hidden');
-	$this.wrap('<div class="select select--lang"></div>');
-	$this.after('<div class="select-styled"></div>');
-
-	var $styledSelect = $this.next('div.select-styled');
-	$styledSelect.text($this.children('option').eq(0).text());
-
-	var $list = $('<ul />', {
-		'class': 'select-options select-options--lang'
-	}).insertAfter($styledSelect);
-
-	for (var i = 0; i < numberOfOptions; i++) {
-		$('<li />', {
-			text: $this.children('option').eq(i).text(),
-			rel: $this.children('option').eq(i).val()
-		}).appendTo($list);
-	}
-
-	var $listItems = $list.children('li');
-
-	$styledSelect.click(function (e) {
-		e.stopPropagation();
-		$('div.select-styled.select-active').not(this).each(function () {
-			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-		});
-		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-	});
-
-	$listItems.click(function (e) {
-		e.stopPropagation();
-		$styledSelect.text($(this).text()).removeClass('select-active');
-		$this.val($(this).attr('rel'));
-		$list.hide();
-		//console.log($this.val());
-	});
-
-	$(document).click(function () {
-		$styledSelect.removeClass('select-active');
-		$list.hide();
-	});
-
-});
+// $('.nav__link').click(function () {
+// 	burgerShow();
+// });
+// $('#drawer-menu').click(function (e) {
+// 	var container = $('.drawer__link');
+// 	if (container.has(e.target).length === 0) {
+// 		burgerShow();
+// 	}
+// });
 
 
 
+// setTimeout(function () {
+// 	initClick();
+// }, 100);
 
 //show tabs in menu cabinet******************************
 $(".profile__tabs").not(":first").hide();
@@ -11417,9 +11380,9 @@ $(".nav-tab1").click(function () {
 	$(".nav-tab").removeClass("active-tab");
 	$(".nav-tab1").addClass("active-tab");
 	$(".tab1").fadeIn().siblings('.profile__tabs').hide();
-	setTimeout(function () {
-		initClick();
-	}, 100);
+	// setTimeout(function () {
+	// 	initClick();
+	// }, 100);
 });
 $(".nav-tab2").click(function () {
 	$(".tab2").fadeIn().siblings('.profile__tabs').hide();
@@ -11427,9 +11390,9 @@ $(".nav-tab2").click(function () {
 	$(".nav-tab2").addClass("active-tab");
 	loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
 	//pagin2();
-	setTimeout(function () {
-		initClick();
-	}, 100);
+	// setTimeout(function () {
+	// 	initClick();
+	// }, 100);
 
 });
 $(".nav-tab3").click(function () {
@@ -11456,22 +11419,6 @@ $(".nav-tab4").click(function () {
 });
 
 
-
-
-//upload avatar*************************************
-$('#editFoto').change(function (e) {
-	var foto = e.target;
-
-	var reader = new FileReader();
-	reader.onload = function () {
-		var dataURL = reader.result;
-		var output = $('#user-icon');
-		output.attr('src', dataURL);
-	};
-	reader.readAsDataURL(foto.files[0]);
-});
-
-
 //add date input of both***************************
 $('#userBoth').change(function () {
 	var date = $('#userBoth').val();
@@ -11480,18 +11427,162 @@ $('#userBoth').change(function () {
 });
 
 
-//Show popup choice questionnaries***************
-$('#createQuestionnaries').click(function (e) {
-	e.preventDefault();
-	$('#popup-choice').addClass('opened');
-	$('body').toggleClass('no-scroll');
+//upload avatar*************************************
+// $('#editFoto').change(function (e) {
+// 	var foto = e.target;
 
+// 	var reader = new FileReader();
+// 	reader.onload = function () {
+// 		var dataURL = reader.result;
+// 		var output = $('#user-icon');
+// 		output.attr('src', dataURL);
+// 	};
+// 	reader.readAsDataURL(foto.files[0]);
+// });
+class UploadWidget {
+	width;
+	height;
+	text;
+	widgetId;
+	key;
+	_location;
+	iframe;
+
+	constructor(location, widgetId, bucketId) {
+		this.location = location;
+		this.width = location.dataset.width || '100%';
+		this.height = location.dataset.height || '100%';
+		this.text = location.dataset.text;
+		this.widgetId = widgetId;
+		this.key = bucketId;
+		this.createWidget()
+	}
+
+	set location(value) {
+		if (!value) {
+			alert("No file input")
+			return;
+		}
+		this._location = value;
+	}
+
+	get location() {
+		return this._location
+	}
+
+	createWidget() {
+		let small = "false"
+		let iframe = window.document.createElement('iframe');
+
+		if (parseInt(this.width) < 120) {
+			small = "true"
+		}
+		iframe.src = "https://app.simplefileupload.com" + `/buckets/${this.key}?widgetId=${this.widgetId}&elementValue=${this.location.value}&preview=${this.location.dataset.preview}&text=${this.text}&small=${small}`
+		iframe.className = 'widgetFrame'
+		iframe.width = this.width;
+		iframe.height = this.height;
+		iframe.style.cssText = 'border:none; opacity:0;'
+
+		this.iframe = iframe;
+
+		//Attach iframe to DOM after the existing file input
+		if (!this.location.form) {
+			alert("The input you created is not in a form. In order to send the string url to your server the input needs to be in a form. Please reach out at support@simplefileupload.com for assistance.")
+			return
+		}
+		insertAfter(iframe, this.location);
+	}
+
+	open() {
+		this.iframe.style = 'border:none; opacity:1;'
+	}
+}
+
+function insertAfter(el, referenceNode) {
+	return referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+
+function uniqueWidget(location) {
+	const widgetId = location.dataset.id
+	new UploadWidget(location, widgetId, "824d5800b5e42b3c0a21a4441095b081").open();
+}
+
+const getUrlData = (e) => {
+	if (e.origin !== "https://app.simplefileupload.com")
+		return;
+	if (e.data["uploadResult"] == 'queuecomplete') {
+		const data = e.data;
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		const event = new CustomEvent('multipleUploadComplete', { detail: e.data.widgetId })
+		hiddenInput.dispatchEvent(event)
+	}
+	if (e.data["uploadResult"] == 'success') {
+		const data = e.data;
+		let output = $('#user-icon');
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		hiddenInput.value = data["url"];
+		if (data["url"] != '') {
+			output.attr('src', data["url"]);
+		}
+		const event = new Event('fileUploadSuccess')
+		hiddenInput.dispatchEvent(event)
+	}
+}
+
+window.addEventListener('message', getUrlData, false);
+
+function setId(location, index) {
+	location.type = "hidden"; //Make hidden for legacy implementation
+	location.dataset.id = `widget${index}`
+	location.dataset.preview ||= "true"
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
 });
+
+document.addEventListener('turbolinks:render', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
+});
+
+
+
+
+
+
+
+
+
+//Show popup choice questionnaries***************
+// $('#createQuestionnaries').click(function (e) {
+// 	e.preventDefault();
+// 	$('#popup-choice').addClass('opened');
+// 	$('body').toggleClass('no-scroll');
+
+// });
 //Close popup***********************************
-$('.closeChoice').click(function () {
-	$('#popup-choice').removeClass('opened');
-	$('body').toggleClass('no-scroll');
-});
+// $('.closeChoice').click(function () {
+// 	$('#popup-choice').removeClass('opened');
+// 	$('body').toggleClass('no-scroll');
+// });
 
 
 
@@ -11499,34 +11590,122 @@ $('.closeChoice').click(function () {
 
 
 //change icon like anb bookmarks when click*********
-function initClick() {
-	$('.user__candle').click(function () {
-		if ($(this).next().hasClass('active')) {
-			$(this).next().toggleClass('active');
-		} else {
-			$(this).next().toggleClass('active');
+// function initClick() {
+// 	$('.user__candle').click(function () {
+// 		if ($(this).next().hasClass('active')) {
+// 			$(this).next().toggleClass('active');
+// 		} else {
+// 			$(this).next().toggleClass('active');
 
+// 		}
+// 	})
+// 	$('.user__like-icon').click(function () {
+// 		var countNum = $(this).next('.user__likeCount');
+// 		var count = countNum.text();
+// 		count = parseInt(count);
+// 		if ($(this).hasClass('active')) {
+// 			$(this).toggleClass('active');
+// 			$(this).attr('src', './img/heart.svg');
+// 			if (count > 0) {
+// 				count = count - 1;
+// 				countNum.html(count);
+// 			}
+// 		} else {
+// 			$(this).attr('src', './img/heart-black.svg');
+// 			$(this).toggleClass('active');
+// 			count = count + 1;
+// 			countNum.html(count);
+// 		}
+// 	})
+// }
+
+
+
+let languages = [
+	"Русский",
+	"Українська",
+	"English"
+
+];
+autocomplete(document.getElementById("select-language"), languages);
+
+
+let work_type = [
+	"Работа с музеями",
+	"Написание статей о личностях",
+	"Интервьюирование ветеранов",
+	"Уборка захоронений ветеранов",
+	"Возложение цветов ветеранам",
+	"Сотрудничество с гос. организациями",
+	"Сотрудничество с общинами",
+	"Работа по уборке на кладбище",
+	"Оцифровка архивов",
+	"Оцифровка данных с памятников",
+	"Партнерство по установке памятнико",
+	"Партнерство по уходу за захоронениями"
+];
+autocomplete(document.getElementById("volunteer-work"), work_type)
+
+function autocomplete(inp, arr) {
+
+	let currentFocus;
+
+
+	inp.addEventListener("click", showAutocompleteList);
+
+	function addActive(x) {
+		if (!x) return false;
+		removeActive(x);
+		if (currentFocus >= x.length) currentFocus = 0;
+		if (currentFocus < 0) currentFocus = (x.length - 1);
+		x[currentFocus].classList.add("autocomplete-active");
+	}
+	function removeActive(x) {
+		for (var i = 0; i < x.length; i++) {
+			x[i].classList.remove("autocomplete-active");
 		}
-	})
-	$('.user__like-icon').click(function () {
-		var countNum = $(this).next('.user__likeCount');
-		var count = countNum.text();
-		count = parseInt(count);
-		if ($(this).hasClass('active')) {
-			$(this).toggleClass('active');
-			$(this).attr('src', './img/heart.svg');
-			if (count > 0) {
-				count = count - 1;
-				countNum.html(count);
-			}
+	}
+
+
+	function showAutocompleteList(e) {
+
+		inp.selectionStart = inp.value.length;
+		let a, b, i, k, val = this.value;
+		if (document.getElementById(this.id + "autocomplete-list")) {
+			closeAllLists();
+			//  if (!val) { return false; }
 		} else {
-			$(this).attr('src', './img/heart-black.svg');
-			$(this).toggleClass('active');
-			count = count + 1;
-			countNum.html(count);
+			currentFocus = -1;
+			a = document.createElement("DIV");
+			a.setAttribute("id", this.id + "autocomplete-list");
+			a.setAttribute("class", "autocomplete-items");
+			this.parentNode.appendChild(a);
+			for (i = 0; i < arr.length; i++) {
+				b = document.createElement("DIV");
+				b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+				b.addEventListener("click", function (e) {
+					inp.value = this.getElementsByTagName("input")[0].value;
+					closeAllLists();
+				});
+				a.appendChild(b);
+			}
 		}
-	})
+	}
+	document.addEventListener("click", function (e) {
+		if (e.target != inp) {
+			closeAllLists(e.target);
+			if (valueFromArrOnly && !arr.includes(inp.value)) {
+				inp.value = defaultValue;
+			}
+		}
+	}, true);
+	function closeAllLists(elmnt) {
+		var x = document.getElementsByClassName("autocomplete-items");
+		for (var i = 0; i < x.length; i++) {
+			if (elmnt != x[i] && elmnt != inp) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+		}
+	}
 }
-setTimeout(function () {
-	initClick();
-}, 100);

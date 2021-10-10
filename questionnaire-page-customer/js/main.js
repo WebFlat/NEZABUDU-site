@@ -10596,7 +10596,6 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
-!function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
 //console.log("window loaded");
 
 
@@ -10743,20 +10742,23 @@ $('#sendFistRequest').click(function (e) {
 
 				if (data) {
 					$('body').css('opacity', 1);
-					console.log("success send");
-					console.log('Data:', JSON.stringify(data));
+					//console.log("success send");
+					//console.log('Data:', JSON.stringify(data));
 					showErrorSuccess('Данные сохранены', 1000);
 					window.location.href = `../questionnaire-life/#${data.profile.id}`;
 				} else {
-					showErrorSuccess('Такой пользователь уже существует', 500);
+					$('body').css('opacity', 1);
+					showErrorSuccess('Такой пользователь уже существует', 1000);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
+				$('body').css('opacity', 1);
 				showErrorSuccess('Ошибка соединения', 1000);
 			});
 	} else {
+		$('body').css('opacity', 1);
 		showErrorSuccess('Заполните обязательные поля', 1000);
 
 	}
@@ -10765,23 +10767,17 @@ $('#sendFistRequest').click(function (e) {
 
 //burger***************************************
 function burgerShow() {
-	$('.burger-wrap').toggleClass('open');
-	$('.burger').toggleClass('closed');
 	$('body').toggleClass('no-scroll');
-	$('.burger__bg-body').toggleClass('show-bgBody');
-}
-$('.burger').click(function () {
+};
+$('.drawer-burg').click(function () {
 	burgerShow();
 
 });
-$('.nav__link').click(function () {
+$('#drawer-close').click(function () {
 	burgerShow();
 });
-$('.burger__bg-body').click(function (e) {
-	var container = $('.burger-wrap');
-	if (container.has(e.target).length === 0) {
-		burgerShow();
-	}
+$('.drawer__link').click(function () {
+	$('#drawer-close').click();
 });
 
 
@@ -10798,110 +10794,6 @@ function showTabs() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $('.data__relative').each(function () {
-// 	var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-// 	$this.addClass('select-hidden');
-// 	$this.wrap('<div class="select"></div>');
-// 	$this.after('<div class="select-styled"></div>');
-
-// 	var $styledSelect = $this.next('div.select-styled');
-// 	$styledSelect.text($this.children('option').eq(0).text());
-
-// 	var $list = $('<ul />', {
-// 		'class': 'select-options'
-// 	}).insertAfter($styledSelect);
-
-// 	for (var i = 0; i < numberOfOptions; i++) {
-// 		$('<li />', {
-// 			text: $this.children('option').eq(i).text(),
-// 			rel: $this.children('option').eq(i).val()
-// 		}).appendTo($list);
-// 	}
-
-// 	var $listItems = $list.children('li');
-
-// 	$styledSelect.click(function (e) {
-// 		e.stopPropagation();
-// 		$('div.select-styled.select-active').not(this).each(function () {
-// 			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-// 		});
-// 		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-// 	});
-
-// 	$listItems.click(function (e) {
-// 		e.stopPropagation();
-// 		$styledSelect.text($(this).text()).removeClass('select-active');
-// 		$this.val($(this).attr('rel'));
-// 		$list.hide();
-// 	});
-
-// 	$(document).click(function () {
-// 		$styledSelect.removeClass('select-active');
-// 		$list.hide();
-// 	});
-
-// });
-$('#lang').each(function () {
-	var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-	$this.addClass('select-hidden');
-	$this.wrap('<div class="select select--lang"></div>');
-	$this.after('<div class="select-styled"></div>');
-
-	var $styledSelect = $this.next('div.select-styled');
-	$styledSelect.text($this.children('option').eq(0).text());
-
-	var $list = $('<ul />', {
-		'class': 'select-options select-options--lang'
-	}).insertAfter($styledSelect);
-
-	for (var i = 0; i < numberOfOptions; i++) {
-		$('<li />', {
-			text: $this.children('option').eq(i).text(),
-			rel: $this.children('option').eq(i).val()
-		}).appendTo($list);
-	}
-
-	var $listItems = $list.children('li');
-
-	$styledSelect.click(function (e) {
-		e.stopPropagation();
-		$('div.select-styled.select-active').not(this).each(function () {
-			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-		});
-		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-	});
-
-	$listItems.click(function (e) {
-		e.stopPropagation();
-		$styledSelect.text($(this).text()).removeClass('select-active');
-		$this.val($(this).attr('rel'));
-		$list.hide();
-		//console.log($this.val());
-	});
-
-	$(document).click(function () {
-		$styledSelect.removeClass('select-active');
-		$list.hide();
-	});
-
-});
 
 
 
@@ -10931,49 +10823,238 @@ $('#user-both').change(function () {
 
 
 //upload avatar*************************************
-$('.about__upload-inpt--ava').change(function (e) {
-	var input = e.target;
-
-	var reader = new FileReader();
-	reader.onload = function () {
-		var dataURL = reader.result;
-		var output = $('#output');
-		output.attr('src', dataURL);
-	};
-	reader.readAsDataURL(input.files[0]);
-});
-//force click upload avatar*********************
-$('.about__img-wrap').click(function () {
-	$('#fileFotoAvatar').click();
-});
-
-
-
-
-
-//upload foto to fotoalbum****************************
-// function hideAddfoto() {
-// 	var foto = $('.about__gal-wrap');
-// 	console.log(foto.length);
-// 	if (foto.length >= 10) {
-// 		$('.about__gal-wrap--def').hide();
-// 	} else {
-// 		$('.about__gal-wrap--def').show();
-// 	}
-// };
-
-// $('#addFoto').change(function (e) {
+// $('.about__upload-inpt--ava').change(function (e) {
 // 	var input = e.target;
-// 	hideAddfoto();
-// 	var elem = $('<div class="about__gal-wrap"><img src="" alt="foto" class= "about__img-gal"></div>');
+
 // 	var reader = new FileReader();
 // 	reader.onload = function () {
 // 		var dataURL = reader.result;
-// 		var output = elem.children();
+// 		var output = $('#output');
 // 		output.attr('src', dataURL);
 // 	};
-// 	$(elem).insertBefore($('#elem'));
 // 	reader.readAsDataURL(input.files[0]);
-
-
 // });
+// //force click upload avatar*********************
+// $('.about__img-wrap').click(function () {
+// 	$('.dz-hidden-input').click();
+// });
+class UploadWidget {
+	width;
+	height;
+	text;
+	widgetId;
+	key;
+	_location;
+	iframe;
+
+	constructor(location, widgetId, bucketId) {
+		this.location = location;
+		this.width = location.dataset.width || '100%';
+		this.height = location.dataset.height || '100%';
+		this.text = location.dataset.text;
+		this.widgetId = widgetId;
+		this.key = bucketId;
+		this.createWidget()
+	}
+
+	set location(value) {
+		if (!value) {
+			alert("No file input")
+			return;
+		}
+		this._location = value;
+	}
+
+	get location() {
+		return this._location
+	}
+
+	createWidget() {
+		let small = "false"
+		let iframe = window.document.createElement('iframe');
+
+		if (parseInt(this.width) < 120) {
+			small = "true"
+		}
+		iframe.src = "https://app.simplefileupload.com" + `/buckets/${this.key}?widgetId=${this.widgetId}&elementValue=${this.location.value}&preview=${this.location.dataset.preview}&text=${this.text}&small=${small}`
+		iframe.className = 'widgetFrame'
+		iframe.width = this.width;
+		iframe.height = this.height;
+		iframe.style.cssText = 'border:none; opacity:0;'
+
+		this.iframe = iframe;
+
+		//Attach iframe to DOM after the existing file input
+		if (!this.location.form) {
+			alert("The input you created is not in a form. In order to send the string url to your server the input needs to be in a form. Please reach out at support@simplefileupload.com for assistance.")
+			return
+		}
+		insertAfter(iframe, this.location);
+		// //force click upload avatar*********************
+		$('.about__img-wrap').on('click', function () {
+			$('.dz-hidden-input').click();
+		});
+	}
+
+	open() {
+		this.iframe.style = 'border:none; opacity:1;'
+	}
+}
+
+function insertAfter(el, referenceNode) {
+	return referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+
+function uniqueWidget(location) {
+	const widgetId = location.dataset.id
+	new UploadWidget(location, widgetId, "824d5800b5e42b3c0a21a4441095b081").open();
+}
+
+const getUrlData = (e) => {
+	if (e.origin !== "https://app.simplefileupload.com")
+		return;
+	if (e.data["uploadResult"] == 'queuecomplete') {
+		const data = e.data;
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		const event = new CustomEvent('multipleUploadComplete', { detail: e.data.widgetId })
+		hiddenInput.dispatchEvent(event)
+	}
+	if (e.data["uploadResult"] == 'success') {
+		const data = e.data;
+		let output = $('#output');
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		if (data["url"] != '') {
+			output.attr('src', data["url"]);
+		}
+		hiddenInput.value = data["url"];
+		const event = new Event('fileUploadSuccess')
+		hiddenInput.dispatchEvent(event)
+	}
+}
+
+window.addEventListener('message', getUrlData, false);
+
+function setId(location, index) {
+	location.type = "hidden"; //Make hidden for legacy implementation
+	location.dataset.id = `widget${index}`
+	location.dataset.preview ||= "true"
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
+});
+
+document.addEventListener('turbolinks:render', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
+});
+
+
+
+
+
+let languages = [
+	"Русский",
+	"Українська",
+	"English"
+
+];
+autocomplete(document.getElementById("select-language"), languages);
+
+
+let work_type = [
+	"Работа с музеями",
+	"Написание статей о личностях",
+	"Интервьюирование ветеранов",
+	"Уборка захоронений ветеранов",
+	"Возложение цветов ветеранам",
+	"Сотрудничество с гос. организациями",
+	"Сотрудничество с общинами",
+	"Работа по уборке на кладбище",
+	"Оцифровка архивов",
+	"Оцифровка данных с памятников",
+	"Партнерство по установке памятнико",
+	"Партнерство по уходу за захоронениями"
+];
+autocomplete(document.getElementById("volunteer-work"), work_type)
+
+function autocomplete(inp, arr) {
+
+	let currentFocus;
+
+
+	inp.addEventListener("click", showAutocompleteList);
+
+	function addActive(x) {
+		if (!x) return false;
+		removeActive(x);
+		if (currentFocus >= x.length) currentFocus = 0;
+		if (currentFocus < 0) currentFocus = (x.length - 1);
+		x[currentFocus].classList.add("autocomplete-active");
+	}
+	function removeActive(x) {
+		for (var i = 0; i < x.length; i++) {
+			x[i].classList.remove("autocomplete-active");
+		}
+	}
+
+
+	function showAutocompleteList(e) {
+
+		inp.selectionStart = inp.value.length;
+		let a, b, i, k, val = this.value;
+		if (document.getElementById(this.id + "autocomplete-list")) {
+			closeAllLists();
+			//  if (!val) { return false; }
+		} else {
+			currentFocus = -1;
+			a = document.createElement("DIV");
+			a.setAttribute("id", this.id + "autocomplete-list");
+			a.setAttribute("class", "autocomplete-items");
+			this.parentNode.appendChild(a);
+			for (i = 0; i < arr.length; i++) {
+				b = document.createElement("DIV");
+				b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+				b.addEventListener("click", function (e) {
+					inp.value = this.getElementsByTagName("input")[0].value;
+					closeAllLists();
+				});
+				a.appendChild(b);
+			}
+		}
+	}
+	document.addEventListener("click", function (e) {
+		if (e.target != inp) {
+			closeAllLists(e.target);
+			if (valueFromArrOnly && !arr.includes(inp.value)) {
+				inp.value = defaultValue;
+			}
+		}
+	}, true);
+	function closeAllLists(elmnt) {
+		var x = document.getElementsByClassName("autocomplete-items");
+		for (var i = 0; i < x.length; i++) {
+			if (elmnt != x[i] && elmnt != inp) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+		}
+	}
+}
