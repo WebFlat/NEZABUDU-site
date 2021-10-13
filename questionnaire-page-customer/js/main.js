@@ -10596,230 +10596,306 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
-//console.log("window loaded");
+console.log("window loaded");
+
+$(document).ready(function () {
+
+	// $(window).on('load', function () {
+	// 	var $preloader = $('#p_prldr');
+	// 	$preloader.delay(1000).fadeOut('slow');
+	// });
 
 
 
-$(window).on('load', function () {
-	var $preloader = $('#p_prldr');
-	$preloader.delay(1000).fadeOut('slow');
-});
+	// var api_url = "http://localhost:3000/";
+	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
+
+	var cookie_name_token = "project_token";
+	var cookie_token = getCookie(cookie_name_token);
 
 
+	//Зарегестрірованний юзер
+	var userAvatar = '';
+	var user_data = false;
+	function ifLogin() {
+		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+			start();
+		} else {
+			window.location.href = '../index.html';
+		}
+	};
+	ifLogin();
 
-// var api_url = "http://localhost:3000/";
-var api_url = "https://nezabudu-api.herokuapp.com/" // real project
-
-var cookie_name_token = "project_token";
-var cookie_token = getCookie(cookie_name_token);
-
-
-//Зарегестрірованний юзер
-var userAvatar = '';
-var user_data = false;
-ifLogin();
-function ifLogin() {
-	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-		start();
-	} else {
+	//Exit account***************************************************
+	$('#logout').click(function () {
+		deleteCookie(cookie_name_token);
 		window.location.href = '../index.html';
-	}
-};
 
-//Exit account***************************************************
-$('#logout').click(function () {
-	deleteCookie(cookie_name_token);
-	window.location.href = '../index.html';
+	});
 
-});
+	//if user auth************************************************
+	function start() {
 
-//if user auth************************************************
-function start() {
-
-	fetch(
-		`${api_url}get_start_info`,
-		{
-			method: 'GET',
-			headers: {
-				'Authorization': 'Token token=' + cookie_token,
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			console.log('wellcome');
-			// console.log('Data:', JSON.stringify(data));
-			userAvatar = data.user.avatar;
-			confirmUser();
-		})
-		.catch(error => console.error('error1:', error));
-};
-
-//Icon user if login**************************
-function confirmUser() {
-	if (userAvatar) {
-		$('.header__user').attr('src', userAvatar);
-	};
-	showTabs();
-};
-
-function getCookie(name) {
-	var matches = document.cookie.match(new RegExp(
-		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	));
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-function deleteCookie(name) {
-	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-}
-
-//show message notifications*********************************
-function showErrorSuccess(textToShow, time) {
-	$('#error-message').addClass('show');
-	$('.success').text(textToShow);
-	setTimeout(() => {
-		$('#error-message').removeClass('show');
-	}, time);
-};
-
-
-//User input first screen**********************************
-var statusProf = true;
-$('.about__check').on('change', function () {
-	statusProf = $(this).attr('data-status');
-});
-
-var profile_open = statusProf;
-var avatar_death = $('#output');
-var last_name = $('.user__name');
-var patronymic = $('.user__patronymic');
-var first_name = $('.user__surname');
-var maiden_name = $('.user__surname-girl');
-var birth_date = $('.user__both');
-var birth_city = $('.user__both-loc');
-var short_story = $('#area-lives');
-
-
-function validateData() {
-	if ($('.user__name').val() == '' || $('.user__surname').val() == '' || $('.user__both').val() == '') {
-		return false;
-	} else {
-		return true;
-	}
-};
-
-//send first request**************************
-$('#sendFistRequest').click(function (e) {
-	e.preventDefault();
-	var first_data = {
-		profile_mine: true,
-		avatar: avatar_death.attr('src'),
-		first_name: first_name.val(),
-		last_name: last_name.val(),
-		patronymic: patronymic.val(),
-		maiden_name: maiden_name.val(),
-		birth_date: birth_date.val(),
-		birth_city: birth_city.val(),
-		short_story: short_story.val(),
-		profile_open: profile_open
-	};
-	console.log(first_data);
-	if (validateData()) {
 		fetch(
-			`${api_url}create_user_profile`,
+			`${api_url}get_start_info`,
 			{
-				method: 'POST',
-				body: JSON.stringify(first_data),
+				method: 'GET',
 				headers: {
 					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			})
-			.then($('body').css('opacity', 0.5))
 			.then(response => response.json())
 			.then(data => {
-
-				if (data) {
-					$('body').css('opacity', 1);
-					//console.log("success send");
-					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess('Данные сохранены', 1000);
-					window.location.href = `../questionnaire-life/#${data.profile.id}`;
-				} else {
-					$('body').css('opacity', 1);
-					showErrorSuccess('Такой пользователь уже существует', 1000);
-				}
-
+				console.log('wellcome');
+				// console.log('Data:', JSON.stringify(data));
+				userAvatar = data.user.avatar;
+				confirmUser();
+				$('#p_prldr').delay(1000).fadeOut('slow');
 			})
-			.catch(error => {
-				console.log('error:', error);
-				$('body').css('opacity', 1);
-				showErrorSuccess('Ошибка соединения', 1000);
-			});
-	} else {
-		$('body').css('opacity', 1);
-		showErrorSuccess('Заполните обязательные поля', 1000);
+			.catch(error => console.error('error1:', error));
+	};
 
+	//Icon user if login**************************
+	function confirmUser() {
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+		showTabs();
+	};
+
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
-})
+
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	}
+
+	//show message notifications*********************************
+	function showErrorSuccess(textToShow, time) {
+		$('#error-message').addClass('show');
+		$('.success').text(textToShow);
+		setTimeout(() => {
+			$('#error-message').removeClass('show');
+		}, time);
+	};
 
 
-//burger***************************************
-function burgerShow() {
-	$('body').toggleClass('no-scroll');
-};
-$('.drawer-burg').click(function () {
-	burgerShow();
+	//User input first screen**********************************
+	var statusProf = true;
+	$('.about__check').on('change', function () {
+		statusProf = $(this).attr('data-status');
+	});
 
+	var profile_open = statusProf;
+	var avatar_death = $('#output');
+	var last_name = $('.user__name');
+	var patronymic = $('.user__patronymic');
+	var first_name = $('.user__surname');
+	var maiden_name = $('.user__surname-girl');
+	var birth_date = $('.user__both');
+	var birth_city = $('.user__both-loc');
+	var short_story = $('#area-lives');
+
+
+	function validateData() {
+		if ($('.user__name').val() == '' || $('.user__surname').val() == '' || $('.user__both').val() == '') {
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+	//send first request**************************
+	$('#sendFistRequest').click(function (e) {
+		e.preventDefault();
+		var first_data = {
+			profile_mine: true,
+			avatar: avatar_death.attr('src'),
+			first_name: first_name.val(),
+			last_name: last_name.val(),
+			patronymic: patronymic.val(),
+			maiden_name: maiden_name.val(),
+			birth_date: birth_date.val(),
+			birth_city: birth_city.val(),
+			short_story: short_story.val(),
+			profile_open: profile_open
+		};
+		console.log(first_data);
+		if (validateData()) {
+			fetch(
+				`${api_url}create_user_profile`,
+				{
+					method: 'POST',
+					body: JSON.stringify(first_data),
+					headers: {
+						'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then($('body').css('opacity', 0.5))
+				.then(response => response.json())
+				.then(data => {
+
+					if (data) {
+						$('body').css('opacity', 1);
+						//console.log("success send");
+						//console.log('Data:', JSON.stringify(data));
+						showErrorSuccess('Данные сохранены', 1000);
+						window.location.href = `../questionnaire-life/#${data.profile.id}`;
+					} else {
+						$('body').css('opacity', 1);
+						showErrorSuccess('Такой пользователь уже существует', 1000);
+					}
+
+				})
+				.catch(error => {
+					console.log('error:', error);
+					$('body').css('opacity', 1);
+					showErrorSuccess('Ошибка соединения', 1000);
+				});
+		} else {
+			$('body').css('opacity', 1);
+			showErrorSuccess('Заполните обязательные поля', 1000);
+
+		}
+	})
+
+
+	//burger***************************************
+	function burgerShow() {
+		$('body').toggleClass('no-scroll');
+	};
+	$('.drawer-burg').click(function () {
+		burgerShow();
+
+	});
+	$('#drawer-close').click(function () {
+		burgerShow();
+	});
+	$('.drawer__link').click(function () {
+		$('#drawer-close').click();
+	});
+
+
+	//show questionnarie item menu right********************
+	$('.data__form').not(':first').hide();
+	if ($(window).width() < 935) {
+		$('.profile__about').hide();
+	};
+	//Opacity tabs when not data user******************************
+	function showTabs() {
+		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+	//Search show***************************************
+
+	// $('.search__btn-showHide').click(function () {
+	// 	$('.search__more-wrap').toggleClass('show-select');
+	// 	$('.search__btn-showHide').toggleClass('active-btn');
+	// });
+
+
+
+	//Set data to input from calendar******************
+	$('#user-both').change(function () {
+		var dataBoth = $('#user-both').val();
+		dataBoth = dataBoth.split('-').reverse().join('-');
+		$('.user__both').val(dataBoth);
+	});
+
+
+
+
+
+	let languages = [
+		"Русский",
+		"Українська",
+		"English"
+
+	];
+	autocomplete(document.getElementById("select-language"), languages);
+
+
+	function autocomplete(inp, arr) {
+
+		let currentFocus;
+
+
+		inp.addEventListener("click", showAutocompleteList);
+
+		function addActive(x) {
+			if (!x) return false;
+			removeActive(x);
+			if (currentFocus >= x.length) currentFocus = 0;
+			if (currentFocus < 0) currentFocus = (x.length - 1);
+			x[currentFocus].classList.add("autocomplete-active");
+		}
+		function removeActive(x) {
+			for (var i = 0; i < x.length; i++) {
+				x[i].classList.remove("autocomplete-active");
+			}
+		}
+
+
+		function showAutocompleteList(e) {
+
+			inp.selectionStart = inp.value.length;
+			let a, b, i, k, val = this.value;
+			if (document.getElementById(this.id + "autocomplete-list")) {
+				closeAllLists();
+				//  if (!val) { return false; }
+			} else {
+				currentFocus = -1;
+				a = document.createElement("DIV");
+				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("class", "autocomplete-items");
+				this.parentNode.appendChild(a);
+				for (i = 0; i < arr.length; i++) {
+					b = document.createElement("DIV");
+					b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+					b.addEventListener("click", function (e) {
+						inp.value = this.getElementsByTagName("input")[0].value;
+						closeAllLists();
+					});
+					a.appendChild(b);
+				}
+			}
+		}
+		document.addEventListener("click", function (e) {
+			if (e.target != inp) {
+				closeAllLists(e.target);
+				if (!arr.includes(inp.value)) {
+					inp.value = defaultValue;
+				}
+			}
+		}, true);
+		function closeAllLists(elmnt) {
+			var x = document.getElementsByClassName("autocomplete-items");
+			for (var i = 0; i < x.length; i++) {
+				if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
+			}
+		}
+	}
 });
-$('#drawer-close').click(function () {
-	burgerShow();
-});
-$('.drawer__link').click(function () {
-	$('#drawer-close').click();
-});
-
-
-//show questionnarie item menu right********************
-$('.data__form').not(':first').hide();
-if ($(window).width() < 935) {
-	$('.profile__about').hide();
-};
-//Opacity tabs when not data user******************************
-function showTabs() {
-	$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
-};
-
-
-
-
-
-
-
-
-
-
-
-
-//Search show***************************************
-
-// $('.search__btn-showHide').click(function () {
-// 	$('.search__more-wrap').toggleClass('show-select');
-// 	$('.search__btn-showHide').toggleClass('active-btn');
-// });
-
-
-
-//Set data to input from calendar******************
-$('#user-both').change(function () {
-	var dataBoth = $('#user-both').val();
-	dataBoth = dataBoth.split('-').reverse().join('-');
-	$('.user__both').val(dataBoth);
-});
-
-
-
 
 
 //upload avatar*************************************
@@ -10965,80 +11041,3 @@ document.addEventListener('turbolinks:render', function () {
 	locations.forEach(setId);
 	locations.forEach(uniqueWidget);
 });
-
-
-
-
-
-let languages = [
-	"Русский",
-	"Українська",
-	"English"
-
-];
-autocomplete(document.getElementById("select-language"), languages);
-
-
-function autocomplete(inp, arr) {
-
-	let currentFocus;
-
-
-	inp.addEventListener("click", showAutocompleteList);
-
-	function addActive(x) {
-		if (!x) return false;
-		removeActive(x);
-		if (currentFocus >= x.length) currentFocus = 0;
-		if (currentFocus < 0) currentFocus = (x.length - 1);
-		x[currentFocus].classList.add("autocomplete-active");
-	}
-	function removeActive(x) {
-		for (var i = 0; i < x.length; i++) {
-			x[i].classList.remove("autocomplete-active");
-		}
-	}
-
-
-	function showAutocompleteList(e) {
-
-		inp.selectionStart = inp.value.length;
-		let a, b, i, k, val = this.value;
-		if (document.getElementById(this.id + "autocomplete-list")) {
-			closeAllLists();
-			//  if (!val) { return false; }
-		} else {
-			currentFocus = -1;
-			a = document.createElement("DIV");
-			a.setAttribute("id", this.id + "autocomplete-list");
-			a.setAttribute("class", "autocomplete-items");
-			this.parentNode.appendChild(a);
-			for (i = 0; i < arr.length; i++) {
-				b = document.createElement("DIV");
-				b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
-				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-				b.addEventListener("click", function (e) {
-					inp.value = this.getElementsByTagName("input")[0].value;
-					closeAllLists();
-				});
-				a.appendChild(b);
-			}
-		}
-	}
-	document.addEventListener("click", function (e) {
-		if (e.target != inp) {
-			closeAllLists(e.target);
-			if (!arr.includes(inp.value)) {
-				inp.value = defaultValue;
-			}
-		}
-	}, true);
-	function closeAllLists(elmnt) {
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-			if (elmnt != x[i] && elmnt != inp) {
-				x[i].parentNode.removeChild(x[i]);
-			}
-		}
-	}
-}

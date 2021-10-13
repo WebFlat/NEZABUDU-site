@@ -10255,10 +10255,10 @@ console.log("window loaded");
 
 
 $(document).ready(function () {
-    $(window).on('load', function () {
-        var $preloader = $('#p_prldr');
-        $preloader.delay(1000).fadeOut('slow');
-    });
+    // $(window).on('load', function () {
+    //     var $preloader = $('#p_prldr');
+    //     $preloader.delay(1000).fadeOut('slow');
+    // });
 
 
     let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
@@ -10275,6 +10275,7 @@ $(document).ready(function () {
     function ifLogin() {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
             start();
+            $('#p_prldr').delay(1000).fadeOut('slow');
         } else {
             window.location.href = '../index.html';
         }

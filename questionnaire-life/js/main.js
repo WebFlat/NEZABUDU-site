@@ -10601,10 +10601,10 @@ console.log("window loaded");
 
 
 
-$(window).on('load', function () {
-	var $preloader = $('#p_prldr');
-	$preloader.delay(1000).fadeOut('slow');
-});
+// $(window).on('load', function () {
+// 	var $preloader = $('#p_prldr');
+// 	$preloader.delay(1000).fadeOut('slow');
+// });
 
 // var api_url = "http://localhost:3000/";
 var api_url = "https://nezabudu-api.herokuapp.com/" // real project
@@ -10634,15 +10634,16 @@ function showErrorSuccess(textToShow, time) {
 var user = false;
 var userAvatar = '';
 var user_data = false;
-ifLogin();
 function ifLogin() {
 	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
 		start();
 	} else {
 		confirmUser();
 		loadQuestionnaries();
+		$('#p_prldr').delay(1000).fadeOut('slow');
 	}
 };
+ifLogin();
 
 //if user auth************************************************
 function start() {
@@ -10665,6 +10666,7 @@ function start() {
 			userAvatar = data.user.avatar;
 			confirmUser();
 			loadQuestionnaries();
+			$('#p_prldr').delay(2000).fadeOut('slow');
 		})
 		.catch(error => console.error('error1:', error));
 
@@ -10831,11 +10833,11 @@ function loadQuestionnaries() {
 				};
 				let preBirth;
 				if (data.profile.birth_date) {
-					preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+					preBirth = data.profile.birth_date;
 				};
 				let ageNum;
 				if (data.profile.death_date) {
-					let preDie = (data.profile.death_date).split('-').reverse().join('.');
+					let preDie = data.profile.death_date;
 					ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
 					if (data.profile.cementry_name) {
 						cemeteryName.text(data.profile.cementry_name);
@@ -10918,11 +10920,11 @@ function loadQuestionnaries() {
 				};
 				let preBirth;
 				if (data.profile.birth_date) {
-					preBirth = (data.profile.birth_date).split('-').reverse().join('.');
+					preBirth = data.profile.birth_date;
 				};
 				let ageNum;
 				if (data.profile.death_date) {
-					var preDie = (data.profile.death_date).split('-').reverse().join('.');
+					var preDie = data.profile.death_date;
 					ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
 					if (data.profile.cementry_name) {
 						cemeteryName.text(data.profile.cementry_name);
@@ -11113,7 +11115,7 @@ $('.editOLdData').click(function () {
 		userGirlName.val(allData.profile.maiden_name);
 	};
 	if (allData.profile.death_date) {
-		die.val(allData.profile.death_date.split('-').reverse().join('.'));
+		die.val(allData.profile.death_date);
 
 	} else {
 		$('.data__relative').remove();
@@ -11123,7 +11125,7 @@ $('.editOLdData').click(function () {
 		$('.data-place').remove();
 	}
 	if (allData.profile.birth_date) {
-		both.val(allData.profile.birth_date.split('-').reverse().join('.'));
+		both.val(allData.profile.birth_date);
 	}
 	if (allData.profile.birth_city != null) {
 		cityBoth.val(allData.profile.birth_city);
@@ -11175,22 +11177,6 @@ $('.editOLdData').click(function () {
 		$('.user__die').val(dataDie);
 	});
 
-	//Edit avatar*************************************
-	$('.about__upload-inpt--ava').change(function (e) {
-		var input = e.target;
-
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = $('#output');
-			output.attr('src', dataURL);
-		};
-		reader.readAsDataURL(input.files[0]);
-	});
-	//force click upload avatar*********************
-	$('.about__img-wrap').click(function () {
-		$('#fileFotoAvatar').click();
-	});
 
 
 	//send first request**************************
@@ -11401,12 +11387,16 @@ function initDelStory() {
 	};
 
 };
+
 //show delete story popup*****************************
-$('.delete-story').on('click', function () {
+$('.delete-story').on('click', function (e) {
+	e.preventDefault();
+	console.log('click');
 	$('body').addClass('no-scroll');
 	$('.form-del-story').css('display', 'flex');
 	$('.context-story').removeClass('active');
 });
+
 //close delete story popup**************************
 $('#del-cancel-story').click(function () {
 	$('body').removeClass('no-scroll');
@@ -12716,4 +12706,136 @@ $('#calendar').change(function () {
 	var dataBoth = $('#calendar').val();
 	dataBoth = dataBoth.split('-').reverse().join('-');
 	$('.story-date').val(dataBoth);
+});
+
+
+
+//Edit avatar*************************************
+//upload avatar*************************************
+class UploadWidget {
+	width;
+	height;
+	text;
+	widgetId;
+	key;
+	_location;
+	iframe;
+
+	constructor(location, widgetId, bucketId) {
+		this.location = location;
+		this.width = location.dataset.width || '100%';
+		this.height = location.dataset.height || '100%';
+		this.text = location.dataset.text;
+		this.widgetId = widgetId;
+		this.key = bucketId;
+		this.createWidget()
+	}
+
+	set location(value) {
+		if (!value) {
+			alert("No file input")
+			return;
+		}
+		this._location = value;
+	}
+
+	get location() {
+		return this._location
+	}
+
+	createWidget() {
+		let small = "false"
+		let iframe = window.document.createElement('iframe');
+
+		if (parseInt(this.width) < 120) {
+			small = "true"
+		}
+		iframe.src = "https://app.simplefileupload.com" + `/buckets/${this.key}?widgetId=${this.widgetId}&elementValue=${this.location.value}&preview=${this.location.dataset.preview}&text=${this.text}&small=${small}`
+		iframe.className = 'widgetFrame'
+		iframe.width = this.width;
+		iframe.height = this.height;
+		iframe.style.cssText = 'border:none; opacity:0;'
+
+		this.iframe = iframe;
+
+		//Attach iframe to DOM after the existing file input
+		if (!this.location.form) {
+			alert("The input you created is not in a form. In order to send the string url to your server the input needs to be in a form. Please reach out at support@simplefileupload.com for assistance.")
+			return
+		}
+		insertAfter(iframe, this.location);
+		// //force click upload avatar*********************
+		$('.about__img-wrap').on('click', function () {
+			$('.dz-hidden-input').click();
+		});
+	}
+
+	open() {
+		this.iframe.style = 'border:none; opacity:1;'
+	}
+}
+
+function insertAfter(el, referenceNode) {
+	return referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+
+function uniqueWidget(location) {
+	const widgetId = location.dataset.id
+	new UploadWidget(location, widgetId, "824d5800b5e42b3c0a21a4441095b081").open();
+}
+
+const getUrlData = (e) => {
+	if (e.origin !== "https://app.simplefileupload.com")
+		return;
+	if (e.data["uploadResult"] == 'queuecomplete') {
+		const data = e.data;
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		const event = new CustomEvent('multipleUploadComplete', { detail: e.data.widgetId })
+		hiddenInput.dispatchEvent(event)
+	}
+	if (e.data["uploadResult"] == 'success') {
+		const data = e.data;
+		let output = $('#output');
+		let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
+		//Backwards compatibility - no simple-file-upload class.
+		if (hiddenInput == null) {
+			hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		}
+		if (data["url"] != '') {
+			output.attr('src', data["url"]);
+		}
+		hiddenInput.value = data["url"];
+		const event = new Event('fileUploadSuccess')
+		hiddenInput.dispatchEvent(event)
+	}
+}
+
+window.addEventListener('message', getUrlData, false);
+
+function setId(location, index) {
+	location.type = "hidden"; //Make hidden for legacy implementation
+	location.dataset.id = `widget${index}`
+	location.dataset.preview ||= "true"
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
+});
+
+document.addEventListener('turbolinks:render', function () {
+	let locations = document.querySelectorAll("input.simple-file-upload");
+	if (locations.length == 0) {
+		locations = document.querySelectorAll("input[type=file]");
+	}
+	locations.forEach(setId);
+	locations.forEach(uniqueWidget);
 });

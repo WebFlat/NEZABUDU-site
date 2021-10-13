@@ -10994,437 +10994,586 @@ return jQuery;
 	};
 
 })(jQuery);
+console.log("window loaded");
 
-'use strict';
-
-
-$(window).on('load', function () {
-	var $preloader = $('#p_prldr');
-	$preloader.delay(1000).fadeOut('slow');
-});
-
-//Request to server*****************************
-// var api_url = "http://localhost:3000/";
-var api_url = "https://nezabudu-api.herokuapp.com/" // real project
-
-var cookie_name_token = "project_token";
-var cookie_token = getCookie(cookie_name_token);
+$(document).ready(function () {
 
 
-//User if login*******************************
-var user = false;
-var userName;
-var userSurname;
-var userPatronymic;
-var userEmail;
-var userTel;
-var userBoth;
-var password;
-var userAvatar;
-var userId;
-var data_users;
-var sectionCreate = $('#createItmes');
-var sectionCreateDeath = $('#addItems');
-var sectionMy = $('#myItems');
-var sectionBookmark = $('.profile__bookmarks');
+	// $(window).on('load', function () {
+	// 	var $preloader = $('#p_prldr');
+	// 	$preloader.delay(1000).fadeOut('slow');
+	// });
+
+	//Request to server*****************************
+	// var api_url = "http://localhost:3000/";
+	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
+
+	var cookie_name_token = "project_token";
+	var cookie_token = getCookie(cookie_name_token);
 
 
-
-
-
-ifLogin();
-function ifLogin() {
-	if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-		start();
-	} else {
-		window.location.href = '../index.html';
-	}
-};
-
-//show message notifications*********************************
-function showErrorSuccess(textToShow, time) {
-	$('#error-message').addClass('show');
-	$('.success').text(textToShow);
-	setTimeout(() => {
-		$('#error-message').removeClass('show');
-	}, time);
-};
-
-
-//Exit account***************************************************
-$('#logout').click(function () {
-	deleteCookie(cookie_name_token);
-	window.location.href = '../index.html';
-});
-
-
-
-//if user auth************************************************
-function start() {
-	fetch(
-		`${api_url}get_start_info`,
-		{
-			method: 'GET',
-			headers: {
-				'Authorization': 'Token token=' + cookie_token,
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			console.log('wellcome');
-			//console.log('Data:', JSON.stringify(data));
-			data_users = data.profiles;
-			//console.log(data_users);
-			user = true;
-			userAvatar = data.user.avatar;
-			userName = data.user.first_name;
-			userPatronymic = data.user.patronymic;
-			userSurname = data.user.last_name;
-			userTel = data.user.tel_number;
-			userEmail = data.user.email;
-			userBoth = data.user.birth_date;
-			password = data.user.password;
-			userId = data.user.id;
-			confirmUser();
-			var currentTab = window.location.hash;
-			if (currentTab != '') {
-				$(currentTab).click();
-				burgerShow();
-			};
-			loadQuestionnaries(sectionCreate, sectionCreateDeath, sectionMy, 'user-added', data_users);
-		})
-		.catch(error => console.error('error1:', error));
-};
-
-//Icon user if login**************************
-function confirmUser() {
-	if (userAvatar) {
-		$('.header__user').attr('src', userAvatar);
-	};
-	if (userBoth == '' || userBoth == null) {
-		userBoth = '';
-	};
-};
-
-function getCookie(name) {
-	var matches = document.cookie.match(new RegExp(
-		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	));
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-};
-
-function deleteCookie(name) {
-	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-};
-
-
-
-
-
-
-function loadQuestionnaries(section_life, section_death, section_my, users, data) {
-	var out = '';
-	var out2 = '';
-	var out3 = '';
-	for (var key in data) {
-		let birth = data[key].birth_date.split('-').reverse().join('.');
-		let die;
-		if (data[key].death_date) {
-			die = data[key].death_date.split('-').reverse().join('.');
-		}
-		if (data[key].avatar == '') {
-			data[key].avatar = "./img/user-def.png";
-		}
-		if (data[key].profile_mine && !data[key].death_date) {
-			out3 += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--my"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
-			section_my.html(out3);
-			$('.customer').remove();
-		} else if (!data[key].death_date && !data[key].profile_mine) {
-			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
-			section_life.append(out);
-			section_life.addClass('not-empty');
+	function ifLogin() {
+		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+			start();
 		} else {
-			out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
-			section_death.append(out2);
-			section_death.addClass('not-empty');
+			window.location.href = '../index.html';
 		}
-
-	}
-
-}
-function loadQuestionnariesBookmark(section, users, data) {
-	let out = '';
-	for (let key in data) {
-		let birth = data[key].birth_date.split('-').reverse().join('.');
-		let die;
-		if (data[key].death_date) {
-			die = data[key].death_date.split('-').reverse().join('.');
-		}
-		if (data[key].avatar == '') {
-			data[key].avatar = "./img/user-def.png";
-		}
-		if (data[key].death_date == null) {
-			out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
-		} else {
-			out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
-		}
-
-		section.html(out);
-		section.addClass('not-empty');
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Comfirm fields input*******************************
-// function validateMail() {
-// 	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-// 	var user_email = $('#userEmail').val();
-// 	if (reg.test(user_email) == false || user_email == '') {
-// 		$('#error').text("Введите корректный e-mail").addClass('error').show().delay(2000).fadeOut(300);
-// 		return false;
-// 	} else {
-// 		return true;
-// 	}
-// };
-// function validateSoname() {
-// 	var reg = /^[А-Яа-яЁё\s]+$/;
-// 	var surName = $('#userSurname').val();
-// 	if (reg.test(surName) == false || surName == '') {
-// 		$('#error').text("Введите корректную фамилию").addClass('error').show().delay(2000).fadeOut(300);
-// 		return false;
-// 	} else {
-// 		return true;
-// 	}
-// };
-// function validateName() {
-// 	var reg = /^[А-Яа-яЁё\s]+$/;
-// 	var user_name = $('#userName').val();
-// 	if (reg.test(user_name) == false || user_name == '') {
-// 		$('#error').text("Введите корректное имя").addClass('error').show().delay(2000).fadeOut(300);
-// 		return false;
-// 	} else {
-// 		return true;
-// 	}
-// };
-// function validatePatronymic() {
-// 	var reg = /^[А-Яа-яЁё\s]+$/;
-// 	var patronymic = $('#patronymic').val();
-// 	if (reg.test(patronymic) == false || patronymic == '') {
-// 		$('#error').text("Введите корректное отчество").addClass('error').show().delay(2000).fadeOut(300);
-// 		return false;
-// 	} else {
-// 		return true;
-// 	}
-// };
-function validateTel() {
-	var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
-	var userTel = $('#userTel').val();
-	if (reg.test(userTel) == false || userTel == '') {
-		showErrorSuccess("Введите корректный телефон", 1000);
-		return false;
-	} else {
-		return true;
-	}
-};
-function validatePass() {
-	var new_pass = $('#newPassword').val();
-	var confirm_pass = $('#confirmPassword').val();
-	if (new_pass !== '' && new_pass.length < 6) {
-		showErrorSuccess("Введите корректный пароль мин 6 символов", 1000);
-		return false;
-	} else if (new_pass !== '' && new_pass !== confirm_pass) {
-		showErrorSuccess("Пароли не совпадают", 1000);
-		return false;
-	} else {
-		return true;
-	}
-};
-
-
-//show password************************************
-$('.showPass').click(function (e) {
-	$(this).next().attr("type", "text");
-	e.target.src = './img/eye-red.svg';
-});
-
-
-//Request edit data user*****************************
-$('.settings__save').click(function (e) {
-	e.preventDefault();
-	var data = {};
-	var passToSend = '';
-	var oldPass = $('#password').val()
-	//var confirmNewPass = $('#confirmPassword').val();
-	var newPassword = $('#newPassword').val();
-	var checkDate = $('#userBothDate').val();
-	if (newPassword === oldPass || newPassword == '') {
-		passToSend = oldPass;
-	} else {
-		passToSend = newPassword;
-	}
-
-	if (checkDate !== '') {
-		data = {
-			first_name: $('#userName').val(),
-			last_name: $('#userSurname').val(),
-			patronymic: $('#patronymic').val(),
-			tel_number: $('#userTel').val(),
-			email: $('#userEmail').val(),
-			birth_date: $('#userBothDate').val(),
-			avatar: $('#user-icon').attr('src'),
-			password: passToSend
-		}
-	} else {
-		data = {
-			first_name: $('#userName').val(),
-			last_name: $('#userSurname').val(),
-			patronymic: $('#patronymic').val(),
-			tel_number: $('#userTel').val(),
-			email: $('#userEmail').val(),
-			avatar: $('#user-icon').attr('src'),
-			password: passToSend
-		};
 	};
-	//console.log(data);
-	if (validateTel() && validatePass()) {
+	ifLogin();
+
+	//User if login*******************************
+	var user = false;
+	var userName;
+	var userSurname;
+	var userPatronymic;
+	var userEmail;
+	var userTel;
+	var userBoth;
+	var password;
+	var userAvatar;
+	var userId;
+	var data_users;
+	var sectionCreate = $('#createItmes');
+	var sectionCreateDeath = $('#addItems');
+	var sectionMy = $('#myItems');
+	var sectionBookmark = $('.profile__bookmarks');
+
+
+
+
+
+
+	//show message notifications*********************************
+	function showErrorSuccess(textToShow, time) {
+		$('#error-message').addClass('show');
+		$('.success').text(textToShow);
+		setTimeout(() => {
+			$('#error-message').removeClass('show');
+		}, time);
+	};
+
+
+
+
+	//if user auth************************************************
+	function start() {
 		fetch(
-			`${api_url}user_update`,
+			`${api_url}get_start_info`,
 			{
-				method: 'POST',
-				body: JSON.stringify(data),
+				method: 'GET',
 				headers: {
 					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			})
-			.then($('body').css('opacity', .5))
 			.then(response => response.json())
-			.then(json => {
-				if (json.error == 0) {
-					console.log("success get token");
-					$('body').css('opacity', 1);
-					// setCookie(cookie_name_token, json.token, 3600);
-					cookie_token = getCookie(cookie_name_token);
-					showErrorSuccess("Данные успешно обновлены", 1000);
-					setTimeout(function () {
-						window.location.reload();
-					}, 2000);
-				} else {
-					$('body').css('opacity', 1);
-					showErrorSuccess("Такой пользователь уже существует", 1000);
-				}
-
+			.then(data => {
+				console.log('wellcome');
+				//console.log('Data:', JSON.stringify(data));
+				data_users = data.profiles;
+				//console.log(data_users);
+				user = true;
+				userAvatar = data.user.avatar;
+				userName = data.user.first_name;
+				userPatronymic = data.user.patronymic;
+				userSurname = data.user.last_name;
+				userTel = data.user.tel_number;
+				userEmail = data.user.email;
+				userBoth = data.user.birth_date;
+				password = data.user.password;
+				userId = data.user.id;
+				confirmUser();
+				var currentTab = window.location.hash;
+				if (currentTab != '') {
+					$(currentTab).click();
+					//burgerShow();
+				};
+				loadQuestionnaries(sectionCreate, sectionCreateDeath, sectionMy, 'user-added', data_users);
+				$('#p_prldr').delay(1000).fadeOut('slow');
 			})
-			.catch(error => {
-				console.log('error:', error);
-				$('body').css('opacity', 1);
-				showErrorSuccess("Ошибка соединения", 1000);
-			});
+			.catch(error => console.error('error1:', error));
+	};
+
+	//Icon user if login**************************
+	function confirmUser() {
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+		if (userBoth == '' || userBoth == null) {
+			userBoth = '';
+		};
+	};
+
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
+
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	};
+
+
+
+	//Exit account***************************************************
+	$('#logout').click(function () {
+		deleteCookie(cookie_name_token);
+		window.location.href = '../index.html';
+	});
+
+
+
+	function loadQuestionnaries(section_life, section_death, section_my, users, data) {
+		var out = '';
+		var out2 = '';
+		var out3 = '';
+		for (var key in data) {
+			let birth = data[key].birth_date;
+			let die;
+			if (data[key].death_date) {
+				die = data[key].death_date;
+			}
+			if (data[key].avatar == '') {
+				data[key].avatar = "./img/user-def.png";
+			}
+			if (data[key].profile_mine && !data[key].death_date) {
+				out3 += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--my"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+				section_my.html(out3);
+				$('.customer').remove();
+			} else if (!data[key].death_date && !data[key].profile_mine) {
+				out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+				section_life.append(out);
+				section_life.addClass('not-empty');
+			} else {
+				out2 += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar" loading="lazy"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+				section_death.append(out2);
+				section_death.addClass('not-empty');
+			}
+
+		}
+
 	}
-});
+	function loadQuestionnariesBookmark(section, users, data) {
+		let out = '';
+		for (let key in data) {
+			let birth = data[key].birth_date;
+			let die;
+			if (data[key].death_date) {
+				die = data[key].death_date;
+			}
+			if (data[key].avatar == '') {
+				data[key].avatar = "./img/user-def.png";
+			}
+			if (data[key].death_date == null) {
+				out += '<div class="' + users + ' user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+			} else {
+				out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+			}
+
+			section.html(out);
+			section.addClass('not-empty');
+		}
+
+	};
 
 
 
-//burger***************************************
-function burgerShow() {
-	$('body').toggleClass('no-scroll');
-};
-$('.drawer-burg').click(function () {
-	burgerShow();
-
-});
-$('#drawer-close').click(function () {
-	burgerShow();
-});
-$('.drawer__link').click(function () {
-	$('#drawer-close').click();
-});
-// $('.nav__link').click(function () {
-// 	burgerShow();
-// });
-// $('#drawer-menu').click(function (e) {
-// 	var container = $('.drawer__link');
-// 	if (container.has(e.target).length === 0) {
-// 		burgerShow();
-// 	}
-// });
 
 
 
-// setTimeout(function () {
-// 	initClick();
-// }, 100);
 
-//show tabs in menu cabinet******************************
-$(".profile__tabs").not(":first").hide();
-$(".nav-tab").not(":first").removeClass("active-tab");
 
-$(".nav-tab1").click(function () {
-	$(".nav-tab").removeClass("active-tab");
-	$(".nav-tab1").addClass("active-tab");
-	$(".tab1").fadeIn().siblings('.profile__tabs').hide();
+
+
+
+
+
+
+
+
+
+	//Comfirm fields input*******************************
+	// function validateMail() {
+	// 	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	// 	var user_email = $('#userEmail').val();
+	// 	if (reg.test(user_email) == false || user_email == '') {
+	// 		$('#error').text("Введите корректный e-mail").addClass('error').show().delay(2000).fadeOut(300);
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// };
+	// function validateSoname() {
+	// 	var reg = /^[А-Яа-яЁё\s]+$/;
+	// 	var surName = $('#userSurname').val();
+	// 	if (reg.test(surName) == false || surName == '') {
+	// 		$('#error').text("Введите корректную фамилию").addClass('error').show().delay(2000).fadeOut(300);
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// };
+	// function validateName() {
+	// 	var reg = /^[А-Яа-яЁё\s]+$/;
+	// 	var user_name = $('#userName').val();
+	// 	if (reg.test(user_name) == false || user_name == '') {
+	// 		$('#error').text("Введите корректное имя").addClass('error').show().delay(2000).fadeOut(300);
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// };
+	// function validatePatronymic() {
+	// 	var reg = /^[А-Яа-яЁё\s]+$/;
+	// 	var patronymic = $('#patronymic').val();
+	// 	if (reg.test(patronymic) == false || patronymic == '') {
+	// 		$('#error').text("Введите корректное отчество").addClass('error').show().delay(2000).fadeOut(300);
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// };
+	function validateTel() {
+		var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+		var userTel = $('#userTel').val();
+		if (reg.test(userTel) == false || userTel == '') {
+			showErrorSuccess("Введите корректный телефон", 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validatePass() {
+		var new_pass = $('#newPassword').val();
+		var confirm_pass = $('#confirmPassword').val();
+		if (new_pass !== '' && new_pass.length < 6) {
+			showErrorSuccess("Введите корректный пароль мин 6 символов", 1000);
+			return false;
+		} else if (new_pass !== '' && new_pass !== confirm_pass) {
+			showErrorSuccess("Пароли не совпадают", 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+
+	//show password************************************
+	$('.showPass').click(function (e) {
+		$(this).next().attr("type", "text");
+		e.target.src = './img/eye-red.svg';
+	});
+
+
+	//Request edit data user*****************************
+	$('.settings__save').click(function (e) {
+		e.preventDefault();
+		var data = {};
+		var passToSend = '';
+		var oldPass = $('#password').val()
+		//var confirmNewPass = $('#confirmPassword').val();
+		var newPassword = $('#newPassword').val();
+		var checkDate = $('#userBothDate').val();
+		if (newPassword === oldPass || newPassword == '') {
+			passToSend = oldPass;
+		} else {
+			passToSend = newPassword;
+		}
+
+		if (checkDate !== '') {
+			data = {
+				first_name: $('#userName').val(),
+				last_name: $('#userSurname').val(),
+				patronymic: $('#patronymic').val(),
+				tel_number: $('#userTel').val(),
+				email: $('#userEmail').val(),
+				birth_date: $('#userBothDate').val(),
+				avatar: $('#user-icon').attr('src'),
+				password: passToSend
+			}
+		} else {
+			data = {
+				first_name: $('#userName').val(),
+				last_name: $('#userSurname').val(),
+				patronymic: $('#patronymic').val(),
+				tel_number: $('#userTel').val(),
+				email: $('#userEmail').val(),
+				avatar: $('#user-icon').attr('src'),
+				password: passToSend
+			};
+		};
+		//console.log(data);
+		if (validateTel() && validatePass()) {
+			fetch(
+				`${api_url}user_update`,
+				{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then($('body').css('opacity', .5))
+				.then(response => response.json())
+				.then(json => {
+					if (json.error == 0) {
+						console.log("success get token");
+						$('body').css('opacity', 1);
+						// setCookie(cookie_name_token, json.token, 3600);
+						cookie_token = getCookie(cookie_name_token);
+						showErrorSuccess("Данные успешно обновлены", 1000);
+						setTimeout(function () {
+							window.location.reload();
+						}, 2000);
+					} else {
+						$('body').css('opacity', 1);
+						showErrorSuccess("Такой пользователь уже существует", 1000);
+					}
+
+				})
+				.catch(error => {
+					console.log('error:', error);
+					$('body').css('opacity', 1);
+					showErrorSuccess("Ошибка соединения", 1000);
+				});
+		}
+	});
+
+
+
+	//burger***************************************
+	function burgerShow() {
+		$('body').toggleClass('no-scroll');
+	};
+	$('.drawer-burg').click(function () {
+		burgerShow();
+
+	});
+	$('#drawer-close').click(function () {
+		burgerShow();
+	});
+	$('.drawer__link').click(function () {
+		$('#drawer-close').click();
+	});
+	// $('.nav__link').click(function () {
+	// 	burgerShow();
+	// });
+	// $('#drawer-menu').click(function (e) {
+	// 	var container = $('.drawer__link');
+	// 	if (container.has(e.target).length === 0) {
+	// 		burgerShow();
+	// 	}
+	// });
+
+
+
 	// setTimeout(function () {
 	// 	initClick();
 	// }, 100);
-});
-$(".nav-tab2").click(function () {
-	$(".tab2").fadeIn().siblings('.profile__tabs').hide();
-	$(".nav-tab").removeClass("active-tab");
-	$(".nav-tab2").addClass("active-tab");
-	loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
-	//pagin2();
-	// setTimeout(function () {
-	// 	initClick();
-	// }, 100);
 
-});
-$(".nav-tab3").click(function () {
-	$(".nav-tab").removeClass("active-tab");
-	$(".nav-tab3").addClass("active-tab");
-	$(".tab3").fadeIn().siblings('.profile__tabs').hide();
-});
+	//show tabs in menu cabinet******************************
+	$(".profile__tabs").not(":first").hide();
+	$(".nav-tab").not(":first").removeClass("active-tab");
 
-$(".nav-tab4").click(function () {
-	$(".nav-tab").removeClass("active-tab");
-	$(".nav-tab4").addClass("active-tab");
-	$(".tab4").fadeIn().siblings('.profile__tabs').hide();
-	$('#userName').val(userName);
-	$('#userSurname').val(userSurname);
-	$('#patronymic').val(userPatronymic);
-	$('#userEmail').val(userEmail);
-	$('#userTel').val(userTel);
-	$('#userBothDate').val(userBoth);
-	$('#password').val(password);
-	if (userAvatar) {
-		$('#user-icon').attr('src', userAvatar);
+	$(".nav-tab1").click(function () {
+		$(".nav-tab").removeClass("active-tab");
+		$(".nav-tab1").addClass("active-tab");
+		$(".tab1").fadeIn().siblings('.profile__tabs').hide();
+		// setTimeout(function () {
+		// 	initClick();
+		// }, 100);
+	});
+	$(".nav-tab2").click(function () {
+		$(".tab2").fadeIn().siblings('.profile__tabs').hide();
+		$(".nav-tab").removeClass("active-tab");
+		$(".nav-tab2").addClass("active-tab");
+		loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
+		//pagin2();
+		// setTimeout(function () {
+		// 	initClick();
+		// }, 100);
+
+	});
+	$(".nav-tab3").click(function () {
+		$(".nav-tab").removeClass("active-tab");
+		$(".nav-tab3").addClass("active-tab");
+		$(".tab3").fadeIn().siblings('.profile__tabs').hide();
+	});
+
+	$(".nav-tab4").click(function () {
+		$(".nav-tab").removeClass("active-tab");
+		$(".nav-tab4").addClass("active-tab");
+		$(".tab4").fadeIn().siblings('.profile__tabs').hide();
+		$('#userName').val(userName);
+		$('#userSurname').val(userSurname);
+		$('#patronymic').val(userPatronymic);
+		$('#userEmail').val(userEmail);
+		$('#userTel').val(userTel);
+		$('#userBothDate').val(userBoth);
+		$('#password').val(password);
+		if (userAvatar) {
+			$('#user-icon').attr('src', userAvatar);
+		}
+		$('#userSurname').val(userSurname);
+	});
+
+
+	//add date input of both***************************
+	$('#userBoth').change(function () {
+		var date = $('#userBoth').val();
+		date = date.split('-').reverse().join('.');
+		$('#userBothDate').val(date);
+	});
+
+
+
+
+
+
+
+
+
+
+
+	//Show popup choice questionnaries***************
+	// $('#createQuestionnaries').click(function (e) {
+	// 	e.preventDefault();
+	// 	$('#popup-choice').addClass('opened');
+	// 	$('body').toggleClass('no-scroll');
+
+	// });
+	//Close popup***********************************
+	// $('.closeChoice').click(function () {
+	// 	$('#popup-choice').removeClass('opened');
+	// 	$('body').toggleClass('no-scroll');
+	// });
+
+
+
+
+
+
+	//change icon like anb bookmarks when click*********
+	// function initClick() {
+	// 	$('.user__candle').click(function () {
+	// 		if ($(this).next().hasClass('active')) {
+	// 			$(this).next().toggleClass('active');
+	// 		} else {
+	// 			$(this).next().toggleClass('active');
+
+	// 		}
+	// 	})
+	// 	$('.user__like-icon').click(function () {
+	// 		var countNum = $(this).next('.user__likeCount');
+	// 		var count = countNum.text();
+	// 		count = parseInt(count);
+	// 		if ($(this).hasClass('active')) {
+	// 			$(this).toggleClass('active');
+	// 			$(this).attr('src', './img/heart.svg');
+	// 			if (count > 0) {
+	// 				count = count - 1;
+	// 				countNum.html(count);
+	// 			}
+	// 		} else {
+	// 			$(this).attr('src', './img/heart-black.svg');
+	// 			$(this).toggleClass('active');
+	// 			count = count + 1;
+	// 			countNum.html(count);
+	// 		}
+	// 	})
+	// }
+
+
+
+	let languages = [
+		"Русский",
+		"Українська",
+		"English"
+
+	];
+	autocomplete(document.getElementById("select-language"), languages);
+
+
+	let work_type = [
+		"Работа с музеями",
+		"Написание статей о личностях",
+		"Интервьюирование ветеранов",
+		"Уборка захоронений ветеранов",
+		"Возложение цветов ветеранам",
+		"Сотрудничество с гос. организациями",
+		"Сотрудничество с общинами",
+		"Работа по уборке на кладбище",
+		"Оцифровка архивов",
+		"Оцифровка данных с памятников",
+		"Партнерство по установке памятнико",
+		"Партнерство по уходу за захоронениями"
+	];
+
+	function autocomplete(inp, arr) {
+
+		let currentFocus;
+
+
+		inp.addEventListener("click", showAutocompleteList);
+
+		function addActive(x) {
+			if (!x) return false;
+			removeActive(x);
+			if (currentFocus >= x.length) currentFocus = 0;
+			if (currentFocus < 0) currentFocus = (x.length - 1);
+			x[currentFocus].classList.add("autocomplete-active");
+		}
+		function removeActive(x) {
+			for (var i = 0; i < x.length; i++) {
+				x[i].classList.remove("autocomplete-active");
+			}
+		}
+
+
+		function showAutocompleteList(e) {
+
+			inp.selectionStart = inp.value.length;
+			let a, b, i, k, val = this.value;
+			if (document.getElementById(this.id + "autocomplete-list")) {
+				closeAllLists();
+				//  if (!val) { return false; }
+			} else {
+				currentFocus = -1;
+				a = document.createElement("DIV");
+				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("class", "autocomplete-items");
+				this.parentNode.appendChild(a);
+				for (i = 0; i < arr.length; i++) {
+					b = document.createElement("DIV");
+					b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+					b.addEventListener("click", function (e) {
+						inp.value = this.getElementsByTagName("input")[0].value;
+						closeAllLists();
+					});
+					a.appendChild(b);
+				}
+			}
+		}
+		document.addEventListener("click", function (e) {
+			if (e.target != inp) {
+				closeAllLists(e.target);
+			}
+		}, true);
+		function closeAllLists(elmnt) {
+			var x = document.getElementsByClassName("autocomplete-items");
+			for (var i = 0; i < x.length; i++) {
+				if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
+			}
+		}
 	}
-	$('#userSurname').val(userSurname);
 });
 
-
-//add date input of both***************************
-$('#userBoth').change(function () {
-	var date = $('#userBoth').val();
-	date = date.split('-').reverse().join('-');
-	$('#userBothDate').val(date);
-});
 
 
 //upload avatar*************************************
@@ -11562,149 +11711,3 @@ document.addEventListener('turbolinks:render', function () {
 	locations.forEach(setId);
 	locations.forEach(uniqueWidget);
 });
-
-
-
-
-
-
-
-
-
-//Show popup choice questionnaries***************
-// $('#createQuestionnaries').click(function (e) {
-// 	e.preventDefault();
-// 	$('#popup-choice').addClass('opened');
-// 	$('body').toggleClass('no-scroll');
-
-// });
-//Close popup***********************************
-// $('.closeChoice').click(function () {
-// 	$('#popup-choice').removeClass('opened');
-// 	$('body').toggleClass('no-scroll');
-// });
-
-
-
-
-
-
-//change icon like anb bookmarks when click*********
-// function initClick() {
-// 	$('.user__candle').click(function () {
-// 		if ($(this).next().hasClass('active')) {
-// 			$(this).next().toggleClass('active');
-// 		} else {
-// 			$(this).next().toggleClass('active');
-
-// 		}
-// 	})
-// 	$('.user__like-icon').click(function () {
-// 		var countNum = $(this).next('.user__likeCount');
-// 		var count = countNum.text();
-// 		count = parseInt(count);
-// 		if ($(this).hasClass('active')) {
-// 			$(this).toggleClass('active');
-// 			$(this).attr('src', './img/heart.svg');
-// 			if (count > 0) {
-// 				count = count - 1;
-// 				countNum.html(count);
-// 			}
-// 		} else {
-// 			$(this).attr('src', './img/heart-black.svg');
-// 			$(this).toggleClass('active');
-// 			count = count + 1;
-// 			countNum.html(count);
-// 		}
-// 	})
-// }
-
-
-
-let languages = [
-	"Русский",
-	"Українська",
-	"English"
-
-];
-autocomplete(document.getElementById("select-language"), languages);
-
-
-let work_type = [
-	"Работа с музеями",
-	"Написание статей о личностях",
-	"Интервьюирование ветеранов",
-	"Уборка захоронений ветеранов",
-	"Возложение цветов ветеранам",
-	"Сотрудничество с гос. организациями",
-	"Сотрудничество с общинами",
-	"Работа по уборке на кладбище",
-	"Оцифровка архивов",
-	"Оцифровка данных с памятников",
-	"Партнерство по установке памятнико",
-	"Партнерство по уходу за захоронениями"
-];
-
-function autocomplete(inp, arr) {
-
-	let currentFocus;
-
-
-	inp.addEventListener("click", showAutocompleteList);
-
-	function addActive(x) {
-		if (!x) return false;
-		removeActive(x);
-		if (currentFocus >= x.length) currentFocus = 0;
-		if (currentFocus < 0) currentFocus = (x.length - 1);
-		x[currentFocus].classList.add("autocomplete-active");
-	}
-	function removeActive(x) {
-		for (var i = 0; i < x.length; i++) {
-			x[i].classList.remove("autocomplete-active");
-		}
-	}
-
-
-	function showAutocompleteList(e) {
-
-		inp.selectionStart = inp.value.length;
-		let a, b, i, k, val = this.value;
-		if (document.getElementById(this.id + "autocomplete-list")) {
-			closeAllLists();
-			//  if (!val) { return false; }
-		} else {
-			currentFocus = -1;
-			a = document.createElement("DIV");
-			a.setAttribute("id", this.id + "autocomplete-list");
-			a.setAttribute("class", "autocomplete-items");
-			this.parentNode.appendChild(a);
-			for (i = 0; i < arr.length; i++) {
-				b = document.createElement("DIV");
-				b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
-				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-				b.addEventListener("click", function (e) {
-					inp.value = this.getElementsByTagName("input")[0].value;
-					closeAllLists();
-				});
-				a.appendChild(b);
-			}
-		}
-	}
-	document.addEventListener("click", function (e) {
-		if (e.target != inp) {
-			closeAllLists(e.target);
-			if (!arr.includes(inp.value)) {
-				inp.value = defaultValue;
-			}
-		}
-	}, true);
-	function closeAllLists(elmnt) {
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-			if (elmnt != x[i] && elmnt != inp) {
-				x[i].parentNode.removeChild(x[i]);
-			}
-		}
-	}
-}
