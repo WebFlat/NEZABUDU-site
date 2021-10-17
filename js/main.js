@@ -10261,15 +10261,25 @@ console.log("window loaded");
 $(document).ready(function () {
 
 
-    let link2 = "/cabinet-page/";
+    let link2 = "./cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
+
+
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
 
     var cookie_name_token = "project_token";
     var cookie_token = getCookie(cookie_name_token);
 
     function ifLogin() {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+            console.log(cookie_token);
             start();
         } else {
             $('#p_prldr').fadeOut('slow');
@@ -10289,7 +10299,7 @@ $(document).ready(function () {
                 }
             })
             .then(response => response.json())
-            .then(json => {
+            .then(() => {
                 window.location.href = './auth-user';
             })
             .catch(error => console.error('error1:', error));
@@ -10420,7 +10430,7 @@ $(document).ready(function () {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
-                        window.location.href = './cabinet-page/';
+                        window.location.href = link2;
                     } else {
                         showErrorSuccess("Такой пользователь уже существует", 2000);
                         clearInput();
@@ -10519,12 +10529,7 @@ $(document).ready(function () {
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
-    function getCookie(name) {
-        var matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
+
 
     function deleteCookie(name) {
         document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';

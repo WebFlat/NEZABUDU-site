@@ -10270,7 +10270,6 @@ $(document).ready(function () {
     function deleteCookie(name) {
         document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
-    let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
@@ -10300,6 +10299,19 @@ $(document).ready(function () {
         $('#p_prldr').fadeOut('slow');
     };
 
+
+
+    //show message notifications*********************************
+    function showErrorSuccess(textToShow, time) {
+        $('#error-message').addClass('show');
+        $('.success').text(textToShow);
+        setTimeout(() => {
+            $('#error-message').removeClass('show');
+        }, time);
+    };
+
+
+
     //if user auth************************************************
     function start() {
         fetch(
@@ -10319,18 +10331,15 @@ $(document).ready(function () {
                 userAvatar = data.user.avatar;
                 confirmUser();
             })
-            .catch(error => console.error('error1:', error));
+            .catch(error => {
+                console.error('error1:', error);
+                $('#p_prldr').fadeOut('slow');
+                showErrorSuccess("Ошибка соединения", 1000);
+            });
     };
 
 
-    //show message notifications*********************************
-    function showErrorSuccess(textToShow, time) {
-        $('#error-message').addClass('show');
-        $('.success').text(textToShow);
-        setTimeout(() => {
-            $('#error-message').removeClass('show');
-        }, time);
-    };
+
 
 
 
