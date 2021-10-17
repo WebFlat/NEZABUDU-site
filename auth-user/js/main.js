@@ -10260,7 +10260,16 @@ $(document).ready(function () {
     //     $preloader.delay(1000).fadeOut('slow');
     // });
 
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
 
+    function deleteCookie(name) {
+        document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    }
     let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
@@ -10271,20 +10280,28 @@ $(document).ready(function () {
     //Зарегестрірованний юзер
     var user = false;
     var userAvatar = '';
-    ifLogin();
     function ifLogin() {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
             start();
-            $('#p_prldr').delay(1000).fadeOut('slow');
         } else {
             window.location.href = '../index.html';
         }
     };
+    ifLogin();
 
+
+
+
+    //Icon user if login**************************
+    function confirmUser() {
+        if (userAvatar) {
+            $('.header__user').attr('src', userAvatar);
+        };
+        $('#p_prldr').fadeOut('slow');
+    };
 
     //if user auth************************************************
     function start() {
-
         fetch(
             `${api_url}get_start_info`,
             {
@@ -10317,23 +10334,9 @@ $(document).ready(function () {
 
 
 
-    //Icon user if login**************************
-    function confirmUser() {
-        if (userAvatar) {
-            $('.header__user').attr('src', userAvatar);
-        };
-    };
 
-    function getCookie(name) {
-        var matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
 
-    function deleteCookie(name) {
-        document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-    }
+
 
 
 

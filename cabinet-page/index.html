@@ -49,18 +49,18 @@
 	                <span></span>
 	                <span></span>
 	            </label>
-	            <a class="drawer__link nav-tab1">
+	            <a class="drawer__link nav-tab1" id="tab1">
 	                <label for="menu-checkbox" class="menu-enter">
 	                    <div id="menu-1" class="drawer-menu"><img src="img/resume.svg" alt="questionar">Мои анктеты</div>
 	                </label>
 	            </a>
-	            <a class="drawer__link nav-tab2">
+	            <a class="drawer__link nav-tab2" id="tab2">
 	                <label for="menu-checkbox">
 	                    <div id="menu-2" class="drawer-menu"><img src="img/bookmark-2.svg" alt="bookmark">Анкеты в закладках
 	                    </div>
 	                </label>
 	            </a>
-	            <a class="drawer__link nav-tab3">
+	            <a class="drawer__link nav-tab3" id="tab3">
 	                <label for="menu-checkbox">
 	                    <div id="menu-3" class="drawer-menu"><img src="img/bell.svg" alt="alarm">Уведомления</div>
 	                </label>
@@ -87,7 +87,7 @@
 	                    <div id="menu-7" class="drawer-menu"><img src="img/menu6.svg" alt="qr code">Заказать QR код</div>
 	                </label>
 	            </a>
-	            <a class="drawer__link nav-tab4">
+	            <a class="drawer__link nav-tab4" id="tab4">
 	                <label for="menu-checkbox">
 	                    <div id="menu-8" class="drawer-menu"><img src="img/settings.svg" alt="settings"
 	                            style="width: 26px">Настройки</div>
@@ -253,7 +253,8 @@
 	                    </div>
 	                    <label class="settings__upload-label" for="editFoto">Изменить фото профиля
 	
-	                        <input type="hidden" name="img" id="test-img" data-preview="false" class="simple-file-upload">
+	                        <input type="hidden" name="avatar_url" id="files-uploader" data-preview="false"
+	                            class="simple-file-upload">
 	                    </label>
 	                    <!-- <input type="file" class="settings__upload" id="editFoto"> -->
 	                </div>

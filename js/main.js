@@ -10261,7 +10261,7 @@ console.log("window loaded");
 $(document).ready(function () {
 
 
-    let link2 = "https://webflat.github.io/NEZABUDU-site/cabinet-page/";
+    let link2 = "/cabinet-page/";
     // var api_url = "http://localhost:3000/";
     var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
@@ -10272,7 +10272,7 @@ $(document).ready(function () {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
             start();
         } else {
-            $('#p_prldr').fadeOut().end().delay(1000).fadeOut('slow');
+            $('#p_prldr').fadeOut('slow');
         }
     };
     ifLogin();
@@ -10291,7 +10291,6 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(json => {
                 window.location.href = './auth-user';
-                console.log('hello user');
             })
             .catch(error => console.error('error1:', error));
     };
@@ -10421,21 +10420,19 @@ $(document).ready(function () {
                         console.log("success get token");
                         setCookie(cookie_name_token, json.token, 3600);
                         cookie_token = getCookie(cookie_name_token);
-                        window.location.href = link2;
+                        window.location.href = './cabinet-page/';
                     } else {
                         showErrorSuccess("Такой пользователь уже существует", 2000);
                         clearInput();
-                        registration.attr('disabled', false);
+                        //registration.attr('disabled', false);
                     }
 
                 })
                 .catch(error => {
                     console.log('error:', error);
                     showErrorSuccess("Ошибка соединения", 1000);
-                    registration.attr('disabled', false);
+                    //registration.attr('disabled', false);
                 });
-        } else {
-            registration.attr('disabled', false);
         };
     });
 
@@ -10455,7 +10452,7 @@ $(document).ready(function () {
             }
         }
         var authPassword = $('#auth-password').val();
-        if (authPassword === '') {
+        if (authPassword == '') {
             showErrorSuccess('Введите пароль', 1000);
         }
         if (validateMail() && authPassword != '') {

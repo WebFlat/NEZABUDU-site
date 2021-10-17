@@ -10611,13 +10611,19 @@ $(document).ready(function () {
 	// var api_url = "http://localhost:3000/";
 	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
+
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
 	var cookie_name_token = "project_token";
 	var cookie_token = getCookie(cookie_name_token);
 
 
 	//Зарегестрірованний юзер
 	var userAvatar = '';
-	var user_data = false;
 	function ifLogin() {
 		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
 			start();
@@ -10625,7 +10631,6 @@ $(document).ready(function () {
 			window.location.href = '../index.html';
 		}
 	};
-
 	ifLogin();
 
 
@@ -10647,9 +10652,15 @@ $(document).ready(function () {
 				// console.log('Data:', JSON.stringify(data));
 				userAvatar = data.user.avatar;
 				confirmUser();
-				$('#p_prldr').delay(1000).fadeOut('slow');
+				$('#p_prldr').fadeOut('slow');
 			})
 			.catch(error => console.error('error1:', error));
+	};
+
+
+	//Opacity tabs when not data user******************************
+	function showTabs() {
+		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
 	};
 
 	//Icon user if login**************************
@@ -10659,17 +10670,6 @@ $(document).ready(function () {
 		};
 		showTabs();
 	};
-
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	}
-
-	function deleteCookie(name) {
-		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	}
 
 	//show message notifications*********************************
 	function showErrorSuccess(textToShow, time) {
@@ -10762,6 +10762,9 @@ $(document).ready(function () {
 
 
 	//Exit account***************************************************
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	};
 	$('#logout').click(function () {
 		deleteCookie(cookie_name_token);
 		window.location.href = '../index.html';
@@ -10791,10 +10794,7 @@ $(document).ready(function () {
 	if ($(window).width() < 935) {
 		$('.profile__about').hide();
 	};
-	//Opacity tabs when not data user******************************
-	function showTabs() {
-		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
-	};
+
 
 
 

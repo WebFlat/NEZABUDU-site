@@ -11008,6 +11008,16 @@ $(document).ready(function () {
 	// var api_url = "http://localhost:3000/";
 	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
+
+
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
+
+
 	var cookie_name_token = "project_token";
 	var cookie_token = getCookie(cookie_name_token);
 
@@ -11020,6 +11030,43 @@ $(document).ready(function () {
 		}
 	};
 	ifLogin();
+
+
+
+	//show message notifications*********************************
+	function showErrorSuccess(textToShow, time) {
+		$('#error-message').addClass('show');
+		$('.success').text(textToShow);
+		setTimeout(() => {
+			$('#error-message').removeClass('show');
+		}, time);
+	};
+
+	//burger***************************************
+	function burgerShow() {
+		$('body').toggleClass('no-scroll');
+	};
+	$('.drawer-burg').click(function () {
+		burgerShow();
+
+	});
+	$('#drawer-close').click(function () {
+		burgerShow();
+	});
+	$('.drawer__link').click(function () {
+		$('#drawer-close').click();
+	});
+
+
+	//Icon user if login**************************
+	function confirmUser() {
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+		if (userBoth == '' || userBoth == null) {
+			userBoth = '';
+		};
+	};
 
 	//User if login*******************************
 	var user = false;
@@ -11037,23 +11084,6 @@ $(document).ready(function () {
 	var sectionCreateDeath = $('#addItems');
 	var sectionMy = $('#myItems');
 	var sectionBookmark = $('.profile__bookmarks');
-
-
-
-
-
-
-	//show message notifications*********************************
-	function showErrorSuccess(textToShow, time) {
-		$('#error-message').addClass('show');
-		$('.success').text(textToShow);
-		setTimeout(() => {
-			$('#error-message').removeClass('show');
-		}, time);
-	};
-
-
-
 
 	//if user auth************************************************
 	function start() {
@@ -11086,36 +11116,19 @@ $(document).ready(function () {
 				var currentTab = window.location.hash;
 				if (currentTab != '') {
 					$(currentTab).click();
-					//burgerShow();
+					$('#drawer-close').click();
 				};
 				loadQuestionnaries(sectionCreate, sectionCreateDeath, sectionMy, 'user-added', data_users);
-				$('#p_prldr').delay(1000).fadeOut('slow');
+				$('#p_prldr').fadeOut('slow');
 			})
 			.catch(error => console.error('error1:', error));
 	};
 
-	//Icon user if login**************************
-	function confirmUser() {
-		if (userAvatar) {
-			$('.header__user').attr('src', userAvatar);
-		};
-		if (userBoth == '' || userBoth == null) {
-			userBoth = '';
-		};
-	};
 
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	};
 
 	function deleteCookie(name) {
 		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
 	};
-
-
 
 	//Exit account***************************************************
 	$('#logout').click(function () {
@@ -11344,20 +11357,7 @@ $(document).ready(function () {
 
 
 
-	//burger***************************************
-	function burgerShow() {
-		$('body').toggleClass('no-scroll');
-	};
-	$('.drawer-burg').click(function () {
-		burgerShow();
 
-	});
-	$('#drawer-close').click(function () {
-		burgerShow();
-	});
-	$('.drawer__link').click(function () {
-		$('#drawer-close').click();
-	});
 	// $('.nav__link').click(function () {
 	// 	burgerShow();
 	// });

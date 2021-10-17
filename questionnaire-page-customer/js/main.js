@@ -10610,6 +10610,13 @@ $(document).ready(function () {
 	// var api_url = "http://localhost:3000/";
 	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
 
+
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
 	var cookie_name_token = "project_token";
 	var cookie_token = getCookie(cookie_name_token);
 
@@ -10626,12 +10633,20 @@ $(document).ready(function () {
 	};
 	ifLogin();
 
-	//Exit account***************************************************
-	$('#logout').click(function () {
-		deleteCookie(cookie_name_token);
-		window.location.href = '../index.html';
 
-	});
+	//Opacity tabs when not data user******************************
+	function showTabs() {
+		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
+	};
+	//Icon user if login**************************
+	function confirmUser() {
+		if (userAvatar) {
+			$('.header__user').attr('src', userAvatar);
+		};
+		showTabs();
+	};
+
+
 
 	//if user auth************************************************
 	function start() {
@@ -10651,29 +10666,27 @@ $(document).ready(function () {
 				// console.log('Data:', JSON.stringify(data));
 				userAvatar = data.user.avatar;
 				confirmUser();
-				$('#p_prldr').delay(1000).fadeOut('slow');
+				$('#p_prldr').fadeOut('slow');
 			})
 			.catch(error => console.error('error1:', error));
 	};
 
-	//Icon user if login**************************
-	function confirmUser() {
-		if (userAvatar) {
-			$('.header__user').attr('src', userAvatar);
-		};
-		showTabs();
-	};
 
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	}
 
+
+
+
+
+	//Exit account***************************************************
 	function deleteCookie(name) {
 		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	}
+	};
+	$('#logout').click(function () {
+		deleteCookie(cookie_name_token);
+		window.location.href = '../index.html';
+
+	});
+
 
 	//show message notifications*********************************
 	function showErrorSuccess(textToShow, time) {
@@ -10787,10 +10800,7 @@ $(document).ready(function () {
 	if ($(window).width() < 935) {
 		$('.profile__about').hide();
 	};
-	//Opacity tabs when not data user******************************
-	function showTabs() {
-		$('.menu__item').not('.main').css('opacity', '.3').css('pointer-events', 'none');
-	};
+
 
 
 
