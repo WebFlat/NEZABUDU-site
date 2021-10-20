@@ -10825,7 +10825,7 @@ $(document).ready(function () {
 	//Set data to input from calendar******************
 	$('#user-both').change(function () {
 		var dataBoth = $('#user-both').val();
-		dataBoth = dataBoth.split('-').reverse().join('-');
+		dataBoth = dataBoth.split('-').reverse().join('.');
 		$('.user__both').val(dataBoth);
 	});
 
