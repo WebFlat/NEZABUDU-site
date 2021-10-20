@@ -202,7 +202,7 @@
 	                    <input id="reg-email" type="email" name="userEmail" required placeholder="example@mail.com"
 	                        class="reg__input">
 	                    <input id="reg-password" type="password" name="userPassword" required placeholder="Пароль"
-	                        class="reg__input">
+	                        class="reg__input" autocomplete="on">
 	                    <input type="submit" value="Зарегистрироваться" class="reg__btn" name="registr" id="sendReg">
 	                </form>
 	                <div class="reg__link-wrap reg-tab">
@@ -239,7 +239,7 @@
 	                <form method="POST" class="reg__form" id="auth-form">
 	                    <input id="auth-email" type="text" name="authEmail" required placeholder="Почта" class="reg__input">
 	                    <input id="auth-password" type="password" name="authPassword" required placeholder="Пароль"
-	                        class="reg__input">
+	                        class="reg__input" autocomplete="on">
 	                    <!-- <div class="g-recaptcha captcha" data-sitekey="6Le-nP0ZAAAAAIVD_XVU_oC54rpo9yRmXqPnBjou"></div> -->
 	                    <input type="submit" value="Войти" class="reg__btn" name="auth" id="authSend">
 	                </form>
@@ -504,10 +504,16 @@
 		        </div>
 		    </section>
 		    <div class="profile__wrap">
-		        <button class="add-story-force default-add">
+		        <button class="add-story-force default-add" title="Добавить историю">
 		            <span></span>
 		            <span></span>
 		        </button>
+		        <a href="../care-page/" class="toCare" title="Заказать убоорку">
+		            <img src="img/menu5.svg" alt="qr">
+		        </a>
+		        <a href="../qr-page/" class="toQR" title="Заказать QR">
+		            <img src="img/menu6.svg" alt="qr">
+		        </a>
 		        <section class="profile__data">
 		            <div class="data__form-tabs">
 		                <article class="data__tab">
@@ -748,7 +754,6 @@
 		                                    <br>
 		                                    <span>Ряд: <span id="row"></span></span>
 		                                    <span>Номер: <span id="number"></span></span>
-		
 		                                </p>
 		                                <div class="brief__loc-wrap">
 		                                    <!-- <a href=" https://goo.gl/maps/HV2Njc5PkkuMWdDM8" class="brief__google-link" target="_blank"></a> -->
@@ -759,7 +764,18 @@
 		                                    </div>
 		                                </div>
 		                            </div>
-		
+		                        </div>
+		                        <div class="share">
+		                            <span>Поделиться:</span>
+		                            <a href="https://www.facebook.com/sharer/sharer.php?u=URLENCODED_URL&t=TITLE"
+		                                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+		                                target="_blank" title="Share on Facebook"><img src="./img/facebook-sharer.png"
+		                                    alt="Facebook" width="50" height="50">
+		                            </a>
+		                            <a href="http://twitter.com/home?status=MESSAGE+URL" title="Share to Twitter"
+		                                rel="nofollow noopener" target="_blank"><img src="./img/twitter.png" alt="Twitter"
+		                                    width="50" height="50">
+		                            </a>
 		                        </div>
 		                    </article>
 		                    <article class="story wrapper">
@@ -1284,8 +1300,8 @@
 		            </span>
 		            <div class="add-story__line">
 		                <span class="add-story__btn def-btn">
-		                    <input type="file" name="foto" id="story_foto">
-		                    <img src="./img/default-foto.png" alt="add">
+		                    <input type="hidden" name="img" data-preview="false" id="edit-foto" class="simple-file-upload">
+		                    <img src="./img/default-foto.png" alt="add" id="output2">
 		                </span>
 		            </div>
 		        </div>

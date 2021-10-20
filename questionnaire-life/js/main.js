@@ -10694,7 +10694,11 @@ $(document).ready(function () {
 				confirmUser();
 				loadQuestionnaries();
 			})
-			.catch(error => console.error('error1:', error));
+			.catch(error => {
+				console.error('error1:', error);
+				confirmUser();
+				loadQuestionnaries();
+			});
 
 	};
 
@@ -10739,7 +10743,7 @@ $(document).ready(function () {
 			for (var i = 0; i < dataToLoad.length; i++) {
 				if (dataToLoad[i].event_img != null) {
 					var dateLoad = dataToLoad[i].event_date;
-					dateLoad = dateLoad.split('-').reverse().join('-');
+					dateLoad = dateLoad.split('-').reverse().join('.');
 					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
 				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
 				<button class="context-story__item delete-story">Удалить</button>
@@ -10754,6 +10758,7 @@ $(document).ready(function () {
 			outHtml.append(outAll);
 			initDelStory();
 			initEditStory();
+			initDelBtn();
 		}
 	};
 
@@ -10762,6 +10767,9 @@ $(document).ready(function () {
 		var out = '';
 		if (dataToRender != []) {
 			for (var k = 0; k < dataToRender.length; k++) {
+				if (!dataToRender[k].event_img) {
+					dataToRender[k].event_img = '../img/default-bg-img.webp';
+				}
 				out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img src="${dataToRender[k].event_img}" alt="photo" class="brief__photo" loading="lazy"></a>`;
 			}
 			outHtml.prepend(out);
@@ -11422,13 +11430,15 @@ $(document).ready(function () {
 	};
 
 	//show delete story popup*****************************
-	$('.delete-story').on('click', function (e) {
-		e.preventDefault();
-		console.log('click');
-		$('body').addClass('no-scroll');
-		$('.form-del-story').css('display', 'flex');
-		$('.context-story').removeClass('active');
-	});
+	function initDelBtn() {
+		$('.delete-story').on('click', function (e) {
+			e.preventDefault();
+			console.log('click');
+			$('body').addClass('no-scroll');
+			$('.form-del-story').css('display', 'flex');
+			$('.context-story').removeClass('active');
+		});
+	};
 
 	//close delete story popup**************************
 	$('#del-cancel-story').click(function () {
@@ -11585,10 +11595,10 @@ $(document).ready(function () {
 			.then(response => response.json())
 			.then(data => {
 				if (data) {
-					$('body').css('opacity', 1);
 					console.log("success send");
 					console.log('Data:', JSON.stringify(data));
 					showErrorSuccess('Данные сохранены', 1000);
+					$('body').css('opacity', 1);
 				} else {
 					showErrorSuccess('Ошибка,попробуйте еще', 1000);
 					$('body').css('opacity', 1);
@@ -12003,10 +12013,13 @@ $(document).ready(function () {
 			event_date: data_event.val(),
 			event_header: title_event.val(),
 			event_type: category_event.val(),
-			event_img: $('.memory_foto').attr('src'),
+			event_img: $('#output2').attr('src'),
 			event_text: text_event.val(),
 			event_place: place_event.val(),
 			profile_id: currentProfile
+		};
+		if (timeline_event.event_img == './img/default-foto.png') {
+			timeline_event.event_img = '../img/default-bg-img.webp';
 		};
 		//console.log(timeline_event);
 		if (validate_event()) {
@@ -12076,7 +12089,7 @@ $(document).ready(function () {
 	// });
 
 	//hive nav on scroll*******************
-	if ($(window).width() < 935) {
+	if ($(window).width() < 1024) {
 		let burger = $('.drawer-burg');
 		var navbar = $('.header');
 		var hightlight = $('.profile__menu--mob');
@@ -12503,6 +12516,9 @@ $(document).ready(function () {
 			$('.brief').fadeOut(0);
 			$('.story__back').show();
 			$('.story').fadeIn(500);
+			setTimeout(() => {
+				window.location.href = `#${currentProfile}`;
+			}, 1000);
 		});
 	};
 	$('.story__back').click(function () {
@@ -12511,19 +12527,22 @@ $(document).ready(function () {
 		$('body,html').scrollTop(0);
 		$('.brief').fadeIn(500);
 		window.location.href = `#${currentProfile}`;
+		setTimeout(() => {
+
+		}, 1000);
 	});
 
 	//story popup close*********************************
 	$('#story-cancel').click(function (e) {
 		e.preventDefault();
 		$('.add-story').hide();
-		$('body').css('overflow', 'visible');
+		$('body').toggleClass('no-scroll');
 	});
 
 	//story popup open********************************
 	$('.default-add').click(function () {
 		$('.add-story').show().css('display', 'flex');
-		$('body').css('overflow', 'hidden');
+		$('body').toggleClass('no-scroll');
 	});
 
 
@@ -12667,7 +12686,7 @@ $(document).ready(function () {
 	//Set data to input from calendar******************
 	$('#calendar').change(function () {
 		var dataBoth = $('#calendar').val();
-		dataBoth = dataBoth.split('-').reverse().join('-');
+		dataBoth = dataBoth.split('-').reverse().join('.');
 		$('.story-date').val(dataBoth);
 	});
 
@@ -12847,6 +12866,7 @@ async function loadWidget() {
 		if (e.data["uploadResult"] == 'success') {
 			const data = e.data;
 			let output = $('#output');
+			let output2 = $('#output2');
 			let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
 			//Backwards compatibility - no simple-file-upload class.
 			if (hiddenInput == null) {
@@ -12856,6 +12876,11 @@ async function loadWidget() {
 				output.attr('src', data["url"]);
 			}
 			hiddenInput.value = data["url"];
+			let editFotoUrl = $('#edit-foto').val();
+			console.log(editFotoUrl);
+			if (editFotoUrl) {
+				output2.attr('src', editFotoUrl);
+			}
 			const event = new Event('fileUploadSuccess')
 			hiddenInput.dispatchEvent(event)
 		}
