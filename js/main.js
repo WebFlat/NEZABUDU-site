@@ -10274,12 +10274,28 @@ $(document).ready(function () {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     };
 
+
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    } ж
+
+
+    function deleteCookie(name) {
+        document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    }
+
     var cookie_name_token = "project_token";
     var cookie_token = getCookie(cookie_name_token);
 
     function ifLogin() {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-            console.log(cookie_token);
+            //console.log(cookie_token);
             start();
         } else {
             $('#p_prldr').fadeOut('slow');
@@ -10300,9 +10316,16 @@ $(document).ready(function () {
             })
             .then(response => response.json())
             .then(() => {
+                // setCookie(cookie_name_token, json.token, 3600);
+                // cookie_token = getCookie(cookie_name_token);
                 window.location.href = './auth-user';
             })
-            .catch(error => console.error('error1:', error));
+            .catch(error => {
+                console.error('error1:', error);
+                deleteCookie(cookie_name_token);
+                showErrorSuccess('Ошибка авторизации', 1000);
+                window.location.reload();
+            });
     };
 
 
@@ -10496,12 +10519,16 @@ $(document).ready(function () {
                     })
                     .catch(error => {
                         console.log('error:', error);
+                        deleteCookie(cookie_name_token);
                         showErrorSuccess('Ошибка подключения', 1000);
                         window.location.reload();
                     });
             }
             catch (err) {
                 console.log(err);
+                deleteCookie(cookie_name_token);
+                showErrorSuccess('Ошибка подключения', 1000);
+                window.location.reload();
             }
         }
 
@@ -10511,7 +10538,7 @@ $(document).ready(function () {
 
     //Exit account***************************************************
     $('#btn_exit').click(function () {
-        deleteCookie(cookie_name_token)
+        deleteCookie(cookie_name_token);
         window.location.reload();
 
     });
@@ -10520,20 +10547,7 @@ $(document).ready(function () {
 
 
 
-    function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
 
-
-    function deleteCookie(name) {
-        document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-    }
 
 
 
@@ -10728,9 +10742,6 @@ $(document).ready(function () {
         document.addEventListener("click", function (e) {
             if (e.target != inp) {
                 closeAllLists(e.target);
-                if (valueFromArrOnly && !arr.includes(inp.value)) {
-                    inp.value = defaultValue;
-                }
             }
         }, true);
         function closeAllLists(elmnt) {

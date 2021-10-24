@@ -11017,6 +11017,10 @@ $(document).ready(function () {
 		return matches ? decodeURIComponent(matches[1]) : undefined;
 	};
 
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	};
+
 
 	var cookie_name_token = "project_token";
 	var cookie_token = getCookie(cookie_name_token);
@@ -11026,6 +11030,7 @@ $(document).ready(function () {
 		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
 			start();
 		} else {
+			deleteCookie(cookie_name_token);
 			window.location.href = '../index.html';
 		}
 	};
@@ -11120,15 +11125,18 @@ $(document).ready(function () {
 				};
 				loadQuestionnaries(sectionCreate, sectionCreateDeath, sectionMy, 'user-added', data_users);
 				$('#p_prldr').fadeOut('slow');
+				getBookmark();
 			})
-			.catch(error => console.error('error1:', error));
+			.catch(error => {
+				console.error('error1:', error);
+				deleteCookie(cookie_name_token);
+				window.location.href = '../index.html';
+			});
 	};
 
 
 
-	function deleteCookie(name) {
-		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	};
+
 
 	//Exit account***************************************************
 	$('#logout').click(function () {
@@ -11168,6 +11176,31 @@ $(document).ready(function () {
 		}
 
 	}
+
+	async function getBookmark() {
+		fetch(
+			`${api_url}show_favorite_profile?user_id=${userId}`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('bookmarks');
+				console.log('Data:', JSON.stringify(data));
+				data_users_book = data.profiles;
+				//console.log(data_users);
+				loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users_book);
+			})
+			.catch(error => {
+				console.error('error1:', error);
+			});
+	};
+
+
 	function loadQuestionnariesBookmark(section, users, data) {
 		let out = '';
 		for (let key in data) {
@@ -11184,11 +11217,9 @@ $(document).ready(function () {
 			} else {
 				out += '<div class="' + users + ' user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
 			}
-
 			section.html(out);
 			section.addClass('not-empty');
 		}
-
 	};
 
 
@@ -11390,7 +11421,7 @@ $(document).ready(function () {
 		$(".tab2").fadeIn().siblings('.profile__tabs').hide();
 		$(".nav-tab").removeClass("active-tab");
 		$(".nav-tab2").addClass("active-tab");
-		loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
+		//loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users);
 		//pagin2();
 		// setTimeout(function () {
 		// 	initClick();

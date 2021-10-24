@@ -10283,6 +10283,7 @@ $(document).ready(function () {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
             start();
         } else {
+            deleteCookie(cookie_name_token);
             window.location.href = '../index.html';
         }
     };
@@ -10296,7 +10297,6 @@ $(document).ready(function () {
         if (userAvatar) {
             $('.header__user').attr('src', userAvatar);
         };
-        $('#p_prldr').fadeOut('slow');
     };
 
 
@@ -10330,11 +10330,14 @@ $(document).ready(function () {
                 user = true;
                 userAvatar = data.user.avatar;
                 confirmUser();
+                $('#p_prldr').fadeOut('slow');
             })
             .catch(error => {
                 console.error('error1:', error);
+                deleteCookie(cookie_name_token);
                 $('#p_prldr').fadeOut('slow');
                 showErrorSuccess("Ошибка соединения", 1000);
+                window.location.href = "../index.html";
             });
     };
 
