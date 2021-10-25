@@ -10253,6 +10253,94 @@ return jQuery;
 } );
 console.log("window loaded");
 
+let link2 = "./cabinet-page/";
+// var api_url = "http://localhost:3000/";
+let api_url = "https://nezabudu-api.herokuapp.com/" // real project
+
+
+//Google registration
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId());
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+    signOut();
+    let email = profile.getEmail();
+    let firstName = profile.getFamilyName();
+    let lastName = profile.getGivenName();
+    let googleId = profile.getId();
+    let avatar = profile.getImageUrl();
+    let password = 'password';
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    };
+    if (profile) {
+        let data = {
+            email: email,
+            uid: password,
+            first_name: firstName,
+            last_name: lastName,
+            avatar: avatar,
+            google_id_token: googleId
+        };
+        console.log(data);
+        fetch(
+            `${api_url}user_oauth_create`,
+            {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    // 'Authorization': 'Token token=' + cookie_token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                if (json.error == 0) {
+                    console.log("success get token");
+                    setCookie(cookie_name_token, json.token, 3600);
+                    cookie_token = getCookie(cookie_name_token);
+                    //window.location.href = link2;
+                } else {
+                    showErrorSuccess("Такой пользователь уже существует", 2000);
+                    clearInput();
+                    //registration.attr('disabled', false);
+                }
+
+            })
+            .catch(error => {
+                console.log('error:', error);
+                showErrorSuccess("Ошибка соединения", 1000);
+                //registration.attr('disabled', false);
+            });
+    } else {
+        showErrorSuccess("Ошибка подключения", 1000);
+    };
+};
+
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+};
 // $(window).on('load', function () {
 //     var $preloader = $('#p_prldr');
 //     $preloader.fadeOut().end().delay(400).fadeOut('slow');
@@ -10260,35 +10348,9 @@ console.log("window loaded");
 
 $(document).ready(function () {
 
-
-    let link2 = "./cabinet-page/";
-    // var api_url = "http://localhost:3000/";
-    var api_url = "https://nezabudu-api.herokuapp.com/" // real project
-
-
-
-    function getCookie(name) {
-        var matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
-
-
-    function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    } ж
-
-
     function deleteCookie(name) {
         document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-    }
+    };
 
     var cookie_name_token = "project_token";
     var cookie_token = getCookie(cookie_name_token);
@@ -10337,9 +10399,6 @@ $(document).ready(function () {
             $('#error-message').removeClass('show');
         }, time);
     };
-
-
-
 
     //Registration input ****************************************************
     var registration = $('#sendReg');

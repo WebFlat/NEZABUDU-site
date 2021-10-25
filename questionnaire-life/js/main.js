@@ -10625,6 +10625,9 @@ $(document).ready(function () {
 		));
 		return matches ? decodeURIComponent(matches[1]) : undefined;
 	};
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	};
 
 	var cookie_name_token = "project_token";
 	var cookie_token = getCookie(cookie_name_token);
@@ -10633,6 +10636,7 @@ $(document).ready(function () {
 	currentProfile = +currentProfile.substring(1);
 	var currentUser;
 	var userParent = 0;
+	let bookmark = [];
 
 
 
@@ -10670,6 +10674,8 @@ $(document).ready(function () {
 			};
 		} else {
 			$('#menu-user').remove();
+			$('#candle').remove();
+			$('#bookmark').remove();
 		};
 	};
 
@@ -10687,19 +10693,32 @@ $(document).ready(function () {
 			.then(response => response.json())
 			.then(data => {
 				console.log('wellcome');
-				//console.log('Data:', JSON.stringify(data));
+				console.log('Data:', JSON.stringify(data));
 				userParent = data.user.id;
 				user = true;
 				userAvatar = data.user.avatar;
+				bookmark = data.favorite_profiles;
+				isBookmark(bookmark);
 				confirmUser();
 				loadQuestionnaries();
 			})
 			.catch(error => {
 				console.error('error1:', error);
-				confirmUser();
-				loadQuestionnaries();
+				deleteCookie(cookie_name_token);
+				window.location.reload();
 			});
 
+	};
+
+
+	function isBookmark(data) {
+		$.each(data, function (index, value) {
+			if (value == currentProfile) {
+				$('#bookmark').addClass('active');
+			} else {
+				return false;
+			};
+		});
 	};
 
 
@@ -10710,6 +10729,7 @@ $(document).ready(function () {
 		$('.default-add').remove();
 		$('.tab__btn-save').remove();
 		$('.story__edit-cont').remove();
+		$('.textarea').attr('contenteditable', false);
 	};
 
 	//if user parent*************
@@ -10719,12 +10739,17 @@ $(document).ready(function () {
 	}
 
 
-	function isLife() {
+	function isLife(mine) {
 		$('.brief__location').remove();
 		$('.brief__end').remove();
-		$('.brief__img-wrap').css('border-color', '#fce176');
 		$('#candle').remove();
-		$('#bookmark').remove();
+		//$('#bookmark').remove();
+		$('.share__support').remove();
+		if (mine == true) {
+			$('.brief__img-wrap').css('border-color', '#b0dcbf');
+		} else {
+			$('.brief__img-wrap').css('border-color', '#fce176');
+		}
 	};
 
 	function renderDescrFull(data) {
@@ -10819,7 +10844,8 @@ $(document).ready(function () {
 			nameProfile = $('#user-name'),
 			surmaneProfile = $('#user-surname'),
 			patronimycProfile = $('#user-patronimyc'),
-			timelinebirthProfile = $('.data-birth'),
+			maidenProfile = $('#user-mainden');
+		timelinebirthProfile = $('.data-birth'),
 			timelinedieProfile = $('.data-die'),
 			cause = $('#cause'),
 			cemeteryName = $('#cemetery_name'),
@@ -10898,7 +10924,7 @@ $(document).ready(function () {
 						dieProfile.text(preDie);
 						timelinedieProfile.text(preDie);
 					} else {
-						isLife();
+						isLife(data.profile.profile_mine);
 					};
 					var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
 					ageProfile.text(ageNumBirth);
@@ -10907,6 +10933,9 @@ $(document).ready(function () {
 					nameProfile.text(data.profile.last_name);
 					surmaneProfile.text(data.profile.first_name);
 					patronimycProfile.text(data.profile.patronymic);
+					if (data.profile.maiden_name) {
+						maidenProfile.text(`(${data.profile.maiden_name})`);
+					};
 					if (data.profile.birth_city) {
 						city_birth.text(data.profile.birth_city);
 					};
@@ -10985,7 +11014,7 @@ $(document).ready(function () {
 						dieProfile.text(preDie);
 						timelinedieProfile.text(preDie);
 					} else {
-						isLife();
+						isLife(data.profile.profile_mine);
 					};
 					// var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
 					// var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
@@ -11001,6 +11030,9 @@ $(document).ready(function () {
 					nameProfile.text(data.profile.last_name);
 					surmaneProfile.text(data.profile.first_name);
 					patronimycProfile.text(data.profile.patronymic);
+					if (data.profile.maiden_name) {
+						maidenProfile.text(`(${data.profile.maiden_name})`);
+					};
 					if (data.profile.short_life_1) {
 						shortlife1.text(data.profile.short_life_1);
 					};
@@ -11027,7 +11059,7 @@ $(document).ready(function () {
 						$('.brief__location').css('display', 'none');
 						$('.data-tab-content').css('display', 'none');
 						$('.menu__item').css('pointer-events', 'none').css('opacity', '.5');
-						$('.profile__data').append(`<p class="life-profile-notification">Это закрытая анкета</p>`)
+						$('.profile__data').append(`<p class="life-profile-notification">Это закрытая анкета</p>`);
 						isNotParentUser();
 					} else {
 						if (data.profile.cementry_name) {
@@ -11087,8 +11119,10 @@ $(document).ready(function () {
 						isNotParentUser();
 					}
 				};
+			})
+			.then(() => {
 				$('#p_prldr').fadeOut('slow');
-
+				addEvents(userParent, currentProfile);
 			})
 			.catch(error => {
 				console.error('error1:', error);
@@ -11272,7 +11306,7 @@ $(document).ready(function () {
 				};
 			}
 
-			console.log(edit_data);
+			//console.log(edit_data);
 			fetch(
 				`${api_url}update_profile`,
 				{
@@ -11580,12 +11614,12 @@ $(document).ready(function () {
 
 
 	//edit text of questions************************
-	function sendQuestions(tetx) {
+	function sendQuestions(text) {
 		fetch(
 			`${api_url}update_highlight`,
 			{
 				method: 'POST',
-				body: JSON.stringify(tetx),
+				body: JSON.stringify(text),
 				headers: {
 					'Authorization': 'Token token=' + cookie_token,
 					'Content-Type': 'application/json'
@@ -11732,28 +11766,89 @@ $(document).ready(function () {
 
 
 	//add event to candle and bookmark***************
-	setTimeout(function () {
+	function addEvents(user, targetUser) {
 		//Show candle fire
 		$('#candle').click(function () {
 			$('#candle').toggleClass('active');
 		});
 		//change icon bookmark when click
 		$('#bookmark').click(function () {
+			const bookmark = {
+				user_id: user,
+				profile_id: targetUser
+			};
 			if ($(this).hasClass('active')) {
 				$(this).toggleClass('active');
 				$(this).attr('src', './img/bookmark.svg');
+				fetch(
+					`${api_url}delete_profile_from_favorite`,
+					{
+						method: 'DELETE',
+						body: JSON.stringify(bookmark),
+						headers: {
+							'Authorization': 'Token token=' + cookie_token,
+							'Content-Type': 'application/json'
+						}
+					})
+					.then($('body').css('opacity', 0.5))
+					.then(response => response.json())
+					.then(data => {
+						if (data) {
+							console.log("success send");
+							//console.log('Data:', JSON.stringify(data));
+							showErrorSuccess('Анкета удалена из закладок', 1500);
+							$('body').css('opacity', 1);
+						} else {
+							showErrorSuccess('Ошибка,попробуйте еще', 1500);
+							$('body').css('opacity', 1);
+						}
+
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess('Ошибка соединения', 1500);
+						$('body').css('opacity', 1);
+					});
+
 			} else {
 				$(this).attr('src', './img/bookmark-black.svg');
 				$(this).toggleClass('active');
-			}
+				fetch(
+					`${api_url}add_profile_to_favorite`,
+					{
+						method: 'POST',
+						body: JSON.stringify(bookmark),
+						headers: {
+							'Authorization': 'Token token=' + cookie_token,
+							'Content-Type': 'application/json'
+						}
+					})
+					.then($('body').css('opacity', 0.5))
+					.then(response => response.json())
+					.then(data => {
+						if (data) {
+							console.log("success send");
+							//console.log('Data:', JSON.stringify(data));
+							showErrorSuccess('Анкета добавлена в закладки', 1500);
+							$('body').css('opacity', 1);
+						} else {
+							showErrorSuccess('Ошибка,попробуйте еще', 1500);
+							$('body').css('opacity', 1);
+						}
+
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess('Ошибка соединения', 1500);
+						$('body').css('opacity', 1);
+					});
+			};
 		});
 		//show text more description*******************************
 		$('.brief__descr').click(function () {
 			$(this).toggleClass('active');
 		});
-
-
-	}, 0);
+	};
 
 	//load more timeline******************************************
 	function initMore() {
@@ -11773,11 +11868,8 @@ $(document).ready(function () {
 
 
 	//Exit account***************************************************
-	function deleteCookie(name) {
-		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-	};
 	$('#logout').click(function () {
-		deleteCookie(cookie_name_token)
+		deleteCookie(cookie_name_token);
 		window.location.reload();
 
 	});
@@ -11921,6 +12013,7 @@ $(document).ready(function () {
 				.catch(error => {
 					console.log('error:', error);
 					showErrorSuccess('Ошибка соединения', 1000);
+					deleteCookie(cookie_name_token);
 					window.location.reload();
 				});
 		}
@@ -11977,11 +12070,14 @@ $(document).ready(function () {
 					.catch(error => {
 						console.log('error:', error);
 						showErrorSuccess('Ошибка подключения', 1000);
+						deleteCookie(cookie_name_token);
 						window.location.reload();
 					});
 			}
 			catch (err) {
 				console.log(err);
+				deleteCookie(cookie_name_token);
+				window.location.reload();
 			}
 		}
 
