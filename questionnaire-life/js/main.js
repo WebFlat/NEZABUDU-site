@@ -10693,7 +10693,7 @@ $(document).ready(function () {
 			.then(response => response.json())
 			.then(data => {
 				console.log('wellcome');
-				console.log('Data:', JSON.stringify(data));
+				//console.log('Data:', JSON.stringify(data));
 				userParent = data.user.id;
 				user = true;
 				userAvatar = data.user.avatar;
@@ -10734,7 +10734,7 @@ $(document).ready(function () {
 
 	//if user parent*************
 	function parentUser() {
-		$('#candle').remove();
+		//$('#candle').remove();
 		$('#bookmark').remove();
 	}
 
@@ -10743,6 +10743,7 @@ $(document).ready(function () {
 		$('.brief__location').remove();
 		$('.brief__end').remove();
 		$('#candle').remove();
+		$('#dash').remove();
 		//$('#bookmark').remove();
 		$('.share__support').remove();
 		if (mine == true) {
@@ -10820,15 +10821,25 @@ $(document).ready(function () {
 			$('#ageSection3').remove();
 			$('#ageSection4').remove();
 			$('#ageSection5').remove();
+			$('#preyouth').remove();
+			$('#youth').remove();
+			$('#ripeness').remove();
+			$('#elderhood').remove();
 		} else if (age < 22) {
 			$('#ageSection3').remove();
 			$('#ageSection4').remove();
 			$('#ageSection5').remove();
+			$('#youth').remove();
+			$('#ripeness').remove();
+			$('#elderhood').remove();
 		} else if (age < 41) {
 			$('#ageSection4').remove();
 			$('#ageSection5').remove();
+			$('#ripeness').remove();
+			$('#elderhood').remove();
 		} else if (age < 66) {
 			$('#ageSection5').remove();
+			$('#elderhood').remove();
 		};
 	};
 
@@ -10923,6 +10934,9 @@ $(document).ready(function () {
 						};
 						dieProfile.text(preDie);
 						timelinedieProfile.text(preDie);
+						if (data.profile.death_cause) {
+							cause.text(data.profile.death_cause);
+						};
 					} else {
 						isLife(data.profile.profile_mine);
 					};
@@ -11177,11 +11191,11 @@ $(document).ready(function () {
 		} else {
 			$('#close').click();
 		};
-		if (allData.profile.last_name != null) {
-			userSurname.val(allData.profile.last_name);
-		}
 		if (allData.profile.first_name != null) {
-			userName.val(allData.profile.first_name);
+			userSurname.val(allData.profile.first_name);
+		}
+		if (allData.profile.last_name != null) {
+			userName.val(allData.profile.last_name);
 		}
 		if (allData.profile.patronymic != null) {
 			userPatronymic.val(allData.profile.patronymic);
@@ -12091,7 +12105,7 @@ $(document).ready(function () {
 
 	//send story timeline**************************
 	function validate_event() {
-		if (data_event.val() != '' && category_event.val() != '' && place_event.val() != '' && title_event.val() != '' && text_event.val() != '') {
+		if (data_event.val() != '' && category_event.val() != '') {
 			return true;
 		} else {
 			return false;
@@ -12115,7 +12129,7 @@ $(document).ready(function () {
 			profile_id: currentProfile
 		};
 		if (timeline_event.event_img == './img/default-foto.png') {
-			timeline_event.event_img = '../img/default-bg-img.webp';
+			timeline_event.event_img = './img/default-bg-img.webp';
 		};
 		//console.log(timeline_event);
 		if (validate_event()) {
@@ -12737,38 +12751,38 @@ $(document).ready(function () {
 
 
 	//upload foto to fotoalbum****************************
-	function hideAddfoto() {
-		var foto = $('.add-story__foto');
-		// console.log(foto.length);
-		if (foto.length >= 1) {
-			$('.def-btn').hide();
-		} else {
-			$('.def-btn').show();
-		};
-	};
+	// function hideAddfoto() {
+	// 	var foto = $('.add-story__foto');
+	// 	// console.log(foto.length);
+	// 	if (foto.length >= 1) {
+	// 		$('.def-btn').hide();
+	// 	} else {
+	// 		$('.def-btn').show();
+	// 	};
+	// };
 
-	$('#story_foto').change(function (e) {
-		var input = e.target;
-		var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-with-white.png"></span></div>');
-		var reader = new FileReader();
-		reader.onload = function () {
-			var dataURL = reader.result;
-			var output = elem.children();
-			output.attr('src', dataURL);
-		};
-		$(elem).insertBefore($('.def-btn'));
-		reader.readAsDataURL(input.files[0]);
-		delFoto();
-		hideAddfoto();
+	// $('#story_foto').change(function (e) {
+	// 	var input = e.target;
+	// 	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-with-white.png"></span></div>');
+	// 	var reader = new FileReader();
+	// 	reader.onload = function () {
+	// 		var dataURL = reader.result;
+	// 		var output = elem.children();
+	// 		output.attr('src', dataURL);
+	// 	};
+	// 	$(elem).insertBefore($('.def-btn'));
+	// 	reader.readAsDataURL(input.files[0]);
+	// 	delFoto();
+	// 	hideAddfoto();
+	// });
+	//delete foto in form************************
+	$('.add-story__del').on('click', function () {
+		console.log('click');
+		var targetFoto = $('#output2');
+		targetFoto.attr('src', './img/default-foto.png');
+		//hideAddfoto();
 	});
-	//delete foto in form*************************
-	function delFoto() {
-		$('.add-story__foto-delete').click(function (e) {
-			var targetFoto = $(this).parent();
-			targetFoto.remove();
-			hideAddfoto();
-		});
-	};
+
 
 
 
@@ -12973,9 +12987,10 @@ async function loadWidget() {
 			}
 			hiddenInput.value = data["url"];
 			let editFotoUrl = $('#edit-foto').val();
-			console.log(editFotoUrl);
+			//console.log(editFotoUrl);
 			if (editFotoUrl) {
 				output2.attr('src', editFotoUrl);
+				$('.add-story__del').show();
 			}
 			const event = new Event('fileUploadSuccess')
 			hiddenInput.dispatchEvent(event)
@@ -13007,6 +13022,6 @@ async function loadWidget() {
 		locations.forEach(setId);
 		locations.forEach(uniqueWidget);
 	});
-};
 
+};
 loadWidget();

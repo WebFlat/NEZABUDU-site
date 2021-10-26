@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>НЕЗАБУДУ- место сохранения воспоминаний и истории о своей жизни и жизни своих предков.</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -537,7 +537,7 @@
 		                                    </h6>
 		                                    <div class="brief__years">
 		                                        <span class="brief__both"></span>
-		                                        <span> - </span>
+		                                        <span id="dash"> - </span>
 		                                        <span class="brief__die"></span>
 		                                        <span class="brief__life-long">
 		                                            (
@@ -1314,6 +1314,7 @@
 		                <span class="add-story__btn def-btn">
 		                    <input type="hidden" name="img" data-preview="false" id="edit-foto" class="simple-file-upload">
 		                    <img src="./img/default-foto.png" alt="add" id="output2">
+		                    <img src="./img/trash-with-white.png" class="add-story__del">
 		                </span>
 		            </div>
 		        </div>
@@ -1335,9 +1336,6 @@
 	</section>
 	<!-- скрипты -->
 	<script src="js/main.min.js"></script>
-
-
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1CqxmxvB0H0I_KZJArCWzNvdFmegf0Qo"></script> -->
 </body>
 
 </html>

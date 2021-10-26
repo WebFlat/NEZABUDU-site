@@ -10486,7 +10486,6 @@ $(document).ready(function () {
     //Registration user**************************************************
     registration.click(function (e) {
         e.preventDefault();
-        registration.attr('disabled', true);
         var data = {
             first_name: userName.val(),
             last_name: userSoname.val(),
@@ -10516,14 +10515,11 @@ $(document).ready(function () {
                     } else {
                         showErrorSuccess("Такой пользователь уже существует", 2000);
                         clearInput();
-                        //registration.attr('disabled', false);
                     }
-
                 })
                 .catch(error => {
                     console.log('error:', error);
                     showErrorSuccess("Ошибка соединения", 1000);
-                    //registration.attr('disabled', false);
                 });
         };
     });
@@ -10581,7 +10577,7 @@ $(document).ready(function () {
                         deleteCookie(cookie_name_token);
                         showErrorSuccess('Ошибка подключения', 1000);
                         window.location.reload();
-                    });
+                    })
             }
             catch (err) {
                 console.log(err);

@@ -11109,9 +11109,9 @@ $(document).ready(function () {
 				//console.log(data_users);
 				user = true;
 				userAvatar = data.user.avatar;
-				userName = data.user.first_name;
+				userName = data.user.last_name;
 				userPatronymic = data.user.patronymic;
-				userSurname = data.user.last_name;
+				userSurname = data.user.first_name;
 				userTel = data.user.tel_number;
 				userEmail = data.user.email;
 				userBoth = data.user.birth_date;
@@ -11326,8 +11326,8 @@ $(document).ready(function () {
 			passToSend = newPassword;
 			if (checkDate !== '') {
 				data = {
-					first_name: $('#userName').val(),
-					last_name: $('#userSurname').val(),
+					first_name: $('#userSurname').val(),
+					last_name: $('#userName').val(),
 					patronymic: $('#patronymic').val(),
 					tel_number: $('#userTel').val(),
 					email: $('#userEmail').val(),
@@ -11337,8 +11337,8 @@ $(document).ready(function () {
 				}
 			} else {
 				data = {
-					first_name: $('#userName').val(),
-					last_name: $('#userSurname').val(),
+					first_name: $('#userSurname').val(),
+					last_name: $('#userName').val(),
 					patronymic: $('#patronymic').val(),
 					tel_number: $('#userTel').val(),
 					email: $('#userEmail').val(),
@@ -11349,8 +11349,8 @@ $(document).ready(function () {
 		} else {
 			if (checkDate !== '') {
 				data = {
-					first_name: $('#userName').val(),
-					last_name: $('#userSurname').val(),
+					first_name: $('#userSurname').val(),
+					last_name: $('#userName').val(),
 					patronymic: $('#patronymic').val(),
 					tel_number: $('#userTel').val(),
 					email: $('#userEmail').val(),
@@ -11359,8 +11359,8 @@ $(document).ready(function () {
 				}
 			} else {
 				data = {
-					first_name: $('#userName').val(),
-					last_name: $('#userSurname').val(),
+					first_name: $('#userSurname').val(),
+					last_name: $('#userName').val(),
 					patronymic: $('#patronymic').val(),
 					tel_number: $('#userTel').val(),
 					email: $('#userEmail').val(),
@@ -11468,7 +11468,6 @@ $(document).ready(function () {
 		if (userAvatar) {
 			$('#user-icon').attr('src', userAvatar);
 		}
-		$('#userSurname').val(userSurname);
 	});
 
 
