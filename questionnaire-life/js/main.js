@@ -10697,7 +10697,7 @@ $(document).ready(function () {
 				userParent = data.user.id;
 				user = true;
 				userAvatar = data.user.avatar;
-				bookmark = data.favorite_profiles;
+				bookmark = data.favorite_profiles_id;
 				isBookmark(bookmark);
 				confirmUser();
 				loadQuestionnaries();
@@ -10714,7 +10714,7 @@ $(document).ready(function () {
 	function isBookmark(data) {
 		$.each(data, function (index, value) {
 			if (value == currentProfile) {
-				$('#bookmark').addClass('active');
+				$('#bookmark').addClass('active').attr('src', './img/bookmark-black.svg');
 			} else {
 				return false;
 			};

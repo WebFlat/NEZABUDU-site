@@ -11115,7 +11115,6 @@ $(document).ready(function () {
 				userTel = data.user.tel_number;
 				userEmail = data.user.email;
 				userBoth = data.user.birth_date;
-				password = data.user.password;
 				userId = data.user.id;
 				confirmUser();
 				var currentTab = window.location.hash;
@@ -11303,8 +11302,8 @@ $(document).ready(function () {
 			showErrorSuccess("Пароли не совпадают", 1000);
 			return false;
 		} else {
-			return true;
-		}
+			return new_pass;
+		};
 	};
 
 
@@ -11320,40 +11319,57 @@ $(document).ready(function () {
 		e.preventDefault();
 		var data = {};
 		var passToSend = '';
-		var oldPass = $('#password').val()
 		//var confirmNewPass = $('#confirmPassword').val();
 		var newPassword = $('#newPassword').val();
 		var checkDate = $('#userBothDate').val();
-		if (newPassword === oldPass || newPassword == '') {
-			passToSend = oldPass;
-		} else {
+		if (validatePass()) {
 			passToSend = newPassword;
-		}
-
-		if (checkDate !== '') {
-			data = {
-				first_name: $('#userName').val(),
-				last_name: $('#userSurname').val(),
-				patronymic: $('#patronymic').val(),
-				tel_number: $('#userTel').val(),
-				email: $('#userEmail').val(),
-				birth_date: $('#userBothDate').val(),
-				avatar: $('#user-icon').attr('src'),
-				password: passToSend
-			}
+			if (checkDate !== '') {
+				data = {
+					first_name: $('#userName').val(),
+					last_name: $('#userSurname').val(),
+					patronymic: $('#patronymic').val(),
+					tel_number: $('#userTel').val(),
+					email: $('#userEmail').val(),
+					birth_date: $('#userBothDate').val(),
+					avatar: $('#user-icon').attr('src'),
+					password: passToSend
+				}
+			} else {
+				data = {
+					first_name: $('#userName').val(),
+					last_name: $('#userSurname').val(),
+					patronymic: $('#patronymic').val(),
+					tel_number: $('#userTel').val(),
+					email: $('#userEmail').val(),
+					avatar: $('#user-icon').attr('src'),
+					password: passToSend
+				};
+			};
 		} else {
-			data = {
-				first_name: $('#userName').val(),
-				last_name: $('#userSurname').val(),
-				patronymic: $('#patronymic').val(),
-				tel_number: $('#userTel').val(),
-				email: $('#userEmail').val(),
-				avatar: $('#user-icon').attr('src'),
-				password: passToSend
+			if (checkDate !== '') {
+				data = {
+					first_name: $('#userName').val(),
+					last_name: $('#userSurname').val(),
+					patronymic: $('#patronymic').val(),
+					tel_number: $('#userTel').val(),
+					email: $('#userEmail').val(),
+					birth_date: $('#userBothDate').val(),
+					avatar: $('#user-icon').attr('src'),
+				}
+			} else {
+				data = {
+					first_name: $('#userName').val(),
+					last_name: $('#userSurname').val(),
+					patronymic: $('#patronymic').val(),
+					tel_number: $('#userTel').val(),
+					email: $('#userEmail').val(),
+					avatar: $('#user-icon').attr('src'),
+				};
 			};
 		};
 		//console.log(data);
-		if (validateTel() && validatePass()) {
+		if (validateTel()) {
 			fetch(
 				`${api_url}user_update`,
 				{
