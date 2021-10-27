@@ -11155,7 +11155,7 @@ $(document).ready(function () {
 			if (data[key].death_date) {
 				die = data[key].death_date;
 			}
-			if (data[key].avatar == '') {
+			if (data[key].avatar == '' || data[key].avatar == './img/default-foto.png') {
 				data[key].avatar = "./img/user-def.png";
 			}
 			if (data[key].profile_mine && !data[key].death_date) {
@@ -11208,7 +11208,7 @@ $(document).ready(function () {
 			if (data[key].death_date) {
 				die = data[key].death_date;
 			}
-			if (data[key].avatar == '') {
+			if (data[key].avatar == '' || data[key].avatar == './img/default-foto.png') {
 				data[key].avatar = "./img/user-def.png";
 			}
 			if (data[key].death_date == null) {
