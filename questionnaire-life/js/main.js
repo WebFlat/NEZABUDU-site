@@ -10794,7 +10794,7 @@ $(document).ready(function () {
 		if (dataToRender != []) {
 			for (var k = 0; k < dataToRender.length; k++) {
 				if (!dataToRender[k].event_img) {
-					dataToRender[k].event_img = '../img/default-bg-img.webp';
+					dataToRender[k].event_img = './img/default-bg-img.webp';
 				}
 				out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img src="${dataToRender[k].event_img}" alt="photo" class="brief__photo" loading="lazy"></a>`;
 			}
