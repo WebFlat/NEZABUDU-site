@@ -10597,536 +10597,192 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-
-function loadQuestionnaries() {
-    $.getJSON('questionnaries.json', function (data) {
-        var out = '';
-        for (var key in data) {
-            if (data[key].avatar == '') {
-                data[key].avatar = "./img/user-def.png";
-                if (data[key].isLife == true) {
-                    out += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span></div><div class="user__btns"><div class="user__likes"><img class="user__like-icon" src="./img/heart.svg" alt="heart"><span class="user__likeCount">' + data[key].likesCount + '</span></div><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-                }
-            } else {
-                out += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].surname + '</span><span></span><span class="user__name">' + data[key].name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + data[key].both + '</span><span> - </span><span class="user__die">' + data[key].die + '</span></div><img class="user__candle" src="./img/candle.png" alt="candle"><img class="user__candle-fire" src="./img/candle-fire.png" alt="candle-fire"></div><div class="user__btns"><a href="' + data[key].link + '" class="user__link-more">Читать дальше...</a></div></div></div>';
-            }
-        }
-        $('.personality-person__wrap').html(out);
-
-
-
-
-        //change icon like anb bookmarks when click*********
-        $('.user__candle').on('click', function () {
-            if ($(this).next().hasClass('active')) {
-                $(this).next().toggleClass('active');
-            } else {
-                $(this).next().toggleClass('active');
-
-            }
-        })
-        $('.user__like-icon').on('click', function () {
-            var countNum = $(this).next('.user__likeCount');
-            var count = countNum.text();
-            count = parseInt(count);
-            if ($(this).hasClass('active')) {
-                $(this).toggleClass('active');
-                $(this).attr('src', './img/heart.svg');
-                if (count > 0) {
-                    count = count - 1;
-                    countNum.html(count);
-                }
-            } else {
-                $(this).attr('src', './img/heart-black.svg');
-                $(this).toggleClass('active');
-                count = count + 1;
-                countNum.html(count);
-            }
-        })
-    });
-}
-
-loadQuestionnaries();
-
-//Init pagination**************************************
-setTimeout(function () {
-
-    var items = $('.user');
-    var numItems = items.length;
-    var perPage = 8;
-
-
-    items.slice(perPage).hide();
-
-    $('#pagination-container').pagination({
-        items: numItems,
-        itemsOnPage: perPage,
-        edges: 1,
-        displayedPages: 3,
-        prevText: '<',
-        nextText: '>',
-        cssStyle: 'light-theme',
-        onPageClick: function (pageNumber) {
-            var showFrom = perPage * (pageNumber - 1);
-            var showTo = showFrom + perPage;
-            items.hide().slice(showFrom, showTo).show();
-        }
-    });
-}, 1000);
-/**
-* simplePagination.js v1.6
-* A simple jQuery pagination plugin.
-* http://flaviusmatis.github.com/simplePagination.js/
-*
-* Copyright 2012, Flavius Matis
-* Released under the MIT license.
-* http://flaviusmatis.github.com/license.html
-*/
-
-(function($){
-
-	var methods = {
-		init: function(options) {
-			var o = $.extend({
-				items: 1,
-				itemsOnPage: 1,
-				pages: 0,
-				displayedPages: 5,
-				edges: 2,
-				currentPage: 0,
-				useAnchors: true,
-				hrefTextPrefix: '#page-',
-				hrefTextSuffix: '',
-				prevText: 'Prev',
-				nextText: 'Next',
-				ellipseText: '&hellip;',
-				ellipsePageSet: true,
-				cssStyle: 'light-theme',
-				listStyle: '',
-				labelMap: [],
-				selectOnClick: true,
-				nextAtFront: false,
-				invertPageOrder: false,
-				useStartEdge : true,
-				useEndEdge : true,
-				onPageClick: function(pageNumber, event) {
-					// Callback triggered when a page is clicked
-					// Page number is given as an optional parameter
-				},
-				onInit: function() {
-					// Callback triggered immediately after initialization
-				}
-			}, options || {});
-
-			var self = this;
-
-			o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
-			if (o.currentPage)
-				o.currentPage = o.currentPage - 1;
-			else
-				o.currentPage = !o.invertPageOrder ? 0 : o.pages - 1;
-			o.halfDisplayed = o.displayedPages / 2;
-
-			this.each(function() {
-				self.addClass(o.cssStyle + ' simple-pagination').data('pagination', o);
-				methods._draw.call(self);
-			});
-
-			o.onInit();
-
-			return this;
-		},
-
-		selectPage: function(page) {
-			methods._selectPage.call(this, page - 1);
-			return this;
-		},
-
-		prevPage: function() {
-			var o = this.data('pagination');
-			if (!o.invertPageOrder) {
-				if (o.currentPage > 0) {
-					methods._selectPage.call(this, o.currentPage - 1);
-				}
-			} else {
-				if (o.currentPage < o.pages - 1) {
-					methods._selectPage.call(this, o.currentPage + 1);
-				}
-			}
-			return this;
-		},
-
-		nextPage: function() {
-			var o = this.data('pagination');
-			if (!o.invertPageOrder) {
-				if (o.currentPage < o.pages - 1) {
-					methods._selectPage.call(this, o.currentPage + 1);
-				}
-			} else {
-				if (o.currentPage > 0) {
-					methods._selectPage.call(this, o.currentPage - 1);
-				}
-			}
-			return this;
-		},
-
-		getPagesCount: function() {
-			return this.data('pagination').pages;
-		},
-
-		setPagesCount: function(count) {
-			this.data('pagination').pages = count;
-		},
-
-		getCurrentPage: function () {
-			return this.data('pagination').currentPage + 1;
-		},
-
-		destroy: function(){
-			this.empty();
-			return this;
-		},
-
-		drawPage: function (page) {
-			var o = this.data('pagination');
-			o.currentPage = page - 1;
-			this.data('pagination', o);
-			methods._draw.call(this);
-			return this;
-		},
-
-		redraw: function(){
-			methods._draw.call(this);
-			return this;
-		},
-
-		disable: function(){
-			var o = this.data('pagination');
-			o.disabled = true;
-			this.data('pagination', o);
-			methods._draw.call(this);
-			return this;
-		},
-
-		enable: function(){
-			var o = this.data('pagination');
-			o.disabled = false;
-			this.data('pagination', o);
-			methods._draw.call(this);
-			return this;
-		},
-
-		updateItems: function (newItems) {
-			var o = this.data('pagination');
-			o.items = newItems;
-			o.pages = methods._getPages(o);
-			this.data('pagination', o);
-			methods._draw.call(this);
-		},
-
-		updateItemsOnPage: function (itemsOnPage) {
-			var o = this.data('pagination');
-			o.itemsOnPage = itemsOnPage;
-			o.pages = methods._getPages(o);
-			this.data('pagination', o);
-			methods._selectPage.call(this, 0);
-			return this;
-		},
-
-		getItemsOnPage: function() {
-			return this.data('pagination').itemsOnPage;
-		},
-
-		_draw: function() {
-			var	o = this.data('pagination'),
-				interval = methods._getInterval(o),
-				i,
-				tagName;
-
-			methods.destroy.call(this);
-
-			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
-
-			var $panel = tagName === 'UL' ? this : $('<ul' + (o.listStyle ? ' class="' + o.listStyle + '"' : '') + '></ul>').appendTo(this);
-
-			// Generate Prev link
-			if (o.prevText) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev'});
-			}
-
-			// Generate Next link (if option set for at front)
-			if (o.nextText && o.nextAtFront) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
-			}
-
-			// Generate start edges
-			if (!o.invertPageOrder) {
-				if (interval.start > 0 && o.edges > 0) {
-					if(o.useStartEdge) {
-						var end = Math.min(o.edges, interval.start);
-						for (i = 0; i < end; i++) {
-							methods._appendItem.call(this, i);
-						}
-					}
-					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (interval.start - o.edges == 1) {
-						methods._appendItem.call(this, o.edges);
-					}
-				}
-			} else {
-				if (interval.end < o.pages && o.edges > 0) {
-					if(o.useStartEdge) {
-						var begin = Math.max(o.pages - o.edges, interval.end);
-						for (i = o.pages - 1; i >= begin; i--) {
-							methods._appendItem.call(this, i);
-						}
-					}
-
-					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (o.pages - o.edges - interval.end == 1) {
-						methods._appendItem.call(this, interval.end);
-					}
-				}
-			}
-
-			// Generate interval links
-			if (!o.invertPageOrder) {
-				for (i = interval.start; i < interval.end; i++) {
-					methods._appendItem.call(this, i);
-				}
-			} else {
-				for (i = interval.end - 1; i >= interval.start; i--) {
-					methods._appendItem.call(this, i);
-				}
-			}
-
-			// Generate end edges
-			if (!o.invertPageOrder) {
-				if (interval.end < o.pages && o.edges > 0) {
-					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (o.pages - o.edges - interval.end == 1) {
-						methods._appendItem.call(this, interval.end);
-					}
-					if(o.useEndEdge) {
-						var begin = Math.max(o.pages - o.edges, interval.end);
-						for (i = begin; i < o.pages; i++) {
-							methods._appendItem.call(this, i);
-						}
-					}
-				}
-			} else {
-				if (interval.start > 0 && o.edges > 0) {
-					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (interval.start - o.edges == 1) {
-						methods._appendItem.call(this, o.edges);
-					}
-
-					if(o.useEndEdge) {
-						var end = Math.min(o.edges, interval.start);
-						for (i = end - 1; i >= 0; i--) {
-							methods._appendItem.call(this, i);
-						}
-					}
-				}
-			}
-
-			// Generate Next link (unless option is set for at front)
-			if (o.nextText && !o.nextAtFront) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
-			}
-
-			if (o.ellipsePageSet && !o.disabled) {
-				methods._ellipseClick.call(this, $panel);
-			}
-
-		},
-
-		_getPages: function(o) {
-			var pages = Math.ceil(o.items / o.itemsOnPage);
-			return pages || 1;
-		},
-
-		_getInterval: function(o) {
-			return {
-				start: Math.ceil(o.currentPage > o.halfDisplayed ? Math.max(Math.min(o.currentPage - o.halfDisplayed, (o.pages - o.displayedPages)), 0) : 0),
-				end: Math.ceil(o.currentPage > o.halfDisplayed ? Math.min(o.currentPage + o.halfDisplayed, o.pages) : Math.min(o.displayedPages, o.pages))
-			};
-		},
-
-		_appendItem: function(pageIndex, opts) {
-			var self = this, options, $link, o = self.data('pagination'), $linkWrapper = $('<li></li>'), $ul = self.find('ul');
-
-			pageIndex = pageIndex < 0 ? 0 : (pageIndex < o.pages ? pageIndex : o.pages - 1);
-
-			options = {
-				text: pageIndex + 1,
-				classes: ''
-			};
-
-			if (o.labelMap.length && o.labelMap[pageIndex]) {
-				options.text = o.labelMap[pageIndex];
-			}
-
-			options = $.extend(options, opts || {});
-
-			if (pageIndex == o.currentPage || o.disabled) {
-				if (o.disabled || options.classes === 'prev' || options.classes === 'next') {
-					$linkWrapper.addClass('disabled');
-				} else {
-					$linkWrapper.addClass('active');
-				}
-				$link = $('<span class="current">' + (options.text) + '</span>');
-			} else {
-				if (o.useAnchors) {
-					$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
-				} else {
-					$link = $('<span >' + (options.text) + '</span>');
-				}
-				$link.click(function(event){
-					return methods._selectPage.call(self, pageIndex, event);
-				});
-			}
-
-			if (options.classes) {
-				$link.addClass(options.classes);
-			}
-
-			$linkWrapper.append($link);
-
-			if ($ul.length) {
-				$ul.append($linkWrapper);
-			} else {
-				self.append($linkWrapper);
-			}
-		},
-
-		_selectPage: function(pageIndex, event) {
-			var o = this.data('pagination');
-			o.currentPage = pageIndex;
-			if (o.selectOnClick) {
-				methods._draw.call(this);
-			}
-			return o.onPageClick(pageIndex + 1, event);
-		},
-
-
-		_ellipseClick: function($panel) {
-			var self = this,
-				o = this.data('pagination'),
-				$ellip = $panel.find('.ellipse');
-			$ellip.addClass('clickable').parent().removeClass('disabled');
-			$ellip.click(function(event) {
-				if (!o.disable) {
-					var $this = $(this),
-						val = (parseInt($this.parent().prev().text(), 10) || 0) + 1;
-					$this
-						.html('<input type="number" min="1" max="' + o.pages + '" step="1" value="' + val + '">')
-						.find('input')
-						.focus()
-						.click(function(event) {
-							// prevent input number arrows from bubbling a click event on $ellip
-							event.stopPropagation();
-						})
-						.keyup(function(event) {
-							var val = $(this).val();
-							if (event.which === 13 && val !== '') {
-								// enter to accept
-								if ((val>0)&&(val<=o.pages))
-								methods._selectPage.call(self, val - 1);
-							} else if (event.which === 27) {
-								// escape to cancel
-								$ellip.empty().html(o.ellipseText);
-							}
-						})
-						.bind('blur', function(event) {
-							var val = $(this).val();
-							if (val !== '') {
-								methods._selectPage.call(self, val - 1);
-							}
-							$ellip.empty().html(o.ellipseText);
-							return false;
-						});
-				}
-				return false;
-			});
-		}
-
-	};
-
-	$.fn.pagination = function(method) {
-
-		// Method calling logic
-		if (methods[method] && method.charAt(0) != '_') {
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else if (typeof method === 'object' || !method) {
-			return methods.init.apply(this, arguments);
-		} else {
-			$.error('Method ' +  method + ' does not exist on jQuery.pagination');
-		}
-
-	};
-
-})(jQuery);
+console.log("window loaded");
 jQuery(function ($) {
 	'use strict';
 
 
-	$(window).on('load', function () {
-		var $preloader = $('#p_prldr');
-		$preloader.delay(1000).fadeOut('slow');
-	});
 
-	//Зарегестрірованний юзер
+
+	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
+
+
+	function setCookie(name, value, days) {
+		var expires = "";
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+			expires = "; expires=" + date.toUTCString();
+		}
+		document.cookie = name + "=" + (value || "") + expires + "; path=/";
+	};
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
+	function deleteCookie(name) {
+		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	};
+
+	var cookie_name_token = "project_token";
+	var cookie_token = getCookie(cookie_name_token);
+	let wrapper = $('.personality-person .wrapper');
+
+
+	//show message notifications*********************************
+	function showErrorSuccess(textToShow, time) {
+		$('#error-message').addClass('show');
+		$('.success').text(textToShow);
+		setTimeout(() => {
+			$('#error-message').removeClass('show');
+		}, time);
+	};
+
+
+
+	//if Register user*********************************
 	var user = false;
-
+	var userAvatar = '';
+	var user_data = false;
+	function ifLogin() {
+		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
+			start();
+		} else {
+			confirmUser();
+			getProfileRandom();
+			$('#p_prldr').fadeOut('slow');
+		}
+	};
+	ifLogin();
 
 	//Icon user if login**************************
-	if (user) {
-		$('.enter').removeClass('active');
-		$('.loginIn').addClass('active');
-	} else {
-		$('.enter').addClass('active');
-		$('.loginIn').removeClass('active');
+	function confirmUser() {
+		if (user) {
+			$('#menu-guest').remove();
+			if (userAvatar) {
+				$('.header__user').attr('src', userAvatar);
+			};
+		} else {
+			$('#menu-user').remove();
+		};
 	};
-	if (!user.avatar === '') {
-		$('.header__user').src = user.avatar;
+
+	//if user auth************************************************
+	function start() {
+		fetch(
+			`${api_url}get_start_info`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('wellcome');
+				//console.log('Data:', JSON.stringify(data));
+				user = true;
+				userAvatar = data.user.avatar;
+				confirmUser();
+				getProfileRandom();
+				$('#p_prldr').fadeOut('slow');
+			})
+			.catch(error => {
+				console.error('error1:', error);
+				deleteCookie(cookie_name_token);
+				window.location.reload();
+			});
+
 	};
+
+
+
+	//Get profile random************************************************
+	function getProfileRandom() {
+		fetch(
+			`${api_url}get_random_profile`,
+			{
+				method: 'GET',
+				headers: {
+					//'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('pfofile load');
+				//console.log('Data:', JSON.stringify(data));
+				loadQuestionnaries(data.random_profiles, wrapper);
+				//initSlider();
+			})
+			.catch(error => {
+				console.error('error1:', error);
+				showErrorSuccess("Ошибка соединения", 1000);
+			});
+	};
+
+
+
+
+
+	function loadQuestionnaries(data, wrapper) {
+		let section = $('<div class="personality-person__wrap"></div>');
+		let out = '';
+		for (let key in data) {
+			if (key < 29) {
+				let birth = data[key].birth_date;
+				let die;
+				if (data[key].death_date) {
+					die = data[key].death_date;
+				}
+				if (data[key].avatar == '' || data[key].avatar == './img/default-foto.png') {
+					data[key].avatar = "./img/user-def.png";
+				}
+				if (data[key].death_date == null) {
+					if (data[key].profile_mine == true) {
+						out += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--mine"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+					} else {
+						out += '<div class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div>';
+					}
+				} else {
+					out += '<div class="user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><a href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</a></div></div></div>';
+				}
+				section.html(out);
+			}
+		}
+		wrapper.append(section);
+	};
+
+
+	//load more***************************************************
+	$('#loadMore').click(function (e) {
+		e.preventDefault();
+		getProfileRandom();
+	})
+
+
+	//Exit account***************************************************
+	$('#logout').click(function () {
+		deleteCookie(cookie_name_token);
+		window.location.reload();
+
+	});
+
 
 	//burger***************************************
+	$('.drawer-burg').click(function () {
+		burgerShow();
+	})
+	$('.drawer-close').on('click', function () {
+		burgerShow();
+		console.log('click');
+	})
 	function burgerShow() {
-		//User or guest
-		if (user) {
-			$('#menu-user').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		} else {
-			$('#menu-guest').toggleClass('open');
-			$('.burger').toggleClass('closed');
-			$('body').toggleClass('no-scroll');
-			$('.burger__bg-body').toggleClass('show-bgBody');
-		}
+		$('body').toggleClass('no-scroll');
 	};
-
-	$('.burger').click(function () {
-		burgerShow();
-
-	});
-	$('.nav__link').click(function () {
-		burgerShow();
-	});
-	$('.burger__bg-body').click(function (e) {
-		var container = $('.burger-wrap');
-		if (container.has(e.target).length === 0) {
-			burgerShow();
-		}
-	});
-
-
 
 
 
@@ -11150,6 +10806,212 @@ jQuery(function ($) {
 	})
 
 
+
+
+	//Registration input ****************************************************
+	var registration = $('#sendReg');
+	var formReg = $('#reg-form');
+	var userName = $('#reg-name');
+	var userSoname = $('#reg-soname');
+	var userPatronymic = $('#reg-patronymic');
+	var userTel = $('#reg-tel');
+	var userEmail = $('#reg-email');
+	var userPassword = $('#reg-password');
+
+
+	//Validate input field************************************************
+	function validateMail() {
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		var regEmail = $('#reg-email').val();
+		if (reg.test(regEmail) == false || regEmail == '') {
+			showErrorSuccess('Введите корректный e-mail', 1000);
+
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateSurname() {
+		//var reg = /^[A-zА-яЁё]+$/;
+		var surname = $('#reg-soname').val();
+		if (surname == '') {
+			showErrorSuccess('Введите фамилию', 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateName() {
+		//var reg = /^[A-zА-яЁё]+$/;
+		var name = $('#reg-name').val();
+		if (name == '') {
+			showErrorSuccess('Введите имя', 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	// function validateName() {
+	//     var reg = /^[А-Яа-яЁё\s]+$/;
+	//     var name = $('#reg-name').val();
+	//     if (reg.test(name) == false || name == '') {
+	//         $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+	//         return false;
+	//     } else {
+	//         return true;
+	//     }
+	// };
+	function validatePatronymic() {
+		//var reg = /^[A-zА-яЁё]+$/;
+		var patronymic = $('#reg-patronymic').val();
+		if (patronymic == '') {
+			showErrorSuccess('Введите отчество', 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validateTel() {
+		//var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+		var tel = $('#reg-tel').val();
+		if (tel == '') {
+			showErrorSuccess('Введите корректный телефон', 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+	function validatePass() {
+		var pass = $('#reg-password').val();
+		if (pass == '' || pass.length < 6) {
+			showErrorSuccess('Введите корректный пароль мин 6 символов', 1000);
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+	function clearInput() {
+		$('#reg-name').val('');
+		$('#reg-soname').val('');
+		$('#reg-patronymic').val('');
+		$('#reg-tel').val('');
+		$('#reg-email').val('');
+		$('#reg-password').val('');
+	};
+
+
+
+	//Registration user**************************************************
+	registration.click(function (e) {
+		e.preventDefault();
+		var data = {
+			first_name: userName.val(),
+			last_name: userSoname.val(),
+			patronymic: userPatronymic.val(),
+			tel_number: userTel.val(),
+			email: userEmail.val(),
+			password: userPassword.val(),
+		};
+		if (validateSurname() && validateName() && validatePatronymic() && validateTel() && validateMail() && validatePass()) {
+			fetch(
+				`${api_url}user_create`,
+				{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						// 'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(json => {
+
+					if (json.error == 0) {
+						console.log("success get token");
+						setCookie(cookie_name_token, json.token, 3600);
+						cookie_token = getCookie(cookie_name_token);
+						clearInput();
+						window.location.reload();
+						//$('.reg__btn-enter').addClass('active').click();
+					} else {
+						showErrorSuccess('Такой пользователь уже существует', 1000);
+						clearInput();
+					}
+
+				})
+				.catch(error => {
+					console.log('error:', error);
+					showErrorSuccess('Ошибка соединения', 1000);
+					deleteCookie(cookie_name_token);
+					window.location.reload();
+				});
+		}
+	});
+
+
+
+	//Auth user**************************************************
+	$('#authSend').click(function (e) {
+		e.preventDefault();
+		function validateMail() {
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			var email = $('#auth-email').val();
+			if (reg.test(email) == false || email == '') {
+				showErrorSuccess('Введите корректный e-mail', 1000);
+				return false;
+			} else {
+				return true;
+			}
+		}
+		var authPassword = $('#auth-password').val();
+		if (authPassword === '') {
+			showErrorSuccess('Введите пароль', 1000);
+		}
+		if (validateMail() && authPassword != '') {
+			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
+			//console.log(token_web);
+			try {
+
+				fetch(
+					`${api_url}token`,
+					{
+						method: 'GET',
+						headers: {
+							'Authorization': 'Basic ' + token_web,
+							'Content-Type': 'application/json'
+						}
+					})
+					.then(response => response.json())
+					.then(json => {
+						// console.log("token ", json)
+						if (typeof json.token !== 'undefined') {
+							console.log("success get token");
+							setCookie(cookie_name_token, json.token, 3600);
+							cookie_token = getCookie(cookie_name_token);
+							// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
+							window.location.reload();
+						} else {
+							showErrorSuccess('Проверьте логин и пароль', 1000);
+							clearInput();
+						}
+
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess('Ошибка подключения', 1000);
+						deleteCookie(cookie_name_token);
+						window.location.reload();
+					});
+			}
+			catch (err) {
+				console.log(err);
+				deleteCookie(cookie_name_token);
+				window.location.reload();
+			}
+		}
+
+	});
 
 
 
@@ -11178,139 +11040,53 @@ jQuery(function ($) {
 
 
 
-	$('.select__options').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
+	// $('.select__options').each(function () {
+	// 	var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled"></div>');
+	// 	$this.addClass('select-hidden');
+	// 	$this.wrap('<div class="select"></div>');
+	// 	$this.after('<div class="select-styled"></div>');
 
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
+	// 	var $styledSelect = $this.next('div.select-styled');
+	// 	$styledSelect.text($this.children('option').eq(0).text());
 
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
+	// 	var $list = $('<ul />', {
+	// 		'class': 'select-options'
+	// 	}).insertAfter($styledSelect);
 
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
+	// 	for (var i = 0; i < numberOfOptions; i++) {
+	// 		$('<li />', {
+	// 			text: $this.children('option').eq(i).text(),
+	// 			rel: $this.children('option').eq(i).val()
+	// 		}).appendTo($list);
+	// 	}
 
-		var $listItems = $list.children('li');
+	// 	var $listItems = $list.children('li');
 
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
+	// 	$styledSelect.click(function (e) {
+	// 		e.stopPropagation();
+	// 		$('div.select-styled.select-active').not(this).each(function () {
+	// 			$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
+	// 		});
+	// 		$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
+	// 	});
 
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
+	// 	$listItems.click(function (e) {
+	// 		e.stopPropagation();
+	// 		$styledSelect.text($(this).text()).removeClass('select-active');
+	// 		$this.val($(this).attr('rel'));
+	// 		$list.hide();
+	// 		//console.log($this.val());
+	// 	});
 
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
+	// 	$(document).click(function () {
+	// 		$styledSelect.removeClass('select-active');
+	// 		$list.hide();
+	// 	});
 
-	});
-	$('#lang').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
+	// });
 
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--lang"></div>');
-		$this.after('<div class="select-styled"></div>');
 
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options select-options--lang'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
-	$('#helps').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--helps"></div>');
-		$this.after('<div class="select-styled"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options select-options--helps'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
-		}
-
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', 'auto');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
-	});
 
 
 
@@ -11334,72 +11110,155 @@ jQuery(function ($) {
 
 
 	//Range**************************
-	var lowerSlider = document.querySelector('#lower'); //Lower value slider
-	var upperSlider = document.querySelector('#upper'); //Upper value slider
+	// var lowerSlider = document.querySelector('#lower'); //Lower value slider
+	// var upperSlider = document.querySelector('#upper'); //Upper value slider
 
-	var lowerVal = parseInt(lowerSlider.value); //Value of lower slider
-	var upperVal = parseInt(upperSlider.value); // Value of upper slider
+	// var lowerVal = parseInt(lowerSlider.value); //Value of lower slider
+	// var upperVal = parseInt(upperSlider.value); // Value of upper slider
 
-	var rangeColor = document.querySelector('#range-color'); //Range color
+	// var rangeColor = document.querySelector('#range-color'); //Range color
 
-	//When the upper value slider is moved.
-	upperSlider.oninput = function () {
-		lowerVal = parseInt(lowerSlider.value); //Get lower slider value
-		upperVal = parseInt(upperSlider.value); //Get upper slider value
+	// //When the upper value slider is moved.
+	// upperSlider.oninput = function () {
+	// 	lowerVal = parseInt(lowerSlider.value); //Get lower slider value
+	// 	upperVal = parseInt(upperSlider.value); //Get upper slider value
 
-		//If the upper value slider is LESS THAN the lower value slider plus one.
-		if (upperVal < lowerVal + 1) {
-			//The lower slider value is set to equal the upper value slider minus one.
-			lowerSlider.value = upperVal - 1;
-			//If the lower value slider equals its set minimum.
-			if (lowerVal == lowerSlider.min) {
-				//Set the upper slider value to equal 1.
-				upperSlider.value = 1;
+	// 	//If the upper value slider is LESS THAN the lower value slider plus one.
+	// 	if (upperVal < lowerVal + 1) {
+	// 		//The lower slider value is set to equal the upper value slider minus one.
+	// 		lowerSlider.value = upperVal - 1;
+	// 		//If the lower value slider equals its set minimum.
+	// 		if (lowerVal == lowerSlider.min) {
+	// 			//Set the upper slider value to equal 1.
+	// 			upperSlider.value = 1;
+	// 		}
+	// 	}
+
+
+	// 	//Setting the margin left of the middle range color.
+	// 	//Taking the value of the lower value times 10 and then turning it into a percentage.
+	// 	rangeColor.style.marginLeft = (lowerSlider.value) + '%';
+
+	// 	//Setting the width of the middle range color.
+	// 	//Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
+	// 	rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
+
+
+	// 	// console.log('upper value: ' + upperSlider.value);
+	// 	document.getElementById('upperValue').value = (upperSlider.value + ' год');
+	// };
+
+	// //When the lower value slider is moved.
+	// lowerSlider.oninput = function () {
+	// 	lowerVal = parseInt(lowerSlider.value); //Get lower slider value
+	// 	upperVal = parseInt(upperSlider.value); //Get upper slider value
+
+	// 	//If the lower value slider is GREATER THAN the upper value slider minus one.
+	// 	if (lowerVal > upperVal - 1) {
+	// 		//The upper slider value is set to equal the lower value slider plus one.
+	// 		upperSlider.value = lowerVal + 1;
+
+	// 		//If the upper value slider equals its set maximum.
+	// 		if (upperVal == upperSlider.max) {
+	// 			//Set the lower slider value to equal the upper value slider's maximum value minus one.
+	// 			lowerSlider.value = parseInt(upperSlider.max) - 1;
+	// 		}
+
+	// 	}
+
+	// 	//Setting the margin left of the middle range color.
+	// 	//Taking the value of the lower value times 10 and then turning it into a percentage.
+	// 	rangeColor.style.marginLeft = (lowerSlider.value) + '%';
+
+	// 	//Setting the width of the middle range color.
+	// 	//Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
+	// 	rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
+
+	// 	// console.log('lower value: ' + lowerSlider.value);
+	// 	document.getElementById('lowerValue').value = (lowerSlider.value + ' год');
+	// };
+
+
+
+
+	setTimeout(() => {
+
+		let languages = [
+			"Русский",
+			"Українська",
+			"English"
+
+		];
+
+		let selectLang = document.getElementById("select-language1");
+		let selectLang2 = document.getElementById("select-language2");
+		if (selectLang) {
+			autocomplete(selectLang, languages);
+		};
+		if (selectLang2) {
+			autocomplete(selectLang2, languages);
+		};
+
+		function autocomplete(inp, arr) {
+
+			let currentFocus;
+
+
+			inp.addEventListener("click", showAutocompleteList);
+
+			function addActive(x) {
+				if (!x) return false;
+				removeActive(x);
+				if (currentFocus >= x.length) currentFocus = 0;
+				if (currentFocus < 0) currentFocus = (x.length - 1);
+				x[currentFocus].classList.add("autocomplete-active");
+			}
+			function removeActive(x) {
+				for (var i = 0; i < x.length; i++) {
+					x[i].classList.remove("autocomplete-active");
+				}
+			}
+
+
+			function showAutocompleteList(e) {
+
+				inp.selectionStart = inp.value.length;
+				let a, b, i, k, val = this.value;
+				if (document.getElementById(this.id + "autocomplete-list")) {
+					closeAllLists();
+					//  if (!val) { return false; }
+				} else {
+					currentFocus = -1;
+					a = document.createElement("DIV");
+					a.setAttribute("id", this.id + "autocomplete-list");
+					a.setAttribute("class", "autocomplete-items");
+					this.parentNode.appendChild(a);
+					for (i = 0; i < arr.length; i++) {
+						b = document.createElement("DIV");
+						b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
+						b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+						b.addEventListener("click", function (e) {
+							inp.value = this.getElementsByTagName("input")[0].value;
+							closeAllLists();
+						});
+						a.appendChild(b);
+					}
+				}
+			}
+			document.addEventListener("click", function (e) {
+				if (e.target != inp) {
+					closeAllLists(e.target);
+				}
+			}, true);
+			function closeAllLists(elmnt) {
+				var x = document.getElementsByClassName("autocomplete-items");
+				for (var i = 0; i < x.length; i++) {
+					if (elmnt != x[i] && elmnt != inp) {
+						x[i].parentNode.removeChild(x[i]);
+					}
+				}
 			}
 		}
-
-
-		//Setting the margin left of the middle range color.
-		//Taking the value of the lower value times 10 and then turning it into a percentage.
-		rangeColor.style.marginLeft = (lowerSlider.value) + '%';
-
-		//Setting the width of the middle range color.
-		//Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
-		rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
-
-
-		// console.log('upper value: ' + upperSlider.value);
-		document.getElementById('upperValue').value = (upperSlider.value + ' год');
-	};
-
-	//When the lower value slider is moved.
-	lowerSlider.oninput = function () {
-		lowerVal = parseInt(lowerSlider.value); //Get lower slider value
-		upperVal = parseInt(upperSlider.value); //Get upper slider value
-
-		//If the lower value slider is GREATER THAN the upper value slider minus one.
-		if (lowerVal > upperVal - 1) {
-			//The upper slider value is set to equal the lower value slider plus one.
-			upperSlider.value = lowerVal + 1;
-
-			//If the upper value slider equals its set maximum.
-			if (upperVal == upperSlider.max) {
-				//Set the lower slider value to equal the upper value slider's maximum value minus one.
-				lowerSlider.value = parseInt(upperSlider.max) - 1;
-			}
-
-		}
-
-		//Setting the margin left of the middle range color.
-		//Taking the value of the lower value times 10 and then turning it into a percentage.
-		rangeColor.style.marginLeft = (lowerSlider.value) + '%';
-
-		//Setting the width of the middle range color.
-		//Taking the value of the upper value times 10 and subtracting the lower value times 10 and then turning it into a percentage.
-		rangeColor.style.width = (upperSlider.value) - (lowerSlider.value) + '%';
-
-		// console.log('lower value: ' + lowerSlider.value);
-		document.getElementById('lowerValue').value = (lowerSlider.value + ' год');
-	};
+	}, 0);
 
 });

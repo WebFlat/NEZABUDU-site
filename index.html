@@ -66,17 +66,17 @@
 	                    <div id="menu-2" class="drawer-menu"><img src="img/menu2.svg">Смотреть все анкеты</div>
 	                </label>
 	            </a>
-	            <a href="#" class="drawer__link">
+	            <a href="#" class="drawer__link" style="pointer-events: none;opacity: .5;">
 	                <label for="menu-checkbox">
 	                    <div id="menu-3" class="drawer-menu"><img src="img/menu3.svg">Найти место захоронения</div>
 	                </label>
 	            </a>
-	            <a href="./person-page/" class="drawer__link">
+	            <a href="./person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
 	                <label for="menu-checkbox">
 	                    <div id="menu-4" class="drawer-menu"><img src="img/menu4.svg">Известные личности</div>
 	                </label>
 	            </a>
-	            <a href="./care-page/" class="drawer__link">
+	            <a href="./care-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
 	                <label for="menu-checkbox">
 	                    <div id="menu-5" class="drawer-menu"><img src="img/menu5.svg">Уход за захоронениями</div>
 	                </label>
@@ -303,14 +303,14 @@
 	        </div>
 	        <div class="search-page">
 	            <div class="search-title title">
-	                Интересные истории и известные личности на НЕЗАБУДУ
+	                "Все люди - Личности"
 	            </div>
 	            <div class="search-title-2 title-2">
-	                Люди, которые вошли в историю
+	
 	            </div>
 	            <!-- <div class="swiper"> -->
 	            <div class="famous-profiles-block slide">
-	                <div class="famous-profile-1 famous-profile swiper-slide">
+	                <!-- <div class="famous-profile-1 famous-profile swiper-slide">
 	                    <div class="favorite-profile"><img src="img/favorite.svg"></div>
 	                    <div class="img-profile"><img src="img/pensioner1.png"></div>
 	                    <div class="name-profile">Гонда Михаил Степанович</div>
@@ -354,15 +354,16 @@
 	                    <a href="">
 	                        <div class="open-profile-button button">Читать дальше</div>
 	                    </a>
-	                </div>
+	                </div> -->
 	            </div>
 	            <!-- <div class="famous-profiles-block-pag swiper-pagination"></div> -->
 	            <!-- </div> -->
 	            <form class="search-block">
-	                <input id="search-profile" type="search" placeholder="Найти по фамилии" required>
-	                <a href="">
-	                    <button id="search-button" class="search-button button" type="submit">Поиск по всем
-	                        анкетам</button>
+	                <input id="search-profile" type="search" placeholder="Найти(ожидается)" required disabled>
+	                <a href="./all-person-page/" class="search-button button">
+	                    Смотреть все анкеты
+	                    <!-- <button id="search-button" class="search-button button" type="submit">Поиск по всем
+	                        анкетам</button> -->
 	                </a>
 	            </form>
 	        </div>
@@ -390,7 +391,7 @@
 	                            <img class="memory-icon-2" src="img/memory3.svg">
 	                        </div>
 	                    </div>
-	                    <a href="">
+	                    <a class="enter">
 	                        <div class="memory-button-1 memory-button button">Поминай онлайн</div>
 	                    </a>
 	                </div>

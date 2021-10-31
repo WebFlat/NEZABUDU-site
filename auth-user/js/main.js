@@ -10297,6 +10297,7 @@ $(document).ready(function () {
         if (userAvatar) {
             $('.header__user').attr('src', userAvatar);
         };
+        getProfileRandom();
     };
 
 
@@ -10342,6 +10343,92 @@ $(document).ready(function () {
     };
 
 
+    //Get profile random************************************************
+    function getProfileRandom() {
+        fetch(
+            `${api_url}get_random_profile`,
+            {
+                method: 'GET',
+                headers: {
+                    //'Authorization': 'Token token=' + cookie_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('pfofile load');
+                //console.log('Data:', JSON.stringify(data));
+                loadQuestionnaries(data.random_profiles);
+                initSlider();
+            })
+            .catch(error => {
+                console.error('error1:', error);
+                showErrorSuccess("Ошибка соединения", 1000);
+            });
+    };
+
+
+    function loadQuestionnaries(data) {
+        let section = $('.famous-profiles-block');
+        let out = '';
+        for (let key in data) {
+            if (key < 11) {
+                let isFamous = false;
+                if (data[key].avatar == '' || data[key].avatar == undefined || data[key].avatar == './img/default-foto.png') {
+                    data[key].avatar = "./img/user-def.png";
+                };
+                if (data[key].profile_famous != null || data[key].profile_famous) {
+                    isFamous = true;
+                };
+                if (data[key].death_date) {
+                    if (isFamous) {
+                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
+                        <div class="favorite-profile"><img src="img/favorite.svg"></div>
+                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                        <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
+                        <a href="../questionnaire-life/#${data[key].id}">
+                            <div class="open-profile-button button">Читать дальше</div>
+                        </a>
+                        </div>`;
+                    } else {
+                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
+                        <div class="favorite-profile" style="background: transparent;"></div>
+                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                        <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
+                        <a href="../questionnaire-life/#${data[key].id}">
+                            <div class="open-profile-button button">Читать дальше</div>
+                        </a>
+                        </div>`;
+                    };
+                } else {
+                    if (isFamous) {
+                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
+                        <div class="favorite-profile"><img src="img/favorite.svg"></div>
+                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                        <div class="birth-profile">${data[key].birth_date}</div>
+                        <a href="../questionnaire-life/#${data[key].id}">
+                            <div class="open-profile-button button">Читать дальше</div>
+                        </a>
+                        </div>`;
+                    } else {
+                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
+                        <div class="favorite-profile" style="background: transparent;"></div>
+                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                        <div class="birth-profile">${data[key].birth_date}</div>
+                        <a href="../questionnaire-life/#${data[key].id}">
+                            <div class="open-profile-button button">Читать дальше</div>
+                        </a>
+                        </div>`;
+                    };
+                };
+            }
+            section.html(out);
+        }
+    };
 
 
 
@@ -10416,73 +10503,92 @@ $(document).ready(function () {
     let slidesToScroll = 1;
 
 
+    function initSlider() {
+        if (window.screen.width < 710) {
+            $('.slide').slick({
+                // arrows: arrows,
+                touchMove: touchMove,
+                mobileFirst: mobileFirst,
+                waitForAnimate: waitForAnimate,
+                swipeToSlide: swipeToSlide,
+                slidesToScroll: slidesToScroll,
+                swipe: swipe,
+                touchThreshold: touchThreshold,
+                pauseOnHover: pauseOnHover,
+                pauseOnFocus: pauseOnFocus,
+                dots: dots,
+                infinite: infinite,
+                speed: speed,
+                slidesToShow: 1,
+                centerMode: false,
+                variableWidth: true,
+                autoplay: autoplay,
+                autoplaySpeed: autoplaySpeed,
+            });
+        } else if (window.screen.width < 1024) {
+            $('.famous-profiles-block.slide').slick({
+                // arrows: arrows,
+                touchMove: touchMove,
+                mobileFirst: mobileFirst,
+                waitForAnimate: waitForAnimate,
+                swipeToSlide: swipeToSlide,
+                slidesToScroll: slidesToScroll,
+                swipe: swipe,
+                touchThreshold: touchThreshold,
+                pauseOnHover: pauseOnHover,
+                pauseOnFocus: pauseOnFocus,
+                dots: dots,
+                infinite: infinite,
+                speed: speed,
+                slidesToShow: 1,
+                centerMode: false,
+                variableWidth: true,
+                autoplay: autoplay,
+                autoplaySpeed: autoplaySpeed,
+            });
+            $('.memory-desc-block').slick({
+                // arrows: arrows,
+                touchMove: touchMove,
+                mobileFirst: mobileFirst,
+                waitForAnimate: waitForAnimate,
+                swipeToSlide: swipeToSlide,
+                slidesToScroll: slidesToScroll,
+                swipe: swipe,
+                touchThreshold: touchThreshold,
+                pauseOnHover: pauseOnHover,
+                pauseOnFocus: pauseOnFocus,
 
-    if (window.screen.width < 710) {
-        $('.slide').slick({
-            // arrows: arrows,
-            touchMove: touchMove,
-            mobileFirst: mobileFirst,
-            waitForAnimate: waitForAnimate,
-            swipeToSlide: swipeToSlide,
-            slidesToScroll: slidesToScroll,
-            swipe: swipe,
-            touchThreshold: touchThreshold,
-            pauseOnHover: pauseOnHover,
-            pauseOnFocus: pauseOnFocus,
-
-            dots: dots,
-            infinite: infinite,
-            speed: speed,
-            slidesToShow: 1,
-            centerMode: false,
-            variableWidth: true,
-            autoplay: autoplay,
-            autoplaySpeed: autoplaySpeed,
-        });
-    } else if (window.screen.width < 1024) {
-        $('.famous-profiles-block.slide').slick({
-            // arrows: arrows,
-            touchMove: touchMove,
-            mobileFirst: mobileFirst,
-            waitForAnimate: waitForAnimate,
-            swipeToSlide: swipeToSlide,
-            slidesToScroll: slidesToScroll,
-            swipe: swipe,
-            touchThreshold: touchThreshold,
-            pauseOnHover: pauseOnHover,
-            pauseOnFocus: pauseOnFocus,
-
-            dots: dots,
-            infinite: infinite,
-            speed: speed,
-            slidesToShow: 1,
-            centerMode: false,
-            variableWidth: true,
-            autoplay: autoplay,
-            autoplaySpeed: autoplaySpeed,
-        });
-        $('.memory-desc-block').slick({
-            // arrows: arrows,
-            touchMove: touchMove,
-            mobileFirst: mobileFirst,
-            waitForAnimate: waitForAnimate,
-            swipeToSlide: swipeToSlide,
-            slidesToScroll: slidesToScroll,
-            swipe: swipe,
-            touchThreshold: touchThreshold,
-            pauseOnHover: pauseOnHover,
-            pauseOnFocus: pauseOnFocus,
-
-            dots: dots,
-            infinite: infinite,
-            speed: speed,
-            slidesToShow: 1,
-            centerMode: false,
-            variableWidth: true,
-            autoplay: autoplay,
-            autoplaySpeed: autoplaySpeed,
-        });
-
+                dots: dots,
+                infinite: infinite,
+                speed: speed,
+                slidesToShow: 1,
+                centerMode: false,
+                variableWidth: true,
+                autoplay: autoplay,
+                autoplaySpeed: autoplaySpeed,
+            });
+        } else if (window.screen.width >= 1024) {
+            $('.famous-profiles-block.slide').slick({
+                // arrows: arrows,
+                touchMove: touchMove,
+                mobileFirst: mobileFirst,
+                waitForAnimate: waitForAnimate,
+                swipeToSlide: swipeToSlide,
+                slidesToScroll: slidesToScroll,
+                swipe: swipe,
+                touchThreshold: touchThreshold,
+                pauseOnHover: pauseOnHover,
+                pauseOnFocus: pauseOnFocus,
+                dots: dots,
+                infinite: infinite,
+                speed: speed,
+                slidesToShow: 1,
+                centerMode: false,
+                variableWidth: true,
+                autoplay: autoplay,
+                autoplaySpeed: autoplaySpeed,
+            });
+        }
     }
 
     let languages = [
