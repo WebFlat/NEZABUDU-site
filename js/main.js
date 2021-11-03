@@ -10256,45 +10256,41 @@ console.log("window loaded");
 let link2 = "./cabinet-page/";
 // var api_url = "http://localhost:3000/";
 let api_url = "https://nezabudu-api.herokuapp.com/" // real project
-
+let cookie_name_token = "project_token";
+let cookie_token = getCookie(cookie_name_token);
 
 //Google registration
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId());
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
     signOut();
-    let email = profile.getEmail();
-    let firstName = profile.getFamilyName();
-    let lastName = profile.getGivenName();
-    let googleId = profile.getId();
-    let avatar = profile.getImageUrl();
-    let password = 'password';
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });
     };
-    if (profile) {
-        let data = {
+    var id_token = googleUser.getAuthResponse().id_token;
+    const uid = profile.getId();
+    const email = profile.getEmail();
+    const first_name = profile.getGivenName();
+    const last_name = profile.getFamilyName();
+    const avatar = profile.getImageUrl();
+    //console.log(uid, email, first_name, last_name, avatar)
+    if (id_token) {
+        const user = {
             email: email,
-            uid: password,
-            first_name: firstName,
-            last_name: lastName,
+            uid: uid,
+            first_name: first_name,
+            last_name: last_name,
             avatar: avatar,
-            google_id_token: googleId
-        };
-        console.log(data);
+            google_id_token: id_token
+        }
+        //console.log(user);
         fetch(
             `${api_url}user_oauth_create`,
             {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify(user),
                 headers: {
                     // 'Authorization': 'Token token=' + cookie_token,
                     'Content-Type': 'application/json'
@@ -10306,18 +10302,17 @@ function onSignIn(googleUser) {
                     console.log("success get token");
                     setCookie(cookie_name_token, json.token, 3600);
                     cookie_token = getCookie(cookie_name_token);
-                    //window.location.href = link2;
+                    //console.log(cookie_token);
+                    window.location.href = link2;
                 } else {
                     showErrorSuccess("Такой пользователь уже существует", 2000);
                     clearInput();
-                    //registration.attr('disabled', false);
                 }
 
             })
             .catch(error => {
                 console.log('error:', error);
                 showErrorSuccess("Ошибка соединения", 1000);
-                //registration.attr('disabled', false);
             });
     } else {
         showErrorSuccess("Ошибка подключения", 1000);
@@ -10341,10 +10336,7 @@ function setCookie(name, value, days) {
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 };
-// $(window).on('load', function () {
-//     var $preloader = $('#p_prldr');
-//     $preloader.fadeOut().end().delay(400).fadeOut('slow');
-// });
+
 
 $(document).ready(function () {
 
@@ -10352,8 +10344,7 @@ $(document).ready(function () {
         document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     };
 
-    var cookie_name_token = "project_token";
-    var cookie_token = getCookie(cookie_name_token);
+
 
     function ifLogin() {
         if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
