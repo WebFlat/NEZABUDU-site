@@ -262,41 +262,49 @@
 	<span id="error-message">
 		<span id="error" class="success"></span>
 	</span>
-
-	<!-- контент страницы -->
-	<!-- //= partials/search.html -->
-	<section class="personality-person">
-	    <div class="wrapper">
-	        <!-- <div class="personality-person__wrap">
-	            <div class="personality-person__items">
-	
-	            </div>
-	        </div>
-	        <div id="pagination-container"></div> -->
-	    </div>
-	    <button class="btn btn--more" id="loadMore">Смотреть еще</button>
+	<section class="main">
+		<!-- контент страницы -->
+		<!-- //= partials/search.html -->
+		<section class="personality-person">
+		    <form class="search-block">
+		        <input id="search-profile" type="search" placeholder="Найти" required>
+		        <!-- <a href="../all-person-page/" class="search-button button">
+		            Смотреть все анкеты -->
+		        <button id="search-button" class="search-button button" type="submit">Поиск по всем
+		            анкетам</button>
+		        </a>
+		    </form>
+		    <div class="wrapper">
+		        <!-- <div class="personality-person__wrap">
+		            <div class="personality-person__items">
+		
+		            </div>
+		        </div>-->
+		        <div id="pagination-container"></div>
+		    </div>
+		</section>
+		<footer>
+		    <div id="footer">
+		        <div class="socnet-block">
+		            <a href="https://www.facebook.com/nezabudu.com.ua/" target="_blank" class="inst socnet"><img
+		                    src="img/inst.png"></a>
+		            <a href="https://www.instagram.com/nezabudu.com.ua" target="_blank" class="fb socnet"><img
+		                    src="img/fb.png"></a>
+		            <a href="https://www.youtube.com" target="_blank" class="ytb socnet"><img src="img/ytube.png"></a>
+		        </div>
+		        <div class="contacts">
+		            <a class="contact-tel" href="tel:+380965636858">+38 (096) 563-68-58</a>
+		            <a class="contact-email" href="mailto:nezabudu.team@gmail.com">nezabudu.team@gmail.com</a>
+		        </div>
+		        <div class="add-info">
+		            <a class="privacy-policy link-info" href="privacy.html">Политика конфиденциальности</a>
+		            <a class="terms-use link-info" href="terms.html">Пользовательское соглашение</a>
+		            <a class="ethics-use link-info" href="ethics.html">Этика заполения анкет</a>
+		        </div>
+		        <div class="license">© 2021 Незабуду. Все права защищены.</div>
+		    </div>
+		</footer>
 	</section>
-	<footer>
-	    <div id="footer">
-	        <div class="socnet-block">
-	            <a href="https://www.facebook.com/nezabudu.com.ua/" target="_blank" class="inst socnet"><img
-	                    src="img/inst.png"></a>
-	            <a href="https://www.instagram.com/nezabudu.com.ua" target="_blank" class="fb socnet"><img
-	                    src="img/fb.png"></a>
-	            <a href="https://www.youtube.com" target="_blank" class="ytb socnet"><img src="img/ytube.png"></a>
-	        </div>
-	        <div class="contacts">
-	            <a class="contact-tel" href="tel:+380965636858">+38 (096) 563-68-58</a>
-	            <a class="contact-email" href="mailto:nezabudu.team@gmail.com">nezabudu.team@gmail.com</a>
-	        </div>
-	        <div class="add-info">
-	            <a class="privacy-policy link-info" href="privacy.html">Политика конфиденциальности</a>
-	            <a class="terms-use link-info" href="terms.html">Пользовательское соглашение</a>
-	            <a class="ethics-use link-info" href="ethics.html">Этика заполения анкет</a>
-	        </div>
-	        <div class="license">© 2021 Незабуду. Все права защищены.</div>
-	    </div>
-	</footer>
 	<!-- скрипты -->
 	<script src="js/main.min.js"></script>
 

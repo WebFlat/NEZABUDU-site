@@ -10401,6 +10401,14 @@ $(document).ready(function () {
         }, time);
     };
 
+
+    //send search request and reload****************************
+    $('.search-block').submit(function (e) {
+        e.preventDefault();
+        let data = $('#search-profile').val();
+        window.location.href = `../search-page/#${data}`;
+    });
+
     //Registration input ****************************************************
     var registration = $('#sendReg');
     var formReg = $('#reg-form');
@@ -13955,39 +13963,37 @@ function validateTel(tel) {
 
 $('.volunteer-form').submit(function (e) {
     e.preventDefault();
-    var form = $('#volunteers');
-    var name = $('#volunteer-name');
-    var tel = $('#volunteer-tel');
-    var helps = $('#volunteer-work');
-    //var message = $('.volunteers__mess');
-    var btn = $('.volunteers__btn');
+    let api_url = "https://nezabudu-api.herokuapp.com/"
+    let name = $('#volunteer-name').val();
+    let tel = $('#volunteer-tel').val();
+    let helps = $('#volunteer-work').val();
+    let email = 'y.vacheslav@gmail.com';
 
-    let sendData = {
-        name: name.val(),
-        helps: helps.val(),
-        tel: tel.val(),
-    };
-    console.log(sendData);
     if (validateName() == false || validateTel() == false) {
         showErrorSuccess("Данные введены не верно!", 1000);
     } else {
-        $.ajax({
-            type: "POST",
-            url: "sendEmail.php",
-            data: sendData,
-            success: function (data) {
-                showErrorSuccess("Сообщение отправлено. Спасибо Вам, мы скоро свяжемся с Вами!", 1000);
-                name.val('');
-                tel.val('');
-                console.log('data', data);
-            },
+        fetch(
+            `${api_url}send_partnership?email=${email}&name=${name}&tel_number=${tel}&helps=${helps}`,
+            {
+                method: 'POST',
+                //body: JSON.stringify(sendData),
+                headers: {
+                    //'Authorization': 'Token token=' + cookie_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                if (json.error == 0) {
+                    showErrorSuccess("Заявка отправлена,мы скоро свяжемся с вами", 1000);
+                } else {
+                    showErrorSuccess("Ошибка отправки", 1000);
+                }
 
-            error: function () {
-                showErrorSuccess("Ошибка отправки", 1000);
-                name.val('');
-                tel.val('');
-                console.log('data', data);
-            }
-        })
+            })
+            .catch(error => {
+                console.error('error1:', error);
+                showErrorSuccess("Ошибка соединения", 1000);
+            });
     }
-})
+});
