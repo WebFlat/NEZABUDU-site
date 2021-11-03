@@ -10406,7 +10406,7 @@ $(document).ready(function () {
     $('.search-block').submit(function (e) {
         e.preventDefault();
         let data = $('#search-profile').val();
-        window.location.href = `../search-page/#${data}`;
+        window.location.href = `./search-page/#${data}`;
     });
 
     //Registration input ****************************************************
