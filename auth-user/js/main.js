@@ -10384,42 +10384,42 @@ $(document).ready(function () {
                     if (isFamous) {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile"><img src="img/favorite.svg"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="../questionnaire-life/#${data[key].id}">
+                        <a href="./questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
                     } else {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="../questionnaire-life/#${data[key].id}">
+                        <a href="./questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
                     };
                 } else {
-                    if (isFamous) {
+                    if (data[key].profile_mine == true) {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile"><img src="img/favorite.svg"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="favorite-profile" style="background: transparent;"></div>
+                        <div class="img-profile mine"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="../questionnaire-life/#${data[key].id}">
+                        <a href="./questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
                     } else {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile life"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="../questionnaire-life/#${data[key].id}">
+                        <a href="./questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;

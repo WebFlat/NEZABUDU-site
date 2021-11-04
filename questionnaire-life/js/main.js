@@ -12152,6 +12152,47 @@ $(document).ready(function () {
 
 
 
+	//send request to remember********************
+	$('#remember').click(function () {
+		var email = $('#auth-email').val();
+		function validateMail(email) {
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			if (reg.test(email) == false || email == '') {
+				showErrorSuccess('Введите корректный e-mail', 1000);
+				return false;
+			} else {
+				return true;
+			}
+		}
+		if (validateMail(email)) {
+			fetch(
+				`${api_url}send_password?email=${email}`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(json => {
+					if (json.error == 0) {
+						showErrorSuccess("Пароль отправлен на почту", 2000);
+					} else {
+						showErrorSuccess("Ошибка отправки", 2000);
+						clearInput();
+					}
+				})
+				.catch(error => {
+					console.log('error:', error);
+					showErrorSuccess("Ошибка соединения", 1000);
+				});
+		} else {
+			showErrorSuccess('Введите сначала e-mail', 1000);
+		}
+	});
+
+
+
 
 
 

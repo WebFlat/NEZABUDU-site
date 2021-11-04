@@ -14,6 +14,8 @@
 	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#92e4fc">
 	<meta name="theme-color" content="#ffffff">
+	<meta name="google-signin-client_id" content="65830191151-qdaau551j9ta4r6k5rumb25ee17omp02.apps.googleusercontent.com">
+	
 	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 	
 	<link rel="stylesheet" href="css/styles.min.css">
@@ -252,7 +254,7 @@
 	                    <input type="submit" value="Войти" class="reg__btn" name="auth" id="authSend">
 	                </form>
 	                <div class="reg__link-wrap">
-	                    <span>Забыли пароль?</span>
+	                    <span id="remember">Забыли пароль?</span>
 	                </div>
 	            </div>
 	        </div>
@@ -266,6 +268,12 @@
 	<!-- контент страницы -->
 	<!-- //= partials/search.html -->
 	<section class="personality-person">
+	    <form class="search-block">
+	        <input id="search-profile" type="search" placeholder="Найти" required>
+	        <button id="search-button" class="search-button button" type="submit">Поиск по всем
+	            анкетам</button>
+	        </a>
+	    </form>
 	    <div class="wrapper">
 	        <!-- <div class="personality-person__wrap">
 	            <div class="personality-person__items">
@@ -298,6 +306,7 @@
 	    </div>
 	</footer>
 	<!-- скрипты -->
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="js/main.min.js"></script>
 
 </body>

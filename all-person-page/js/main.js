@@ -10598,36 +10598,99 @@ return jQuery;
 } );
 
 console.log("window loaded");
+
+
+let api_url = "https://nezabudu-api.herokuapp.com/" // real project
+let cookie_name_token = "project_token";
+let cookie_token = getCookie(cookie_name_token);
+
+//Google registration
+function onSignIn(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	signOut();
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
+	};
+	var id_token = googleUser.getAuthResponse().id_token;
+	const uid = profile.getId();
+	const email = profile.getEmail();
+	const first_name = profile.getGivenName();
+	const last_name = profile.getFamilyName();
+	const avatar = profile.getImageUrl();
+	//console.log(uid, email, first_name, last_name, avatar)
+	if (id_token) {
+		const user = {
+			email: email,
+			uid: uid,
+			first_name: first_name,
+			last_name: last_name,
+			avatar: avatar,
+			google_id_token: id_token
+		}
+		//console.log(user);
+		fetch(
+			`${api_url}user_oauth_create`,
+			{
+				method: 'POST',
+				body: JSON.stringify(user),
+				headers: {
+					// 'Authorization': 'Token token=' + cookie_token,
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(response => response.json())
+			.then(json => {
+				if (json.error == 0) {
+					console.log("success get token");
+					setCookie(cookie_name_token, json.token, 3600);
+					cookie_token = getCookie(cookie_name_token);
+					//console.log(cookie_token);
+					window.location.reload();
+				} else {
+					showErrorSuccess("Такой пользователь уже существует", 2000);
+					clearInput();
+				}
+
+			})
+			.catch(error => {
+				console.log('error:', error);
+				showErrorSuccess("Ошибка соединения", 1000);
+			});
+	} else {
+		showErrorSuccess("Ошибка подключения", 1000);
+	};
+};
+
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+
+function setCookie(name, value, days) {
+	var expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+};
+
+
 jQuery(function ($) {
 	'use strict';
 
-
-
-
-	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
-
-
-	function setCookie(name, value, days) {
-		var expires = "";
-		if (days) {
-			var date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			expires = "; expires=" + date.toUTCString();
-		}
-		document.cookie = name + "=" + (value || "") + expires + "; path=/";
-	};
-	function getCookie(name) {
-		var matches = document.cookie.match(new RegExp(
-			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	};
 	function deleteCookie(name) {
 		document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
 	};
 
-	var cookie_name_token = "project_token";
-	var cookie_token = getCookie(cookie_name_token);
+
 	let wrapper = $('.personality-person .wrapper');
 
 
@@ -10761,7 +10824,15 @@ jQuery(function ($) {
 	$('#loadMore').click(function (e) {
 		e.preventDefault();
 		getProfileRandom();
-	})
+	});
+
+
+	//send search request and reload****************************
+	$('.search-block').submit(function (e) {
+		e.preventDefault();
+		let data = $('#search-profile').val();
+		window.location.href = `../search-page/#${data}`;
+	});
 
 
 	//Exit account***************************************************
@@ -10769,6 +10840,46 @@ jQuery(function ($) {
 		deleteCookie(cookie_name_token);
 		window.location.reload();
 
+	});
+
+
+	//send request to remember********************
+	$('#remember').click(function () {
+		var email = $('#auth-email').val();
+		function validateMail(email) {
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			if (reg.test(email) == false || email == '') {
+				showErrorSuccess('Введите корректный e-mail', 1000);
+				return false;
+			} else {
+				return true;
+			}
+		}
+		if (validateMail(email)) {
+			fetch(
+				`${api_url}send_password?email=${email}`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(json => {
+					if (json.error == 0) {
+						showErrorSuccess("Пароль отправлен на почту", 2000);
+					} else {
+						showErrorSuccess("Ошибка отправки", 2000);
+						clearInput();
+					}
+				})
+				.catch(error => {
+					console.log('error:', error);
+					showErrorSuccess("Ошибка соединения", 1000);
+				});
+		} else {
+			showErrorSuccess('Введите сначала e-mail', 1000);
+		}
 	});
 
 

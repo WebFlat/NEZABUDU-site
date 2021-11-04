@@ -10564,7 +10564,6 @@ $(document).ready(function () {
                             console.log("success get token");
                             setCookie(cookie_name_token, json.token, 3600);
                             cookie_token = getCookie(cookie_name_token);
-                            // $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
                             window.location.href = link2;
                         } else {
                             showErrorSuccess('Проверьте логин и пароль', 1000);
@@ -10589,6 +10588,46 @@ $(document).ready(function () {
 
     });
 
+
+    //send request to remember********************
+    $('#remember').click(function () {
+        var email = $('#auth-email').val();
+        function validateMail(email) {
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (reg.test(email) == false || email == '') {
+                showErrorSuccess('Введите корректный e-mail', 1000);
+                return false;
+            } else {
+                return true;
+            }
+        }
+        if (validateMail(email)) {
+            fetch(
+                `${api_url}send_password?email=${email}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.error == 0) {
+                        showErrorSuccess("Пароль отправлен на почту", 2000);
+                    } else {
+                        showErrorSuccess("Ошибка отправки", 2000);
+                        clearInput();
+                    }
+                })
+                .catch(error => {
+                    console.log('error:', error);
+                    showErrorSuccess("Ошибка соединения", 1000);
+                });
+        } else {
+            showErrorSuccess('Введите сначала e-mail', 1000);
+        }
+    });
+
     //Get profile random************************************************
     function getProfileRandom() {
         fetch(
@@ -10596,7 +10635,6 @@ $(document).ready(function () {
             {
                 method: 'GET',
                 headers: {
-                    //'Authorization': 'Token token=' + cookie_token,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             })
@@ -10629,7 +10667,7 @@ $(document).ready(function () {
                     if (isFamous) {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile"><img src="img/favorite.svg"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
                         <a href="./questionnaire-life/#${data[key].id}">
@@ -10639,7 +10677,7 @@ $(document).ready(function () {
                     } else {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
                         <a href="./questionnaire-life/#${data[key].id}">
@@ -10648,10 +10686,10 @@ $(document).ready(function () {
                         </div>`;
                     };
                 } else {
-                    if (isFamous) {
+                    if (data[key].profile_mine == true) {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile"><img src="img/favorite.svg"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="favorite-profile" style="background: transparent;"></div>
+                        <div class="img-profile mine"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
                         <a href="./questionnaire-life/#${data[key].id}">
@@ -10661,7 +10699,7 @@ $(document).ready(function () {
                     } else {
                         out += `<div class="famous-profile-${key} famous-profile swiper-slide">
                         <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile"><img src="${data[key].avatar}"></div>
+                        <div class="img-profile life"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
                         <a href="./questionnaire-life/#${data[key].id}">
