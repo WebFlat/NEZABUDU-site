@@ -10998,12 +10998,6 @@ console.log("window loaded");
 
 $(document).ready(function () {
 
-
-	// $(window).on('load', function () {
-	// 	var $preloader = $('#p_prldr');
-	// 	$preloader.delay(1000).fadeOut('slow');
-	// });
-
 	//Request to server*****************************
 	// var api_url = "http://localhost:3000/";
 	var api_url = "https://nezabudu-api.herokuapp.com/" // real project
@@ -11189,7 +11183,7 @@ $(document).ready(function () {
 			.then(response => response.json())
 			.then(data => {
 				console.log('bookmarks');
-				console.log('Data:', JSON.stringify(data));
+				//console.log('Data:', JSON.stringify(data));
 				data_users_book = data.favorite_profiles;
 				//console.log(data_users);
 				loadQuestionnariesBookmark(sectionBookmark, 'user-bookmark', data_users_book);
@@ -11315,7 +11309,7 @@ $(document).ready(function () {
 
 
 	//Request edit data user*****************************
-	$('.settings__save').click(function (e) {
+	$('#saveEdit').click(function (e) {
 		e.preventDefault();
 		var data = {};
 		var passToSend = '';
@@ -11406,6 +11400,53 @@ $(document).ready(function () {
 		}
 	});
 
+
+
+
+	//request to send problem**********************************
+	$('#problemSend').click(function (e) {
+		e.preventDefault();
+		let text = $('#problemText').val();
+		let email = userEmail;
+		let name = userName;
+		let data = {
+			email: email,
+			name: name,
+			problem: text
+		}
+		if (text) {
+			fetch(
+				`${api_url}send_problem`,
+				{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						//'Authorization': 'Token token=' + cookie_token,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then($('body').css('opacity', .5))
+				.then(response => response.json())
+				.then(json => {
+					if (json.error == 0) {
+						$('body').css('opacity', 1);
+						showErrorSuccess("Сообщение отправлено", 1000);
+						$('#problemText').val('');
+					} else {
+						$('body').css('opacity', 1);
+						showErrorSuccess("Ошибка отправки", 1000);
+					}
+
+				})
+				.catch(error => {
+					console.log('error:', error);
+					$('body').css('opacity', 1);
+					showErrorSuccess("Ошибка соединения", 1000);
+				});
+		} else {
+			showErrorSuccess("Введите текст сообщения", 1000);
+		}
+	})
 
 
 
