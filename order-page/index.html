@@ -35,7 +35,7 @@
 		<span id="error" class="success"></span>
 	</span>
 	<!-- контент страницы -->
-	<form method="POST" action="sendOrder">
+	<form>
 		<section class="order">
 		    <div class="wrapper">
 		        <p class="order__links"><a href="../index.html" class="order__link-main">Главная</a> / <span
@@ -144,7 +144,7 @@
 		                    <span class="order__date-title">
 		                        Выберите дату для уборки:
 		                    </span>
-		                    <input type="date" class="order__date-wrap" id="datepicker" name="datepicker">
+		                    <input type="text" class="order__date-wrap" id="datepicker" name="datepicker">
 		                    <div id="container"></div>
 		                </div>
 		            </div>
@@ -346,7 +346,7 @@
 						<input class="order-submit__val" value="0" name="order" id="order">
 						грн
 					</p>
-					<input type="submit" value="Отправить заказ" class="btn" id="sendOrder">
+					<button type="submit" class="btn" id="sendOrder">Отправить заказ</button>
 				</div>
 				<div class="alert-order__mess"></div>
 			</div>
