@@ -10387,7 +10387,7 @@ $(document).ready(function () {
                         <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
+                        <a href="../questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
@@ -10397,7 +10397,7 @@ $(document).ready(function () {
                         <div class="img-profile death"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
+                        <a href="../questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
@@ -10409,7 +10409,7 @@ $(document).ready(function () {
                         <div class="img-profile mine"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
+                        <a href="../questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
@@ -10419,7 +10419,7 @@ $(document).ready(function () {
                         <div class="img-profile life"><img src="${data[key].avatar}"></div>
                         <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
                         <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
+                        <a href="../questionnaire-life/#${data[key].id}">
                             <div class="open-profile-button button">Читать дальше</div>
                         </a>
                         </div>`;
