@@ -12299,6 +12299,7 @@ $(document).ready(function () {
 		var hightlight = $('.profile__menu--mob');
 		var backStory = $('.story__back');
 		var storyTitle = $('.story__title');
+		var storyTitleTab = $('.story__title-tab');
 		// Hide Header on on scroll down
 		var didScroll;
 		var lastScrollTop = 0;
@@ -12332,6 +12333,8 @@ $(document).ready(function () {
 				hightlight.css('top', '0');
 				backStory.css('top', '82px');
 				storyTitle.css('top', '100px');
+				storyTitleTab.css('top', '60px');
+
 			} else {
 				// Scroll Up
 				if (st + $(window).height() < $(document).height()) {
@@ -12340,6 +12343,7 @@ $(document).ready(function () {
 					hightlight.css('top', '50px');
 					backStory.css('top', '133px');
 					storyTitle.css('top', '136px');
+					storyTitleTab.css('top', '136px');
 				}
 			}
 
