@@ -10823,7 +10823,7 @@ $(document).ready(function () {
 				if (dataToLoad[i].event_img != null) {
 					var dateLoad = dataToLoad[i].event_date;
 					dateLoad = dateLoad.split('-').reverse().join('.');
-					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img src="${dataToLoad[i].event_img}" alt="photo" class="story__pict"></div>
+					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img data-src="${dataToLoad[i].event_img}" alt="photo" class="story__pict lazyload"></div>
 				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
 				<button class="context-story__item delete-story">Удалить</button>
 			</div></div></div>`;
@@ -10849,7 +10849,7 @@ $(document).ready(function () {
 				if (!dataToRender[k].event_img) {
 					dataToRender[k].event_img = './img/default-bg-img.webp';
 				}
-				out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img src="${dataToRender[k].event_img}" alt="photo" class="brief__photo" loading="lazy"></a>`;
+				out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img data-src="${dataToRender[k].event_img}" alt="photo" class="brief__photo lazyload"></a>`;
 			}
 			outHtml.prepend(out);
 		};
@@ -12875,9 +12875,10 @@ $(document).ready(function () {
 	// });
 	//delete foto in form************************
 	$('.add-story__del').on('click', function () {
-		console.log('click');
-		var targetFoto = $('#output2');
+		//console.log('click');
+		let targetFoto = $('#output2');
 		targetFoto.attr('src', './img/default-foto.png');
+		$(this).hide();
 		//hideAddfoto();
 	});
 
@@ -12984,7 +12985,18 @@ $(document).ready(function () {
 
 //Edit avatar*************************************
 //upload avatar*************************************
+
+
 async function loadWidget() {
+
+	//show message notifications*********************************
+	function showErrorSuccess2(textToShow, time) {
+		$('#error-message').addClass('show');
+		$('.success').text(textToShow);
+		setTimeout(() => {
+			$('#error-message').removeClass('show');
+		}, time);
+	};
 
 	class UploadWidget {
 		width;
@@ -13038,10 +13050,7 @@ async function loadWidget() {
 				return
 			}
 			insertAfter(iframe, this.location);
-			// //force click upload avatar*********************
-			$('.about__img-wrap').on('click', function () {
-				$('.dz-hidden-input').click();
-			});
+
 		}
 
 		open() {
@@ -13122,4 +13131,8 @@ async function loadWidget() {
 	});
 
 };
+
+
+
+
 loadWidget();

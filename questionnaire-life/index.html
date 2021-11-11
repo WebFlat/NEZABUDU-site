@@ -494,13 +494,13 @@
 		                <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob">
+		                <img data-src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob">
+		                <img data-src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob">
+		                <img data-src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		        </div>
 		    </section>
@@ -527,8 +527,6 @@
 		                                        <span></span><span></span><span></span>
 		                                    </span>
 		                                    <img src="./img/candle-new.png" alt="candle" class="brief__candle" id="candle">
-		                                    <!-- <img src="./img/candle-fire.png" alt="candle"
-		                                        class="brief__candle brief__candle--fire" id="candleFire"> -->
 		                                    <h6 class="brief__titles">
 		                                        <span class="brief__name-user" id="user-surname"></span>
 		                                        <span class="brief__surname" id="user-name"></span>
@@ -551,8 +549,6 @@
 		                                    </p>
 		                                    <p id="user-about" class="brief__more"> Читать дальше...</p>
 		                                    <div class="brief__bookmarks">
-		                                        <!-- <img class="brief__bookmark brief__bookmark--small" src="./img/my-boockmark.png"
-		                                        alt="bookmark"> -->
 		                                        <img class="brief__bookmark" src="./img/bookmark.svg" alt="bookmark"
 		                                            id="bookmark">
 		                                    </div>
@@ -587,9 +583,6 @@
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
-		                                        <!-- <a href="#childhood" class="brief__photo-wrap btn-tab-link">
-		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                        </a> -->
 		
 		                                    </div>
 		                                    <p class="brief__descr">
@@ -648,12 +641,6 @@
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
-		                                        <!-- <a href="#youth" class="brief__photo-wrap btn-tab-link">
-		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                        </a>
-		                                        <a href="#youth" class="brief__photo-wrap btn-tab-link">
-		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
 		                                        <span class="brief__descr-edit brief__descr-edit-3" data-shot-story="3">
@@ -681,12 +668,6 @@
 		                                        <span class="brief__photo-wrap default-add">
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
-		                                        <!-- <a href="#ripeness" class="brief__photo-wrap btn-tab-link">
-		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                        </a>
-		                                        <a href="#ripeness" class="brief__photo-wrap btn-tab-link">
-		                                            <img src="./img/dad.jpg" alt="photo" class="brief__photo">
-		                                        </a> -->
 		                                    </div>
 		                                    <p class="brief__descr">
 		                                        <span class="brief__descr-edit brief__descr-edit-4" data-shot-story="4">
@@ -1264,19 +1245,19 @@
 		                    <div class="menu__description">
 		                        <span>Учеба/друзья</span>
 		                    </div>
-		                    <img src="./img/icon8.png" alt="icon" class="menu__img">
+		                    <img data-src="./img/icon8.png" alt="icon" class="menu__img lazyload">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
 		                        <span>Наследие</span>
 		                    </div>
-		                    <img src="./img/icon7.png" alt="icon" class="menu__img">
+		                    <img data-src="./img/icon7.png" alt="icon" class="menu__img lazyload">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
 		                        <span>Веселые истории</span>
 		                    </div>
-		                    <img src="./img/icon9.png" alt="icon" class="menu__img">
+		                    <img data-src="./img/icon9.png" alt="icon" class="menu__img lazyload">
 		                </a>
 		            </div>
 		        </section>
@@ -1314,7 +1295,8 @@
 		            </span>
 		            <div class="add-story__line">
 		                <span class="add-story__btn def-btn">
-		                    <input type="hidden" name="img" data-preview="false" id="edit-foto" class="simple-file-upload">
+		                    <input type="hidden" name="img" data-preview="false" id="edit-foto"
+		                        class="simple-file-upload edit-foto-simple">
 		                    <img src="./img/default-foto.png" alt="add" id="output2">
 		                    <img src="./img/trash-with-white.png" class="add-story__del">
 		                </span>
@@ -1337,6 +1319,7 @@
 
 	</section>
 	<!-- скрипты -->
+	<script src="js/lazysizes.min.js" async=""></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="js/main.min.js"></script>
 </body>
