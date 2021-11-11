@@ -10596,1798 +10596,66 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
+!function(t){"use strict";"function"==typeof define&&define.amd?define(["jquery"],t):"object"==typeof exports?t(require("jquery")):t(jQuery)}(function(Nt){"use strict";Nt.Zebra_DatePicker=function(t,M){function e(t){var e,s,n,a,i={days:["d","j","D"],months:["F","m","M","n","t"],years:["o","Y","y"],hours:["G","g","H","h"],minutes:["i"],seconds:["s"],ampm:["A","a"]},r=null,o=!1;for(n=0;n<3;n++)yt+=Math.floor(65536*(1+Math.random())).toString(16);if(L=[],T=[],!t)for(e in kt.settings=Nt.extend({},ut,Nt.fn.Zebra_DatePicker.defaults,M),ft.readonly=Dt.attr("readonly"),ft.style=Dt.attr("style"),ft.padding_left=parseInt(Dt.css("paddingLeft"),10)||0,ft.padding_right=parseInt(Dt.css("paddingRight"),10)||0,Dt.data())0===e.indexOf("zdp_")&&(e=e.replace(/^zdp\_/,""),void 0!==ut[e]&&(kt.settings[e]="pair"===e?Nt(Dt.data("zdp_"+e)):Dt.data("zdp_"+e)));for(kt.settings.readonly_element?Dt.attr("readonly","readonly"):Dt.removeAttr("readonly"),lt=!1,ht=[];!o;){for(r in i)Nt.each(i[r],function(t,e){var s,n;if(-1<kt.settings.format.indexOf(e))if("days"===r)ht.push("days");else if("months"===r)ht.push("months");else if("years"===r)ht.push("years");else if(("hours"===r||"minutes"===r||"seconds"===r||"ampm"===r)&&!kt.settings.disable_time_picker)if(lt||(lt={is12hour:!1},ht.push("time")),"hours"===r)for("g"===(lt.hour_format=e)||"h"===e?(n=12,lt.is12hour=!0):n=24,lt.hours=[],Nt.isArray(kt.settings.enabled_hours)&&(kt.settings.enabled_hour=kt.settings.enabled_hours.map(function(t){return parseInt(t,10)})),s=12===n?1:0;s<(12===n?13:n);s++)(!Nt.isArray(kt.settings.enabled_hours)||-1<Nt.inArray(s,kt.settings.enabled_hours))&&lt.hours.push(s);else if("minutes"===r)for(lt.minutes=[],Nt.isArray(kt.settings.enabled_minutes)&&(kt.settings.enabled_minutes=kt.settings.enabled_minutes.map(function(t){return parseInt(t,10)})),s=0;s<60;s++)(!Nt.isArray(kt.settings.enabled_minutes)||-1<Nt.inArray(s,kt.settings.enabled_minutes))&&lt.minutes.push(s);else if("seconds"===r)for(lt.seconds=[],Nt.isArray(kt.settings.enabled_seconds)&&(kt.settings.enabled_seconds=kt.settings.enabled_seconds.map(function(t){return parseInt(t,10)})),s=0;s<60;s++)(!Nt.isArray(kt.settings.enabled_seconds)||-1<Nt.inArray(s,kt.settings.enabled_seconds))&&lt.seconds.push(s);else lt.ampm_case=e,Nt.isArray(kt.settings.enabled_ampm)&&Nt.grep(kt.settings.enabled_ampm,function(t){return-1<Nt.inArray(t.toLowerCase(),["am","pm"])}).length?lt.ampm=kt.settings.enabled_ampm:lt.ampm=["am","pm"]});lt.hour_format&&lt.ampm&&!1===lt.is12hour?kt.settings.format=kt.settings.format.replace(lt.hour_format,lt.hour_format.toLowerCase()):o=!0}for(n in 0===ht.length&&(ht=["years","months","days"]),-1===Nt.inArray(kt.settings.view,ht)&&(kt.settings.view=ht[ht.length-1]),I=[],kt.settings.custom_classes)kt.settings.custom_classes.hasOwnProperty(n)&&-1===I.indexOf(n)&&I.push(n);for(a=0;a<2+I.length;a++)s=0===a?kt.settings.disabled_dates:1===a?kt.settings.enabled_dates:kt.settings.custom_classes[I[a-2]],Nt.isArray(s)&&0<s.length&&Nt.each(s,function(){var t,e,s,n,i=this.split(" ");for(t=0;t<4;t++){for(i[t]||(i[t]="*"),i[t]=-1<i[t].indexOf(",")?i[t].split(","):new Array(i[t]),e=0;e<i[t].length;e++)if(-1<i[t][e].indexOf("-")&&null!==(n=i[t][e].match(/^([0-9]+)\-([0-9]+)/))){for(s=It(n[1]);s<=It(n[2]);s++)-1===Nt.inArray(s,i[t])&&i[t].push(s+"");i[t].splice(e,1)}for(e=0;e<i[t].length;e++)i[t][e]=isNaN(It(i[t][e]))?i[t][e]:It(i[t][e])}0===a?L.push(i):1===a?T.push(i):(void 0===mt[I[a-2]]&&(mt[I[a-2]]=[]),mt[I[a-2]].push(i))});var d,c,l=!1!==kt.settings.current_date?new Date(kt.settings.current_date):new Date,g=kt.settings.reference_date?kt.settings.reference_date:Dt.data("zdp_reference_date")&&void 0!==Dt.data("zdp_reference_date")?Dt.data("zdp_reference_date"):l;if(R=ot=void 0,B=g.getMonth(),x=l.getMonth(),E=g.getFullYear(),Y=l.getFullYear(),W=g.getDate(),S=l.getDate(),!0===kt.settings.direction)ot=g;else if(!1===kt.settings.direction)V=(R=g).getMonth(),$=R.getFullYear(),U=R.getDate();else if(!Nt.isArray(kt.settings.direction)&&Ft(kt.settings.direction)&&0<It(kt.settings.direction)||Nt.isArray(kt.settings.direction)&&((d=At(kt.settings.direction[0]))||!0===kt.settings.direction[0]||Ft(kt.settings.direction[0])&&0<kt.settings.direction[0])&&((c=At(kt.settings.direction[1]))||!1===kt.settings.direction[1]||Ft(kt.settings.direction[1])&&0<=kt.settings.direction[1]))ot=d||new Date(E,B,W+(Nt.isArray(kt.settings.direction)?It(!0===kt.settings.direction[0]?0:kt.settings.direction[0]):It(kt.settings.direction))),B=ot.getMonth(),E=ot.getFullYear(),W=ot.getDate(),c&&+ot<=+c?R=c:!c&&!1!==kt.settings.direction[1]&&Nt.isArray(kt.settings.direction)&&(R=new Date(E,B,W+It(kt.settings.direction[1]))),R&&(V=R.getMonth(),$=R.getFullYear(),U=R.getDate());else if(!Nt.isArray(kt.settings.direction)&&Ft(kt.settings.direction)&&It(kt.settings.direction)<0||Nt.isArray(kt.settings.direction)&&(!1===kt.settings.direction[0]||Ft(kt.settings.direction[0])&&kt.settings.direction[0]<0)&&((d=At(kt.settings.direction[1]))||Ft(kt.settings.direction[1])&&0<=kt.settings.direction[1]))R=new Date(E,B,W+(Nt.isArray(kt.settings.direction)?It(!1===kt.settings.direction[0]?0:kt.settings.direction[0]):It(kt.settings.direction))),V=R.getMonth(),$=R.getFullYear(),U=R.getDate(),d&&+d<+R?ot=d:!d&&Nt.isArray(kt.settings.direction)&&(ot=new Date($,V,U-It(kt.settings.direction[1]))),ot&&(B=ot.getMonth(),E=ot.getFullYear(),W=ot.getDate());else if(Nt.isArray(kt.settings.disabled_dates)&&0<kt.settings.disabled_dates.length)for(var _ in L)if(-1<Nt.inArray("*",L[_][0])&&-1<Nt.inArray("*",L[_][1])&&-1<Nt.inArray("*",L[_][2])&&-1<Nt.inArray("*",L[_][3])){var h=[];if(Nt.each(T,function(){var t=this;"*"!==t[2][0]&&h.push(parseInt(t[2][0]+("*"===t[1][0]?"12":Yt(t[1][0],2))+("*"===t[0][0]?"*"===t[1][0]?"31":new Date(t[2][0],t[1][0],0).getDate():Yt(t[0][0],2)),10))}),h.sort(),0<h.length){var p=(h[0]+"").match(/([0-9]{4})([0-9]{2})([0-9]{2})/);E=parseInt(p[1],10),B=parseInt(p[2],10)-1,W=parseInt(p[3],10)}break}if(Pt(E,B,W)){for(;Pt(E);)W=(B=ot?(E++,0):(E--,11),1);for(;Pt(E,B);)W=ot?(B++,1):(B--,new Date(E,B+1,0).getDate()),11<B?(E++,B=0,W=1):B<0&&(E--,B=11,W=new Date(E,B+1,0).getDate());for(;Pt(E,B,W);)ot?W++:W--,l=new Date(E,B,W),E=l.getFullYear(),B=l.getMonth(),W=l.getDate();l=new Date(E,B,W),E=l.getFullYear(),B=l.getMonth(),W=l.getDate()}kt.settings.start_date&&"object"==typeof kt.settings.start_date&&kt.settings.start_date instanceof Date&&(kt.settings.start_date=Mt(kt.settings.start_date));var u=At(Dt.val()||(kt.settings.start_date?kt.settings.start_date:""));if(u&&kt.settings.strict&&Pt(u.getFullYear(),u.getMonth(),u.getDate())&&Dt.val(""),t||void 0===ot&&void 0===u||jt(void 0!==u?u:ot),!(kt.settings.always_visible instanceof jQuery)){if(!t){if(kt.settings.show_icon){"firefox"===zt.name&&Dt.is('input[type="text"]')&&"inline"===Dt.css("display")&&Dt.css("display","inline-block");var m=parseInt(Dt.css("marginTop"),10)||0,f=parseInt(Dt.css("marginRight"),10)||0,b=parseInt(Dt.css("marginBottom"),10)||0,y=parseInt(Dt.css("marginLeft"),10)||0,v=Nt('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({display:Dt.css("display"),position:"static"===Dt.css("position")?"relative":Dt.css("position"),"float":Dt.css("float"),top:Dt.css("top"),right:Dt.css("right"),bottom:Dt.css("bottom"),left:Dt.css("left"),marginTop:m<0?m:0,marginRight:f<0?f:0,marginBottom:b<0?b:0,marginLeft:y<0?y:0,paddingTop:m,paddingRight:f,paddingBottom:b,paddingLeft:y});"block"===Dt.css("display")&&v.css("width",Dt.outerWidth(!0)),Dt.wrap(v).css({position:"relative","float":"none",top:"auto",right:"auto",bottom:"auto",left:"auto",marginTop:0,marginRight:0,marginBottom:0,marginLeft:0}),G=Nt('<button type="button" class="Zebra_DatePicker_Icon'+("disabled"===Dt.attr("disabled")?" Zebra_DatePicker_Icon_Disabled":"")+'">Pick a date</button>'),kt.icon=G,F=kt.settings.open_icon_only?G:G.add(Dt)}else F=Dt;F.on("click.Zebra_DatePicker_"+yt+(kt.settings.open_on_focus?" focus.Zebra_DatePicker_"+yt:""),function(){j.hasClass("dp_hidden")&&!Dt.attr("disabled")&&(!vt||kt.settings.readonly_element?kt.show():(clearTimeout(dt),dt=setTimeout(function(){kt.show()},600)))}),F.on("keydown.Zebra_DatePicker_"+yt,function(t){9!==t.keyCode||j.hasClass("dp_hidden")||kt.hide()}),!kt.settings.readonly_element&&kt.settings.pair&&Dt.on("blur.Zebra_DatePicker_"+yt,function(){var t;(t=At(Nt(this).val()))&&!Pt(t.getFullYear(),t.getMonth(),t.getDate())&&jt(t)}),void 0!==G&&G.insertAfter(Dt)}if(void 0!==G){G.attr("style","");var w=Dt.outerWidth(),k=Dt.outerHeight(),D=G.outerWidth(),A=G.outerHeight();G.css("top",(k-A)/2),kt.settings.inside?"right"===kt.settings.icon_position?(G.css("right",!1!==kt.settings.icon_margin?kt.settings.icon_margin:ft.padding_right),Dt.css("paddingRight",2*(!1!==kt.settings.icon_margin?kt.settings.icon_margin:ft.padding_right)+D)):(G.css("left",!1!==kt.settings.icon_margin?kt.settings.icon_margin:ft.padding_left),Dt.css("paddingLeft",2*(!1!==kt.settings.icon_margin?kt.settings.icon_margin:ft.padding_left)+D)):G.css("left",w+(!1!==kt.settings.icon_margin?kt.settings.icon_margin:ft.padding_left)),G.removeClass("Zebra_DatePicker_Icon_Disabled"),"disabled"===Dt.attr("disabled")&&G.addClass("Zebra_DatePicker_Icon_Disabled")}}if(rt=!1!==kt.settings.show_select_today&&-1<Nt.inArray("days",ht)&&!Pt(Y,x,S)&&kt.settings.show_select_today,t)return Nt(".dp_previous",j).html(kt.settings.navigation[0]),Nt(".dp_next",j).html(kt.settings.navigation[1]),Nt(".dp_time_controls_increase .dp_time_control",j).html(kt.settings.navigation[2]),Nt(".dp_time_controls_decrease .dp_time_control",j).html(kt.settings.navigation[3]),Nt(".dp_clear",j).html(kt.settings.lang_clear_date),Nt(".dp_today",j).html(kt.settings.show_select_today),j.is(":visible")&&(n=kt.settings.view,kt.settings.view=_t,kt.show(!1),kt.settings.view=n),void(j.parent()!==kt.settings.container&&kt.settings.container.append(j.detach()));Nt(window).on("resize.Zebra_DatePicker_"+yt+", orientationchange.Zebra_DatePicker_"+yt,function(){kt.hide()});var C='<div class="Zebra_DatePicker"><table class="dp_header dp_actions"><tr><td class="dp_previous">'+kt.settings.navigation[0]+(wt?"&#xFE0E;":"")+'</td><td class="dp_caption"></td><td class="dp_next">'+kt.settings.navigation[1]+(wt?"&#xFE0E;":"")+'</td></tr></table><table class="dp_daypicker'+(kt.settings.show_week_number?" dp_week_numbers":"")+' dp_body"></table><table class="dp_monthpicker dp_body"></table><table class="dp_yearpicker dp_body"></table><table class="dp_timepicker dp_body"></table><table class="dp_footer dp_actions"><tr><td class="dp_today">'+rt+'</td><td class="dp_clear">'+kt.settings.lang_clear_date+'</td><td class="dp_view_toggler dp_icon">&nbsp;&nbsp;&nbsp;&nbsp;</td><td class="dp_confirm dp_icon"></td></tr></table></div>';j=Nt(C),J=Nt("table.dp_header",j),z=Nt("table.dp_daypicker",j),q=Nt("table.dp_monthpicker",j),gt=Nt("table.dp_yearpicker",j),ct=Nt("table.dp_timepicker",j),Q=Nt("table.dp_footer",j),at=Nt("td.dp_today",Q),P=Nt("td.dp_clear",Q),st=Nt("td.dp_view_toggler",Q),Z=Nt("td.dp_confirm",Q),kt.settings.always_visible instanceof jQuery?Dt.attr("disabled")||(kt.settings.always_visible.append(j),kt.show()):kt.settings.container.append(j),j.on("mouseover","td:not(.dp_disabled)",function(){Nt(this).addClass("dp_hover")}).on("mouseout","td:not(.dp_disabled)",function(){Nt(this).removeClass("dp_hover")}),Ct(j),Nt(kt.settings.rtl?".dp_next":".dp_previous",J).on("click",function(){"months"===_t?it--:"years"===_t?it-=12:--nt<0&&(nt=11,it--),Zt()}),kt.settings.fast_navigation&&Nt(".dp_caption",J).on("click",function(){_t="days"===_t?-1<Nt.inArray("months",ht)?"months":-1<Nt.inArray("years",ht)?"years":"days":"months"===_t?-1<Nt.inArray("years",ht)?"years":-1<Nt.inArray("days",ht)?"days":"months":-1<Nt.inArray("days",ht)?"days":-1<Nt.inArray("months",ht)?"months":"years",Zt()}),Nt(kt.settings.rtl?".dp_previous":".dp_next",J).on("click",function(){"months"===_t?it++:"years"===_t?it+=12:12==++nt&&(nt=0,it++),Zt()}),z.on("click","td:not(.dp_disabled)",function(){var t;kt.settings.select_other_months&&Nt(this).attr("class")&&null!==(t=Nt(this).attr("class").match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/))?xt(t[1],t[2]-1,t[3],"days",Nt(this)):xt(it,nt,It(Nt(this).html()),"days",Nt(this))}),q.on("click","td:not(.dp_disabled)",function(){var t=Nt(this).attr("class").match(/dp\_month\_([0-9]+)/);nt=It(t[1]),-1===Nt.inArray("days",ht)?xt(it,nt,1,"months",Nt(this)):(_t="days",kt.settings.always_visible&&Dt.val(""),Zt())}),gt.on("click","td:not(.dp_disabled)",function(){it=It(Nt(this).html()),-1===Nt.inArray("months",ht)?xt(it,0,1,"years",Nt(this)):(_t="months",kt.settings.always_visible&&Dt.val(""),Zt())}),at.on("click",function(t){var e=!1!==kt.settings.current_date?new Date(kt.settings.current_date):new Date;t.preventDefault(),xt(e.getFullYear(),e.getMonth(),e.getDate(),"days",Nt(".dp_current",z))}),P.on("click",function(t){t.preventDefault(),Dt.val(""),O=H=N=null,kt.settings.always_visible?Nt("td.dp_selected",j).removeClass("dp_selected"):it=nt=null,Dt.focus(),kt.hide(),kt.settings.onClear&&"function"==typeof kt.settings.onClear&&kt.settings.onClear.call(Dt)}),st.on("click",function(){"time"!==_t?(_t="time",Zt()):Nt(".dp_caption",J).trigger("click")}),Z.on("click",function(){if(Nt(".dp_time_controls_increase td",ct).first().trigger("mousedown"),clearInterval(pt),Nt(".dp_time_controls_decrease td",ct).first().trigger("mousedown"),clearInterval(pt),kt.settings.onSelect&&"function"==typeof kt.settings.onSelect){var t=new Date(it,nt,N,lt&&lt.hours?X+(lt.ampm&&("pm"===et&&X<12||"am"===et&&12===X)?12:0):0,lt&&lt.minutes?K:0,lt&&lt.seconds?tt:0);kt.settings.onSelect.call(Dt,Mt(t),it+"-"+Yt(nt+1,2)+"-"+Yt(N,2)+(lt?" "+Yt(t.getHours(),2)+":"+Yt(t.getMinutes(),2)+":"+Yt(t.getSeconds(),2):""),t)}kt.hide()}),j.on("mousedown",".dp_time_controls_increase td, .dp_time_controls_decrease td",function(){var t=this,e=0;St(t),pt=setInterval(function(){St(t),5<++e&&(clearInterval(pt),pt=setInterval(function(){St(t),10<++e&&(clearInterval(pt),pt=setInterval(function(){St(t)},100,t))},200,t))},400,t)}),j.on("mouseup mouseleave",".dp_time_controls_increase td, .dp_time_controls_decrease td",function(){clearInterval(pt)}),kt.settings.always_visible instanceof jQuery||(Nt(document).on("touchmove.Zebra_DatePicker_"+yt,function(){bt=!0}),Nt(document).on("mousedown.Zebra_DatePicker_"+yt+" touchend.Zebra_DatePicker_"+yt,function(t){if("touchend"===t.type&&bt)return bt=!(vt=!0);bt=!1,j.hasClass("dp_hidden")||(!kt.settings.open_icon_only||!kt.icon||Nt(t.target).get(0)===kt.icon.get(0))&&(kt.settings.open_icon_only||Nt(t.target).get(0)===Dt.get(0)||kt.icon&&Nt(t.target).get(0)===kt.icon.get(0))||0!==Nt(t.target).closest(".Zebra_DatePicker").length||Nt(t.target).hasClass("dp_time_control")||kt.hide(!0)}),Nt(document).on("keyup.Zebra_DatePicker_"+yt,function(t){j.hasClass("dp_hidden")||27!==t.which||kt.hide()})),Zt()}function a(){var t,e,s,n,i,a,r,o,d,c,l,g,_=new Date(it,nt+1,0).getDate(),h=new Date(it,nt,1).getDay(),p=new Date(it,nt,0).getDate(),u=h-kt.settings.first_day_of_week;for(u=u<0?7+u:u,y(kt.settings.header_captions.days),e="<tr>",kt.settings.show_week_number&&(e+="<th>"+kt.settings.show_week_number+"</th>"),t=0;t<7;t++)s=(kt.settings.first_day_of_week+(kt.settings.rtl?6-t:t))%7,e+="<th>"+(Nt.isArray(kt.settings.days_abbr)&&void 0!==kt.settings.days_abbr[s]?kt.settings.days_abbr[s]:kt.settings.days[s].substr(0,2))+"</th>";for(e+="</tr><tr>",t=0;t<42;t++)g=kt.settings.rtl?6-t%7*2:0,0<t&&t%7==0&&(e+="</tr><tr>"),t%7==0&&kt.settings.show_week_number&&(e+="<th>"+b(new Date(it,nt,t-u+1))+"</th>"),s=t-u+1+g,kt.settings.select_other_months&&(t<u||_<s)&&(i=(n=new Date(it,nt,s)).getFullYear(),a=n.getMonth(),r=n.getDate(),n=i+Yt(a+1,2)+Yt(r,2)),o=(kt.settings.first_day_of_week+t)%7,l=-1<Nt.inArray(o,kt.settings.weekend_days),kt.settings.rtl&&s<1||!kt.settings.rtl&&t<u?e+='<td class="dp_not_in_month '+(l?"dp_weekend ":"")+(kt.settings.select_other_months&&!Pt(i,a,r)?"date_"+n:"dp_disabled")+'">'+(kt.settings.select_other_months||kt.settings.show_other_months?Yt(g+p-u+t+1,kt.settings.zero_pad?2:0):"&nbsp;")+"</td>":_<s?e+='<td class="dp_not_in_month '+(l?"dp_weekend ":"")+(kt.settings.select_other_months&&!Pt(i,a,r)?"date_"+n:"dp_disabled")+'">'+(kt.settings.select_other_months||kt.settings.show_other_months?Yt(s-_,kt.settings.zero_pad?2:0):"&nbsp;")+"</td>":(d="",c=f(it,nt,s),l&&(d=" dp_weekend"),nt===x&&it===Y&&S===s&&(d+=" dp_current"),""!==c&&(d+=" "+c),nt===H&&it===O&&N===s&&(d+=" dp_selected"),Pt(it,nt,s)&&(d+=" dp_disabled"),e+="<td"+(""!==d?' class="'+Nt.trim(d)+'"':"")+">"+((kt.settings.zero_pad?Yt(s,2):s)||"&nbsp;")+"</td>");e+="</tr>",z.html(Nt(e)),kt.settings.always_visible&&(m=Nt("td:not(.dp_disabled)",z)),z.show()}function g(t){var e,s;if("explorer"===zt.name&&6===zt.version)switch(n||(e=It(j.css("zIndex"))-1,n=Nt("<iframe>",{src:'javascript:document.write("")',scrolling:"no",frameborder:0,css:{zIndex:e,position:"absolute",top:-1e3,left:-1e3,width:j.outerWidth(),height:j.outerHeight(),filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=0)",display:"none"}}),Nt("body").append(n)),t){case"hide":n.hide();break;default:s=j.offset(),n.css({top:s.top,left:s.left,display:"block"})}}var P,F,Z,S,x,Y,I,j,z,m,N,H,O,L,T,R,W,B,E,Q,J,G,U,V,$,q,d,X,K,tt,et,st,nt,it,at,n,rt,ot,dt,ct,lt,gt,c,_t,ht,pt,ut={always_visible:!(this.version="1.9.18"),container:Nt("body"),current_date:!1,custom_classes:!1,days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],days_abbr:!1,default_position:"above",direction:0,disable_time_picker:!1,disabled_dates:!1,enabled_ampm:!1,enabled_dates:!1,enabled_hours:!1,enabled_minutes:!1,enabled_seconds:!1,fast_navigation:!0,first_day_of_week:1,format:"Y-m-d",header_captions:{days:"F, Y",months:"Y",years:"Y1 - Y2"},icon_margin:!1,icon_position:"right",inside:!0,lang_clear_date:"Clear date",months:["January","February","March","April","May","June","July","August","September","October","November","December"],months_abbr:!1,navigation:["&#9664;","&#9654;","&#9650;","&#9660;"],offset:[5,-5],open_icon_only:!1,open_on_focus:!1,pair:!1,readonly_element:!0,rtl:!1,select_other_months:!1,show_clear_date:0,show_icon:!0,show_other_months:!0,show_select_today:"Today",show_week_number:!1,start_date:!1,strict:!1,view:"days",weekend_days:[0,6],zero_pad:!1,onChange:null,onClear:null,onOpen:null,onClose:null,onSelect:null},mt={},ft={},bt=!1,yt="",vt=!1,wt=!!navigator.platform&&/iPad|iPhone|iPod/.test(navigator.platform),kt=this,Dt=Nt(t),At=function(t){if(t+="",""!==Nt.trim(t)){var e,s,n=w(kt.settings.format),i=["d","D","j","l","N","S","w","F","m","M","n","Y","y","G","g","H","h","i","s","a","A"],a=[],r=[],o=null,d=null;for(s=0;s<i.length;s++)-1<(o=n.indexOf(i[s]))&&a.push({character:i[s],position:o});if(a.sort(function(t,e){return t.position-e.position}),Nt.each(a,function(t,e){switch(e.character){case"d":r.push("0[1-9]|[12][0-9]|3[01]");break;case"D":r.push(kt.settings.days_abbr?kt.settings.days_abbr.map(function(t){return w(t)}).join("|"):"[a-zÀ-ɏ]{3}");break;case"j":r.push("[1-9]|[12][0-9]|3[01]");break;case"l":r.push(kt.settings.days?kt.settings.days.map(function(t){return w(t)}).join("|"):"[a-zÀ-ɏ]+");break;case"N":r.push("[1-7]");break;case"S":r.push("st|nd|rd|th");break;case"w":r.push("[0-6]");break;case"F":r.push(kt.settings.months?kt.settings.months.map(function(t){return w(t)}).join("|"):"[a-zÀ-ɏ]+");break;case"m":r.push("0[1-9]|1[012]");break;case"M":r.push(kt.settings.months_abbr?kt.settings.months_abbr.map(function(t){return w(t)}).join("|"):"[a-zÀ-ɏ]{3}");break;case"n":r.push("[1-9]|1[012]");break;case"Y":r.push("[0-9]{4}");break;case"y":r.push("[0-9]{2}");break;case"G":r.push("[1-9]|1[0-9]|2[0123]");break;case"g":r.push("[0-9]|1[012]");break;case"H":r.push("0[0-9]|1[0-9]|2[0123]");break;case"h":r.push("0[0-9]|1[012]");break;case"i":case"s":r.push("0[0-9]|[12345][0-9]");break;case"a":r.push("am|pm");break;case"A":r.push("AM|PM")}}),r.length&&(a.reverse(),Nt.each(a,function(t,e){n=n.replace(e.character,"("+r[r.length-t-1]+")")}),r=new RegExp("^"+n+"$","ig"),d=r.exec(t))){var c,l,g=new Date,_=1,h=g.getMonth()+1,p=g.getFullYear(),u=g.getHours(),m=g.getMinutes(),f=g.getSeconds(),b=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],y=["January","February","March","April","May","June","July","August","September","October","November","December"],v=!0;if(a.reverse(),Nt.each(a,function(s,n){if(!v)return!0;switch(n.character){case"m":case"n":h=It(d[s+1]);break;case"d":case"j":_=It(d[s+1]);break;case"D":case"l":case"F":case"M":l="D"===n.character?kt.settings.days_abbr||kt.settings.days:"l"===n.character?kt.settings.days:"M"===n.character&&kt.settings.months_abbr||kt.settings.months,v=!1,Nt.each(l,function(t,e){if(v)return!0;if(d[s+1].toLowerCase()===e.substring(0,"D"===n.character&&!kt.settings.days_abbr||"M"===n.character&&!kt.settings.months_abbr?3:e.length).toLowerCase()){switch(n.character){case"D":d[s+1]=b[t].substring(0,3);break;case"l":d[s+1]=b[t];break;case"F":d[s+1]=y[t],h=t+1;break;case"M":d[s+1]=y[t].substring(0,3),h=t+1}v=!0}});break;case"Y":p=It(d[s+1]);break;case"y":p=It("20"+It(d[s+1]));break;case"G":case"H":case"g":case"h":u=It(d[s+1]);break;case"i":m=It(d[s+1]);break;case"s":f=It(d[s+1]);break;case"a":case"A":c=d[s+1].toLowerCase()}}),v&&(e=new Date(p,(h||1)-1,_||1,u+("pm"===c&&12!==u?12:"am"===c&&12===u?-12:0),m,f)).getFullYear()===p&&e.getDate()===(_||1)&&e.getMonth()===(h||1)-1)return e}return!1}},Ct=function(t){"firefox"===zt.name?t.css("MozUserSelect","none"):"explorer"===zt.name?Nt(document).on("selectstart",t,function(){return!1}):t.mousedown(function(){return!1})},w=function(t){return t.replace(/([-.,*+?^${}()|[\]\/\\])/g,"\\$1")},Mt=function(t){var e,s,n="",i=t.getDate(),a=t.getDay(),r=kt.settings.days[a],o=t.getMonth()+1,d=kt.settings.months[o-1],c=t.getFullYear()+"",l=t.getHours(),g=l%12==0?12:l%12,_=t.getMinutes(),h=t.getSeconds(),p=12<=l?"pm":"am";for(e=0;e<kt.settings.format.length;e++)switch(s=kt.settings.format.charAt(e)){case"y":c=c.substr(2);case"Y":n+=c;break;case"m":o=Yt(o,2);case"n":n+=o;break;case"M":d=Nt.isArray(kt.settings.months_abbr)&&void 0!==kt.settings.months_abbr[o-1]?kt.settings.months_abbr[o-1]:kt.settings.months[o-1].substr(0,3);case"F":n+=d;break;case"d":i=Yt(i,2);case"j":n+=i;break;case"D":r=Nt.isArray(kt.settings.days_abbr)&&void 0!==kt.settings.days_abbr[a]?kt.settings.days_abbr[a]:kt.settings.days[a].substr(0,3);case"l":n+=r;break;case"N":a++;case"w":n+=a;break;case"S":n+=i%10==1&&11!==i?"st":i%10==2&&12!==i?"nd":i%10==3&&13!==i?"rd":"th";break;case"g":n+=g;break;case"h":n+=Yt(g,2);break;case"G":n+=l;break;case"H":n+=Yt(l,2);break;case"i":n+=Yt(_,2);break;case"s":n+=Yt(h,2);break;case"a":n+=p;break;case"A":n+=p.toUpperCase();break;default:n+=s}return n},f=function(s,n,i){var a,t,r;for(t in void 0!==n&&(n+=1),I)if(a=I[t],r=!1,Nt.isArray(mt[a])&&Nt.each(mt[a],function(){if(!r){var t,e=this;if((-1<Nt.inArray(s,e[2])||-1<Nt.inArray("*",e[2]))&&(void 0!==n&&-1<Nt.inArray(n,e[1])||-1<Nt.inArray("*",e[1]))&&(void 0!==i&&-1<Nt.inArray(i,e[0])||-1<Nt.inArray("*",e[0]))){if(-1<Nt.inArray("*",e[3]))return r=a;if(t=new Date(s,n-1,i).getDay(),-1<Nt.inArray(t,e[3]))return r=a}}}),r)return r;return r||""},b=function(t){var e,s,n,i,a,r,o,d=t.getFullYear(),c=t.getMonth()+1,l=t.getDate();return(o=(a=c<3?(n=(s=((e=d-1)/4|0)-(e/100|0)+(e/400|0))-(((e-1)/4|0)-((e-1)/100|0)+((e-1)/400|0)),i=0,l-1+31*(c-1)):(i=(n=(s=((e=d)/4|0)-(e/100|0)+(e/400|0))-(((e-1)/4|0)-((e-1)/100|0)+((e-1)/400|0)))+1,l+((153*(c-3)+2)/5|0)+58+n))+3-(l=(a+(r=(e+s)%7)-i)%7))<0?53-((r-n)/5|0):364+n<o?1:1+(o/7|0)},Pt=function(s,n,i){var t,e,a,r;if(!(void 0!==s&&!isNaN(s)||void 0!==n&&!isNaN(n)||void 0!==i&&!isNaN(i)))return!1;if(s<1e3)return!0;if(Nt.isArray(kt.settings.direction)||0!==It(kt.settings.direction)){if(8===(e=((t=It(o(s,void 0!==n?Yt(n,2):"",void 0!==i?Yt(i,2):"")))+"").length)&&(void 0!==ot&&t<It(o(E,Yt(B,2),Yt(W,2)))||void 0!==R&&t>It(o($,Yt(V,2),Yt(U,2)))))return!0;if(6===e&&(void 0!==ot&&t<It(o(E,Yt(B,2)))||void 0!==R&&t>It(o($,Yt(V,2)))))return!0;if(4===e&&(void 0!==ot&&t<E||void 0!==R&&$<t))return!0}return void 0!==n&&(n+=1),r=a=!1,Nt.isArray(L)&&L.length&&Nt.each(L,function(){if(!a){var t,e=this;if((-1<Nt.inArray(s,e[2])||-1<Nt.inArray("*",e[2]))&&(void 0!==n&&-1<Nt.inArray(n,e[1])||-1<Nt.inArray("*",e[1]))&&(void 0!==i&&-1<Nt.inArray(i,e[0])||-1<Nt.inArray("*",e[0]))){if(-1<Nt.inArray("*",e[3]))return a=!0;if(t=new Date(s,n-1,i).getDay(),-1<Nt.inArray(t,e[3]))return a=!0}}}),T&&Nt.each(T,function(){if(!r){var t,e=this;if((-1<Nt.inArray(s,e[2])||-1<Nt.inArray("*",e[2]))&&(r=!0,void 0!==n))if(r=!0,-1<Nt.inArray(n,e[1])||-1<Nt.inArray("*",e[1])){if(void 0!==i)if(r=!0,-1<Nt.inArray(i,e[0])||-1<Nt.inArray("*",e[0])){if(-1<Nt.inArray("*",e[3]))return r=!0;if(t=new Date(s,n-1,i).getDay(),-1<Nt.inArray(t,e[3]))return r=!0;r=!1}else r=!1}else r=!1}}),(!T||!r)&&!(!L||!a)},Ft=function(t){return(t+"").match(/^\-?[0-9]+$/)},y=function(t){!isNaN(parseFloat(nt))&&isFinite(nt)&&(t=t.replace(/\bm\b|\bn\b|\bF\b|\bM\b/,function(t){switch(t){case"m":return Yt(nt+1,2);case"n":return nt+1;case"F":return kt.settings.months[nt];case"M":return Nt.isArray(kt.settings.months_abbr)&&void 0!==kt.settings.months_abbr[nt]?kt.settings.months_abbr[nt]:kt.settings.months[nt].substr(0,3);default:return t}})),!isNaN(parseFloat(it))&&isFinite(it)&&(t=t.replace(/\bY\b/,it).replace(/\by\b/,(it+"").substr(2)).replace(/\bY1\b/i,it-7).replace(/\bY2\b/i,it+4)),Nt(".dp_caption",J).html(t)},Zt=function(t){var e,s,n,i;""===z.text()||"days"===_t?(""===z.text()?(kt.settings.always_visible instanceof jQuery||j.css("left",-1e3),j.removeClass("hidden"),a(),e=void 0!==z[0].getBoundingClientRect&&void 0!==z[0].getBoundingClientRect().height?z[0].getBoundingClientRect().height:z.outerHeight(!0),q.css("height",e),gt.css("height",e),ct.css("height",e+J.outerHeight(!0)),j.css("width",j.outerWidth()),j.addClass("dp_hidden")):a(),J.show(),q.hide(),gt.hide(),ct.hide(),st.hide(),Z.hide(),lt&&st.show().removeClass("dp_calendar")):"months"===_t?(function(){y(kt.settings.header_captions.months);var t,e,s,n="<tr>";for(t=0;t<12;t++)0<t&&t%3==0&&(n+="</tr><tr>"),e="dp_month_"+(s=kt.settings.rtl?2+t-t%3*2:t),Pt(it,s)?e+=" dp_disabled":!1!==H&&H===s&&it===O?e+=" dp_selected":x===s&&Y===it&&(e+=" dp_current"),n+='<td class="'+Nt.trim(e)+'">'+(Nt.isArray(kt.settings.months_abbr)&&void 0!==kt.settings.months_abbr[s]?kt.settings.months_abbr[s]:kt.settings.months[s].substr(0,3))+"</td>";n+="</tr>",q.html(Nt(n)),kt.settings.always_visible&&(d=Nt("td:not(.dp_disabled)",q)),q.show()}(),z.hide(),gt.hide(),ct.hide(),st.hide(),Z.hide()):"years"===_t?(function(){y(kt.settings.header_captions.years);var t,e,s,n="<tr>";for(t=0;t<12;t++)0<t&&t%3==0&&(n+="</tr><tr>"),s=kt.settings.rtl?2+t-t%3*2:t,e="",Pt(it-7+s)?e+=" dp_disabled":O&&O===it-7+s?e+=" dp_selected":Y===it-7+s&&(e+=" dp_current"),n+="<td"+(""!==Nt.trim(e)?' class="'+Nt.trim(e)+'"':"")+">"+(it-7+s)+"</td>";n+="</tr>",gt.html(Nt(n)),kt.settings.always_visible&&(c=Nt("td:not(.dp_disabled)",gt)),gt.show()}(),z.hide(),q.hide(),ct.hide(),st.hide(),Z.hide()):"time"===_t&&(i=lt.hours&&lt.minutes&&lt.seconds&&lt.ampm,n='<tr class="dp_time_controls_increase'+(i?" dp_time_controls_condensed":"")+'">'+(kt.settings.rtl&&lt.ampm?'<td class="dp_time_ampm dp_time_control">'+kt.settings.navigation[2]+"</td>":"")+(lt.hours?'<td class="dp_time_hour dp_time_control">'+kt.settings.navigation[2]+"</td>":"")+(lt.minutes?'<td class="dp_time_minute dp_time_control">'+kt.settings.navigation[2]+"</td>":"")+(lt.seconds?'<td class="dp_time_second dp_time_control">'+kt.settings.navigation[2]+"</td>":"")+(!kt.settings.rtl&&lt.ampm?'<td class="dp_time_ampm dp_time_control">'+kt.settings.navigation[2]+"</td>":"")+"</tr>",n+='<tr class="dp_time_segments'+(i?" dp_time_controls_condensed":"")+'">',kt.settings.rtl&&lt.ampm&&(n+='<td class="dp_time_ampm dp_disabled'+(lt.hours||lt.minutes||lt.seconds?" dp_time_separator":"")+'"><div>'+("A"===lt.ampm_case?et.toUpperCase():et)+"</div></td>"),lt.hours&&(n+='<td class="dp_time_hours dp_disabled'+(lt.minutes||lt.seconds||!kt.settings.rtl&&lt.ampm?" dp_time_separator":"")+'"><div>'+("h"===lt.hour_format||"H"===lt.hour_format?Yt(X,2):X)+"</div></td>"),lt.minutes&&(n+='<td class="dp_time_minutes dp_disabled'+(lt.seconds||!kt.settings.rtl&&lt.ampm?" dp_time_separator":"")+'"><div>'+Yt(K,2)+"</div></td>"),lt.seconds&&(n+='<td class="dp_time_seconds dp_disabled'+(!kt.settings.rtl&&lt.ampm?" dp_time_separator":"")+'"><div>'+Yt(tt,2)+"</div></td>"),!kt.settings.rtl&&lt.ampm&&(n+='<td class="dp_time_ampm dp_disabled">'+("A"===lt.ampm_case?et.toUpperCase():et)+"</td>"),n+="</tr>",n+='<tr class="dp_time_controls_decrease'+(i?" dp_time_controls_condensed":"")+'">'+(kt.settings.rtl&&lt.ampm?'<td class="dp_time_ampm dp_time_control">'+kt.settings.navigation[3]+"</td>":"")+(lt.hours?'<td class="dp_time_hour dp_time_control">'+kt.settings.navigation[3]+"</td>":"")+(lt.minutes?'<td class="dp_time_minute dp_time_control">'+kt.settings.navigation[3]+"</td>":"")+(lt.seconds?'<td class="dp_time_second dp_time_control">'+kt.settings.navigation[3]+"</td>":"")+(!kt.settings.rtl&&lt.ampm?'<td class="dp_time_ampm dp_time_control">'+kt.settings.navigation[3]+"</td>":"")+"</tr>",ct.html(Nt(n)),ct.show(),1===ht.length?(st.hide(),Z.show()):(st.show().addClass("dp_calendar"),""===Dt.val()?Z.hide():Z.show()),J.hide(),z.hide(),q.hide(),gt.hide()),!1!==t&&kt.settings.onChange&&"function"==typeof kt.settings.onChange&&void 0!==_t&&((s="days"===_t?z.find("td:not(.dp_disabled)"):"months"===_t?q.find("td:not(.dp_disabled)"):"years"===_t?gt.find("td:not(.dp_disabled)"):ct.find(".dp_time_segments td")).each(function(){var t;"days"===_t?Nt(this).hasClass("dp_not_in_month")&&!Nt(this).hasClass("dp_disabled")?(t=Nt(this).attr("class").match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/),Nt(this).data("date",t[1]+"-"+t[2]+"-"+t[3])):Nt(this).data("date",it+"-"+Yt(nt+1,2)+"-"+Yt(It(Nt(this).text()),2)):"months"===_t?(t=Nt(this).attr("class").match(/dp\_month\_([0-9]+)/),Nt(this).data("date",it+"-"+Yt(It(t[1])+1,2))):"years"===_t&&Nt(this).data("date",It(Nt(this).text()))}),kt.settings.onChange.call(Dt,_t,s)),Q.show(),"time"===_t&&1<ht.length?(at.hide(),P.hide(),st.css("width",""===Dt.val()?"100%":"50%")):(at.show(),P.show(),!0===kt.settings.show_clear_date||0===kt.settings.show_clear_date&&""!==Dt.val()||kt.settings.always_visible&&!1!==kt.settings.show_clear_date?rt?(at.css("width","50%"),P.css("width","50%")):(at.hide(),P.css("width",-1<Nt.inArray(ht,"time")?"50%":"100%")):(P.hide(),rt?at.css("width","100%"):(at.hide(),lt&&("time"===_t||"days"===_t)||Q.hide())))},St=function(t){var e,s=0<Nt(t).parent(".dp_time_controls_increase").length,n=Nt(t).attr("class").match(/dp\_time\_([^\s]+)/i),i=Nt(".dp_time_segments .dp_time_"+n[1]+("ampm"!==n[1]?"s":""),ct),a=i.text().toLowerCase(),r=lt[n[1]+("ampm"!==n[1]?"s":"")],o=Nt.inArray("ampm"!==n[1]?parseInt(a,10):a,r),d=-1===o?0:s?o+1>=r.length?0:o+1:o-1<0?r.length-1:o-1;"hour"===n[1]?X=r[d]:"minute"===n[1]?K=r[d]:"second"===n[1]?tt=r[d]:et=r[d],!N&&kt.settings.start_date&&(e=At(kt.settings.start_date))&&(N=e.getDate()),N=N||W,i.text(Yt(r[d],2).toUpperCase()),xt(it,nt,N)},xt=function(t,e,s,n,i){var a=new Date(t,e,s,lt&&lt.hours?X+(lt.ampm?"pm"===et&&12!==X?12:"am"===et&&12===X?-12:0:0):12,lt&&lt.minutes?K:0,lt&&lt.seconds?tt:0),r="days"===n?m:"months"===n?d:c,o=Mt(a);Dt.val(o),(kt.settings.always_visible||lt)&&(H=a.getMonth(),nt=a.getMonth(),O=a.getFullYear(),it=a.getFullYear(),N=a.getDate(),i&&r&&(r.removeClass("dp_selected"),i.addClass("dp_selected"),"days"===n&&i.hasClass("dp_not_in_month")&&!i.hasClass("dp_disabled")&&kt.show())),lt?(_t="time",Zt()):(Dt.focus(),kt.hide()),jt(a),!lt&&kt.settings.onSelect&&"function"==typeof kt.settings.onSelect&&kt.settings.onSelect.call(Dt,o,t+"-"+Yt(e+1,2)+"-"+Yt(s,2),a)},o=function(){var t,e="";for(t=0;t<arguments.length;t++)e+=arguments[t]+"";return e},Yt=function(t,e){for(t+="";t.length<e;)t="0"+t;return t},It=function(t){return parseInt(t,10)},jt=function(s){kt.settings.pair&&Nt.each(kt.settings.pair,function(){var t,e=Nt(this);e.data&&e.data("Zebra_DatePicker")?((t=e.data("Zebra_DatePicker")).update({reference_date:s,direction:0===t.settings.direction?1:t.settings.direction}),t.settings.always_visible&&t.show()):e.data("zdp_reference_date",s)})},zt={init:function(){this.name=this.searchString(this.dataBrowser)||"",this.version=this.searchVersion(navigator.userAgent)||this.searchVersion(navigator.appVersion)||""},searchString:function(t){var e,s,n;for(e=0;e<t.length;e++)if(s=t[e].string,n=t[e].prop,this.versionSearchString=t[e].versionSearch||t[e].identity,s){if(-1!==s.indexOf(t[e].subString))return t[e].identity}else if(n)return t[e].identity},searchVersion:function(t){var e=t.indexOf(this.versionSearchString);if(-1!==e)return parseFloat(t.substring(e+this.versionSearchString.length+1))},dataBrowser:[{string:navigator.userAgent,subString:"Firefox",identity:"firefox"},{string:navigator.userAgent,subString:"MSIE",identity:"explorer",versionSearch:"MSIE"}]};kt.settings={},kt.clear_date=function(){Nt(P).trigger("click")},kt.destroy=function(){void 0!==kt.icon&&(kt.icon.off("click.Zebra_DatePicker_"+yt),kt.icon.off("focus.Zebra_DatePicker_"+yt),kt.icon.off("keydown.Zebra_DatePicker_"+yt),kt.icon.remove()),j.off(),j.remove(),!kt.settings.show_icon||kt.settings.always_visible instanceof jQuery||Dt.unwrap(),Dt.off("blur.Zebra_DatePicker_"+yt),Dt.off("click.Zebra_DatePicker_"+yt),Dt.off("focus.Zebra_DatePicker_"+yt),Dt.off("keydown.Zebra_DatePicker_"+yt),Dt.off("mousedown.Zebra_DatePicker_"+yt),Nt(document).off("keyup.Zebra_DatePicker_"+yt),Nt(document).off("mousedown.Zebra_DatePicker_"+yt),Nt(document).off("touchend.Zebra_DatePicker_"+yt),Nt(window).off("resize.Zebra_DatePicker_"+yt),Nt(window).off("orientationchange.Zebra_DatePicker_"+yt),Dt.removeData("Zebra_DatePicker"),Dt.attr("readonly",ft.readonly),Dt.attr("style",ft.style?ft.style:""),Dt.css("paddingLeft",ft.padding_left),Dt.css("paddingRight",ft.padding_right)},kt.hide=function(t){j.hasClass("dp_hidden")||kt.settings.always_visible&&!t||(g("hide"),j.addClass("dp_hidden"),kt.settings.onClose&&"function"==typeof kt.settings.onClose&&kt.settings.onClose.call(Dt))},kt.set_date=function(t){var e;"object"==typeof t&&t instanceof Date&&(t=Mt(t)),(e=At(t))&&!Pt(e.getFullYear(),e.getMonth(),e.getDate())&&(Dt.val(t),jt(e))},kt.show=function(t){_t=kt.settings.view;var e,s=At(Dt.val()||(kt.settings.start_date?kt.settings.start_date:""));if(s?(H=s.getMonth(),nt=s.getMonth(),O=s.getFullYear(),it=s.getFullYear(),N=s.getDate(),Pt(O,H,N)&&(kt.settings.strict&&Dt.val(""),nt=B,it=E)):(nt=B,it=E),lt&&(e=s||new Date,X=e.getHours(),K=e.getMinutes(),tt=e.getSeconds(),et=12<=X?"pm":"am",lt.is12hour&&(X=X%12==0?12:X%12),Nt.isArray(kt.settings.enabled_hours)&&-1===Nt.inArray(X,kt.settings.enabled_hours)&&(X=kt.settings.enabled_hours[0]),Nt.isArray(kt.settings.enabled_minutes)&&-1===Nt.inArray(K,kt.settings.enabled_minutes)&&(K=kt.settings.enabled_minutes[0]),Nt.isArray(kt.settings.enabled_seconds)&&-1===Nt.inArray(tt,kt.settings.enabled_seconds)&&(tt=kt.settings.enabled_seconds[0]),Nt.isArray(kt.settings.enabled_ampm)&&-1===Nt.inArray(et,kt.settings.enabled_ampm)&&(et=kt.settings.enabled_ampm[0])),Zt(t),kt.settings.always_visible instanceof jQuery)j.removeClass("dp_hidden");else{if(kt.settings.container.is("body")){var n=j.outerWidth(),i=j.outerHeight(),a=(void 0!==G?G.offset().left+G.outerWidth(!0):Dt.offset().left+Dt.outerWidth(!0))+kt.settings.offset[0],r=(void 0!==G?G.offset().top:Dt.offset().top)-i+kt.settings.offset[1],o=Nt(window).width(),d=Nt(window).height(),c=Nt(window).scrollTop(),l=Nt(window).scrollLeft();"below"===kt.settings.default_position&&(r=(void 0!==G?G.offset().top:Dt.offset().top)+kt.settings.offset[1]),l+o<a+n&&(a=l+o-n),a<l&&(a=l),c+d<r+i&&(r=c+d-i),r<c&&(r=c),j.css({left:a,top:r})}else j.css({left:0,top:0});j.removeClass("dp_hidden"),g()}!1!==t&&kt.settings.onOpen&&"function"==typeof kt.settings.onOpen&&kt.settings.onOpen.call(Dt)},kt.update=function(t){kt.original_direction&&(kt.original_direction=kt.direction),kt.settings=Nt.extend(kt.settings,t),e(!0)},zt.init(),e()},Nt.fn.Zebra_DatePicker=function(e){return this.each(function(){void 0!==Nt(this).data("Zebra_DatePicker")&&Nt(this).data("Zebra_DatePicker").destroy();var t=new Nt.Zebra_DatePicker(this,e);Nt(this).data("Zebra_DatePicker",t)})},Nt.fn.Zebra_DatePicker.defaults={}});
 !function(a){a.fn.viewportChecker=function(b){var c={classToAdd:"visible",classToRemove:"invisible",classToAddForFullView:"full-visible",removeClassAfterAnimation:!1,offset:100,repeat:!1,invertBottomOffset:!0,callbackFunction:function(a,b){},scrollHorizontal:!1,scrollBox:window};a.extend(c,b);var d=this,e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()};return this.checkElements=function(){var b,f;c.scrollHorizontal?(b=Math.max(a("html").scrollLeft(),a("body").scrollLeft(),a(window).scrollLeft()),f=b+e.width):(b=Math.max(a("html").scrollTop(),a("body").scrollTop(),a(window).scrollTop()),f=b+e.height),d.each(function(){var d=a(this),g={},h={};if(d.data("vp-add-class")&&(h.classToAdd=d.data("vp-add-class")),d.data("vp-remove-class")&&(h.classToRemove=d.data("vp-remove-class")),d.data("vp-add-class-full-view")&&(h.classToAddForFullView=d.data("vp-add-class-full-view")),d.data("vp-keep-add-class")&&(h.removeClassAfterAnimation=d.data("vp-remove-after-animation")),d.data("vp-offset")&&(h.offset=d.data("vp-offset")),d.data("vp-repeat")&&(h.repeat=d.data("vp-repeat")),d.data("vp-scrollHorizontal")&&(h.scrollHorizontal=d.data("vp-scrollHorizontal")),d.data("vp-invertBottomOffset")&&(h.scrollHorizontal=d.data("vp-invertBottomOffset")),a.extend(g,c),a.extend(g,h),!d.data("vp-animated")||g.repeat){String(g.offset).indexOf("%")>0&&(g.offset=parseInt(g.offset)/100*e.height);var i=g.scrollHorizontal?d.offset().left:d.offset().top,j=g.scrollHorizontal?i+d.width():i+d.height(),k=Math.round(i)+g.offset,l=g.scrollHorizontal?k+d.width():k+d.height();g.invertBottomOffset&&(l-=2*g.offset),k<f&&l>b?(d.removeClass(g.classToRemove),d.addClass(g.classToAdd),g.callbackFunction(d,"add"),j<=f&&i>=b?d.addClass(g.classToAddForFullView):d.removeClass(g.classToAddForFullView),d.data("vp-animated",!0),g.removeClassAfterAnimation&&d.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){d.removeClass(g.classToAdd)})):d.hasClass(g.classToAdd)&&g.repeat&&(d.removeClass(g.classToAdd+" "+g.classToAddForFullView),g.callbackFunction(d,"remove"),d.data("vp-animated",!1))}})},("ontouchstart"in window||"onmsgesturechange"in window)&&a(document).bind("touchmove MSPointerMove pointermove",this.checkElements),a(c.scrollBox).bind("load scroll",this.checkElements),a(window).resize(function(b){e={height:a(c.scrollBox).height(),width:a(c.scrollBox).width()},d.checkElements()}),this.checkElements(),this}}(jQuery);
-console.log("window loaded");
-
-// var api_url = "http://localhost:3000/";
-let api_url = "https://nezabudu-api.herokuapp.com/" // real project
-let cookie_name_token = "project_token";
-let cookie_token = getCookie(cookie_name_token);
-
-//Google registration
-function onSignIn(googleUser) {
-	var profile = googleUser.getBasicProfile();
-	console.log(profile);
-	signOut();
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
-			console.log('User signed out.');
-		});
-	};
-	var id_token = googleUser.getAuthResponse().id_token;
-	const uid = profile.getId();
-	const email = profile.getEmail();
-	const first_name = profile.getGivenName();
-	const last_name = profile.getFamilyName();
-	const avatar = profile.getImageUrl();
-	//console.log(uid, email, first_name, last_name, avatar)
-	if (id_token) {
-		const user = {
-			email: email,
-			uid: uid,
-			first_name: first_name,
-			last_name: last_name,
-			avatar: avatar,
-			google_id_token: id_token
-		}
-		//console.log(user);
-		fetch(
-			`${api_url}user_oauth_create`,
-			{
-				method: 'POST',
-				body: JSON.stringify(user),
-				headers: {
-					// 'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
-				}
-			})
-			.then(response => response.json())
-			.then(json => {
-				if (json.error == 0) {
-					console.log("success get token");
-					setCookie(cookie_name_token, json.token, 3600);
-					cookie_token = getCookie(cookie_name_token);
-					//console.log(cookie_token);
-					window.location.reload();
-				} else {
-					showErrorSuccess("Такой пользователь уже существует", 2000);
-					clearInput();
-				}
-
-			})
-			.catch(error => {
-				console.log('error:', error);
-				showErrorSuccess("Ошибка соединения", 1000);
-			});
-	} else {
-		showErrorSuccess("Ошибка подключения", 1000);
-	};
-};
-
-function setCookie(name, value, days) {
-	var expires = "";
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		expires = "; expires=" + date.toUTCString();
-	}
-	document.cookie = name + "=" + (value || "") + expires + "; path=/";
-};
-function getCookie(name) {
-	var matches = document.cookie.match(new RegExp(
-		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	));
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-};
-function deleteCookie(name) {
-	document.cookie = name + '=undefined; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-};
 $(document).ready(function () {
 
-	var currentProfile = window.location.hash;
-	currentProfile = +currentProfile.substring(1);
-	var currentUser;
-	var userParent = 0;
-	let bookmark = [];
 
 
 
-	//show message notifications*********************************
-	function showErrorSuccess(textToShow, time) {
-		$('#error-message').addClass('show');
-		$('.success').text(textToShow);
-		setTimeout(() => {
-			$('#error-message').removeClass('show');
-		}, time);
-	};
-
-
-
-	//if Register user*********************************
-	var user = false;
-	var userAvatar = '';
-	var user_data = false;
-	function ifLogin() {
-		if (typeof cookie_token !== 'undefined' && cookie_token !== 'undefined') {
-			start();
-		} else {
-			confirmUser();
-			loadQuestionnaries();
-		}
-	};
-	ifLogin();
-
-	//Icon user if login**************************
-	function confirmUser() {
-		if (user) {
-			$('#menu-guest').remove();
-			if (userAvatar) {
-				$('.header__user').attr('src', userAvatar);
-			};
-		} else {
-			$('#menu-user').remove();
-			$('#candle').remove();
-			$('#bookmark').remove();
-		};
-	};
-
-	//if user auth************************************************
-	function start() {
-		fetch(
-			`${api_url}get_start_info`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				}
-			})
-			.then(response => response.json())
-			.then(data => {
-				console.log('wellcome');
-				//console.log('Data:', JSON.stringify(data));
-				userParent = data.user.id;
-				user = true;
-				userAvatar = data.user.avatar;
-				bookmark = data.favorite_profiles_id;
-				isBookmark(bookmark);
-				confirmUser();
-				loadQuestionnaries();
-			})
-			.catch(error => {
-				console.error('error1:', error);
-				deleteCookie(cookie_name_token);
-				window.location.reload();
-			});
-
-	};
-
-
-	function isBookmark(data) {
-		$.each(data, function (index, value) {
-			if (value == currentProfile) {
-				$('#bookmark').addClass('active').attr('src', './img/bookmark-black.svg');
-			} else {
-				return false;
-			};
-		});
-	};
-
-
-	//If user is not parent****************************
-	function isNotParentUser() {
-		$('.brief__edit').remove();
-		$('.brief__descr-edit').remove();
-		$('.default-add').remove();
-		$('.tab__btn-save').remove();
-		$('.story__edit-cont').remove();
-		$('.textarea').attr('contenteditable', false);
-	};
-
-	//if user parent*************
-	function parentUser() {
-		//$('#candle').remove();
-		$('#bookmark').remove();
-	}
-
-
-	function isLife(mine) {
-		$('.brief__location').remove();
-		$('.brief__end').remove();
-		$('#candle').remove();
-		$('#dash').remove();
-		//$('#bookmark').remove();
-		$('.share__support').remove();
-		if (mine == true) {
-			$('.brief__img-wrap').css('border-color', '#b0dcbf');
-		} else {
-			$('.brief__img-wrap').css('border-color', '#fce176');
-		}
-	};
-
-	function renderDescrFull(data) {
-		$('.brief__descr-1').text(data.profile.short_life_1);
-		$('.brief__descr-2').text(data.profile.short_life_2);
-		$('.brief__descr-3').text(data.profile.short_life_3);
-		$('.brief__descr-4').text(data.profile.short_life_4);
-		$('.brief__descr-5').text(data.profile.short_life_5);
-	};
-
-
-	//render timeline story**********************************
-	async function loaddLiveFull(dataToLoad, outHtml) {
-		var outAll = '';
-		if (dataToLoad != []) {
-			for (var i = 0; i < dataToLoad.length; i++) {
-				if (dataToLoad[i].event_img != null) {
-					var dateLoad = dataToLoad[i].event_date;
-					dateLoad = dateLoad.split('-').reverse().join('.');
-					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img data-src="${dataToLoad[i].event_img}" alt="photo" class="story__pict lazyload"></div>
-				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
-				<button class="context-story__item delete-story">Удалить</button>
-			</div></div></div>`;
-				} else {
-					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button>
-				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
-				<button class="context-story__item delete-story">Удалить</button>
-			</div></div></div>`;
-				}
-			}
-			outHtml.append(outAll);
-			initDelStory();
-			initEditStory();
-			initDelBtn();
-		}
-	};
-
-	//render main short story*************************************
-	async function loadLive(dataToRender, outHtml, linkToSection) {
-		var out = '';
-		if (dataToRender != []) {
-			for (var k = 0; k < dataToRender.length; k++) {
-				if (!dataToRender[k].event_img) {
-					dataToRender[k].event_img = './img/default-bg-img.webp';
-				}
-				out += `<a href="#${currentProfile}#${linkToSection}" class="brief__photo-wrap btn-tab-link"><img data-src="${dataToRender[k].event_img}" alt="photo" class="brief__photo lazyload"></a>`;
-			}
-			outHtml.prepend(out);
-		};
-	};
-
-	//collects events******************************
-	var arrData = [];
-	function collectArr($data) {
-		var arrData1 = $data.timelines.block1;
-		var arrData2 = $data.timelines.block2;
-		var arrData3 = $data.timelines.block3;
-		var arrData4 = $data.timelines.block4;
-		var arrData5 = $data.timelines.block5;
-		arrData = arrData1.concat(arrData2, arrData3, arrData4, arrData5);
-	};
-
-
-	//hide age block**********************
-	function hideAgeBlock(age) {
-		if (age < 8) {
-			$('#ageSection2').remove();
-			$('#ageSection3').remove();
-			$('#ageSection4').remove();
-			$('#ageSection5').remove();
-			$('#preyouth').remove();
-			$('#youth').remove();
-			$('#ripeness').remove();
-			$('#elderhood').remove();
-		} else if (age < 22) {
-			$('#ageSection3').remove();
-			$('#ageSection4').remove();
-			$('#ageSection5').remove();
-			$('#youth').remove();
-			$('#ripeness').remove();
-			$('#elderhood').remove();
-		} else if (age < 41) {
-			$('#ageSection4').remove();
-			$('#ageSection5').remove();
-			$('#ripeness').remove();
-			$('#elderhood').remove();
-		} else if (age < 66) {
-			$('#ageSection5').remove();
-			$('#elderhood').remove();
-		};
-	};
-
-	//global data for tabs*************
-	var allData = [];
-	//Load brief user info******************************************
-	function loadQuestionnaries() {
-		let avaProfile = $('.brief__icon'),
-			birthProfile = $('.brief__both'),
-			dieProfile = $('.brief__die'),
-			ageProfile = $('#user-old'),
-			textProfile = $('#user-about-short'),
-			nameProfile = $('#user-name'),
-			surmaneProfile = $('#user-surname'),
-			patronimycProfile = $('#user-patronimyc'),
-			maidenProfile = $('#user-mainden');
-		timelinebirthProfile = $('.data-birth'),
-			timelinedieProfile = $('.data-die'),
-			cause = $('#cause'),
-			cemeteryName = $('#cemetery_name'),
-			sector = $('#sector'),
-			square = $('#square'),
-			row = $('#row'),
-			number = $('#number'),
-			city_birth = $('.brief__city-birth'),
-			city_die = $('.brief__city-die'),
-			htmlOut1 = $('.brief__gall1'),
-			htmlOut2 = $('.brief__gall2'),
-			htmlOut3 = $('.brief__gall3'),
-			htmlOut4 = $('.brief__gall4'),
-			htmlOut5 = $('.brief__gall5'),
-			liveFull1 = $('#childhood'),
-			liveFull2 = $('#preyouth'),
-			liveFull3 = $('#youth'),
-			liveFull4 = $('#ripeness'),
-			liveFull5 = $('#elderhood');
-		shortlife1 = $('.brief__descr-edit-1 + span');
-		shortlife2 = $('.brief__descr-edit-2 + span');
-		shortlife3 = $('.brief__descr-edit-3 + span');
-		shortlife4 = $('.brief__descr-edit-4 + span');
-		shortlife5 = $('.brief__descr-edit-5 + span');
-
-		//Execute number of profile to show and show it**********************
-		fetch(
-			`${api_url}get_profile?profile_id=${currentProfile}`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
-				}
-			})
-			.then(response => response.json())
-			.then(data => {
-				allData = data;
-				//console.log('Data:', JSON.stringify(data.profile));
-				currentUser = data.profile.user_id;
-				//console.log(currentUser, userParent);
-				//let ageNum;
-				if (currentUser == userParent) {
-					parentUser();
-					if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
-						avaProfile.attr('src', data.profile.avatar);
-					};
-					let preBirth;
-					if (data.profile.birth_date) {
-						preBirth = data.profile.birth_date;
-					};
-					if (data.profile.death_date) {
-						let preDie = data.profile.death_date;
-						//ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
-						if (data.profile.cementry_name) {
-							cemeteryName.text(data.profile.cementry_name);
-						};
-						if (data.profile.cementry_square) {
-							square.text(data.profile.cementry_square);
-						};
-						if (data.profile.cementry_row) {
-							row.text(data.profile.cementry_row);
-						};
-						if (data.profile.cementry_place) {
-							number.text(data.profile.cementry_place);
-						};
-						if (data.profile.cementry_sector) {
-							sector.text(data.profile.cementry_sector);
-						};
-						if (data.profile.death_city) {
-							city_die.text(data.profile.death_city);
-						};
-						if (data.profile.birth_city) {
-							city_birth.text(data.profile.birth_city);
-						};
-						dieProfile.text(preDie);
-						timelinedieProfile.text(preDie);
-						if (data.profile.death_cause) {
-							cause.text(data.profile.death_cause);
-						};
-					} else {
-						isLife(data.profile.profile_mine);
-					};
-					var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
-					ageProfile.text(ageNumBirth);
-					birthProfile.text(preBirth);
-					timelinebirthProfile.text(preBirth);
-					nameProfile.text(data.profile.last_name);
-					surmaneProfile.text(data.profile.first_name);
-					patronimycProfile.text(data.profile.patronymic);
-					if (data.profile.maiden_name) {
-						maidenProfile.text(`(${data.profile.maiden_name})`);
-					};
-					if (data.profile.birth_city) {
-						city_birth.text(data.profile.birth_city);
-					};
-					if (data.profile.short_story == '') {
-						$('.brief__text').css('opacity', 0);
-						$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
-					} else {
-						textProfile.text(data.profile.short_story);
-					};
-					if (data.profile.short_life_1) {
-						shortlife1.text(data.profile.short_life_1);
-					};
-					if (data.profile.short_life_2) {
-						shortlife2.text(data.profile.short_life_2);
-					};
-					if (data.profile.short_life_3) {
-						shortlife3.text(data.profile.short_life_3);
-					};
-					if (data.profile.short_life_4) {
-						shortlife4.text(data.profile.short_life_4);
-					};
-					if (data.profile.short_life_5) {
-						shortlife5.text(data.profile.short_life_5);
-					};
-					loadLive(data.timelines.block1, htmlOut1, 'childhood');
-					loadLive(data.timelines.block2, htmlOut2, 'preyouth');
-					loadLive(data.timelines.block3, htmlOut3, 'youth');
-					loadLive(data.timelines.block4, htmlOut4, 'ripeness');
-					loadLive(data.timelines.block5, htmlOut5, 'elderhood');
-					hideAgeBlock(ageNumBirth);
-					var btnAddClick = $('.btn-tab-link');
-					if (btnAddClick) {
-						clickToLive(btnAddClick);
-					};
-					loaddLiveFull(data.timelines.block1, liveFull1);
-					loaddLiveFull(data.timelines.block2, liveFull2);
-					loaddLiveFull(data.timelines.block3, liveFull3);
-					loaddLiveFull(data.timelines.block4, liveFull4);
-					loaddLiveFull(data.timelines.block5, liveFull5);
-					renderDescrFull(data);
-					collectArr(allData);
-					renderEvents();
-					initMore();
-				} else {
-					if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
-						avaProfile.attr('src', data.profile.avatar);
-					};
-					let preBirth;
-					if (data.profile.birth_date) {
-						preBirth = data.profile.birth_date;
-					};
-					if (data.profile.death_date) {
-						var preDie = data.profile.death_date;
-						//ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
-						if (data.profile.cementry_name) {
-							cemeteryName.text(data.profile.cementry_name);
-						};
-						if (data.profile.cementry_square) {
-							square.text(data.profile.cementry_square);
-						};
-						if (data.profile.cementry_row) {
-							row.text(data.profile.cementry_row);
-						};
-						if (data.profile.cementry_place) {
-							number.text(data.profile.cementry_place);
-						};
-						if (data.profile.cementry_sector) {
-							sector.text(data.profile.cementry_sector);
-						};
-						if (data.profile.death_city) {
-							city_die.text(data.profile.death_city);
-						};
-						if (data.profile.birth_city) {
-							city_birth.text(data.profile.birth_city);
-						};
-						dieProfile.text(preDie);
-						timelinedieProfile.text(preDie);
-					} else {
-						isLife(data.profile.profile_mine);
-					};
-					// var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
-					// var preBirth = (data.profile.birth_date).split('-').reverse().join('.');
-					// var preDie = (data.profile.death_date).split('-').reverse().join('.');
-					// var ageNum = preDie.split(".").pop() - preBirth.split(".").pop();
-					var ageNumBirth = new Date().getFullYear() - preBirth.split(".").pop();
-					ageProfile.text(ageNumBirth);
-					birthProfile.text(preBirth);
-					timelinebirthProfile.text(preBirth);
-					dieProfile.text(preDie);
-					timelinedieProfile.text(preDie);
-					//ageProfile.text(ageNum);
-					nameProfile.text(data.profile.last_name);
-					surmaneProfile.text(data.profile.first_name);
-					patronimycProfile.text(data.profile.patronymic);
-					if (data.profile.maiden_name) {
-						maidenProfile.text(`(${data.profile.maiden_name})`);
-					};
-					if (data.profile.short_life_1) {
-						shortlife1.text(data.profile.short_life_1);
-					};
-					if (data.profile.short_life_2) {
-						shortlife2.text(data.profile.short_life_2);
-					};
-					if (data.profile.short_life_3) {
-						shortlife3.text(data.profile.short_life_3);
-					};
-					if (data.profile.short_life_4) {
-						shortlife4.text(data.profile.short_life_4);
-					};
-					if (data.profile.short_life_5) {
-						shortlife5.text(data.profile.short_life_5);
-					};
-					if (data.profile.short_story == '') {
-						$('.brief__text').css('opacity', 0);
-						$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
-					} else {
-						textProfile.text(data.profile.short_story);
-					};
-					if (data.profile.profile_open !== true) {
-						$('.brief__timelaps').css('display', 'none');
-						$('.brief__location').css('display', 'none');
-						$('.data-tab-content').css('display', 'none');
-						$('.menu__item').css('pointer-events', 'none').css('opacity', '.5');
-						$('.profile__data').append(`<p class="life-profile-notification">Это закрытая анкета</p>`);
-						isNotParentUser();
-					} else {
-						if (data.profile.cementry_name) {
-							cemeteryName.text(data.profile.cementry_name);
-						};
-						if (data.profile.cementry_square) {
-							square.text(data.profile.cementry_square);
-						};
-						if (data.profile.cementry_row) {
-							row.text(data.profile.cementry_row);
-						};
-						if (data.profile.cementry_place) {
-							number.text(data.profile.cementry_place);
-						};
-						if (data.profile.cementry_sector) {
-							sector.text(data.profile.cementry_sector);
-						};
-						if (data.profile.death_city) {
-							city_die.text(data.profile.death_city);
-						};
-						if (data.profile.birth_city) {
-							city_birth.text(data.profile.birth_city);
-						};
-						if (data.profile.profile_open !== true) {
-							$('.brief__timelaps').css('display', 'none');
-							$('.brief__location').css('display', 'none');
-							$('.data-tab-content').css('display', 'none');
-						};
-						if (data.profile.short_story == '') {
-							$('.brief__text').css('opacity', 0);
-							$('#user-about').css('opacity', 0).css('position', 'relative').css('z-index', '-1');
-						} else {
-							textProfile.text(data.profile.short_story);
-						};
-						if (data.profile.death_cause) {
-							cause.text(data.profile.death_cause);
-						};
-						loadLive(data.timelines.block1, htmlOut1, 'childhood');
-						loadLive(data.timelines.block2, htmlOut2, 'preyouth');
-						loadLive(data.timelines.block3, htmlOut3, 'youth');
-						loadLive(data.timelines.block4, htmlOut4, 'ripeness');
-						loadLive(data.timelines.block5, htmlOut5, 'elderhood');
-						hideAgeBlock(ageNumBirth);
-						var btnAddClick = $('.btn-tab-link');
-						if (btnAddClick) {
-							clickToLive(btnAddClick);
-						};
-						loaddLiveFull(data.timelines.block1, liveFull1);
-						loaddLiveFull(data.timelines.block2, liveFull2);
-						loaddLiveFull(data.timelines.block3, liveFull3);
-						loaddLiveFull(data.timelines.block4, liveFull4);
-						loaddLiveFull(data.timelines.block5, liveFull5);
-						renderDescrFull(data);
-						collectArr(allData);
-						renderEvents();
-						initMore();
-						isNotParentUser();
-					}
-				};
-			})
-			.then(() => {
-				$('#p_prldr').fadeOut('slow');
-				addEvents(userParent, currentProfile);
-			})
-			.catch(error => {
-				console.error('error1:', error);
-				showErrorSuccess('Нет данных', 1000);
-				window.location.href = '../index.html';
-			});
-	};
-
-
-	//User input first screen**********************************
-	var status_prof = '';
-	$('.about__check').on('change', function () {
-		status_prof = $(this).attr('data-status');
+	//Preloader*****************************
+	$(window).on('load', function () {
+		var $preloader = $('#p_prldr');
+		$preloader.fadeOut('slow');
 	});
-	//show form edit profile****************************
-	$('.editOLdData').click(function () {
-		let whois = $('#whois');
-		let userName = $('.user__name');
-		let userSurname = $('.user__surname');
-		let userPatronymic = $('.user__patronymic');
-		let userGirlName = $('.user__surname-girl');
-		let ava = $('#output');
-		let both = $('.user__both');
-		let die = $('.user__die');
-		let cityBoth = $('.user__both-loc');
-		let cityDie = $('.user__die-loc');
-		let info = $('#area-lives');
-		let cityCemetery = $('#city');
-		let cemetery = $('#cemetery');
-		let sector = $('#cementry_sector');
-		let square = $('#cementry_square');
-		let row = $('#cementry_row');
-		let place = $('#cementry_place');
-		let lon = $('#grave_lon');
-		let lat = $('#grave_lat');
-		let cause = $('#die-select');
-		cause.val(allData.profile.death_cause);
-		$('#editOldData').css('display', 'block');
-		$('.life').css('opacity', '0.1');
-		$('body').css('background', 'rgba(0,0,0, .9)').css('z-index', '-1');
-		$('.header').css('opacity', '0');
-		$('.brief__context').removeClass('active');
-		//console.log(allData.profile);
-		if (allData.profile.who_for_profile != '') {
-			whois.val(allData.profile.who_for_profile);
-		};
-		if (allData.profile.avatar != '') {
-			ava.attr('src', allData.profile.avatar);
-		};
-		if (allData.profile.profile_open == true) {
-			$('#open').click();
-		} else {
-			$('#close').click();
-		};
-		if (allData.profile.first_name != null) {
-			userSurname.val(allData.profile.first_name);
-		}
-		if (allData.profile.last_name != null) {
-			userName.val(allData.profile.last_name);
-		}
-		if (allData.profile.patronymic != null) {
-			userPatronymic.val(allData.profile.patronymic);
-		}
-		if (allData.profile.maiden_name != null) {
-			userGirlName.val(allData.profile.maiden_name);
-		};
-		if (allData.profile.death_date) {
-			die.val(allData.profile.death_date);
-
-		} else {
-			$('.data__relative').remove();
-			$('.user__die-loc').remove();
-			$('.data__title-location').remove();
-			$('.user__inp-wrap-die').remove();
-			$('.data-place').remove();
-		}
-		if (allData.profile.birth_date) {
-			both.val(allData.profile.birth_date);
-		}
-		if (allData.profile.birth_city != null) {
-			cityBoth.val(allData.profile.birth_city);
-		};
-		if (allData.profile.death_city != null) {
-			cityDie.val(allData.profile.death_city);
-		};
-		if (allData.profile.short_story != null) {
-			info.val(allData.profile.short_story);
-		};
-		if (allData.profile.cementry_city != null) {
-			cityCemetery.val(allData.profile.cementry_city);
-		};
-		if (allData.profile.cementry_name != null) {
-			cemetery.val(allData.profile.cementry_name);
-		};
-		if (allData.profile.cementry_sector != null) {
-			sector.val(allData.profile.cementry_sector);
-		};
-		if (allData.profile.cementry_square != null) {
-			square.val(allData.profile.cementry_square);
-		};
-		if (allData.profile.cementry_row != null) {
-			row.val(allData.profile.cementry_row);
-		};
-		if (allData.profile.cementry_place != null) {
-			place.val(allData.profile.cementry_place);
-		};
-		if (allData.profile.grave_lon != null) {
-			lon.val(allData.profile.grave_lon);
-		};
-		if (allData.profile.grave_lat != null) {
-			lat.val(allData.profile.grave_lat);
-		};
-		if (allData.profile.death_cause != null) {
-			$('#die-select-val').text(allData.profile.death_cause);
-		};
-
-
-		//Edit data to input from calendar******************
-		$('#user-both').change(function () {
-			var dataBoth = $('#user-both').val();
-			dataBoth = dataBoth.split('-').reverse().join('.');
-			$('.user__both').val(dataBoth);
-		});
-		$('#user-die').change(function () {
-			var dataDie = $('#user-die').val();
-			dataDie = dataDie.split('-').reverse().join('.');
-			$('.user__die').val(dataDie);
-		});
 
 
 
-		//send first request**************************
-		$('#sendEditRequest').click(function (e) {
-			e.preventDefault();
-			// let foto;
-			// let fotoNotFull = $('#fileFotoAvatar');
-			// console.log(fotoNotFull[0].files[0]);
-			// if (fotoNotFull[0].files[0] != undefined) {
-			// 	foto = fotoNotFull[0].files[0];
-			// } else {
-			// 	foto = ava.attr('src');
-			// };
-			let edit_data = {};
-			if (!die.val()) {
-				edit_data = {
-					avatar: ava.attr('src'),
-					first_name: userSurname.val(),
-					last_name: userName.val(),
-					patronymic: userPatronymic.val(),
-					maiden_name: userGirlName.val(),
-					birth_date: both.val(),
-					birth_city: cityBoth.val(),
-					short_story: info.val(),
-					profile_open: status_prof,
-					profile_id: currentProfile
-				};
-			} else {
-				edit_data = {
-					who_for_profile: whois.val(),
-					avatar: ava.attr('src'),
-					first_name: userSurname.val(),
-					last_name: userName.val(),
-					patronymic: userPatronymic.val(),
-					maiden_name: userGirlName.val(),
-					birth_date: both.val(),
-					death_date: die.val(),
-					birth_city: cityBoth.val(),
-					death_city: cityDie.val(),
-					short_story: info.val(),
-					cementry_city: cityCemetery.val(),
-					cementry_name: cemetery.val(),
-					cementry_sector: sector.val(),
-					cementry_square: square.val(),
-					cementry_row: row.val(),
-					cementry_place: place.val(),
-					grave_lon: lon.val(),
-					grave_lat: lat.val(),
-					death_cause: cause.val(),
-					profile_open: status_prof,
-					profile_id: currentProfile
-				};
-			}
 
-			//console.log(edit_data);
-			fetch(
-				`${api_url}update_profile`,
-				{
-					method: 'POST',
-					body: JSON.stringify(edit_data),
-					headers: {
-						'Authorization': 'Token token=' + cookie_token,
-						'Content-Type': 'application/json'
-					}
-				})
-				.then($('body').css('opacity', 0.5))
-				.then(response => response.json())
-				.then(data => {
+	//calendar init***********************************
+	$('#datepicker').Zebra_DatePicker({
+		always_visible: $('#container'),
+		direction: ['2021-11-01', '2022-06-01'],
+		days: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"],
+		months: ["ЯНВАРЬ", "ФЕВРАЛЬ", "МАРТ", "АПРЕЛЬ", "МАЙ", "ИЮНЬ", "ИЮЛЬ", "АВГУСТ", "СЕНТЯБРЬ", "ОКТЯБРЬ", "НОЯБРЬ", "ДЕКАБРЬ"],
+		onChange: function (view, elements) {
 
-					if (data) {
-						$('body').css('opacity', 1);
-						console.log("success send");
-						//console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 1000);
-						window.location.reload();
-					} else {
-						showErrorSuccess('Ошибка сохранения', 1000);
-						window.location.reload();
-					}
+			// on the "days" view...
+			if (view == 'days') {
 
-				})
-				.catch(error => {
-					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
-					window.location.reload();
+				//iterate through the active elements in the view
+				elements.each(function () {
+					// $(this).css('pointer-events', 'none');
+					// if ($(this).data('date').match(/2021-05-24/) || $(this).data('date').match(/2021-06-14/) || $(this).data('date').match(/2021-07-18/) || $(this).data('date').match(/2021-08-19/)) {
+					// 	$(this).css({
+					// 		'background': 'green',
+					// 		'color': '#FFF',
+					// 		'pointer-events': 'auto',
+					// 	});
+					// };
 				});
-		});
 
-	});
-
-
-
-
-
-
-
-	//show-hide context menu****************************
-	$('.brief__edit').click(function () {
-		$('.brief__context').addClass('active');
-		function hideBlock(e) {
-			if ($(e.target).closest('.brief__context').length) {
-				return;
-			} else {
-				$('.brief__context').removeClass('active');
-			}
-		}
-		setTimeout(() => {
-			$(document).on('click', function (e) {
-				hideBlock(e);
-				$(document).off('click', hideBlock(e));
-			});
-
-		}, 0);
-	});
-
-
-	//show delete profile popup*****************************
-	$('#delete-profile').click(function () {
-		$('body').addClass('no-scroll');
-		$('.form-del-profile').css('display', 'flex');
-		$('.context').removeClass('active');
-	});
-	//close delete profile popup**************************
-	$('#del-cancel').click(function () {
-		$('body').removeClass('no-scroll');
-		$('.form-del-profile').css('display', 'none');
-	});
-
-	//request to delete profile**************************
-	$('#del-confirm').click(function () {
-		let del_data_prof = {
-			id: currentProfile,
-			user_id: currentUser
-		};
-		//console.log(JSON.stringify(del_data));
-		fetch(
-			`${api_url}destroy_user_profile`,
-			{
-				method: 'DELETE',
-				body: JSON.stringify(del_data_prof),
-				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
-				}
-			})
-			.then($('body').css('opacity', 0.5))
-			.then(response => response.json())
-			.then(data => {
-
-				if (data) {
-					$('body').css('opacity', 1);
-					console.log("success send");
-					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess(data.status, 1000);
-					window.location.href = '../cabinet-page/';
-				} else {
-					$('body').css('opacity', 1);
-					showErrorSuccess('Ошибка сохранения', 1000);
-					window.location.reload();
-				}
-
-			})
-			.catch(error => {
-				$('body').css('opacity', 1);
-				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 3000);
-				window.location.reload();
-			});
-	})
-
-
-
-	//data for event*********************************
-	var id_timeline,
-		event_date,
-		event_type,
-		event_header,
-		event_place,
-		event_text;
-	//show-hide context menu****************************
-	function initDelStory() {
-		let storyItem = $('.story__edit-cont');
-		for (let i = 0; i < storyItem.length; i++) {
-			storyItem[i].addEventListener('click', function () {
-				let editBnt = $(this);
-				id_timeline = editBnt.parent().parent().attr('data-id');
-				event_text = editBnt.siblings('.story__context').text();
-				event_date = editBnt.parent().siblings('.story__date > span').text();
-				event_title = editBnt.parent().siblings('.story__content-title').text();
-				event_place = editBnt.parent().siblings('.story__date').children('.story__data-place').text();
-				event_type = editBnt.parent().parent().attr('data-type');
-				editBnt.siblings('.story__context').addClass('active');
-				function hideBlock(e) {
-					if ($(e.target).closest('.story__context').length) {
-						return;
-					} else {
-						$('.story__context').removeClass('active');
-					}
-				}
-				setTimeout(() => {
-					$(document).on('click', function (e) {
-						hideBlock(e);
-						$(document).off('click', hideBlock(e));
-					});
-
-				}, 0);
-			});
-		};
-
-	};
-
-	//show delete story popup*****************************
-	function initDelBtn() {
-		$('.delete-story').on('click', function (e) {
-			e.preventDefault();
-			console.log('click');
-			$('body').addClass('no-scroll');
-			$('.form-del-story').css('display', 'flex');
-			$('.context-story').removeClass('active');
-		});
-	};
-
-	//close delete story popup**************************
-	$('#del-cancel-story').click(function () {
-		$('body').removeClass('no-scroll');
-		$('.form-del-story').css('display', 'none');
-	});
-	//request to delete story**************************
-	$('#del-confirm-stories').click(function () {
-		let del_data_event = {
-			timeline_id: id_timeline
-		};
-		fetch(
-			`${api_url}destroy_timeline_event`,
-			{
-				method: 'DELETE',
-				body: JSON.stringify(del_data_event),
-				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
-				}
-			})
-			.then($('body').css('opacity', 0.5))
-			.then(response => response.json())
-			.then(data => {
-
-				if (data) {
-					$('body').css('opacity', 1);
-					console.log("success send");
-					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess('Событие удалено', 1000);
-					window.location.href = `#${currentProfile}`;
-					window.location.reload();
-				} else {
-					$('body').css('opacity', 1);
-					showErrorSuccess('Ошибка сохранения', 1000);
-					window.location.href = `#${currentProfile}`;
-					window.location.reload();
-				}
-
-			})
-			.catch(error => {
-				$('body').css('opacity', 1);
-				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 3000);
-				window.location.href = `#${currentProfile}`;
-				window.location.reload();
-			});
-	})
-
-
-
-	//Edit stoty event*************************************
-	function initEditStory() {
-		//show edit story popup*****************************
-		$('.editOLdStory').on('click', function () {
-			$('body').addClass('no-scroll');
-			$('.edit-story').css('display', 'flex');
-			$('.context-story').removeClass('active');
-			// initDelStory();
-			// console.log(id_timeline,
-			// 	event_date,
-			// 	event_type,
-			// 	event_header,
-			// 	event_place,
-			// 	event_text)
-
-
-
-		});
-		//close delete story popup**************************
-		$('#story-edit-cancel').click(function () {
-			$('body').removeClass('no-scroll');
-			$('.edit-story').css('display', 'none');
-		});
-
-
-		// if (data_event.val() != '' && category_event.val() != '' && place_event.val() != '' && title_event.val() != '' && text_event.val() != '') {
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
-		// var data_event_add = $('.story-date');
-		// var category_event_add = $('#category');
-		// var place_event = $('#memory_place');
-		// var title_event = $('#memory_title');
-		// var text_event = $('#memory_text-add');
-
-		// $('#story-add').click(function (e) {
-		// 	e.preventDefault();
-		// 	var timeline_event = {
-		// 		event_date: data_event.val(),
-		// 		event_header: title_event.val(),
-		// 		event_type: category_event.val(),
-		// 		event_img: $('.memory_foto').attr('src'),
-		// 		event_text: text_event.val(),
-		// 		event_place: place_event.val(),
-		// 		profile_id: currentProfile
-		// 	};
-		//console.log(timeline_event);
-		// 	if (validate_event()) {
-		// 		fetch(
-		// 			`${api_url}create_timeline_event`,
-		// 			{
-		// 				method: 'POST',
-		// 				body: JSON.stringify(timeline_event),
-		// 				headers: {
-		// 					'Authorization': 'Token token=' + cookie_token,
-		// 					'Content-Type': 'application/json'
-		// 				}
-		// 			})
-		// 			.then($('body').css('opacity', 0.5))
-		// 			.then(response => response.json())
-		// 			.then(data => {
-		// 				if (data) {
-		// 					$('body').css('opacity', 1);
-		// 					console.log("success send");
-		// 					// console.log('Data:', JSON.stringify(data));
-		// 					// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
-		// 					window.location.href = `#${currentProfile}`;
-		// 					window.location.reload();
-		// 				} else {
-		// 					showErrorSuccess('Ошибка,попробуйте еще', 300);
-		// 					$('body').css('opacity', 1);
-		// 				}
-
-		// 			})
-		// 			.catch(error => {
-		// 				console.log('error:', error);
-		// 				showErrorSuccess('Ошибка соединения', 300);
-		// 				$('body').css('opacity', 1);
-		// 			});
-		// 	} else {
-		// 		showErrorSuccess('Заполните все поля', 300);
-		// 		$('body').css('opacity', 1);
-		// 	}
-		// })
-	};
-
-
-
-	//edit text of questions************************
-	function sendQuestions(text) {
-		fetch(
-			`${api_url}update_highlight`,
-			{
-				method: 'POST',
-				body: JSON.stringify(text),
-				headers: {
-					'Authorization': 'Token token=' + cookie_token,
-					'Content-Type': 'application/json'
-				}
-			})
-			.then($('body').css('opacity', 0.5))
-			.then(response => response.json())
-			.then(data => {
-				if (data) {
-					console.log("success send");
-					console.log('Data:', JSON.stringify(data));
-					showErrorSuccess('Данные сохранены', 1000);
-					$('body').css('opacity', 1);
-				} else {
-					showErrorSuccess('Ошибка,попробуйте еще', 1000);
-					$('body').css('opacity', 1);
-				}
-
-			})
-			.catch(error => {
-				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 1000);
-				$('body').css('opacity', 1);
-			});
-	}
-
-	//family
-	$('#question-family').click(function () {
-		let text1 = $('#parents').text();
-		let text2 = $('#relatives').text();
-		let text3 = $('#nationality').text();
-		let text4 = $('#cities').text();
-		let text5 = $('#values').text();
-		let saveText = {
-			family_parents: text1,
-			family_siblings: text2,
-			family_nationalities: text3,
-			family_country: text4,
-			family_values: text5,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//holiday
-	$('#question-holiday').click(function () {
-		let text1 = $('#holiday-favorite').text();
-		let text2 = $('#newyear').text();
-		let text3 = $('#recipes').text();
-		let text4 = $('#famity-recipes').text();
-		let saveText = {
-			holiday_favorite: text1,
-			holiday_new_year: text2,
-			holiday_recipes: text3,
-			holiday_traditions: text4,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//Activity
-	$('#question-activity').click(function () {
-		let text1 = $('#work').text();
-		let text2 = $('#first').text();
-		let text3 = $('#carrier').text();
-		let text4 = $('#public').text();
-		let saveText = {
-			activity_field: text1,
-			activity_first: text2,
-			activity_career: text3,
-			activity_social: text4,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//Interest
-	$('#question-interest').click(function () {
-		let text1 = $('#spots').text();
-		let text2 = $('#hobies').text();
-		let text3 = $('#books').text();
-		let text4 = $('#favorite').text();
-		let saveText = {
-			passion_sport: text1,
-			passion_hobbie: text2,
-			passion_book: text3,
-			passion_cinema: text4,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//Travel
-	$('#question-travel').click(function () {
-		let text1 = $('#travel-city').text();
-		let text2 = $('#travel-country').text();
-		let text3 = $('#travel-school').text();
-		let text4 = $('#travel-family').text();
-		let saveText = {
-			trip_city: text1,
-			trip_country: text2,
-			trip_student: text3,
-			trip_family: text4,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//Friends
-	$('#question-friends').click(function () {
-		let text1 = $('#best-friend').text();
-		let text2 = $('#friends-all').text();
-		let text3 = $('#teacher').text();
-		let text4 = $('#schooll').text();
-		let text5 = $('#college').text();
-		let saveText = {
-			studies_best_friend: text1,
-			studies_school_friend: text2,
-			studies_teacher: text3,
-			studies_school: text4,
-			studies_university: text5,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-	//heritage
-	$('#question-heritage').click(function () {
-		let text1 = $('#links').text();
-		let text2 = $('#house').text();
-		let text3 = $('#teacher').text();
-		let text4 = $('#child').text();
-		let text5 = $('#achievement').text();
-		let saveText = {
-			heritage_blog: text1,
-			heritage_house: text2,
-			studies_teacher: text3,
-			heritage_children: text4,
-			heritage_progress: text5,
-			profile_id: currentProfile
-		};
-		sendQuestions(saveText);
-	});
-
-
-
-
-
-
-
-
-	//add event to candle and bookmark***************
-	function addEvents(user, targetUser) {
-		//Show candle fire
-		$('#candle').click(function () {
-			$('#candle').toggleClass('active');
-		});
-		//change icon bookmark when click
-		$('#bookmark').click(function () {
-			const bookmark = {
-				user_id: user,
-				profile_id: targetUser
-			};
-			if ($(this).hasClass('active')) {
-				$(this).toggleClass('active');
-				$(this).attr('src', './img/bookmark.svg');
-				fetch(
-					`${api_url}delete_profile_from_favorite`,
-					{
-						method: 'DELETE',
-						body: JSON.stringify(bookmark),
-						headers: {
-							'Authorization': 'Token token=' + cookie_token,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then($('body').css('opacity', 0.5))
-					.then(response => response.json())
-					.then(data => {
-						if (data) {
-							console.log("success send");
-							//console.log('Data:', JSON.stringify(data));
-							showErrorSuccess('Анкета удалена из закладок', 1500);
-							$('body').css('opacity', 1);
-						} else {
-							showErrorSuccess('Ошибка,попробуйте еще', 1500);
-							$('body').css('opacity', 1);
-						}
-
-					})
-					.catch(error => {
-						console.log('error:', error);
-						showErrorSuccess('Ошибка соединения', 1500);
-						$('body').css('opacity', 1);
-					});
-
-			} else {
-				$(this).attr('src', './img/bookmark-black.svg');
-				$(this).toggleClass('active');
-				fetch(
-					`${api_url}add_profile_to_favorite`,
-					{
-						method: 'POST',
-						body: JSON.stringify(bookmark),
-						headers: {
-							'Authorization': 'Token token=' + cookie_token,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then($('body').css('opacity', 0.5))
-					.then(response => response.json())
-					.then(data => {
-						if (data) {
-							console.log("success send");
-							//console.log('Data:', JSON.stringify(data));
-							showErrorSuccess('Анкета добавлена в закладки', 1500);
-							$('body').css('opacity', 1);
-						} else {
-							showErrorSuccess('Ошибка,попробуйте еще', 1500);
-							$('body').css('opacity', 1);
-						}
-
-					})
-					.catch(error => {
-						console.log('error:', error);
-						showErrorSuccess('Ошибка соединения', 1500);
-						$('body').css('opacity', 1);
-					});
-			};
-		});
-		//show text more description*******************************
-		$('.brief__descr').click(function () {
-			$(this).toggleClass('active');
-		});
-	};
-
-	//load more timeline******************************************
-	function initMore() {
-		let list = document.querySelectorAll('.more');
-		for (let i = 0; i < list.length; i++) {
-			list[i].addEventListener('click', function (e) {
-				let target = e.target;
-				//console.log(target.previousElementSibling);
-				target.previousElementSibling.classList.toggle('active');
-			});
-		};
-	};
-
-
-
-
-
-
-	//Exit account***************************************************
-	$('#logout').click(function () {
-		deleteCookie(cookie_name_token);
-		window.location.reload();
-
-	});
-
-
-
-
-
-	//Registration input ****************************************************
-	var registration = $('#sendReg');
-	var formReg = $('#reg-form');
-	var userName = $('#reg-name');
-	var userSoname = $('#reg-soname');
-	var userPatronymic = $('#reg-patronymic');
-	var userTel = $('#reg-tel');
-	var userEmail = $('#reg-email');
-	var userPassword = $('#reg-password');
-
-
-	//Validate input field************************************************
-	function validateMail() {
-		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		var regEmail = $('#reg-email').val();
-		if (reg.test(regEmail) == false || regEmail == '') {
-			showErrorSuccess('Введите корректный e-mail', 1000);
-
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateSurname() {
-		//var reg = /^[A-zА-яЁё]+$/;
-		var surname = $('#reg-soname').val();
-		if (surname == '') {
-			showErrorSuccess('Введите фамилию', 1000);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateName() {
-		//var reg = /^[A-zА-яЁё]+$/;
-		var name = $('#reg-name').val();
-		if (name == '') {
-			showErrorSuccess('Введите имя', 1000);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	// function validateName() {
-	//     var reg = /^[А-Яа-яЁё\s]+$/;
-	//     var name = $('#reg-name').val();
-	//     if (reg.test(name) == false || name == '') {
-	//         $('#error').text("Введите корректное имя").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-	//         return false;
-	//     } else {
-	//         return true;
-	//     }
-	// };
-	function validatePatronymic() {
-		//var reg = /^[A-zА-яЁё]+$/;
-		var patronymic = $('#reg-patronymic').val();
-		if (patronymic == '') {
-			showErrorSuccess('Введите отчество', 1000);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validateTel() {
-		//var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
-		var tel = $('#reg-tel').val();
-		if (tel == '') {
-			showErrorSuccess('Введите корректный телефон', 1000);
-			return false;
-		} else {
-			return true;
-		}
-	};
-	function validatePass() {
-		var pass = $('#reg-password').val();
-		if (pass == '' || pass.length < 6) {
-			showErrorSuccess('Введите корректный пароль мин 6 символов', 1000);
-			return false;
-		} else {
-			return true;
-		}
-	};
-
-	function clearInput() {
-		$('#reg-name').val('');
-		$('#reg-soname').val('');
-		$('#reg-patronymic').val('');
-		$('#reg-tel').val('');
-		$('#reg-email').val('');
-		$('#reg-password').val('');
-	};
-
-
-
-	//Registration user**************************************************
-	registration.click(function (e) {
-		e.preventDefault();
-		var data = {
-			first_name: userName.val(),
-			last_name: userSoname.val(),
-			patronymic: userPatronymic.val(),
-			tel_number: userTel.val(),
-			email: userEmail.val(),
-			password: userPassword.val(),
-		};
-		if (validateSurname() && validateName() && validatePatronymic() && validateTel() && validateMail() && validatePass()) {
-			fetch(
-				`${api_url}user_create`,
-				{
-					method: 'POST',
-					body: JSON.stringify(data),
-					headers: {
-						// 'Authorization': 'Token token=' + cookie_token,
-						'Content-Type': 'application/json'
-					}
-				})
-				.then(response => response.json())
-				.then(json => {
-
-					if (json.error == 0) {
-						console.log("success get token");
-						setCookie(cookie_name_token, json.token, 3600);
-						cookie_token = getCookie(cookie_name_token);
-						clearInput();
-						window.location.href = '../cabinet-page';
-						//$('.reg__btn-enter').addClass('active').click();
-					} else {
-						showErrorSuccess('Такой пользователь уже существует', 1000);
-						clearInput();
-					}
-
-				})
-				.catch(error => {
-					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
-					deleteCookie(cookie_name_token);
-					window.location.reload();
-				});
-		}
-	});
-
-
-
-	//Auth user**************************************************
-	$('#authSend').click(function (e) {
-		e.preventDefault();
-		function validateMail() {
-			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-			var email = $('#auth-email').val();
-			if (reg.test(email) == false || email == '') {
-				showErrorSuccess('Введите корректный e-mail', 1000);
-				return false;
-			} else {
-				return true;
-			}
-		}
-		var authPassword = $('#auth-password').val();
-		if (authPassword === '') {
-			showErrorSuccess('Введите пароль', 1000);
-		}
-		if (validateMail() && authPassword != '') {
-			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
-			//console.log(token_web);
-			try {
-
-				fetch(
-					`${api_url}token`,
-					{
-						method: 'GET',
-						headers: {
-							'Authorization': 'Basic ' + token_web,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(response => response.json())
-					.then(json => {
-						// console.log("token ", json)
-						if (typeof json.token !== 'undefined') {
-							console.log("success get token");
-							setCookie(cookie_name_token, json.token, 3600);
-							cookie_token = getCookie(cookie_name_token);
-							// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
-							window.location.reload();
-						} else {
-							showErrorSuccess('Проверьте логин и пароль', 1000);
-							clearInput();
-						}
-
-					})
-					.catch(error => {
-						console.log('error:', error);
-						showErrorSuccess('Ошибка подключения', 1000);
-						deleteCookie(cookie_name_token);
-						window.location.reload();
-					});
-			}
-			catch (err) {
-				console.log(err);
-				deleteCookie(cookie_name_token);
-				window.location.reload();
-			}
-		}
-
-	});
-
-
-
-	//send request to remember********************
-	$('#remember').click(function () {
-		var email = $('#auth-email').val();
-		function validateMail(email) {
-			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-			if (reg.test(email) == false || email == '') {
-				showErrorSuccess('Введите корректный e-mail', 1000);
-				return false;
-			} else {
-				return true;
-			}
-		}
-		if (validateMail(email)) {
-			fetch(
-				`${api_url}send_password?email=${email}`,
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				})
-				.then(response => response.json())
-				.then(json => {
-					if (json.error == 0) {
-						showErrorSuccess("Пароль отправлен на почту", 2000);
-					} else {
-						showErrorSuccess("Ошибка отправки", 2000);
-						clearInput();
-					}
-				})
-				.catch(error => {
-					console.log('error:', error);
-					showErrorSuccess("Ошибка соединения", 1000);
-				});
-		} else {
-			showErrorSuccess('Введите сначала e-mail', 1000);
-		}
-	});
-
-
-
-
-
-
-
-	//send story timeline**************************
-	function validate_event() {
-		if (data_event.val() != '' && category_event.val() != '') {
-			return true;
-		} else {
-			return false;
-		}
-	};
-	var data_event = $('.story-date');
-	var category_event = $('#category');
-	var place_event = $('#memory_place');
-	var title_event = $('#memory_title');
-	var text_event = $('#memory_text-add');
-
-	$('#story-add').click(function (e) {
-		e.preventDefault();
-		var timeline_event = {
-			event_date: data_event.val(),
-			event_header: title_event.val(),
-			event_type: category_event.val(),
-			event_img: $('#output2').attr('src'),
-			event_text: text_event.val(),
-			event_place: place_event.val(),
-			profile_id: currentProfile
-		};
-		if (timeline_event.event_img == './img/default-foto.png') {
-			timeline_event.event_img = './img/default-bg-img.webp';
-		};
-		//console.log(timeline_event);
-		if (validate_event()) {
-			fetch(
-				`${api_url}create_timeline_event`,
-				{
-					method: 'POST',
-					body: JSON.stringify(timeline_event),
-					headers: {
-						'Authorization': 'Token token=' + cookie_token,
-						'Content-Type': 'application/json'
-					}
-				})
-				.then($('body').css('opacity', 0.5))
-				.then(response => response.json())
-				.then(data => {
-					if (data) {
-						$('body').css('opacity', 1);
-						console.log("success send");
-						// console.log('Data:', JSON.stringify(data));
-						// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
-						window.location.href = `#${currentProfile}`;
-						window.location.reload();
-					} else {
-						showErrorSuccess('Ошибка,попробуйте еще', 1000);
-						$('body').css('opacity', 1);
-					}
-
-				})
-				.catch(error => {
-					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
-					$('body').css('opacity', 1);
-				});
-		} else {
-			showErrorSuccess('Заполните все поля', 1000);
-			$('body').css('opacity', 1);
-
-		}
-	})
-
-
-
-
-
-	//burger***************************************
-	$('.drawer-burg').click(function () {
-		burgerShow();
-	})
-	$('.drawer-close').on('click', function () {
-		burgerShow();
-		console.log('click');
-	})
-	function burgerShow() {
-		$('body').toggleClass('no-scroll');
-	};
-
-
-	// $('.nav__link').click(function () {
-	// 	burgerShow();
-	// });
-	// $('.burger__bg-body').click(function (e) {
-	// 	var container = $('.burger-wrap');
-	// 	if (container.has(e.target).length === 0) {
-	// 		burgerShow();
-	// 	}
-	// });
-
-	//hive nav on scroll*******************
-	if ($(window).width() < 1024) {
-		let burger = $('.drawer-burg');
-		var navbar = $('.header');
-		var hightlight = $('.profile__menu--mob');
-		var backStory = $('.story__back');
-		var storyTitle = $('.story__title');
-		var storyTitleTab = $('.story__title-tab');
-		// Hide Header on on scroll down
-		var didScroll;
-		var lastScrollTop = 0;
-		var delta = 5;
-		var navbarHeight = $('header').outerHeight();
-
-		$(window).scroll(function (event) {
-			didScroll = true;
-		});
-
-		setInterval(function () {
-			if (didScroll) {
-				hasScrolled();
-				didScroll = false;
-			}
-		}, 150);
-
-		function hasScrolled() {
-			var st = $(this).scrollTop();
-
-			// Make sure they scroll more than delta
-			if (Math.abs(lastScrollTop - st) <= delta)
-				return;
-
-			// If they scrolled down and are past the navbar, add class .nav-up.
-			// This is necessary so you never see what is "behind" the navbar.
-			if (st > lastScrollTop && st > navbarHeight) {
-				// Scroll Down				
-				burger.css('z-index', '-1');
-				navbar.css('z-index', '-1');
-				hightlight.css('top', '0');
-				backStory.css('top', '82px');
-				storyTitle.css('top', '100px');
-				storyTitleTab.css('top', '60px');
-
-			} else {
-				// Scroll Up
-				if (st + $(window).height() < $(document).height()) {
-					burger.css('z-index', '310');
-					navbar.css('z-index', '300');
-					hightlight.css('top', '50px');
-					backStory.css('top', '133px');
-					storyTitle.css('top', '136px');
-					storyTitleTab.css('top', '120px');
-				}
 			}
 
-			lastScrollTop = st;
 		}
-	}
+
+	});
 
 
 
 
-
-	//tabs forms***********************************************
-	$(".reg__main").not(":first").hide();
-	$(".reg-tab").click(function () {
-		$(".reg-tab").removeClass("active").eq($(this).index()).addClass("active");
-		$(".reg__main").hide().eq($(this).index()).fadeIn();
-	}).eq(0).addClass("active");
-
-	//close forms popup********************************************
-	$('.reg__close').click(function () {
-		$('.reg-bg').hide();
-		$('body').removeClass('no-scroll');
-	})
-
-	//Show forms***************************************************
-	$('.enter').click(function () {
-		$('.reg-bg').show().css('display', 'flex');
-		$('body').addClass('no-scroll');
-	})
-
-
-	//select category***************************
-	$('#category').each(function () {
+	$('.order__cites').each(function () {
 		var $this = $(this), numberOfOptions = $(this).children('option').length;
 
 		$this.addClass('select-hidden');
-		$this.wrap('<div class="select select--category"></div>');
+		$this.wrap('<div class="select"></div>');
 		$this.after('<div class="select-styled"></div>');
 
 		var $styledSelect = $this.next('div.select-styled');
 		$styledSelect.text($this.children('option').eq(0).text());
 
 		var $list = $('<ul />', {
-			'class': 'select-options select-options--category'
+			'class': 'select-options'
 		}).insertAfter($styledSelect);
 
 		for (var i = 0; i < numberOfOptions; i++) {
@@ -12423,574 +10691,127 @@ $(document).ready(function () {
 	});
 
 
-	//select category***************************
-	$('.die__select').each(function () {
-		var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-		$this.addClass('select-hidden');
-		$this.wrap('<div class="select"></div>');
-		$this.after('<div class="select-styled" id="die-select-val"></div>');
-
-		var $styledSelect = $this.next('div.select-styled');
-		$styledSelect.text($this.children('option').eq(0).text());
-
-		var $list = $('<ul />', {
-			'class': 'select-options'
-		}).insertAfter($styledSelect);
-
-		for (var i = 0; i < numberOfOptions; i++) {
-			$('<li />', {
-				text: $this.children('option').eq(i).text(),
-				rel: $this.children('option').eq(i).val()
-			}).appendTo($list);
+	//checks tariffs************************************
+	$('.order__item-chek').on('click', function () {
+		var $this = $(this);
+		$('.order__item-cont').css('box-shadow', 'none').css('border', '1px solid rgba(0,0,0,0.1)');
+		if ($this.prop('checked')) {
+			$('.order__item-chek').not($this).prop('checked', false);
+			$this.parent('.order__item-chek-wrap').prev().css('border', 'none').css('box-shadow', '5px 13px 22px 0px rgba(0, 0, 0, 0.2)');
 		}
 
-		var $listItems = $list.children('li');
-
-		$styledSelect.click(function (e) {
-			e.stopPropagation();
-			$('div.select-styled.select-active').not(this).each(function () {
-				$(this).removeClass('select-active').next('ul.select-options').hide().css('height', '0');
-			});
-			$(this).toggleClass('select-active').next('ul.select-options').toggle().css('height', '186px');
-		});
-
-		$listItems.click(function (e) {
-			e.stopPropagation();
-			$styledSelect.text($(this).text()).removeClass('select-active');
-			$this.val($(this).attr('rel'));
-			$list.hide();
-			//console.log($this.val());
-		});
-
-		$(document).click(function () {
-			$styledSelect.removeClass('select-active');
-			$list.hide();
-		});
-
 	});
 
-	//close edit form*******************************
-	$('.about__close').click(function () {
-		$('#editOldData').hide();
-		$('.life').css('opacity', '1');
-		$('body').css('background', 'none').css('z-index', '0');
-		$('.header').css('opacity', '1');
-	})
+	//toggle yes or not************************************
+	if (window.matchMedia("(min-width: 769px)").matches) {
+		$('#yes').on('click', function () {
+			$('.order-form__form').css('opacity', '1').css('pointer-events', 'auto');
+			$('.order-form__form-your').css('opacity', '1').css('pointer-events', 'auto');
+			$('#yes').prop('checked', true);
+			if ($('#not').prop('checked')) {
+				$('#not').prop('checked', false);
+				$('.order-form__not-form').css('opacity', '.4').css('pointer-events', 'none');
+
+			}
+		});
+		$('#not').on('click', function () {
+			$('#not').prop('checked', true);
+			$('.order-form__not-form').css('opacity', '1').css('pointer-events', 'auto');
+			if ($('#yes').prop('checked')) {
+				$('#yes').prop('checked', false);
+				$('.order-form__form').css('opacity', '.4').css('pointer-events', 'none');
+				$('.order-form__form-your').css('opacity', '.4').css('pointer-events', 'none');
+			}
+
+		});
 
 
+	}
+	if (window.matchMedia("(max-width: 769px)").matches) {
+		$('.order-form__form').css('opacity', '1').css('pointer-events', 'auto');
+		$('.order-form__form-your').css('opacity', '1').css('pointer-events', 'auto');
+		$('.order-form__not-form').css('opacity', '1').css('pointer-events', 'auto');
+		$('#yes').prop('checked', true);
+		$('#yes').on('click', function () {
+			$('.order-form__yes').show();
+			$('#yes').prop('checked', true);
+			if ($('#not').prop('checked')) {
+				$('#not').prop('checked', false);
+				$('.order-form__not').hide();
 
+			}
+		});
+		$('#not').on('click', function () {
+			$('#not').prop('checked', true);
+			$('.order-form__not').show();
+			if ($('#yes').prop('checked')) {
+				$('#yes').prop('checked', false);
+				$('.order-form__yes').hide();
+			}
 
-
-
-
-
-
-
-
-	//Search show***************************************
-
-	// $('.search__btn-showHide').click(function () {
-	// 	$('.search__more-wrap').toggleClass('show-select');
-	// 	$('.search__btn-showHide').toggleClass('active-btn');
-	// });
-
-
-
-	//Set data to input from calendar******************
-	// $('#user-both').change(function () {
-	// 	var dataBoth = $('#user-both').val();
-	// 	dataBoth = dataBoth.split('-').reverse().join('-');
-	// 	$('.user__both').val(dataBoth);
-	// });
-	// $('#user-die').change(function () {
-	// 	var dataDie = $('#user-die').val();
-	// 	dataDie = dataDie.split('-').reverse().join('-');
-	// 	$('.user__die').val(dataDie);
-	// });
-
-
-
-
-
-
-	//Sудусе settings user***********************************
-	// $('#settings').click(function () {
-	// 	$('.about__subsettings').toggleClass('show-settings');
-	// })
-
-	// $('#settings-mob').click(function () {
-	// 	$('.profile__about').toggleClass('settings');
-	// })
-
-	$('.about__show-item').click(function (event) {
-		$(this).addClass('active');
-		$(this).siblings().removeClass('active');
-		$(this).next($(this)[0]).addClass('active');
-	});
-
-
-	async function renderQuestions() {
-		let text1 = $('#parents');
-		let text2 = $('#relatives');
-		let text3 = $('#nationality');
-		let text4 = $('#cities');
-		let text5 = $('#values');
-		let text6 = $('#holiday-favorite');
-		let text7 = $('#newyear');
-		let text8 = $('#recipes');
-		let text9 = $('#famity-recipes');
-		let text10 = $('#work');
-		let text11 = $('#first');
-		let text12 = $('#carrier');
-		let text13 = $('#public');
-		let text14 = $('#spots');
-		let text15 = $('#hobies');
-		let text16 = $('#books');
-		let text17 = $('#favorite');
-		let text18 = $('#travel-city');
-		let text19 = $('#travel-country');
-		let text20 = $('#travel-school');
-		let text21 = $('#travel-family');
-		let text22 = $('#best-friend');
-		let text23 = $('#friends-all');
-		let text24 = $('#teacher');
-		let text25 = $('#schooll');
-		let text26 = $('#college');
-		let text27 = $('#links');
-		let text28 = $('#house');
-		let text29 = $('#child');
-		let text30 = $('#achievement');
-
-
-		fetch(
-			`${api_url}get_highlight?profile_id=${currentProfile}`,
-			{
-				method: 'GET'
-			})
-			.then(response => response.json())
-			.then(data => {
-				text1.text(data.highlight.family_highlight.family_parents);
-				text2.text(data.highlight.family_highlight.family_siblings);
-				text3.text(data.highlight.family_highlight.family_nationalities);
-				text4.text(data.highlight.family_highlight.family_country);
-				text5.text(data.highlight.family_highlight.family_values);
-				text6.text(data.highlight.holiday_highlight.holiday_favorite);
-				text7.text(data.highlight.holiday_highlight.holiday_new_year);
-				text8.text(data.highlight.holiday_highlight.holiday_recipes);
-				text9.text(data.highlight.holiday_highlight.holiday_traditions);
-				text10.text(data.highlight.activity_highlight.activity_field);
-				text11.text(data.highlight.activity_highlight.activity_first);
-				text12.text(data.highlight.activity_highlight.activity_career);
-				text13.text(data.highlight.activity_highlight.activity_social);
-				text14.text(data.highlight.passion_highlight.passion_sport);
-				text15.text(data.highlight.passion_highlight.passion_hobbie);
-				text16.text(data.highlight.passion_highlight.passion_book);
-				text17.text(data.highlight.passion_highlight.passion_cinema);
-				text18.text(data.highlight.trip_highlight.trip_city);
-				text19.text(data.highlight.trip_highlight.trip_country);
-				text20.text(data.highlight.trip_highlight.trip_student);
-				text21.text(data.highlight.trip_highlight.trip_family);
-				text22.text(data.highlight.studies_highlight.studies_best_friend);
-				text23.text(data.highlight.studies_highlight.studies_school_friend);
-				text24.text(data.highlight.studies_highlight.studies_teacher);
-				text25.text(data.highlight.studies_highlight.studies_school);
-				text26.text(data.highlight.studies_highlight.studies_university);
-				text27.text(data.highlight.heritage_highlight.heritage_blog);
-				text28.text(data.highlight.heritage_highlight.heritage_house);
-				text29.text(data.highlight.heritage_highlight.heritage_children);
-				text30.text(data.highlight.heritage_highlight.heritage_progress);
-
-			})
-			.catch(error => console.error('error1:', error));
-
+		});
 	};
 
 
-	async function renderEvents() {
-		//filter events****************************************
-		function filterEvent(events, event1, event2, event3, event4, event5, event6, event7, event8) {
-			for (let x = 0; x < events.length; x++) {
-				var typeEvent = events[x].event_type;
-				switch (typeEvent) {
-					case 'Семья':
-						event1.push(events[x]);
-						break;
-					case 'Традиции':
-						event2.push(events[x]);
-						break;
-					case 'Деятельность':
-						event3.push(events[x]);
-						break;
-					case 'Увлечения':
-						event4.push(events[x]);
-						break;
-					case 'Путешествия':
-						event5.push(events[x]);
-						break;
-					case 'Учеба/Друзья':
-						event6.push(events[x]);
-						break;
-					case 'Наследие':
-						event7.push(events[x]);
-						break;
-					case 'Веселые истории':
-						event8.push(events[x]);
-						break;
-				}
-			};
-		};
-
-		//show questionnarie item menu(tabs)*******************
-		var event_1 = [],
-			event_2 = [],
-			event_3 = [],
-			event_4 = [],
-			event_5 = [],
-			event_6 = [],
-			event_7 = [],
-			event_8 = [];
-		var liveEventFamily = $('#family');
-		var liveEventHoliday = $('#holiday');
-		var liveEventWorks = $('#works');
-		var liveEventInterest = $('#interest');
-		var liveEventTravel = $('#travel');
-		var liveEventFriends = $('#friends');
-		var liveEventHeritage = $('#heritage');
-		var liveEventHistory = $('#happy-history');
-		filterEvent(arrData, event_1, event_2, event_3, event_4, event_5, event_6, event_7, event_8);
-		loaddLiveFull(event_1, liveEventFamily);
-		loaddLiveFull(event_2, liveEventHoliday);
-		loaddLiveFull(event_3, liveEventWorks);
-		loaddLiveFull(event_4, liveEventInterest);
-		loaddLiveFull(event_5, liveEventTravel);
-		loaddLiveFull(event_6, liveEventFriends);
-		loaddLiveFull(event_7, liveEventHeritage);
-		loaddLiveFull(event_8, liveEventHistory);
-		renderQuestions();
-	};
-
-
-	$('.data__tab').not(':first').hide();
-	$('.menu__item').click(function (e) {
-		e.preventDefault();
-		if ($(window).width() < 935) {
-			$('.profile__about').hide();
+	$('.flowers__item-chek').on('click', function () {
+		var $this = $(this);
+		if ($this.prop('checked')) {
+			$('.flowers__item-chek').not($this).prop('checked', false);
 		}
-		$(this).addClass('active-items').siblings().removeClass('active-items');
-		$('.data__tab').hide().eq($(this).index()).fadeIn();
-		window.location.href = `#${currentProfile}`;
-		// fetch(`${api_url}show_timeline?profile_id=${currentProfile}`,
-		// 	{
-		// 		method: 'GET',
-		// 		headers: {
-		// 			'Authorization': 'Token token=' + cookie_token,
-		// 			'Content-Type': 'application/json'
-		// 		}
-		// 	})
-		// 	.then(response => response.json())
-		// 	.then(data => {
-		// 		//console.log('Data:', JSON.stringify(data));
 
-		// 	})
-		// 	.catch(error => console.error('error1:', error));
-		// $('.data__form-text').focus();
-		if ($(this).index() == 0) {
-			$('.profile__about').show();
-		};
+	});
+
+	$('.qr__item-chek').on('click', function () {
+		var $this = $(this);
+		if ($this.prop('checked')) {
+			$('.qr__item-chek').not($this).prop('checked', false);
+		}
 
 	});
 
 
-	$('.tab__form-title').each(function () {
-		$(this).on('click', function () {
-			$(this).siblings().toggleClass('active');
-			$(this).toggleClass('active');
-			if ($(this).next('.tab__form').hasClass('active')) {
-				$(this).next('.tab__form').slideUp();
-			} else {
-				$(this).next('.tab__form').slideDown();
-
-			};
-		});
-	})
-
-
-
-
-	//show-hide live story*******************************
-	function clickToLive(target) {
-		target.click(function () {
-			$('.brief').fadeOut(0);
-			$('.story__back').show();
-			$('.story').fadeIn(500);
-			setTimeout(() => {
-				window.location.href = `#${currentProfile}`;
-			}, 1000);
-		});
-	};
-	$('.story__back').click(function () {
-		$('.story').fadeOut(0);
-		$('.story__back').hide();
-		$('body,html').scrollTop(0);
-		$('.brief').fadeIn(500);
-		window.location.href = `#${currentProfile}`;
-		setTimeout(() => {
-
-		}, 1000);
-	});
-
-	//story popup close*********************************
-	$('#story-cancel').click(function (e) {
-		e.preventDefault();
-		$('.add-story').hide();
-		$('body').toggleClass('no-scroll');
-	});
-
-	//story popup open********************************
-	$('.default-add').click(function () {
-		$('.add-story').show().css('display', 'flex');
-		$('body').toggleClass('no-scroll');
-	});
-
-
-	//edit popup edit descr*************************
-	$('.brief__descr-edit').click(function (e) {
-		$('.edit-story-descr').show().css('display', 'flex');
-		$('body').css('overflow', 'hidden');
-		let shortStory = $(this).attr('data-shot-story');
-		let shortStoryText = $(this).next().text();
-		let oldText = $('#memory_text');
-		if (shortStoryText != '') {
-			oldText.val(shortStoryText);
+	//set order price********************************************
+	var orderCare = 0;
+	var orderFlower = 0;
+	var orderQr = 0;
+	var orderPrice = $('.order-submit__val').val('0');
+	var result = 0;
+	$('.order__item-chek').change(function () {
+		var $this = $(this);
+		if ($this.is(':checked')) {
+			orderCare = Number($this.attr('price'));
 		} else {
-			oldText.val('');
+			orderCare = 0;
 		};
-		$('#story-add-description').click(function (e) {
-			e.preventDefault();
-			let newText = $('#memory_text').val();
-			let edit_data;
-			switch (shortStory) {
-				case ('1'):
-					edit_data = {
-						profile_id: currentProfile,
-						short_life_1: newText
-					};
-					break;
-				case ('2'):
-					edit_data = {
-						profile_id: currentProfile,
-						short_life_2: newText
-					};
-					break;
-				case ('3'):
-					edit_data = {
-						profile_id: currentProfile,
-						short_life_3: newText
-					};
-					break;
-				case ('4'):
-					edit_data = {
-						profile_id: currentProfile,
-						short_life_4: newText
-					};
-					break;
-				case ('5'):
-					edit_data = {
-						profile_id: currentProfile,
-						short_life_5: newText
-					};
-					break;
-			}
-			//console.log(edit_data);
-
-			fetch(
-				`${api_url}update_profile`,
-				{
-					method: 'POST',
-					body: JSON.stringify(edit_data),
-					headers: {
-						'Authorization': 'Token token=' + cookie_token,
-						'Content-Type': 'application/json'
-					}
-				})
-				.then($('body').css('opacity', 0.5))
-				.then(response => response.json())
-				.then(data => {
-
-					if (data) {
-						$('body').css('opacity', 1);
-						console.log("success send");
-						//console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 1000);
-						window.location.reload();
-					} else {
-						showErrorSuccess('Ошибка сохранения', 1000);
-						window.location.reload();
-					}
-
-				})
-				.catch(error => {
-					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
-					window.location.reload();
-				});
-		});
-	});
-	//story popup close*********************************
-	$('#edit-cancel').click(function (e) {
-		e.preventDefault();
-		$('.edit-story-descr').hide();
-		$('body').css('overflow', 'visible');
-	});
-
-
-
-
-
-	//upload foto to fotoalbum****************************
-	// function hideAddfoto() {
-	// 	var foto = $('.add-story__foto');
-	// 	// console.log(foto.length);
-	// 	if (foto.length >= 1) {
-	// 		$('.def-btn').hide();
-	// 	} else {
-	// 		$('.def-btn').show();
-	// 	};
-	// };
-
-	// $('#story_foto').change(function (e) {
-	// 	var input = e.target;
-	// 	var elem = $('<span class="add-story__foto"><img src="" alt="foto" class="memory_foto"><span class="add-story__foto-delete"><img src="./img/trash-with-white.png"></span></div>');
-	// 	var reader = new FileReader();
-	// 	reader.onload = function () {
-	// 		var dataURL = reader.result;
-	// 		var output = elem.children();
-	// 		output.attr('src', dataURL);
-	// 	};
-	// 	$(elem).insertBefore($('.def-btn'));
-	// 	reader.readAsDataURL(input.files[0]);
-	// 	delFoto();
-	// 	hideAddfoto();
-	// });
-	//delete foto in form************************
-	$('.add-story__del').on('click', function () {
-		//console.log('click');
-		let targetFoto = $('#output2');
-		targetFoto.attr('src', './img/default-foto.png');
-		$(this).hide();
-		//hideAddfoto();
-	});
-
-
-
-
-
-	//Read more*************************************
-	$('#user-about').click(function () {
-		$('#user-about-short').toggleClass('more-text');
-	});
-
-
-	//Set data to input from calendar******************
-	$('#calendar').change(function () {
-		var dataBoth = $('#calendar').val();
-		dataBoth = dataBoth.split('-').reverse().join('.');
-		$('.story-date').val(dataBoth);
-	});
-
-
-	setTimeout(() => {
-
-		let languages = [
-			"Русский",
-			"Українська",
-			"English"
-
-		];
-
-		let selectLang = document.getElementById("select-language1");
-		let selectLang2 = document.getElementById("select-language2");
-		if (selectLang) {
-			autocomplete(selectLang, languages);
+		result = orderFlower + orderQr + orderCare;
+		orderPrice.val(result);
+	})
+	$('.flowers__item-chek').change(function () {
+		var $this = $(this);
+		if ($this.is(':checked')) {
+			orderFlower = Number($this.attr('price'));
+		} else {
+			orderFlower = 0;
 		};
-		if (selectLang2) {
-			autocomplete(selectLang2, languages);
+		result = orderFlower + orderQr + orderCare;
+		orderPrice.val(result);
+	});
+	$('.qr__item-chek').change(function () {
+		var $this = $(this);
+		if ($this.is(':checked')) {
+			orderQr = Number($this.attr('price'));
+		} else {
+			orderQr = 0;
 		};
-
-		function autocomplete(inp, arr) {
-
-			let currentFocus;
-
-
-			inp.addEventListener("click", showAutocompleteList);
-
-			function addActive(x) {
-				if (!x) return false;
-				removeActive(x);
-				if (currentFocus >= x.length) currentFocus = 0;
-				if (currentFocus < 0) currentFocus = (x.length - 1);
-				x[currentFocus].classList.add("autocomplete-active");
-			}
-			function removeActive(x) {
-				for (var i = 0; i < x.length; i++) {
-					x[i].classList.remove("autocomplete-active");
-				}
-			}
+		result = orderFlower + orderQr + orderCare;
+		orderPrice.val(result);
+	});
 
 
-			function showAutocompleteList(e) {
 
-				inp.selectionStart = inp.value.length;
-				let a, b, i, k, val = this.value;
-				if (document.getElementById(this.id + "autocomplete-list")) {
-					closeAllLists();
-					//  if (!val) { return false; }
-				} else {
-					currentFocus = -1;
-					a = document.createElement("DIV");
-					a.setAttribute("id", this.id + "autocomplete-list");
-					a.setAttribute("class", "autocomplete-items");
-					this.parentNode.appendChild(a);
-					for (i = 0; i < arr.length; i++) {
-						b = document.createElement("DIV");
-						b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
-						b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-						b.addEventListener("click", function (e) {
-							inp.value = this.getElementsByTagName("input")[0].value;
-							closeAllLists();
-						});
-						a.appendChild(b);
-					}
-				}
-			}
-			document.addEventListener("click", function (e) {
-				if (e.target != inp) {
-					closeAllLists(e.target);
-				}
-			}, true);
-			function closeAllLists(elmnt) {
-				var x = document.getElementsByClassName("autocomplete-items");
-				for (var i = 0; i < x.length; i++) {
-					if (elmnt != x[i] && elmnt != inp) {
-						x[i].parentNode.removeChild(x[i]);
-					}
-				}
-			}
-		}
-	}, 0);
-
-});
-
-
-//Edit avatar*************************************
-//upload avatar*************************************
-
-
-async function loadWidget() {
 
 	//show message notifications*********************************
-	function showErrorSuccess2(textToShow, time) {
+	function showErrorSuccess(textToShow, time) {
 		$('#error-message').addClass('show');
 		$('.success').text(textToShow);
 		setTimeout(() => {
@@ -12998,141 +10819,132 @@ async function loadWidget() {
 		}, time);
 	};
 
-	class UploadWidget {
-		width;
-		height;
-		text;
-		widgetId;
-		key;
-		_location;
-		iframe;
-
-		constructor(location, widgetId, bucketId) {
-			this.location = location;
-			this.width = location.dataset.width || '100%';
-			this.height = location.dataset.height || '100%';
-			this.text = location.dataset.text;
-			this.widgetId = widgetId;
-			this.key = bucketId;
-			this.createWidget()
+	function validateTel(inpNum) {
+		var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+		if (reg.test(inpNum.val()) == false || inpNum.val() == '') {
+			return false;
 		}
-
-		set location(value) {
-			if (!value) {
-				alert("No file input")
-				return;
-			}
-			this._location = value;
+	}
+	function validateName(isRus) {
+		if (isRus == '') {
+			return false;
 		}
-
-		get location() {
-			return this._location
-		}
-
-		createWidget() {
-			let small = "false"
-			let iframe = window.document.createElement('iframe');
-
-			if (parseInt(this.width) < 120) {
-				small = "true"
-			}
-			iframe.src = "https://app.simplefileupload.com" + `/buckets/${this.key}?widgetId=${this.widgetId}&elementValue=${this.location.value}&preview=${this.location.dataset.preview}&text=${this.text}&small=${small}`
-			iframe.className = 'widgetFrame'
-			iframe.width = this.width;
-			iframe.height = this.height;
-			iframe.style.cssText = 'border:none; opacity:0;'
-
-			this.iframe = iframe;
-
-			//Attach iframe to DOM after the existing file input
-			if (!this.location.form) {
-				alert("The input you created is not in a form. In order to send the string url to your server the input needs to be in a form. Please reach out at support@simplefileupload.com for assistance.")
-				return
-			}
-			insertAfter(iframe, this.location);
-
-		}
-
-		open() {
-			this.iframe.style = 'border:none; opacity:1;'
+	}
+	function validateMail(inp) {
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		if (reg.test(inp.val()) == false || inp.val() == '') {
+			return false;
 		}
 	}
 
-	function insertAfter(el, referenceNode) {
-		return referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-	}
 
-	function uniqueWidget(location) {
-		const widgetId = location.dataset.id
-		new UploadWidget(location, widgetId, "824d5800b5e42b3c0a21a4441095b081").open();
-	}
+	$('#sendOrder').click(function (e) {
+		e.preventDefault();
+		let api_url = "https://nezabudu-api.herokuapp.com/"
+		var order = $('#order');
+		var cemetery = $('#cemetery');
+		var sector = $('#sector');
+		var area = $('#area');
+		var row = $('#row');
+		var number = $('#number');
+		var name = $('#name');
+		var surname = $('#surname');
+		var patronymic = $('#patronymic');
+		var userSurname = $('#userSurname');
+		var userName = $('#userName');
+		var userTel = $('#userTel');
+		var userEmail = $('#userEmail');
+		var date = $('#datepicker');
+		var city = $('#city');
+		let userHelpName = $('#con-name');
+		let userHelpTel = $('#connect');
+		let userHelpEmail = $('#con-email');
 
-	const getUrlData = (e) => {
-		if (e.origin !== "https://app.simplefileupload.com")
-			return;
-		if (e.data["uploadResult"] == 'queuecomplete') {
-			const data = e.data;
-			let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
-			//Backwards compatibility - no simple-file-upload class.
-			if (hiddenInput == null) {
-				hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		let flowers = orderFlower,
+			qr = orderQr,
+			care = orderCare,
+			first_name = userSurname.val(),
+			last_name = userName.val(),
+			tel_number = userTel.val(),
+			email = userEmail.val(),
+			date_cleaning = date.val().split('-').reverse().join('-'),
+			cementry_city = city.val(),
+			cementry_name = cemetery.val(),
+			cementry_sector = sector.val(),
+			cementry_square = area.val(),
+			cementry_row = row.val(),
+			cementry_place = number.val(),
+			cementry_first_name = name.val(),
+			cementry_last_name = surname.val(),
+			cementry_patronymic = patronymic.val(),
+			user_help = userHelpName.val(),
+			tel_number_help = userHelpTel.val(),
+			email_help = userHelpEmail.val();
+		if ($('#yes').is(':checked')) {
+			if (sector.val() == '' || area.val() == '' || row.val() == '' || number.val() == '' || validateName(name) == false || validateTel(userTel) == false || validateName(surname) == false || validateName(patronymic) == false || validateName(userSurname) == false || validateName(userName) == false || validateMail(userEmail) == false || validateName(cemetery) == false) {
+				showErrorSuccess("Не все данные заполнены или введены не верно!", 2000);
+			} else if (order.val() == 0 || order.val() == undefined) {
+				showErrorSuccess("Сделайте заказ!", 1500)
+			} else if (date.val() == '') {
+				showErrorSuccess("Выберите предварительную дату!", 2000)
+			} else {
+				fetch(
+					`${api_url}send_order?first_name=${last_name}&last_name=${first_name}&tel_number=${tel_number}&email=${email}&type_cleaning=${care}&date_cleaning=${date_cleaning}&flowers=${flowers}&qr=${qr}&cementry_city=${cementry_city}&cementry_name=${cementry_name}&cementry_sector=${cementry_sector}&cementry_square=${cementry_square}&cementry_row=${cementry_row}&cementry_place=${cementry_place}&cementry_first_name=${cementry_first_name}&cementry_last_name=${cementry_last_name}&cementry_patronymic=${cementry_patronymic}`,
+					{
+						method: 'POST',
+						//body: JSON.stringify(sendData),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					})
+					.then(response => response.json())
+					.then(json => {
+						if (json.error == 0) {
+							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 2000);
+							window.location.reload();
+						} else {
+							showErrorSuccess("Ошибка отправки", 2000);
+						}
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess("Ошибка соединения", 1500);
+					});
 			}
-			const event = new CustomEvent('multipleUploadComplete', { detail: e.data.widgetId })
-			hiddenInput.dispatchEvent(event)
-		}
-		if (e.data["uploadResult"] == 'success') {
-			const data = e.data;
-			let output = $('#output');
-			let output2 = $('#output2');
-			let hiddenInput = document.querySelector(`input.simple-file-upload[data-id="${data.widgetId}"]`)
-			//Backwards compatibility - no simple-file-upload class.
-			if (hiddenInput == null) {
-				hiddenInput = document.querySelector(`input[data-id="${data.widgetId}"]`)
+		} else if ($('#not').is(':checked')) {
+			if (order.val() == 0 || order.val() == undefined) {
+				showErrorSuccess("Сделайте заказ!", 1500);
+			} else if (validateName(userHelpName) == false || validateTel(userHelpTel) == false || date.val() == '' || validateMail(userHelpEmail) == false) {
+				showErrorSuccess("Не все данные заполнены или введены не верно!", 2000);
+			} else {
+				fetch(
+					`${api_url}send_order?first_name=${user_help}&tel_number=${tel_number_help}&email=${email_help}&type_cleaning=${care}&date_cleaning=${date_cleaning}&flowers=${flowers}&qr=${qr}&cementry_city=${cementry_city}`,
+					{
+						method: 'POST',
+						//body: JSON.stringify(sendHelp),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					})
+					.then(response => response.json())
+					.then(json => {
+						if (json.error == 0) {
+							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 2000);
+							window.location.reload();
+						} else {
+							showErrorSuccess("Ошибка отправки", 2000);
+						}
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess("Ошибка соединения", 1500);
+					});
 			}
-			if (data["url"] != '') {
-				output.attr('src', data["url"]);
-			}
-			hiddenInput.value = data["url"];
-			let editFotoUrl = $('#edit-foto').val();
-			//console.log(editFotoUrl);
-			if (editFotoUrl) {
-				output2.attr('src', editFotoUrl);
-				$('.add-story__del').show();
-			}
-			const event = new Event('fileUploadSuccess')
-			hiddenInput.dispatchEvent(event)
+		} else {
+			showErrorSuccess("Заполните все поля для заказа!", 1500);
 		}
-	}
-
-	window.addEventListener('message', getUrlData, false);
-
-	function setId(location, index) {
-		location.type = "hidden"; //Make hidden for legacy implementation
-		location.dataset.id = `widget${index}`
-		location.dataset.preview ||= "true"
-	}
-
-	document.addEventListener('DOMContentLoaded', function () {
-		let locations = document.querySelectorAll("input.simple-file-upload");
-		if (locations.length == 0) {
-			locations = document.querySelectorAll("input[type=file]");
-		}
-		locations.forEach(setId);
-		locations.forEach(uniqueWidget);
-	});
-
-	document.addEventListener('turbolinks:render', function () {
-		let locations = document.querySelectorAll("input.simple-file-upload");
-		if (locations.length == 0) {
-			locations = document.querySelectorAll("input[type=file]");
-		}
-		locations.forEach(setId);
-		locations.forEach(uniqueWidget);
-	});
-
-};
+	})
 
 
 
-
-loadWidget();
+});

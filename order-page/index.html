@@ -6,6 +6,7 @@
 	<title>НЕЗАБУДУ- место сохранения воспоминаний и истории о своей жизни и жизни своих предков.</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	
 	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -13,8 +14,6 @@
 	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#92e4fc">
 	<meta name="theme-color" content="#ffffff">
-	<meta name="google-signin-client_id" content="65830191151-qdaau551j9ta4r6k5rumb25ee17omp02.apps.googleusercontent.com">
-	
 	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 	
 	<link rel="stylesheet" href="css/styles.min.css">
@@ -24,1304 +23,339 @@
 </head>
 
 <body>
-
-	<header id="menu-guest">
-	    <div id="header" class="header">
-	        <a href="../index.html" class="header-title">НЕЗАБУДУ</a>
-	        <span href="#" class="enter">
-	            <div id="login">
-	                Войти
-	                <img src="img/sign-in.svg">
-	            </div>
-	        </span>
-	    </div>
-	    <div class="menu">
-	        <input type="checkbox" id="menu-checkbox" />
-	        <label class="drawer-burg" for="menu-checkbox" onclick>
-	            <span></span>
-	            <span></span>
-	            <span></span>
-	        </label>
-	        <div id="drawer-menu">
-	            <label id="drawer-close" class="drawer-close" for="menu-checkbox">
-	                <span></span>
-	                <span></span>
-	            </label>
-	            <a class="drawer__link enter">
-	                <label for="menu-checkbox" class="menu-enter">
-	                    <div id="menu-1" class="drawer-menu"><img src="img/menu1.svg">Сохранить память</div>
-	                </label>
-	            </a>
-	            <a href="../all-person-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-2" class="drawer-menu"><img src="img/menu2.svg">Смотреть все анкеты</div>
-	                </label>
-	            </a>
-	            <a href="" class="drawer__link" style="pointer-events: none;opacity: .5;">
-	                <label for="menu-checkbox">
-	                    <div id="menu-3" class="drawer-menu"><img src="img/menu3.svg">Найти место захоронения</div>
-	                </label>
-	            </a>
-	            <a href="../person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
-	                <label for="menu-checkbox">
-	                    <div id="menu-4" class="drawer-menu"><img src="img/menu4.svg">Известные личности</div>
-	                </label>
-	            </a>
-	            <a href="../care-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-5" class="drawer-menu"><img src="img/menu5.svg">Уход за захоронениями</div>
-	                </label>
-	            </a>
-	            <a href="../qr-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-6" class="drawer-menu"><img src="img/menu6.svg">Заказать QR код</div>
-	                </label>
-	            </a>
-	            <a href="../index.html#volunteers" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-7" class="drawer-menu"><img src="img/menu7.svg">Стать партнером</div>
-	                </label>
-	            </a>
-	            <a href="../index.html#volunteers" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-8" class="drawer-menu"><img src="img/menu8.svg">Стать волонтером</div>
-	                </label>
-	            </a>
-	            <div id="menu-lang" class="drawer-menu"><input id="select-language1" name="language" value="Русский"
-	                    readonly></input></div>
-	        </div>
-	    </div>
-	</header>
-	<header id="menu-user">
-	    <div id="header" class="header">
-	        <a href="../auth-user/" class="header-title">НЕЗАБУДУ</a>
-	        <a href="../cabinet-page/" class="header__user-wrap">
-	            <img src="img/user-def-black.png" class="header__user">
-	        </a>
-	    </div>
-	    <div class="menu">
-	        <input type="checkbox" id="menu-checkbox" />
-	        <label class="drawer-burg" for="menu-checkbox" onclick>
-	            <span></span>
-	            <span></span>
-	            <span></span>
-	        </label>
-	        <div id="drawer-menu">
-	            <label id="drawer-close" class="drawer-close" for="menu-checkbox">
-	                <span></span>
-	                <span></span>
-	            </label>
-	            <a href="../cabinet-page/" class="drawer__link">
-	                <label for="menu-checkbox" class="menu-enter">
-	                    <div id="menu-1" class="drawer-menu"><img src="img/resume.svg" alt="questionar">Мои анктеты</div>
-	                </label>
-	            </a>
-	            <a href="../cabinet-page/#tab2" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-2" class="drawer-menu"><img src="img/bookmark-2.svg" alt="bookmark">Анкеты в закладках
-	                    </div>
-	                </label>
-	            </a>
-	            <a href="../cabinet-page/#tab3" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-3" class="drawer-menu"><img src="img/bell.svg" alt="alarm">Уведомления</div>
-	                </label>
-	            </a>
-	            <a href="../all-person-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-4" class="drawer-menu"><img src="img/007-eye.svg" alt="questionar">Все анкеты</div>
-	                </label>
-	            </a>
-	            <a href="../care-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-5" class="drawer-menu"><img src="img/menu5.svg" alt="peace">Уход за захоронениями
-	                    </div>
-	                </label>
-	            </a>
-	            <a href="../qr-page/" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-6" class="drawer-menu"><img src="img/menu6.svg" alt="qr code">Заказать QR код</div>
-	                </label>
-	            </a>
-	            <a href="../cabinet-page/#tab4" class="drawer__link">
-	                <label for="menu-checkbox">
-	                    <div id="menu-7" class="drawer-menu"><img src="img/settings.svg" alt="settings"
-	                            style="width: 26px">Настройки</div>
-	                </label>
-	            </a>
-	            <a href="#" class="drawer__link" id="logout">
-	                <label for="menu-checkbox">
-	                    <div id="menu-8" class="drawer-menu"><img src="img/logout.svg" alt="logout">Выход</div>
-	                </label>
-	            </a>
-	            <div id="menu-lang" class="drawer-menu"><input id="select-language2" name="language" value="Русский"
-	                    readonly />
-	            </div>
-	        </div>
-	    </div>
-	</header>
-	<div class="reg-bg">
-	    <section class="reg">
-	        <span class="reg__close">
-	            <img src="./img/close.png" alt="close">
-	        </span>
-	        <div class="reg__form-bg">
-	            <div class="reg__header">
-	                <span class="reg__btn-reg reg-tab">Регистрация</span>
-	                <span class="reg__btn-enter reg-tab">Войти</span>
-	            </div>
-	            <div class="wrapper wrapper--reg reg__main">
-	                <h6 class="reg__title">Через социальные сети</h6>
-	                <div class="reg__wrap-soc">
-	                    <div class="reg__google btn-form">
-	                        <div style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;overflow: hidden;"
-	                            class="g-signin2" data-onsuccess="onSignIn"></div>
-	                        <img src="./img/google.png" alt="google">
-	                        <span class="reg__soc-title">Google</span>
-	                    </div>
-	                    <div class="reg__facebook btn-form">
-	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
-	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
-	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
-	                            data-width=""></div>
-	                        <img src="./img/facebook.png" alt="facebook">
-	                        <span class="reg__soc-title">Facebook</span>
-	                    </div>
-	                </div>
-	                <span class="reg__title">или</span>
-	                <form method="POST" class="reg__form" id="reg-form">
-	                    <div class="reg__wrap-names">
-	                        <input id="reg-soname" type="text" name='userSoname' required placeholder="Фамилия"
-	                            class="reg__input btn-form">
-	                        <input id="reg-name" type="text" name='userName' required placeholder="Имя"
-	                            class="reg__input btn-form">
-	                    </div>
-	                    <input id="reg-patronymic" type="text" name="userPatronymic" required placeholder="Отчество"
-	                        class="reg__input">
-	                    <input id="reg-tel" type="text" name="userTel" required placeholder="+380507777777"
-	                        class="reg__input">
-	                    <input id="reg-email" type="email" name="userEmail" required placeholder="example@mail.com"
-	                        class="reg__input">
-	                    <input id="reg-password" type="password" name="userPassword" required placeholder="Пароль"
-	                        class="reg__input" autocomplete="on">
-	                    <input type="submit" value="Зарегистрироваться" class="reg__btn" name="registr" id="sendReg">
-	                </form>
-	                <div class="reg__link-wrap reg-tab">
-	                    <!-- <span class="link-to-enter">Уже есть аккаунт?</span> -->
-	                </div>
-	                <div class="reg__footer">
-	                    <p>Регистрируясь на этом веб-сайте,<br>ты принимаешь наши
-	                        <a href="terms.html" class="reg__link-conf" target="_blank"
-	                            rel="noopener noreferrer">Пользовательское соглашение</a> и
-	                        <a href="privacy.html" target="_blank" class="reg__link-conf" rel="noopener noreferrer">Политику
-	                            конфедициальности</a>
-	                    </p>
-	                </div>
-	            </div>
-	            <div class="wrapper wrapper--reg reg__main">
-	                <h6 class="reg__title">Через социальные сети</h6>
-	                <div class="reg__wrap-soc">
-	                    <div class="reg__google btn-form">
-	                        <div style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;overflow: hidden;"
-	                            class="g-signin2" data-onsuccess="onSignIn"></div>
-	                        <img src="./img/google.png" alt="google">
-	                        <span class="reg__soc-title">Google</span>
-	                    </div>
-	                    <div class="reg__facebook btn-form">
-	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
-	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
-	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
-	                            data-width=""></div>
-	                        <img src="./img/facebook.png" alt="facebook">
-	                        <span class="reg__soc-title">Facebook</span>
-	                    </div>
-	                </div>
-	                <span class="reg__title">или</span>
-	                <form method="POST" class="reg__form" id="auth-form">
-	                    <input id="auth-email" type="text" name="authEmail" required placeholder="Почта" class="reg__input">
-	                    <input id="auth-password" type="password" name="authPassword" required placeholder="Пароль"
-	                        class="reg__input" autocomplete="on">
-	                    <!-- <div class="g-recaptcha captcha" data-sitekey="6Le-nP0ZAAAAAIVD_XVU_oC54rpo9yRmXqPnBjou"></div> -->
-	                    <input type="submit" value="Войти" class="reg__btn" name="auth" id="authSend">
-	                </form>
-	                <div class="reg__link-wrap">
-	                    <span id="remember">Забыли пароль?</span>
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	</div>
 	<div id="p_prldr">
 	    <div class="contpre">
 	        <span class="contpre__logo">НЕЗАБУДУ</span></br>
 	        <span class="svg_anm"></span>
 	    </div>
 	</div>
-	<form method="POST" class="data__form-default data__form" id="editOldData">
-	    <span class="about__close">
-	        &#x2715
-	    </span>
-	    <input type="text" name="whois" id="whois" placeholder="Кем вы ему(ей) приходитесь?" class="data__relative">
-	    <div class="about__subsettings">
-	        <div class="about__show">
-	            <div class="about__show-wrap">
-	                <img class="about__visible" src="./img/lock.png" alt="lock">
-	                <input class="about__check" type="radio" name="type" id="close" data-status="false">
-	                <label for="close">Закрытая</label>
-	            </div>
-	            <div class="about__show-wrap">
-	                <img class="about__visible" src="./img/unlock.png" alt="lock">
-	                <input type="radio" class="about__check" name="type" id="open" data-status="true">
-	                <label for="open">Открытая</label>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="about__wrap">
-	        <div class="about__img-wrap">
-	            <img src="./img/default-foto.png" alt="foto" class="about__img" id="output">
-	        </div>
-	        <div class="about__upload about__upload--ava">
-	
-	            <span class="about__upload-text about__upload-text--ava">
-	                Добавить фото
-	                <input type="hidden" name="img" data-preview="false" class="simple-file-upload">
-	            </span>
-	        </div>
-	    </div>
-	    <div class="data__user">
-	        <div class="user__inp-wrap">
-	            <div class="user__names">
-	                <input type="text" class="user__surname" required placeholder="Фамилия">
-	            </div>
-	            <div class="user__names">
-	                <input type="text" class="user__name" required placeholder="Имя">
-	            </div>
-	            <input type="text" class="user__patronymic" placeholder="Отчество">
-	            <input type="text" class="user__surname-girl user__soname-girl" placeholder="Девичья фамилия">
-	        </div>
-	        <div class="user__lives-data">
-	            <div class="user__lives-wrap">
-	                <div class="user__inp-wrap">
-	                    <span class="user__cal" id="btn-both">
-	                        <input type="date" name="calendar1" id="user-both">
-	                    </span>
-	                    <input type="text" class="user__both" required placeholder="Дата рождения" readonly>
-	                    <button class="user__remind" id="remind-both"></button>
-	                </div>
-	                <div class="user__inp-wrap user__inp-wrap-die">
-	                    <span class="user__cal"><input type="date" name="calendar2" id="user-die"></span>
-	                    <input type="text" class="user__die" required placeholder="Дата смерти" readonly>
-	                    <button class="user__remind" id="remind-die"></button>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="user__lives-loc">
-	            <input type="text" class="user__both-loc" placeholder="Место рождения">
-	            <input type="text" class="user__die-loc" placeholder="Место смерти">
-	        </div>
-	        <label class="user__title-second" for="area-lives">
-	            Расскажите основную информацию:
-	        </label>
-	        <textarea name="main-info" id="area-lives" rows="5"
-	            placeholder="расскажите о характере, деятельности, особенностях и др.."></textarea>
-	    </div>
-	    <div class="data-place">
-	        <h6 class="data__title-location">Где покоится:</h6>
-	        <div class="data__locations">
-	            <input type="text" name="city" id="city" class="data__loc-city" placeholder="Город">
-	            <input type="text" name="cemetery" id="cemetery" class="data__loc-cemetery" placeholder="Кладбище">
-	        </div>
-	        <div class="data__loc-wrap">
-	            <div class="data__loc-axacts">
-	                <input type="number" class="data__loc-axact" placeholder="Сектор" id="cementry_sector">
-	                <input type="number" class="data__loc-axact" placeholder="Квадрат" id="cementry_square">
-	            </div>
-	            <div class="data__loc-axacts">
-	                <input type="number" class="data__loc-axact" placeholder="Ряд" id="cementry_row">
-	                <input type="number" class="data__loc-axact" placeholder="Место" id="cementry_place">
-	            </div>
-	        </div>
-	        <div class="data__map">
-	            <div class="map__links">
-	                <a href="https://www.google.com/maps" class="map__google-link" target="_blank"></a>
-	                <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="50.059535" id="grave_lon">
-	                <input type="text" class="map__coordinates" pattern="[0-9]*,.," placeholder="36.195110" id="grave_lat">
-	            </div>
-	            <div class="map__prev">
-	                <iframe
-	                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4542.600346842682!2d37.49132871703975!3d47.14172791894545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e6e23a95b001e9%3A0xb635713259c723a6!2z0JzQsNGA0ZbRg9C_0L7Qu9GM0YHRjNC60LUg0JrQu9Cw0LTQvtCy0LjRidC1!5e0!3m2!1suk!2sua!4v1607212174526!5m2!1suk!2sua"
-	                    frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"
-	                    key='AIzaSyA1CqxmxvB0H0I_KZJArCWzNvdFmegf0Qo'></iframe>
-	            </div>
-	        </div>
-	        <div class="user__die-about">
-	            <label for="die-select">Причина смерти</label>
-	            <select name="die" id="die-select" class="die__select">
-	                <option value="hide">Список</option>
-	                <option value="Болезни системы кровообращения
-	                            ">Болезни системы кровообращения
-	                </option>
-	                <option value="Ишемическая болезнь сердца ">Ишемическая болезнь сердца </option>
-	                <option value="Инсульт, инфаркт
-	                            ">Инсульт, инфаркт
-	                </option>
-	                <option value="Болезни нервной системы
-	                            ">Болезни нервной системы
-	                </option>
-	                <option value="Болезни органов пищеварения
-	                            ">Болезни органов пищеварения
-	                </option>
-	                <option value="Отравления
-	                            ">Отравления
-	                </option>
-	                <option value="Травмы">Травмы</option>
-	                <option value="Самоубийство">Самоубийство</option>
-	                <option value="Несчастный случай
-	                            ">Несчастный случай
-	                </option>
-	                <option value="ДТП">ДТП</option>
-	                <option value="Инфекционные и вирусные заболевания
-	                            ">Инфекционные и вирусные заболевания
-	                </option>
-	                <option value="Исполнение служебного долга
-	                            ">Исполнение служебного долга
-	                </option>
-	                <option value="Возрастные заболевания">Возрастные заболевания</option>
-	                <option value="Неонатальные заболевания
-	                            ">Неонатальные заболевания
-	                </option>
-	                <option value="Материнские болезни, роды
-	                            ">Материнские болезни, роды
-	                </option>
-	                <option value="COVID-19
-	                            ">COVID-19
-	                </option>
-	                <option value="Военные действия
-	                            ">Военные действия
-	                </option>
-	                <option value="Онкология дыхательных путей
-	                            ">Онкология дыхательных путей
-	                </option>
-	                <option value="Онкология костных тканей">Онкология костных тканей
-	                </option>
-	                <option value="Онкология">Онкология</option>
-	                <option value="Другое">Другое</option>
-	                <option value="Не хочу рассказывать">Не хочу рассказывать</option>
-	            </select>
-	        </div>
-	    </div>
-	    <div class="data__btns">
-	        <button class="btn data__btn-close" id="sendEditRequest">Сохранить</button>
-	    </div>
-	</form>
-	<div class="form-del-profile">
-	    <div class="form-del-profile__popup">
-	        <p class="form-del-profile__title">
-	            Вы действительно хотите удалить анкету?
-	        </p>
-	        <div class="form-del-profile__btns">
-	            <button class="form-del-profile__btn" id="del-cancel">Отмена</button>
-	            <button class="form-del-profile__btn form-del-profile__btn--delete" id="del-confirm">Удалить</button>
-	        </div>
-	    </div>
-	</div>
-	<div class="form-del-story">
-	    <div class="form-del-profile__popup">
-	        <p class="form-del-profile__title">
-	            Вы действительно хотите удалить историю?
-	        </p>
-	        <div class="form-del-profile__btns">
-	            <button class="form-del-profile__btn" id="del-cancel-story">Отмена</button>
-	            <button class="form-del-profile__btn form-del-profile__btn--delete"
-	                id="del-confirm-stories">Удалить</button>
-	        </div>
-	    </div>
-	</div>
-	<div class="edit-story">
-	    <form class="add-story__wrap">
-	        <div class="wrapper">
-	            <div class="add-story__header">
-	                <span class="add-story__header-btn" id="story-edit-cancel">Отменить</span>
-	                <button class="add-story__header-btn add" id="story-edit" type="submit">Добавить воспоминание</button>
-	            </div>
-	            <select name="tabs" id="category-story-edit" class="add-story__category">
-	                <option value="hide">Категория</option>
-	                <option value="Семья">Семья</option>
-	                <option value="Традиции">Традиции</option>
-	                <option value="Деятельность">Деятельность</option>
-	                <option value="Увлечения">Увлечения</option>
-	                <option value="Путешествия">Путешествия</option>
-	                <option value="Учеба/Друзья">Учеба/Друзья</option>
-	                <option value="Наследие">Наследие</option>
-	                <option value="Веселые истории">Веселые истории</option>
-	            </select>
-	
-	            <div class="user__inp-wrap">
-	                <span class="user__cal"><input type="date" name="calendar" id="calendar-edit"></span>
-	                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly="">
-	            </div>
-	            <input class="add-story__input" type="text" name="place" id="memory_place-edit" placeholder="Введите место">
-	            <input type="text" name="title" id="memory_title-edit" placeholder="Название" class="add-story__input">
-	            <textarea class="add-story__input" name="text" id="memory_text-edit" cols="30" rows="10" maxlength="3000"
-	                placeholder="Воспоминание(макс. 3000 символов)"></textarea>
-	        </div>
-	    </form>
-	</div>
+	<!-- //= partials/header.html -->
+	<!-- //= partials/forms.html -->
 	<span id="error-message">
 		<span id="error" class="success"></span>
 	</span>
 	<!-- контент страницы -->
-	<section class="life">
-		<div class="life-profile">
-		    <section class="profile__menu profile__menu--mob">
-		        <div class="menu__items menu__items--mob">
-		            <a href="#" class="menu__item menu__item--mob active-items main">
-		                <img src="./img/icon1.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon2.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon3.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon4.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon5.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img data-src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob lazyload">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img data-src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob lazyload">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img data-src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob lazyload">
-		            </a>
-		        </div>
-		    </section>
-		    <div class="profile__wrap">
-		        <button class="add-story-force default-add" title="Добавить историю">
-		            <span></span>
-		            <span></span>
-		        </button>
-		        <section class="profile__data">
-		            <div class="data__form-tabs">
-		                <article class="data__tab">
-		                    <article class="brief">
-		                        <div class="wrapper">
-		                            <div class="brief__user">
-		                                <div class="brief__context context">
-		                                    <button class="context__item editOLdData ">Редактировать</button>
-		                                    <button class="context__item" id="delete-profile">Удалить</button>
-		                                </div>
-		                                <div class="brief__img-wrap">
-		                                    <img class="brief__icon" src="./img/user-def-black.png" alt=" user">
-		                                </div>
-		                                <div class="brief__info">
-		                                    <span class="brief__edit">
-		                                        <span></span><span></span><span></span>
-		                                    </span>
-		                                    <img src="./img/candle-new.png" alt="candle" class="brief__candle" id="candle">
-		                                    <h6 class="brief__titles">
-		                                        <span class="brief__name-user" id="user-surname"></span>
-		                                        <span class="brief__surname" id="user-name"></span>
-		                                        <span class="brief__patronimyc" id="user-patronimyc">
-		                                        </span>
-		                                        <span class="brief__mainden" id="user-mainden">
-		                                        </span>
-		                                    </h6>
-		                                    <div class="brief__years">
-		                                        <span class="brief__both"></span>
-		                                        <span id="dash"> - </span>
-		                                        <span class="brief__die"></span>
-		                                        <span class="brief__life-long">
-		                                            (
-		                                            <span class="brief__life-val" id="user-old"></span>
-		                                            )
-		                                        </span>
-		                                    </div>
-		                                    <p class="brief__text" id="user-about-short">
-		                                    </p>
-		                                    <p id="user-about" class="brief__more"> Читать дальше...</p>
-		                                    <div class="brief__bookmarks">
-		                                        <img class="brief__bookmark" src="./img/bookmark.svg" alt="bookmark"
-		                                            id="bookmark">
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="brief__timelaps">
-		                            <span class="brief__start">
-		                                Рождение
-		                                <span class="brief__start-both data-birth"></span>
-		                                <span>,</span>
-		                                <span class="brief__city brief__city-birth">
-		
-		                                </span>
-		                            </span>
-		                            <div class="brief__section">
-		                                <div class="brief__block1 first">
-		                                    <span class="brief__period">
-		                                        0-7
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block2">
-		                                    <span class="brief__name">
-		                                        Детство
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block3">
-		
-		                                </div>
-		                                <div class="brief__block4">
-		                                    <div class="brief__gall brief__gall1">
-		                                        <span class="brief__photo-wrap default-add">
-		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
-		                                        </span>
-		
-		                                    </div>
-		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit brief__descr-edit-1" data-shot-story="1">
-		                                            &#9998;
-		                                        </span>
-		                                        <span></span>
-		                                    </p>
-		                                </div>
-		                            </div>
-		                            <div class="brief__section" id="ageSection2">
-		                                <div class="brief__block1">
-		                                    <span class="brief__period">
-		                                        8-21
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block2">
-		                                    <span href="#preyouth" class="brief__name">
-		                                        Юность
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block3">
-		
-		                                </div>
-		                                <div class="brief__block4">
-		                                    <div class="brief__gall brief__gall2">
-		                                        <span class="brief__photo-wrap default-add">
-		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
-		                                        </span>
-		
-		                                    </div>
-		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit brief__descr-edit-2" data-shot-story="2">
-		                                            &#9998;
-		                                        </span>
-		                                        <span></span>
-		                                    </p>
-		                                </div>
-		                            </div>
-		                            <div class="brief__section" id="ageSection3">
-		                                <div class="brief__block1">
-		                                    <span class="brief__period">
-		                                        22-40
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block2">
-		                                    <span href="#youth" class="brief__name">
-		                                        Молодость
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block3">
-		
-		                                </div>
-		                                <div class="brief__block4">
-		                                    <div class="brief__gall brief__gall3">
-		                                        <span class="brief__photo-wrap default-add">
-		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
-		                                        </span>
-		                                    </div>
-		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit brief__descr-edit-3" data-shot-story="3">
-		                                            &#9998;
-		                                        </span>
-		                                        <span></span>
-		                                    </p>
-		                                </div>
-		                            </div>
-		                            <div class="brief__section" id="ageSection4">
-		                                <div class="brief__block1">
-		                                    <span class="brief__period">
-		                                        41-65
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block2">
-		                                    <span class="brief__name">
-		                                        Зрелость
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block3">
-		                                </div>
-		                                <div class="brief__block4">
-		                                    <div class="brief__gall brief__gall4">
-		                                        <span class="brief__photo-wrap default-add">
-		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
-		                                        </span>
-		                                    </div>
-		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit brief__descr-edit-4" data-shot-story="4">
-		                                            &#9998;
-		                                        </span>
-		                                        <span></span>
-		                                    </p>
-		                                </div>
-		                            </div>
-		                            <div class="brief__section" id="ageSection5">
-		                                <div class="brief__block1 last">
-		                                    <span class="brief__period">
-		                                        66-99
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block2">
-		                                    <span href="#elderhood" class="brief__name">
-		                                        Преклонный возраст
-		                                    </span>
-		                                </div>
-		                                <div class="brief__block3">
-		                                </div>
-		                                <div class="brief__block4">
-		                                    <div class="brief__gall brief__gall5">
-		                                        <span class="brief__photo-wrap default-add">
-		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
-		                                        </span>
-		                                    </div>
-		                                    <p class="brief__descr">
-		                                        <span class="brief__descr-edit brief__descr-edit-5" data-shot-story="5">
-		                                            &#9998;
-		                                        </span>
-		                                        <span></span>
-		
-		                                    </p>
-		                                </div>
-		                            </div>
-		                            <span class="brief__end brief__end--first">
-		                                Смерть
-		                                <span class="brief__start-both data-die"></span>
-		                                <span>,</span>
-		                                <span class="brief__city brief__city-die">
-		
-		                                </span>
-		                            </span>
-		                            <span class="brief__end">
-		                                Причина смерти:
-		                                <span class="brief__cause" id="cause">
-		                                    Не указана
-		                                </span>
-		                            </span>
-		                        </div>
-		                        <div class="wrapper">
-		                            <div class="brief__location">
-		                                <span class="brief__cemetery">
-		                                    Кладбище:
-		                                    <span id="cemetery_name"></span>
-		                                </span>
-		                                <p class="brief__values">
-		                                    <span>Сектор: <span id="sector"></span></span>
-		                                    <span>Квадрат: <span id="square"></span></span>
-		                                    <br>
-		                                    <span>Ряд: <span id="row"></span></span>
-		                                    <span>Номер: <span id="number"></span></span>
-		                                </p>
-		                                <div class="brief__loc-wrap">
-		                                    <!-- <a href=" https://goo.gl/maps/HV2Njc5PkkuMWdDM8" class="brief__google-link" target="_blank"></a> -->
-		                                    <div class="brief__loc-prev">
-		                                        <iframe
-		                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2355.255729576177!2d37.4893909254376!3d47.141695095960316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDA4JzMwLjIiTiAzN8KwMjknMjguOCJF!5e0!3m2!1sru!2sua!4v1620509552115!5m2!1sru!2sua"
-		                                            style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="share">
-		                            <span class="share__text">
-		                                <img src="./img/009-molecule.svg">
-		                                <span>Поделиться ссылкой на анкету:</span>
-		                            </span>
-		                            <div class="share__links">
-		                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://nezabudu.com"
-		                                    target="_blank" title="Share on Facebook"><img src="./img/facebook-sharer.svg"
-		                                        alt="Facebook" width="50" height="50">
-		                                </a>
-		                                <!-- <a href="http://twitter.com/home?status=MESSAGE+URL" title="Share to Twitter"
-		                                    rel="nofollow noopener" target="_blank"><img src="./img/twitter.svg" alt="Twitter"
-		                                        width="50" height="50">
-		                                </a> -->
-		                            </div>
-		                        </div>
-		                        <div class="share share__support">
-		                            <span class="share__text">
-		                                Заказать:
-		                            </span>
-		                            <div class="share__links">
-		                                <a href="../care-page/" class="toCare" title="Заказать убоорку">
-		                                    <img src="img/menu5.svg" alt="care">
-		                                </a>
-		                                <a href="../qr-page/" class="toQR" title="Заказать QR">
-		                                    <img src="img/menu6.svg" alt="qr">
-		                                </a>
-		                            </div>
-		                        </div>
-		                    </article>
-		                    <article class="story wrapper">
-		                        <button class="story__back">&#8592; назад</button>
-		                        <span class="brief__start">
-		                            Рождение
-		                            <span class="brief__start-both data-birth"></span>
-		                            <span>,</span>
-		                            <span class="brief__city brief__city-birth">
-		                                Мариуполь
-		                            </span>
-		                        </span>
-		                        <div class="story__section" id="childhood">
-		                            <h6 class="story__title">
-		                                Детство
-		                            </h6>
-		                            <div class="story__text">
-		                                <p class="story__descr brief__descr-1">
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		
-		                        </div>
-		                        <div class="story__section" id="preyouth">
-		                            <h6 class="story__title">
-		                                Юность
-		                            </h6>
-		                            <div class="story__text">
-		                                <p class="story__descr brief__descr-2">
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__section" id="youth">
-		                            <h6 class="story__title">
-		                                Молодость
-		                            </h6>
-		                            <div class="story__text">
-		                                <p class="story__descr brief__descr-3">
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__section" id="ripeness">
-		                            <h6 class="story__title">
-		                                Зрелость
-		                            </h6>
-		                            <div class="story__text">
-		                                <p class="story__descr brief__descr-4">
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <div class="story__section" id="elderhood">
-		                            <h6 class="story__title">
-		                                Преклонный возраст
-		                            </h6>
-		                            <div class="story__text">
-		                                <p class="story__descr brief__descr-5">
-		                                </p>
-		                                <button class="more">Подробнее</button>
-		                            </div>
-		                        </div>
-		                        <span class="brief__end">
-		                            Смерть
-		                            <span class="brief__start-both data-die"></span>
-		                            <span>,</span>
-		                            <span class="brief__city brief__city-die">
-		                                Мариуполь
-		                            </span>
-		                        </span>
-		                    </article>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="family">
-		                                <div class="tab__header family">
-		                                    <h6 class="tab__title">
-		                                        СЕМЬЯ
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про семью и
-		                                        родственников
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="family-form">
-		                                    <label for="parents" class="tab__label">
-		                                        1. ФИО родителей?
-		                                    </label>
-		                                    <span name="parents" id="parents" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="relatives" class="tab__label">
-		                                        2.Сколько братьев и сестер в семье
-		                                        (родные, двоюродные)?
-		                                    </label>
-		                                    <span name="relatives" id="relatives" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="nationality" class="tab__label">
-		                                        3. Какие национальности в роду?
-		                                    </label>
-		                                    <span name="nationality" id="nationality" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="cities" class="tab__label">
-		                                        4. В каких городах, странах живут родственники?
-		                                    </label>
-		                                    <span name="cities" id="cities" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="values" class="tab__label">
-		                                        5. Главные семейные ценности?
-		                                    </label>
-		                                    <span name="values" id="values" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-family">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab family">
-		                                    Семья
-		                                </h6>
-		
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="holiday">
-		                                <div class="tab__header holiday">
-		                                    <h6 class="tab__title">
-		                                        Традиции/Праздники
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про традиции и
-		                                        праздники
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="holiday-form">
-		                                    <label for="holiday-favorite" class="tab__label">
-		                                        1. Любимый праздник?
-		                                    </label>
-		                                    <span name="holiday-favorite" id="holiday-favorite" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="newyear" class="tab__label">
-		                                        2. Традиции на Новый год?
-		                                    </label>
-		                                    <span name="newyear" id="newyear" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="recipes" class="tab__label">
-		                                        3. Фирменные блюда/любимые рецепты?
-		                                    </label>
-		                                    <span name="recipes" id="recipes" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		
-		                                    <label for="famity-recipes" class="tab__label">
-		                                        4. Семейные традиции?
-		                                    </label>
-		                                    <span name="famity-recipes" id="famity-recipes" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-holiday">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab holiday">
-		                                    Традиции/Праздники
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="works">
-		                                <div class="tab__header works">
-		                                    <h6 class="tab__title">
-		                                        Деятельность/работа
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про деятельность и
-		                                        работу
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="works-form">
-		                                    <label for="works" class="tab__label">
-		                                        1. Сфера деятельности?
-		                                    </label>
-		                                    <span name="works" id="work" class="textarea" role="textbox" contenteditable></span>
-		                                    <label for="first" class="tab__label">
-		                                        2. Первая работа?
-		                                    </label>
-		                                    <span name="first" id="first" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="carrier" class="tab__label">
-		                                        3. Карьерная лестница?
-		                                    </label>
-		                                    <span name="carrier" id="carrier" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="public" class="tab__label">
-		                                        4. Общественная деятельность?
-		                                    </label>
-		                                    <span name="public" id="public" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-activity">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab works">
-		                                    Деятельность/работа
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="interest">
-		                                <div class="tab__header interest">
-		                                    <h6 class="tab__title">
-		                                        Увлечения/интересы
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про увлечения и
-		                                        интересы
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="interest-form">
-		                                    <label for="spots" class="tab__label">
-		                                        1. Любимый вид спорта?
-		                                    </label>
-		                                    <span name="spots" id="spots" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="hobies" class="tab__label">
-		                                        2. Какие любимые хобби/увлечения?
-		                                    </label>
-		                                    <span name="hobies" id="hobies" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="books" class="tab__label">
-		                                        3. Любимые книжки?
-		                                    </label>
-		                                    <span name="books" id="books" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="favorite" class="tab__label">
-		                                        4. Любимый фильм, актер, музыка?
-		                                    </label>
-		                                    <span name="favorite" id="favorite" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-interest">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab interest">
-		                                    Увлечения/интересы
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="travel">
-		                                <div class="tab__header travel">
-		                                    <h6 class="tab__title">
-		                                        Путешествия/поездки
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про путешествия и
-		                                        поездки
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="travel-form">
-		                                    <label for="travel-city" class="tab__label">
-		                                        1. В каких городах бывал(а)?
-		                                    </label>
-		                                    <span name="travel-city" id="travel-city" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="travel-country" class="tab__label">
-		                                        2. Какие страны посещал(а)?
-		                                    </label>
-		                                    <span name="travel-country" id="travel-country" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="travel-school" class="tab__label">
-		                                        3. Школьные/студенческие поездки?
-		                                    </label>
-		                                    <span name="travel-country" id="travel-school" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="travel-family" class="tab__label">
-		                                        4. Поездки семьей?
-		                                    </label>
-		                                    <span name="travel-family" id="travel-family" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-travel">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab travel">
-		                                    Путешествия/поездки
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="friends">
-		                                <div class="tab__header friends">
-		                                    <h6 class="tab__title">
-		                                        Друзья/учеба?
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про друзей и
-		                                        учебу
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="friends-form">
-		                                    <label for="best-friend" class="tab__label">
-		                                        1. Лучший друг?
-		                                    </label>
-		                                    <span name="best-friend" id="best-friend" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="friends" class="tab__label">
-		                                        2. Школьные друзья?
-		                                    </label>
-		                                    <span name="friends" id="friends-all" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="teacher" class="tab__label">
-		                                        3. Первая учительница?
-		                                    </label>
-		                                    <span name="teacher" id="teacher" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="school" class="tab__label">
-		                                        4. В какой школе учился(ась)?
-		                                    </label>
-		                                    <span name="school" id="schooll" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="college" class="tab__label">
-		                                        5. В каком колледже/университете учился(ась)?
-		                                    </label>
-		                                    <span name="college" id="college" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-friends">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab friends">
-		                                    Друзья/учеба
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="heritage">
-		                                <div class="tab__header heritage">
-		                                    <h6 class="tab__title">
-		                                        Наследие
-		                                    </h6>
-		                                    <p class="tab__descr">
-		                                        Ответь на короткие вопросы и добавь воспоминания, истории про наследие
-		                                    </p>
-		                                </div>
-		                                <span class="tab__form-title active">
-		                                    Вопросы:
-		                                </span>
-		                                <form action="" class="tab__form" id="heritage-form">
-		                                    <label for="links" class="tab__label">
-		                                        1. Название или ссылка на стих/рассказ/книгу/блог?
-		                                    </label>
-		                                    <span name="links" id="links" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="house" class="tab__label">
-		                                        2. Дом/квартира/имение?
-		                                    </label>
-		                                    <span name="house" id="house" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="child" class="tab__label">
-		                                        3. Дети?
-		                                    </label>
-		                                    <span name="child" id="child" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <label for="achievement" class="tab__label">
-		                                        4. Успехи/достижения?
-		                                    </label>
-		                                    <span name="achievement" id="achievement" class="textarea" role="textbox"
-		                                        contenteditable></span>
-		                                    <div class="tab__save">
-		                                        <span class="tab__btn-save" id="question-heritage">Сохранить</span>
-		                                    </div>
-		                                </form>
-		                                <h6 class="story__title-tab heritage">
-		                                    Наследие
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		                <article class="data__tab">
-		                    <div class="tab__content">
-		                        <article class="story wrapper story__tab">
-		                            <div class="story__section story__section--tab" id="happy-history">
-		                                <h6 class="story__title-tab happy-history">
-		                                    Веселые истории
-		                                </h6>
-		                            </div>
-		                        </article>
-		                    </div>
-		                </article>
-		        </section>
-		        <section class="profile__menu">
-		            <div class="menu__items">
-		                <a href="#" class="menu__item active-items main">
-		                    <div class="menu__description">
-		                        <span>Линия жизни</span>
-		                    </div>
-		                    <img src="./img/icon1.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Семья</span>
-		                    </div>
-		                    <img src="./img/icon2.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Праздники</span>
-		                    </div>
-		                    <img src="./img/icon3.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Деятельность</span>
-		                    </div>
-		                    <img src="./img/icon4.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Увлечения</span>
-		                    </div>
-		                    <img src="./img/icon5.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Путешествия</span>
-		                    </div>
-		                    <img src="./img/icon6.png" alt="icon" class="menu__img">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Учеба/друзья</span>
-		                    </div>
-		                    <img data-src="./img/icon8.png" alt="icon" class="menu__img lazyload">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Наследие</span>
-		                    </div>
-		                    <img data-src="./img/icon7.png" alt="icon" class="menu__img lazyload">
-		                </a>
-		                <a href="#" class="menu__item">
-		                    <div class="menu__description">
-		                        <span>Веселые истории</span>
-		                    </div>
-		                    <img data-src="./img/icon9.png" alt="icon" class="menu__img lazyload">
-		                </a>
+	<form>
+		<section class="order">
+		    <div class="wrapper">
+		        <p class="order__links"><a href="../index.html" class="order__link-main">Главная</a> / <span
+		                class="order__ab">Заказ</span>
+		        </p>
+		        <div class="order__wrap">
+		            <div class="order__title-block">
+		                <div class="order__helps">
+		                    <h2 class="order__title">Оформление заказа</h2>
+		                </div>
 		            </div>
-		        </section>
+		            <div>
+		                <div class="order__care">
+		                    <h3 class="order__care-title">
+		                        Уход за могилой:
+		                    </h3>
+		                    <div class="order__items">
+		                        <div class="order__item">
+		                            <div class="order__item-cont">
+		                                <span class="order__item-title">
+		                                    light
+		                                </span>
+		                                <span class="order__item-name">
+		                                    Единоразовая уборка
+		                                </span>
+		                                <span class="order__item-price">
+		                                    <span class="order__item-val">
+		                                        399
+		                                    </span>грн
+		                                </span>
+		                            </div>
+		                            <div class="order__item-chek-wrap">
+		                                <input type="checkbox" name="light" id="light" class="order__item-chek" price="399">
+		                                <div class="order__item-btn"></div>
+		                            </div>
+		                        </div>
+		                        <div class="order__item">
+		                            <div class="order__item-cont">
+		                                <span class="order__item-title">
+		                                    medium
+		                                </span>
+		                                <span class="order__item-name">
+		                                    Двухразовая уборка в год
+		                                </span>
+		                                <span class="order__item-price">
+		                                    <span class="order__item-val">
+		                                        699
+		                                    </span>грн
+		                                </span>
+		                            </div>
+		                            <div class="order__item-chek-wrap">
+		                                <input type="checkbox" name="medium" id="medium" class="order__item-chek" price="699">
+		                                <div class="order__item-btn"></div>
+		                            </div>
+		                        </div>
+		                        <div class="order__item">
+		                            <div class="order__item-cont">
+		                                <span class="order__item-title">
+		                                    premium
+		                                </span>
+		                                <span class="order__item-name">
+		                                    Двухразовая уборка в год
+		                                </span>
+		                                <span class="order__item-price">
+		                                    <span class="order__item-val">
+		                                        1299
+		                                    </span>грн
+		                                </span>
+		                            </div>
+		                            <div class="order__item-chek-wrap">
+		                                <input type="checkbox" name="premium" id="premium" class="order__item-chek"
+		                                    price="1299">
+		                                <div class="order__item-btn"></div>
+		                            </div>
+		                        </div>
+		                        <div class="order__item">
+		                            <div class="order__item-cont">
+		                                <span class="order__item-title">
+		                                    maxi
+		                                </span>
+		                                <span class="order__item-name">
+		                                    Единоразовая уборка двойного захоронения
+		                                </span>
+		                                <span class="order__item-price">
+		                                    <span class="order__item-val">
+		                                        649
+		                                    </span>грн
+		                                </span>
+		                            </div>
+		                            <div class="order__item-chek-wrap">
+		                                <input type="checkbox" name="maxi" id="maxi" class="order__item-chek" price="649">
+		                                <div class="order__item-btn"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="order__city">
+		                    <span class="order__city-title">
+		                        Выберите город:
+		                    </span>
+		                    <select name="city" id="city" class="order__cites">
+		                        <option value="Мариуполь" selected>Мариуполь</option>
+		                    </select>
+		                </div>
+		                <div class="order__date">
+		                    <span class="order__date-title">
+		                        Выберите дату для уборки:
+		                    </span>
+		                    <input type="text" class="order__date-wrap" id="datepicker" name="datepicker">
+		                    <div id="container"></div>
+		                </div>
+		            </div>
+		
+		        </div>
 		    </div>
-		</div>
-		<div class="add-story">
-		    <form class="add-story__wrap">
-		        <div class="wrapper">
-		            <div class="add-story__header">
-		                <span class="add-story__header-btn" id="story-cancel">Отменить</span>
-		                <button class="add-story__header-btn add" id="story-add" type="submit">Добавить воспоминание</button>
+		</section>
+		<section class="flowers">
+		    <div class="wrapper">
+		        <h3 class="flowers__helps">
+		            Предлагаем добавить к заказу:
+		        </h3>
+		        <h2 class="flowers__title">
+		            Живые цветы:
+		        </h2>
+		        <div class="flowers__items">
+		            <div class="flowers__item">
+		                <div class="flowers__wrap">
+		                    <img src="./img/flower1.png" alt="flower" class="flowers__img">
+		                    <p class="flowers__text">
+		                        light<br>300 грн<br>8 гвоздик
+		                    </p>
+		                </div>
+		                <div class="flowers__item-chek-wrap">
+		                    <input type="checkbox" name="light" id="light-fl" class="flowers__item-chek" price="300">
+		                    <div class="flowers__item-btn"></div>
+		                </div>
 		            </div>
-		            <select name="tabs" id="category" class="add-story__category">
-		                <option value="hide">Категория</option>
-		                <option value="Семья">Семья</option>
-		                <option value="Традиции">Традиции</option>
-		                <option value="Деятельность">Деятельность</option>
-		                <option value="Увлечения">Увлечения</option>
-		                <option value="Путешествия">Путешествия</option>
-		                <option value="Учеба/Друзья">Учеба/Друзья</option>
-		                <option value="Наследие">Наследие</option>
-		                <option value="Веселые истории">Веселые истории</option>
-		            </select>
+		            <div class="flowers__item">
+		                <div class="flowers__wrap">
+		                    <img src="./img/flower2.png" alt="flower" class="flowers__img">
+		                    <p class="flowers__text">
+		                        medium<br>500 грн<br>8 роз
+		                    </p>
+		                </div>
+		                <div class="flowers__item-chek-wrap">
+		                    <input type="checkbox" name="medium" id="medium-fl" class="flowers__item-chek" price="500">
+		                    <div class="flowers__item-btn"></div>
+		                </div>
+		            </div>
+		            <div class="flowers__item">
+		                <div class="flowers__wrap">
+		                    <img src="./img/flower3.png" alt="flower" class="flowers__img" style="top: -10px; right: -20px;">
+		                    <p class="flowers__text">
+		                        premium<br>800 грн<br>дизайнерский букет
+		                    </p>
+		                </div>
+		                <div class="flowers__item-chek-wrap">
+		                    <input type="checkbox" name="premium" id="premium-fl" class="flowers__item-chek" price="800">
+		                    <div class="flowers__item-btn"></div>
+		                </div>
+		            </div>
+		            <div class="flowers__item">
+		                <div class="flowers__wrap">
+		                    <img src="./img/flower4.png" alt="flower" class="flowers__img" style="right: -40px;">
+		                    <p class="flowers__text">
+		                        maxi<br>800 грн<br>3 захоронения<br>по 8 гвоздик
+		                    </p>
+		                </div>
+		                <div class="flowers__item-chek-wrap">
+		                    <input type="checkbox" name="maxi" id="maxi-fl" class="flowers__item-chek" price="800">
+		                    <div class="flowers__item-btn"></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+		<section class="qr">
+		    <div class="wrapper">
+		        <h2 class="qr__title">QR табличка на памятник для перехода на анкету</h2>
+		        <!-- <p class="qr__subtitle">В комплекте идет 3 QR код</p> -->
+		        <div class="qr__items">
+		            <div class="qr__item">
+		                <div class="qr__chek-wrap">
+		                    <input type="checkbox" name="light" id="qr-black" class="qr__item-chek" price="199">
+		                    <div class="qr__item-btn"></div>
+		                </div>
+		                <div class="qr__preview">
+		                    <div class="qr__img-wrap">
+		                        <img src="./img/qr-black.png" alt="qr">
+		                    </div>
+		                    <p class="qr__price">199 грн</p>
+		                </div>
+		            </div>
+		            <div class="qr__item">
+		                <div class="qr__chek-wrap">
+		                    <input type="checkbox" name="light" id="qr-white" class="qr__item-chek" price="199">
+		                    <div class="qr__item-btn"></div>
+		                </div>
+		                <div class="qr__preview">
+		                    <div class="qr__img-wrap">
+		                        <img src="./img/qr-wtite.png" alt="qr">
+		                    </div>
+		                    <p class="qr__price">199 грн</p>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- <p class="qr__subtitle">Только для зарегистрированных пользователей при наличии заполненных анкет</p> -->
+		    </div>
+		</section>
+		<section class="order-form">
+		    <div class="wrapper">
+		        <div class="order-form__title-wrap">
+		            <h2 class="order-form__title">
+		                Знаете ли вы точное место захоронения?
+		            </h2>
+		        </div>
+		        <div class="order-form__checks">
+		            <div class="order-form__chek-wrap">
+		                <input type="checkbox" name="yes" id="yes" class="order-form__inp">
+		                <div class="order-form__item-btn"></div>
+		                <label for="yes">ДА</label>
+		            </div>
+		            <div class="order-form__chek-wrap">
+		                <input type="checkbox" name="not" id="not" class="order-form__inp">
+		                <div class="order-form__item-btn"></div>
+		                <label for="no">НЕТ</label>
+		            </div>
+		        </div>
+		        <div class="order-form__wrap">
+		            <div class="order-form__yes">
+		                <div class="order-form__form">
+		                    <h6 class="order-form__form-title">
+		                        Введите данные захоренения:
+		                    </h6>
+		                    <span class="order-form__form-subtitle">
+		                        Где покоится:
+		                    </span>
+		                    <input class="order-form__inp-long" type="text" name="cemetery" id="cemetery"
+		                        placeholder="Кладбище">
+		                    <div class="order-form__form-num">
+		                        <input type="number" name="sector" id="sector" placeholder="Сектор"
+		                            class="order-form__inp-shot">
+		                        <input type="number" name="area" id="area" placeholder="Квадрат" class="order-form__inp-shot">
+		                        <input type="number" name="row" id="row" placeholder="Ряд" class="order-form__inp-shot">
+		                        <input type="number" name="number" id="number" placeholder="Место" class="order-form__inp-shot">
+		                    </div>
+		                    <span class="order-form__form-subtitle">
+		                        Данные о личности:
+		                    </span>
+		                    <div class="order-form__form-data">
+		                        <input type="text" name="surname" id="surname" placeholder="Фамилия"
+		                            class="order-form__inp-long">
+		                        <input type="text" name="name" id="name" placeholder="Имя" class="order-form__inp-long">
+		                        <input type="text" name="patronymic" id="patronymic" placeholder="Отчество"
+		                            class="order-form__inp-long">
+		                    </div>
 		
-		            <div class="user__inp-wrap">
-		                <span class="user__cal"><input type="date" name="calendar" id="calendar"></span>
-		                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly="">
+		                </div>
+		
+		                <div class="order-form__form-your">
+		                    <h6 class="order-form__form-title">
+		                        Введите свои данные для уточнения заказа:
+		                    </h6>
+		                    <div class="order-form__form-names">
+		                        <div>
+		                            <input type="text" name="userSurname" id="userSurname" placeholder="Фамилия"
+		                                class="order-form__inp-long">
+		                        </div>
+		                        <div>
+		                            <input type="text" name="userName" id="userName" placeholder="Имя"
+		                                class="order-form__inp-long">
+		                        </div>
+		                    </div>
+		                    <div>
+		                        <input type="tel" name="userTel" id="userTel" placeholder="+38" class="order-form__inp-long">
+		                    </div>
+		                    <div>
+		                        <input type="email" name="userEmail" id="userEmail" placeholder="Email"
+		                            class="order-form__inp-long">
+		                    </div>
+		                </div>
 		            </div>
-		            <input class="add-story__input" type="text" name="place" id="memory_place" placeholder="Введите место">
-		            <input type="text" name="title" id="memory_title" placeholder="Название" class="add-story__input">
-		            <textarea class="add-story__input" name="text" id="memory_text-add" cols="30" rows="10" maxlength="3000"
-		                placeholder="Воспоминание(макс. 3000 символов)"></textarea>
-		            <span class="add-story__title">
-		                Добавить фото
-		            </span>
-		            <div class="add-story__line">
-		                <span class="add-story__btn def-btn">
-		                    <input type="hidden" name="img" data-preview="false" id="edit-foto"
-		                        class="simple-file-upload edit-foto-simple">
-		                    <img src="./img/default-foto.png" alt="add" id="output2">
-		                    <img src="./img/trash-with-white.png" class="add-story__del">
-		                </span>
+		
+		            <div class="order-form__not">
+		                <div class="order-form__not-form">
+		                    <label for="connect">
+		                        Введите свой номер телефона для связи:
+		                    </label>
+		                    <input type="text" name="tel" id="connect" placeholder="+38" class="order-form__inp-long">
+		                    <label for="con-name">
+		                        Введите свое имя:
+		                    </label>
+		                    <input type="text" name="name" id="con-name" placeholder="Имя" class="order-form__inp-long">
+		                    <label for="con-name">
+		                        Введите свой email:
+		                    </label>
+		                    <input type="text" name="email" id="con-email" placeholder="Email" class="order-form__inp-long">
+		                </div>
 		            </div>
 		        </div>
-		    </form>
+		    </div>
+		</section>
+		<div class="order-submit">
+			<div class="wrapper">
+				<div class="order-submit__result">
+					<p class="order-submit__text">
+						ИТОГО:
+						<input class="order-submit__val" value="0" name="order" id="order">
+						грн
+					</p>
+					<button type="submit" class="btn" id="sendOrder">Отправить заказ</button>
+				</div>
+				<div class="alert-order__mess"></div>
+			</div>
 		</div>
-		<div class="edit-story-descr">
-		    <form class="add-story__wrap">
-		        <div class="wrapper">
-		            <div class="add-story__header">
-		                <span class="add-story__header-btn" id="edit-cancel">Отменить</span>
-		                <button class="add-story__header-btn add" id="story-add-description" type="submit">Готово</button>
-		            </div>
-		            <textarea class="add-story__input" name="text" id="memory_text" cols="30" rows="10" maxlength="300"
-		                placeholder="Добавьте описание периода жизни"></textarea>
-		        </div>
-		    </form>
-		</div>
-
-	</section>
+	</form>
+	<!-- //= partials/footer.html -->
 	<!-- скрипты -->
-	<script src="js/lazysizes.min.js" async=""></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="js/main.min.js"></script>
+
 </body>
 
 </html>
