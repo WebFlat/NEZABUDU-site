@@ -10900,15 +10900,17 @@ $(document).ready(function () {
 					.then(response => response.json())
 					.then(json => {
 						if (json.error == 0) {
-							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 2000);
-							window.location.reload();
+							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 3000);
+							setTimeout(() => {
+								window.location.href = '../care-page';
+							}, 3000);
 						} else {
 							showErrorSuccess("Ошибка отправки", 2000);
 						}
 					})
 					.catch(error => {
 						console.log('error:', error);
-						showErrorSuccess("Ошибка соединения", 1500);
+						showErrorSuccess("Ошибка соединения", 2000);
 					});
 			}
 		} else if ($('#not').is(':checked')) {
@@ -10929,8 +10931,10 @@ $(document).ready(function () {
 					.then(response => response.json())
 					.then(json => {
 						if (json.error == 0) {
-							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 2000);
-							window.location.reload();
+							showErrorSuccess("Заказ отправлен!Мы скоро свяжемся с вами!", 3000);
+							setTimeout(() => {
+								window.location.href = '../care-page';
+							}, 3000);
 						} else {
 							showErrorSuccess("Ошибка отправки", 2000);
 						}
@@ -10944,7 +10948,4 @@ $(document).ready(function () {
 			showErrorSuccess("Заполните все поля для заказа!", 1500);
 		}
 	})
-
-
-
 });

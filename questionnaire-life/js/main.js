@@ -10658,10 +10658,10 @@ function onSignIn(googleUser) {
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess("Ошибка соединения", 1000);
+				showErrorSuccess("Ошибка соединения", 1500);
 			});
 	} else {
-		showErrorSuccess("Ошибка подключения", 1000);
+		showErrorSuccess("Ошибка подключения", 1500);
 	};
 };
 
@@ -10814,6 +10814,27 @@ $(document).ready(function () {
 		$('.brief__descr-5').text(data.profile.short_life_5);
 	};
 
+	//show more btn fuul story*****************************************
+	function ifShowMore() {
+		let text_to_show = $('.story__descr');
+		text_to_show.each(function (index, elem) {
+			let _lenght = $(this).text().length;
+			if (_lenght < 80) {
+				$(this).next().hide();
+			} else {
+				$(this).addClass('init');
+			}
+		});
+	};
+	//show more brief description**************************
+	function ifShowMoreBrief() {
+		let bref_text = $('.brief__text');
+		if (bref_text.height() > '39') {
+			bref_text.addClass('init');
+		} else {
+			bref_text.next().hide();
+		}
+	};
 
 	//render timeline story**********************************
 	async function loaddLiveFull(dataToLoad, outHtml) {
@@ -10898,6 +10919,7 @@ $(document).ready(function () {
 
 	//global data for tabs*************
 	var allData = [];
+	let short_def_text = 'Описание периода жизни';
 	//Load brief user info******************************************
 	function loadQuestionnaries() {
 		let avaProfile = $('.brief__icon'),
@@ -11012,20 +11034,31 @@ $(document).ready(function () {
 					} else {
 						textProfile.text(data.profile.short_story);
 					};
-					if (data.profile.short_life_1) {
+					if (data.profile.short_life_1 && data.profile.short_life_1 != '') {
 						shortlife1.text(data.profile.short_life_1);
+
+					} else {
+						shortlife1.text(short_def_text);
 					};
-					if (data.profile.short_life_2) {
+					if (data.profile.short_life_2 && data.profile.short_life_2 != '') {
 						shortlife2.text(data.profile.short_life_2);
+					} else {
+						shortlife2.text(short_def_text);
 					};
-					if (data.profile.short_life_3) {
+					if (data.profile.short_life_3 && data.profile.short_life_3 != '') {
 						shortlife3.text(data.profile.short_life_3);
+					} else {
+						shortlife3.text(short_def_text);
 					};
-					if (data.profile.short_life_4) {
+					if (data.profile.short_life_4 && data.profile.short_life_4 != '') {
 						shortlife4.text(data.profile.short_life_4);
+					} else {
+						shortlife4.text(short_def_text);
 					};
-					if (data.profile.short_life_5) {
+					if (data.profile.short_life_5 && data.profile.short_life_4 != '') {
 						shortlife5.text(data.profile.short_life_5);
+					} else {
+						shortlife5.text(short_def_text);
 					};
 					loadLive(data.timelines.block1, htmlOut1, 'childhood');
 					loadLive(data.timelines.block2, htmlOut2, 'preyouth');
@@ -11045,7 +11078,9 @@ $(document).ready(function () {
 					renderDescrFull(data);
 					collectArr(allData);
 					renderEvents();
+					ifShowMore();
 					initMore();
+					ifShowMoreBrief();
 				} else {
 					if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 						avaProfile.attr('src', data.profile.avatar);
@@ -11183,6 +11218,8 @@ $(document).ready(function () {
 						collectArr(allData);
 						renderEvents();
 						initMore();
+						ifShowMore();
+						ifShowMoreBrief();
 						isNotParentUser();
 					}
 				};
@@ -11193,7 +11230,7 @@ $(document).ready(function () {
 			})
 			.catch(error => {
 				console.error('error1:', error);
-				showErrorSuccess('Нет данных', 1000);
+				showErrorSuccess('Нет данных', 1500);
 				window.location.href = '../index.html';
 			});
 	};
@@ -11392,17 +11429,17 @@ $(document).ready(function () {
 						$('body').css('opacity', 1);
 						console.log("success send");
 						//console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 1000);
+						showErrorSuccess(data.status, 1500);
 						window.location.reload();
 					} else {
-						showErrorSuccess('Ошибка сохранения', 1000);
+						showErrorSuccess('Ошибка сохранения', 1500);
 						window.location.reload();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
+					showErrorSuccess('Ошибка соединения', 1500);
 					window.location.reload();
 				});
 		});
@@ -11472,11 +11509,11 @@ $(document).ready(function () {
 					$('body').css('opacity', 1);
 					console.log("success send");
 					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess(data.status, 1000);
+					showErrorSuccess(data.status, 1500);
 					window.location.href = '../cabinet-page/';
 				} else {
 					$('body').css('opacity', 1);
-					showErrorSuccess('Ошибка сохранения', 1000);
+					showErrorSuccess('Ошибка сохранения', 1500);
 					window.location.reload();
 				}
 
@@ -11534,7 +11571,6 @@ $(document).ready(function () {
 	function initDelBtn() {
 		$('.delete-story').on('click', function (e) {
 			e.preventDefault();
-			console.log('click');
 			$('body').addClass('no-scroll');
 			$('.form-del-story').css('display', 'flex');
 			$('.context-story').removeClass('active');
@@ -11569,12 +11605,12 @@ $(document).ready(function () {
 					$('body').css('opacity', 1);
 					console.log("success send");
 					//console.log('Data:', JSON.stringify(data));
-					showErrorSuccess('Событие удалено', 1000);
+					showErrorSuccess('Событие удалено', 1500);
 					window.location.href = `#${currentProfile}`;
 					window.location.reload();
 				} else {
 					$('body').css('opacity', 1);
-					showErrorSuccess('Ошибка сохранения', 1000);
+					showErrorSuccess('Ошибка сохранения', 1500);
 					window.location.href = `#${currentProfile}`;
 					window.location.reload();
 				}
@@ -11698,17 +11734,17 @@ $(document).ready(function () {
 				if (data) {
 					console.log("success send");
 					console.log('Data:', JSON.stringify(data));
-					showErrorSuccess('Данные сохранены', 1000);
+					showErrorSuccess('Данные сохранены', 1500);
 					$('body').css('opacity', 1);
 				} else {
-					showErrorSuccess('Ошибка,попробуйте еще', 1000);
+					showErrorSuccess('Ошибка,попробуйте еще', 1500);
 					$('body').css('opacity', 1);
 				}
 
 			})
 			.catch(error => {
 				console.log('error:', error);
-				showErrorSuccess('Ошибка соединения', 1000);
+				showErrorSuccess('Ошибка соединения', 1500);
 				$('body').css('opacity', 1);
 			});
 	}
@@ -11961,7 +11997,7 @@ $(document).ready(function () {
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var regEmail = $('#reg-email').val();
 		if (reg.test(regEmail) == false || regEmail == '') {
-			showErrorSuccess('Введите корректный e-mail', 1000);
+			showErrorSuccess('Введите корректный e-mail', 1500);
 
 			return false;
 		} else {
@@ -11972,7 +12008,7 @@ $(document).ready(function () {
 		//var reg = /^[A-zА-яЁё]+$/;
 		var surname = $('#reg-soname').val();
 		if (surname == '') {
-			showErrorSuccess('Введите фамилию', 1000);
+			showErrorSuccess('Введите фамилию', 1500);
 			return false;
 		} else {
 			return true;
@@ -11982,7 +12018,7 @@ $(document).ready(function () {
 		//var reg = /^[A-zА-яЁё]+$/;
 		var name = $('#reg-name').val();
 		if (name == '') {
-			showErrorSuccess('Введите имя', 1000);
+			showErrorSuccess('Введите имя', 1500);
 			return false;
 		} else {
 			return true;
@@ -12002,7 +12038,7 @@ $(document).ready(function () {
 		//var reg = /^[A-zА-яЁё]+$/;
 		var patronymic = $('#reg-patronymic').val();
 		if (patronymic == '') {
-			showErrorSuccess('Введите отчество', 1000);
+			showErrorSuccess('Введите отчество', 1500);
 			return false;
 		} else {
 			return true;
@@ -12012,7 +12048,7 @@ $(document).ready(function () {
 		//var reg = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 		var tel = $('#reg-tel').val();
 		if (tel == '') {
-			showErrorSuccess('Введите корректный телефон', 1000);
+			showErrorSuccess('Введите корректный телефон', 1500);
 			return false;
 		} else {
 			return true;
@@ -12021,7 +12057,7 @@ $(document).ready(function () {
 	function validatePass() {
 		var pass = $('#reg-password').val();
 		if (pass == '' || pass.length < 6) {
-			showErrorSuccess('Введите корректный пароль мин 6 символов', 1000);
+			showErrorSuccess('Введите корректный пароль мин 6 символов', 1500);
 			return false;
 		} else {
 			return true;
@@ -12072,14 +12108,14 @@ $(document).ready(function () {
 						window.location.href = '../cabinet-page';
 						//$('.reg__btn-enter').addClass('active').click();
 					} else {
-						showErrorSuccess('Такой пользователь уже существует', 1000);
+						showErrorSuccess('Такой пользователь уже существует', 1500);
 						clearInput();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
+					showErrorSuccess('Ошибка соединения', 1500);
 					deleteCookie(cookie_name_token);
 					window.location.reload();
 				});
@@ -12095,7 +12131,7 @@ $(document).ready(function () {
 			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 			var email = $('#auth-email').val();
 			if (reg.test(email) == false || email == '') {
-				showErrorSuccess('Введите корректный e-mail', 1000);
+				showErrorSuccess('Введите корректный e-mail', 1500);
 				return false;
 			} else {
 				return true;
@@ -12103,7 +12139,7 @@ $(document).ready(function () {
 		}
 		var authPassword = $('#auth-password').val();
 		if (authPassword === '') {
-			showErrorSuccess('Введите пароль', 1000);
+			showErrorSuccess('Введите пароль', 1500);
 		}
 		if (validateMail() && authPassword != '') {
 			var token_web = btoa($('#auth-email').val() + ":" + $('#auth-password').val());
@@ -12129,14 +12165,14 @@ $(document).ready(function () {
 							// $('#error').text("Вы успешно авторизировались").removeClass('error').addClass('success').show().delay(2000).fadeOut(300);
 							window.location.reload();
 						} else {
-							showErrorSuccess('Проверьте логин и пароль', 1000);
+							showErrorSuccess('Проверьте логин и пароль', 1500);
 							clearInput();
 						}
 
 					})
 					.catch(error => {
 						console.log('error:', error);
-						showErrorSuccess('Ошибка подключения', 1000);
+						showErrorSuccess('Ошибка подключения', 1500);
 						deleteCookie(cookie_name_token);
 						window.location.reload();
 					});
@@ -12158,7 +12194,7 @@ $(document).ready(function () {
 		function validateMail(email) {
 			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 			if (reg.test(email) == false || email == '') {
-				showErrorSuccess('Введите корректный e-mail', 1000);
+				showErrorSuccess('Введите корректный e-mail', 1500);
 				return false;
 			} else {
 				return true;
@@ -12184,10 +12220,10 @@ $(document).ready(function () {
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess("Ошибка соединения", 1000);
+					showErrorSuccess("Ошибка соединения", 1500);
 				});
 		} else {
-			showErrorSuccess('Введите сначала e-mail', 1000);
+			showErrorSuccess('Введите сначала e-mail', 1500);
 		}
 	});
 
@@ -12248,18 +12284,18 @@ $(document).ready(function () {
 						window.location.href = `#${currentProfile}`;
 						window.location.reload();
 					} else {
-						showErrorSuccess('Ошибка,попробуйте еще', 1000);
+						showErrorSuccess('Ошибка,попробуйте еще', 1500);
 						$('body').css('opacity', 1);
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
+					showErrorSuccess('Ошибка соединения', 1500);
 					$('body').css('opacity', 1);
 				});
 		} else {
-			showErrorSuccess('Заполните все поля', 1000);
+			showErrorSuccess('Заполните все поля', 1500);
 			$('body').css('opacity', 1);
 
 		}
@@ -12343,7 +12379,7 @@ $(document).ready(function () {
 					hightlight.css('top', '50px');
 					backStory.css('top', '133px');
 					storyTitle.css('top', '136px');
-					storyTitleTab.css('top', '136px');
+					storyTitleTab.css('top', '115px');
 				}
 			}
 
@@ -12822,17 +12858,17 @@ $(document).ready(function () {
 						$('body').css('opacity', 1);
 						console.log("success send");
 						//console.log('Data:', JSON.stringify(data));
-						showErrorSuccess(data.status, 1000);
+						showErrorSuccess(data.status, 1500);
 						window.location.reload();
 					} else {
-						showErrorSuccess('Ошибка сохранения', 1000);
+						showErrorSuccess('Ошибка сохранения', 1500);
 						window.location.reload();
 					}
 
 				})
 				.catch(error => {
 					console.log('error:', error);
-					showErrorSuccess('Ошибка соединения', 1000);
+					showErrorSuccess('Ошибка соединения', 1500);
 					window.location.reload();
 				});
 		});
