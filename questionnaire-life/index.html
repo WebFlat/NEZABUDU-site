@@ -21,6 +21,15 @@
 	
 	<meta name="description"
 	    content="НЕЗАБУДУ- место сохранения воспоминаний и истории о своей жизни и жизни своих предков.">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC3C97PHE1"></script>
+	<script>
+	    window.dataLayer = window.dataLayer || [];
+	    function gtag() { dataLayer.push(arguments); }
+	    gtag('js', new Date());
+	
+	    gtag('config', 'G-YC3C97PHE1');
+	</script>
 </head>
 
 <body>
@@ -49,7 +58,7 @@
 	            </label>
 	            <a class="drawer__link enter">
 	                <label for="menu-checkbox" class="menu-enter">
-	                    <div id="menu-1" class="drawer-menu"><img src="img/menu1.svg">Сохранить память</div>
+	                    <div id="menu-1" class="drawer-menu"><img src="img/menu1.svg">Добавить воспоминание</div>
 	                </label>
 	            </a>
 	            <a href="../all-person-page/" class="drawer__link">
@@ -491,16 +500,16 @@
 		                <img src="./img/icon5.png" alt="icon" class="menu__img menu__img--mob">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
-		                <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
+		                <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob lazyload">
+		            </a>
+		            <a href="#" class="menu__item menu__item--mob">
+		                <img data-src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
 		                <img data-src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		            <a href="#" class="menu__item menu__item--mob">
 		                <img data-src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob lazyload">
-		            </a>
-		            <a href="#" class="menu__item menu__item--mob">
-		                <img data-src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob lazyload">
 		            </a>
 		        </div>
 		    </section>
@@ -539,7 +548,7 @@
 		                                        <span class="brief__both"></span>
 		                                        <span id="dash"> - </span>
 		                                        <span class="brief__die"></span>
-		                                        <span class="brief__life-long">
+		                                        <span class="brief__life-long" style="display: none">
 		                                            (
 		                                            <span class="brief__life-val" id="user-old"></span>
 		                                            )
@@ -1245,7 +1254,7 @@
 		                    <div class="menu__description">
 		                        <span>Учеба/друзья</span>
 		                    </div>
-		                    <img data-src="./img/icon8.png" alt="icon" class="menu__img lazyload">
+		                    <img data-src="./img/icon9.png" alt="icon" class="menu__img lazyload">
 		                </a>
 		                <a href="#" class="menu__item">
 		                    <div class="menu__description">
@@ -1257,7 +1266,7 @@
 		                    <div class="menu__description">
 		                        <span>Веселые истории</span>
 		                    </div>
-		                    <img data-src="./img/icon9.png" alt="icon" class="menu__img lazyload">
+		                    <img data-src="./img/icon8.png" alt="icon" class="menu__img lazyload">
 		                </a>
 		            </div>
 		        </section>

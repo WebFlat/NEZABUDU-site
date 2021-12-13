@@ -10653,63 +10653,64 @@ $(document).ready(function () {
 
     function loadQuestionnaries(data) {
         let section = $('.famous-profiles-block');
+        let section_death = $('.died');
         let out = '';
+        let out2 = '';
+        let count = 0;
+        let count2 = 0;
         for (let key in data) {
-            if (key < 11) {
-                let isFamous = false;
-                if (data[key].avatar == '' || data[key].avatar == undefined || data[key].avatar == './img/default-foto.png') {
-                    data[key].avatar = "./img/user-def.png";
-                };
-                if (data[key].profile_famous != null || data[key].profile_famous) {
-                    isFamous = true;
-                };
-                if (data[key].death_date) {
-                    if (isFamous) {
-                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile"><img src="img/favorite.svg"></div>
-                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
-                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
-                        <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
-                            <div class="open-profile-button button">Читать дальше</div>
-                        </a>
-                        </div>`;
-                    } else {
-                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile death"><img src="${data[key].avatar}"></div>
-                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
-                        <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
-                            <div class="open-profile-button button">Читать дальше</div>
-                        </a>
-                        </div>`;
-                    };
+            let isFamous = false;
+            if (data[key].avatar == '' || data[key].avatar == undefined || data[key].avatar == './img/default-foto.png') {
+                data[key].avatar = "./img/user-def.png";
+            };
+            if (data[key].profile_famous != null || data[key].profile_famous) {
+                isFamous = true;
+            };
+            if (data[key].death_date && count < 11) {
+                if (isFamous) {
+                    out2 += `<a href="../questionnaire-life/#${data[key].id}" class="famous-profile-${key} famous-profile swiper-slide">
+                    <div class="favorite-profile"><img src="img/favorite.svg"></div>
+                    <div class="img-profile death"><img data-src="${data[key].avatar}" class="lazyload"></div>
+                    <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                    <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
+                    <div class="open-profile-button button">Читать дальше</div>
+                    </a>`;
+                    count++;
                 } else {
-                    if (data[key].profile_mine == true) {
-                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile mine"><img src="${data[key].avatar}"></div>
-                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
-                        <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
-                            <div class="open-profile-button button">Читать дальше</div>
-                        </a>
-                        </div>`;
-                    } else {
-                        out += `<div class="famous-profile-${key} famous-profile swiper-slide">
-                        <div class="favorite-profile" style="background: transparent;"></div>
-                        <div class="img-profile life"><img src="${data[key].avatar}"></div>
-                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
-                        <div class="birth-profile">${data[key].birth_date}</div>
-                        <a href="./questionnaire-life/#${data[key].id}">
-                            <div class="open-profile-button button">Читать дальше</div>
-                        </a>
-                        </div>`;
-                    };
+                    out2 += `<a href="../questionnaire-life/#${data[key].id}" class="famous-profile-${key} famous-profile swiper-slide">
+                    <div class="favorite-profile" style="background: transparent;"></div>
+                    <div class="img-profile death"><img data-src="${data[key].avatar}" class="lazyload"></div>
+                    <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                    <div class="birth-profile">${data[key].birth_date} - ${data[key].death_date}</div>
+                    <div class="open-profile-button button">Читать дальше</div>
+                    </a>`;
+                    count++;
                 };
-            }
+            } else {
+                if (data[key].profile_mine == true && count2 < 11) {
+                    out += `<a href="../questionnaire-life/#${data[key].id}" class="famous-profile-${key} famous-profile swiper-slide">
+                    <div class="favorite-profile" style="background: transparent;"></div>
+                    <div class="img-profile mine"><img data-src="${data[key].avatar}" class="lazyload"></div>
+                    <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                    <div class="birth-profile">${data[key].birth_date}</div>
+                    <div class="open-profile-button button">Читать дальше</div>
+                    </a>`;
+                    count2++;
+                } else {
+                    if (count2 < 11) {
+                        out += `<a href="../questionnaire-life/#${data[key].id}" class="famous-profile-${key} famous-profile swiper-slide">
+                        <div class="favorite-profile" style="background: transparent;"></div>
+                        <div class="img-profile life"><img data-src="${data[key].avatar}" class="lazyload"></div>
+                        <div class="name-profile">${data[key].first_name} ${data[key].last_name} ${data[key].patronymic}</div>
+                        <div class="birth-profile">${data[key].birth_date}</div>
+                        <div class="open-profile-button button">Читать дальше</div>
+                        </a>`;
+                        count2++;
+                    }
+                };
+            };
             section.html(out);
+            section_death.html(out2);
         }
     };
 
@@ -13996,10 +13997,10 @@ $('.volunteer-form').submit(function (e) {
     let name = $('#volunteer-name').val();
     let tel = $('#volunteer-tel').val();
     let helps = $('#volunteer-work').val();
-    let email = 'y.vacheslav@gmail.com';
+    let email = 'nezabudu.team@gmail.com';
 
     if (validateName() == false || validateTel() == false) {
-        showErrorSuccess("Данные введены не верно!", 1000);
+        showErrorSuccess("Данные введены не верно!", 1500);
     } else {
         fetch(
             `${api_url}send_partnership?email=${email}&name=${name}&tel_number=${tel}&helps=${helps}`,
@@ -14014,15 +14015,15 @@ $('.volunteer-form').submit(function (e) {
             .then(response => response.json())
             .then(json => {
                 if (json.error == 0) {
-                    showErrorSuccess("Заявка отправлена,мы скоро свяжемся с вами", 1000);
+                    showErrorSuccess("Заявка отправлена,мы скоро свяжемся с вами", 1500);
                 } else {
-                    showErrorSuccess("Ошибка отправки", 1000);
+                    showErrorSuccess("Ошибка отправки", 1500);
                 }
 
             })
             .catch(error => {
                 console.error('error1:', error);
-                showErrorSuccess("Ошибка соединения", 1000);
+                showErrorSuccess("Ошибка соединения", 1500);
             });
     }
 });
