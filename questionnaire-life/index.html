@@ -292,7 +292,8 @@
 	        <div class="about__upload about__upload--ava">
 	
 	            <span class="about__upload-text about__upload-text--ava">
-	                Добавить фото
+	                Добавить/Изменить фото
+	                <!-- <input type="file" name="img" class="simple-file-upload"> -->
 	                <input type="hidden" name="img" data-preview="false" class="simple-file-upload">
 	            </span>
 	        </div>
@@ -576,7 +577,7 @@
 		                            <div class="brief__section">
 		                                <div class="brief__block1 first">
 		                                    <span class="brief__period">
-		                                        0-7
+		                                        0-13
 		                                    </span>
 		                                </div>
 		                                <div class="brief__block2">
@@ -594,18 +595,18 @@
 		                                        </span>
 		
 		                                    </div>
-		                                    <p class="brief__descr">
+		                                    <p class="brief__descr brief__descr-wrap-1">
 		                                        <span class="brief__descr-edit brief__descr-edit-1" data-shot-story="1">
 		                                            &#9998;
 		                                        </span>
-		                                        <span></span>
+		                                        <span class="brief__descr-1"></span>
 		                                    </p>
 		                                </div>
 		                            </div>
 		                            <div class="brief__section" id="ageSection2">
 		                                <div class="brief__block1">
 		                                    <span class="brief__period">
-		                                        8-21
+		                                        14-21
 		                                    </span>
 		                                </div>
 		                                <div class="brief__block2">
@@ -623,11 +624,11 @@
 		                                        </span>
 		
 		                                    </div>
-		                                    <p class="brief__descr">
+		                                    <p class="brief__descr brief__descr-wrap-2">
 		                                        <span class="brief__descr-edit brief__descr-edit-2" data-shot-story="2">
 		                                            &#9998;
 		                                        </span>
-		                                        <span></span>
+		                                        <span class="brief__descr-2"></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -651,11 +652,11 @@
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
 		                                    </div>
-		                                    <p class="brief__descr">
+		                                    <p class="brief__descr brief__descr-wrap-3">
 		                                        <span class="brief__descr-edit brief__descr-edit-3" data-shot-story="3">
 		                                            &#9998;
 		                                        </span>
-		                                        <span></span>
+		                                        <span class="brief__descr-3"></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -678,11 +679,11 @@
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
 		                                    </div>
-		                                    <p class="brief__descr">
+		                                    <p class="brief__descr brief__descr-wrap-4">
 		                                        <span class="brief__descr-edit brief__descr-edit-4" data-shot-story="4">
 		                                            &#9998;
 		                                        </span>
-		                                        <span></span>
+		                                        <span class="brief__descr-4"></span>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -705,11 +706,11 @@
 		                                            <img src="./img/default-foto.png" alt="photo" class="brief__photo">
 		                                        </span>
 		                                    </div>
-		                                    <p class="brief__descr">
+		                                    <p class="brief__descr brief__descr-wrap-5">
 		                                        <span class="brief__descr-edit brief__descr-edit-5" data-shot-story="5">
 		                                            &#9998;
 		                                        </span>
-		                                        <span></span>
+		                                        <span class="brief__descr-5"></span>
 		
 		                                    </p>
 		                                </div>
@@ -1292,8 +1293,11 @@
 		            </select>
 		
 		            <div class="user__inp-wrap">
-		                <span class="user__cal"><input type="date" name="calendar" id="calendar"></span>
-		                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly="">
+		                <label class="user__cal" for="datepicker">
+		                    <!-- <input type="date" name="calendar" id="calendar"> -->
+		                </label>
+		                <input type="text" id="datepicker" autocomplete="off" placeholder="Выбрать дату">
+		                <!-- <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly=""> -->
 		            </div>
 		            <input class="add-story__input" type="text" name="place" id="memory_place" placeholder="Введите место">
 		            <input type="text" name="title" id="memory_title" placeholder="Название" class="add-story__input">
@@ -1304,6 +1308,9 @@
 		            </span>
 		            <div class="add-story__line">
 		                <span class="add-story__btn def-btn">
+		                    <!-- <input type="file" name="img" id="edit-foto" class="edit-foto-simple" accept=".jpg, .jpeg, .png">
+		                    <input type="file" style="display: none;" id="send-foto" class="edit-foto-simple"
+		                        accept=".jpg, .jpeg, .png"> -->
 		                    <input type="hidden" name="img" data-preview="false" id="edit-foto"
 		                        class="simple-file-upload edit-foto-simple">
 		                    <img src="./img/default-foto.png" alt="add" id="output2">
@@ -1320,7 +1327,7 @@
 		                <span class="add-story__header-btn" id="edit-cancel">Отменить</span>
 		                <button class="add-story__header-btn add" id="story-add-description" type="submit">Готово</button>
 		            </div>
-		            <textarea class="add-story__input" name="text" id="memory_text" cols="30" rows="10" maxlength="300"
+		            <textarea class="add-story__input" name="text" id="memory_text" cols="30" rows="10" maxlength="3000"
 		                placeholder="Добавьте описание периода жизни"></textarea>
 		        </div>
 		    </form>
