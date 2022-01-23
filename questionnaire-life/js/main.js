@@ -10882,7 +10882,7 @@ $(document).ready(function () {
 	};
 
 	//render timeline story**********************************
-	async function loaddLiveFull(dataToLoad, outHtml) {
+	function loaddLiveFull(dataToLoad, outHtml) {
 		var outAll = '';
 		if (dataToLoad != []) {
 			for (var i = 0; i < dataToLoad.length; i++) {
@@ -10890,20 +10890,17 @@ $(document).ready(function () {
 					var dateLoad = dataToLoad[i].event_date;
 					dateLoad = dateLoad.split('-').reverse().join('.');
 					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date"><span>${dateLoad}</span><span class="story__data-place">${dataToLoad[i].event_place}</span></span><div class="story__img-wrap"><img data-src="${dataToLoad[i].event_img}" alt="photo" class="story__pict lazyload"></div>
-				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
+				<span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button><div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" data-event-id="${dataToLoad[i].id}" data-header="${dataToLoad[i].event_header}" data-text="${dataToLoad[i].event_text}" data-date="${dateLoad}" data-type="${dataToLoad[i].event_type}" data-place="${dataToLoad[i].event_place}">Редактировать</button>
 				<button class="context-story__item delete-story">Удалить</button>
 			</div></div></div>`;
 				} else {
 					outAll += `<div class="story__content" data-id="${dataToLoad[i].id}" data-prof-id="${dataToLoad[i].profile_id}" data-type="${dataToLoad[i].event_type}"><span class="story__date">${dataToLoad[i].event_date}(${dataToLoad[i].event_place})</span><span class="story__content-title">${dataToLoad[i].event_header}</span><div class="story__text story__text--content"><p class="story__descr">${dataToLoad[i].event_text}</p><button class="more">Подробнее</button>
-				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" disabled="disabled">Редактировать</button>
+				<div class="story__edit-cont"><span></span><span></span><span></span></div><div class="story__context context-story"><button class="context-story__item editOLdStory" data-event-id="${dataToLoad[i].id}" data-header="${dataToLoad[i].event_header}" data-text="${dataToLoad[i].event_text}" data-date="${dateLoad}" data-type="${dataToLoad[i].event_type}" data-place="${dataToLoad[i].event_place}">Редактировать</button>
 				<button class="context-story__item delete-story">Удалить</button>
 			</div></div></div>`;
 				}
 			}
 			outHtml.append(outAll);
-			initDelStory();
-			initEditStory();
-			initDelBtn();
 		}
 	};
 
@@ -11126,6 +11123,9 @@ $(document).ready(function () {
 					ifShowMore();
 					initMore();
 					ifShowMoreBrief();
+					initDelStory();
+					initEditStory();
+					initDelBtn();
 				} else {
 					if (data.profile.avatar && data.profile.avatar !== './img/default-foto.png') {
 						avaProfile.attr('src', data.profile.avatar);
@@ -11265,6 +11265,9 @@ $(document).ready(function () {
 						initMore();
 						ifShowMore();
 						ifShowMoreBrief();
+						initDelStory();
+						initEditStory();
+						initDelBtn();
 						isNotParentUser();
 					}
 				};
@@ -11587,11 +11590,11 @@ $(document).ready(function () {
 			storyItem[i].addEventListener('click', function () {
 				let editBnt = $(this);
 				id_timeline = editBnt.parent().parent().attr('data-id');
-				event_text = editBnt.siblings('.story__context').text();
-				event_date = editBnt.parent().siblings('.story__date > span').text();
-				event_title = editBnt.parent().siblings('.story__content-title').text();
-				event_place = editBnt.parent().siblings('.story__date').children('.story__data-place').text();
-				event_type = editBnt.parent().parent().attr('data-type');
+				// event_text = editBnt.siblings('.story__context').text();
+				// event_date = editBnt.parent().siblings('.story__date > span').text();
+				// event_title = editBnt.parent().siblings('.story__content-title').text();
+				// event_place = editBnt.parent().siblings('.story__date').children('.story__data-place').text();
+				// event_type = editBnt.parent().parent().attr('data-type');
 				editBnt.siblings('.story__context').addClass('active');
 				function hideBlock(e) {
 					if ($(e.target).closest('.story__context').length) {
@@ -11674,22 +11677,40 @@ $(document).ready(function () {
 
 	//Edit stoty event*************************************
 	function initEditStory() {
+
+		let event_date, event_header, event_text, event_id, event_type, event_place;
+		let data_event_add = $('#story-date-edit');
+		let title_event = $('#memory_title-edit');
+		let text_event = $('#memory_text-edit');
 		//show edit story popup*****************************
-		$('.editOLdStory').on('click', function () {
-			$('body').addClass('no-scroll');
-			$('.edit-story').css('display', 'flex');
-			$('.context-story').removeClass('active');
-			// initDelStory();
-			// console.log(id_timeline,
-			// 	event_date,
-			// 	event_type,
-			// 	event_header,
-			// 	event_place,
-			// 	event_text)
+		let btns = $('.editOLdStory');
+		for (let i = 0; i < btns.length; i++) {
+			btns[i].addEventListener('click', function (e) {
+				e.preventDefault();
+				$('body').addClass('no-scroll');
+				$('.edit-story').css('display', 'flex');
+				$('.context-story').removeClass('active');
+				// initDelStory();
+				let btn = $(this);
+				event_header = btn.attr('data-header');
+				event_date = btn.attr('data-date');
+				event_text = btn.attr('data-text');
+				event_id = btn.attr('data-event-id');
+				event_type = btn.attr('data-type');
+				event_place = btn.attr('data-place');
+				data_event_add.val(event_date);
+				title_event.val(event_header);
+				text_event.val(event_text);
+			});
+		}
+
+		$('#calendar-edit').on('change', function () {
+			let date = $(this).val();
+			data_event_add.val(date.split('-').reverse().join('.'));
+		})
 
 
 
-		});
 		//close delete story popup**************************
 		$('#story-edit-cancel').click(function () {
 			$('body').removeClass('no-scroll');
@@ -11697,66 +11718,56 @@ $(document).ready(function () {
 		});
 
 
-		// if (data_event.val() != '' && category_event.val() != '' && place_event.val() != '' && title_event.val() != '' && text_event.val() != '') {
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
-		// var data_event_add = $('.story-date');
-		// var category_event_add = $('#category');
-		// var place_event = $('#memory_place');
-		// var title_event = $('#memory_title');
-		// var text_event = $('#memory_text-add');
+		$('#story-edit').click(function (e) {
+			e.preventDefault();
+			let timeline_event = {
+				event_date: data_event_add.val(),
+				event_header: title_event.val(),
+				event_text: text_event.val(),
+				event_place: event_place,
+				event_type: event_type,
+				event_img: '',
+				timeline_id: event_id
+			};
+			console.log(timeline_event);
+			if (data_event_add.val() != '') {
+				fetch(
+					`${api_url}update_timeline_event`,
+					{
+						method: 'POST',
+						body: JSON.stringify(timeline_event),
+						headers: {
+							'Authorization': 'Token token=' + cookie_token,
+							'Content-Type': 'application/json'
+						}
+					})
+					.then($('body').css('opacity', 0.5))
+					.then(response => response.json())
+					.then(data => {
+						if (data) {
+							$('body').css('opacity', 1);
+							console.log("success send");
+							// console.log('Data:', JSON.stringify(data));
+							// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
+							showErrorSuccess('Событие изменено', 1500);
+							window.location.href = `#${currentProfile}`;
+							window.location.reload();
+						} else {
+							showErrorSuccess('Ошибка,попробуйте еще', 1500);
+							$('body').css('opacity', 1);
+						}
 
-		// $('#story-add').click(function (e) {
-		// 	e.preventDefault();
-		// 	var timeline_event = {
-		// 		event_date: data_event.val(),
-		// 		event_header: title_event.val(),
-		// 		event_type: category_event.val(),
-		// 		event_img: $('.memory_foto').attr('src'),
-		// 		event_text: text_event.val(),
-		// 		event_place: place_event.val(),
-		// 		profile_id: currentProfile
-		// 	};
-		//console.log(timeline_event);
-		// 	if (validate_event()) {
-		// 		fetch(
-		// 			`${api_url}create_timeline_event`,
-		// 			{
-		// 				method: 'POST',
-		// 				body: JSON.stringify(timeline_event),
-		// 				headers: {
-		// 					'Authorization': 'Token token=' + cookie_token,
-		// 					'Content-Type': 'application/json'
-		// 				}
-		// 			})
-		// 			.then($('body').css('opacity', 0.5))
-		// 			.then(response => response.json())
-		// 			.then(data => {
-		// 				if (data) {
-		// 					$('body').css('opacity', 1);
-		// 					console.log("success send");
-		// 					// console.log('Data:', JSON.stringify(data));
-		// 					// $('#error').text("Данные сохранены").removeClass('error').addClass('success').show().delay(1500).fadeOut(300);
-		// 					window.location.href = `#${currentProfile}`;
-		// 					window.location.reload();
-		// 				} else {
-		// 					showErrorSuccess('Ошибка,попробуйте еще', 300);
-		// 					$('body').css('opacity', 1);
-		// 				}
-
-		// 			})
-		// 			.catch(error => {
-		// 				console.log('error:', error);
-		// 				showErrorSuccess('Ошибка соединения', 300);
-		// 				$('body').css('opacity', 1);
-		// 			});
-		// 	} else {
-		// 		showErrorSuccess('Заполните все поля', 300);
-		// 		$('body').css('opacity', 1);
-		// 	}
-		// })
+					})
+					.catch(error => {
+						console.log('error:', error);
+						showErrorSuccess('Ошибка соединения', 1500);
+						$('body').css('opacity', 1);
+					});
+			} else {
+				showErrorSuccess('Заполните дату', 1500);
+				$('body').css('opacity', 1);
+			}
+		})
 	};
 
 
@@ -12292,15 +12303,15 @@ $(document).ready(function () {
 			return false;
 		}
 	};
-	var data_event = $('.story-date');
-	var category_event = $('#category');
-	var place_event = $('#memory_place');
-	var title_event = $('#memory_title');
-	var text_event = $('#memory_text-add');
+	let data_event = $('#datepicker');
+	let category_event = $('#category');
+	let place_event = $('#memory_place');
+	let title_event = $('#memory_title');
+	let text_event = $('#memory_text-add');
 
 	$('#story-add').click(function (e) {
 		e.preventDefault();
-		var timeline_event = {
+		let timeline_event = {
 			event_date: data_event.val(),
 			event_header: title_event.val(),
 			event_type: category_event.val(),
@@ -12312,6 +12323,7 @@ $(document).ready(function () {
 		if (timeline_event.event_img == './img/default-foto.png') {
 			timeline_event.event_img = './img/default-bg-img.webp';
 		};
+		console.log(timeline_event);
 		//console.log(timeline_event);
 		if (validate_event()) {
 			fetch(

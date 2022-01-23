@@ -447,30 +447,19 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="edit-story">
+	<div class="edit-story" id="edit-story">
 	    <form class="add-story__wrap">
 	        <div class="wrapper">
 	            <div class="add-story__header">
 	                <span class="add-story__header-btn" id="story-edit-cancel">Отменить</span>
-	                <button class="add-story__header-btn add" id="story-edit" type="submit">Добавить воспоминание</button>
+	                <button class="add-story__header-btn add" id="story-edit" type="submit">Изменить
+	                    воспоминание</button>
 	            </div>
-	            <select name="tabs" id="category-story-edit" class="add-story__category">
-	                <option value="hide">Категория</option>
-	                <option value="Семья">Семья</option>
-	                <option value="Традиции">Традиции</option>
-	                <option value="Деятельность">Деятельность</option>
-	                <option value="Увлечения">Увлечения</option>
-	                <option value="Путешествия">Путешествия</option>
-	                <option value="Учеба/Друзья">Учеба/Друзья</option>
-	                <option value="Наследие">Наследие</option>
-	                <option value="Веселые истории">Веселые истории</option>
-	            </select>
-	
 	            <div class="user__inp-wrap">
 	                <span class="user__cal"><input type="date" name="calendar" id="calendar-edit"></span>
-	                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly="">
+	                <input type="text" class="story-date" required="" placeholder="Выбрать дату" readonly=""
+	                    id="story-date-edit">
 	            </div>
-	            <input class="add-story__input" type="text" name="place" id="memory_place-edit" placeholder="Введите место">
 	            <input type="text" name="title" id="memory_title-edit" placeholder="Название" class="add-story__input">
 	            <textarea class="add-story__input" name="text" id="memory_text-edit" cols="30" rows="10" maxlength="3000"
 	                placeholder="Воспоминание(макс. 3000 символов)"></textarea>
@@ -526,7 +515,7 @@
 		                        <div class="wrapper">
 		                            <div class="brief__user">
 		                                <div class="brief__context context">
-		                                    <button class="context__item editOLdData ">Редактировать</button>
+		                                    <button class="context__item editOLdData">Редактировать</button>
 		                                    <button class="context__item" id="delete-profile">Удалить</button>
 		                                </div>
 		                                <div class="brief__img-wrap">
@@ -1336,7 +1325,7 @@
 	</section>
 	<!-- скрипты -->
 	<script src="js/lazysizes.min.js" async=""></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async></script>
 	<script src="js/main.min.js"></script>
 </body>
 
