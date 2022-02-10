@@ -10729,6 +10729,7 @@ $(document).ready(function () {
 			$('#menu-user').remove();
 			$('#candle').remove();
 			$('#bookmark').remove();
+			$('.share__support').remove();
 		};
 	};
 
@@ -10782,6 +10783,7 @@ $(document).ready(function () {
 		$('.default-add').remove();
 		$('.tab__btn-save').remove();
 		$('.story__edit-cont').remove();
+		$('.share__support').remove();
 		$('.textarea').attr('contenteditable', false);
 	};
 
@@ -12402,7 +12404,7 @@ $(document).ready(function () {
 		// Hide Header on on scroll down
 		var didScroll;
 		var lastScrollTop = 0;
-		var delta = 5;
+		var delta = 400;
 		var navbarHeight = $('header').outerHeight();
 
 		$(window).scroll(function (event) {
@@ -12432,7 +12434,7 @@ $(document).ready(function () {
 				hightlight.css('top', '0');
 				backStory.css('top', '90px');
 				storyTitle.css('top', '100px');
-				storyTitleTab.css('top', '60px');
+				storyTitleTab.css('top', '67px');
 
 			} else {
 				// Scroll Up
@@ -12441,7 +12443,7 @@ $(document).ready(function () {
 					navbar.css('z-index', '300');
 					hightlight.css('top', '50px');
 					backStory.css('top', '140px');
-					storyTitle.css('top', '136px');
+					storyTitle.css('top', '145px');
 					storyTitleTab.css('top', '115px');
 				}
 			}
