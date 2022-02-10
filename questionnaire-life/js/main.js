@@ -10769,8 +10769,7 @@ $(document).ready(function () {
 		$.each(data, function (index, value) {
 			if (value == currentProfile) {
 				$('#bookmark').addClass('active').attr('src', './img/bookmark-black.svg');
-			} else {
-				return false;
+				return;
 			};
 		});
 	};
