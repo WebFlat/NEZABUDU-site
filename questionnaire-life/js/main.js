@@ -12430,7 +12430,7 @@ $(document).ready(function () {
 				burger.css('z-index', '-1');
 				navbar.css('z-index', '-1');
 				hightlight.css('top', '0');
-				backStory.css('top', '82px');
+				backStory.css('top', '90px');
 				storyTitle.css('top', '100px');
 				storyTitleTab.css('top', '60px');
 
@@ -12440,7 +12440,7 @@ $(document).ready(function () {
 					burger.css('z-index', '310');
 					navbar.css('z-index', '300');
 					hightlight.css('top', '50px');
-					backStory.css('top', '133px');
+					backStory.css('top', '140px');
 					storyTitle.css('top', '136px');
 					storyTitleTab.css('top', '115px');
 				}
