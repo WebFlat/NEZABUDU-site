@@ -67,22 +67,23 @@
 	            <a class="drawer__link enter">
 	                <label for="menu-checkbox" class="menu-enter">
 	                    <div id="menu-1" class="drawer-menu"><img data-src="img/menu1.svg" class="lazyload">Добавить
-	                        воспоминание</div>
+	                        анкету</div>
 	                </label>
 	            </a>
 	            <a href="./all-person-page/" class="drawer__link">
 	                <label for="menu-checkbox">
 	                    <div id="menu-2" class="drawer-menu"><img data-src="img/menu2.svg" class="lazyload">Смотреть все
-	                        анкеты</div>
+	                    </div>
 	                </label>
 	            </a>
+	            <!-- 
 	            <a href="#" class="drawer__link" style="pointer-events: none;opacity: .5;">
 	                <label for="menu-checkbox">
 	                    <div id="menu-3" class="drawer-menu"><img data-src="img/menu3.svg" class="lazyload">Найти место
 	                        захоронения</div>
 	                </label>
 	            </a>
-	            <a href="./person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	           <a href="./person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
 	                <label for="menu-checkbox">
 	                    <div id="menu-4" class="drawer-menu"><img data-src="img/menu4.svg" class="lazyload">Известные
 	                        личности</div>
@@ -99,16 +100,22 @@
 	                    <div id="menu-6" class="drawer-menu"><img data-src="img/menu6.svg" class="lazyload">Заказать QR код
 	                    </div>
 	                </label>
-	            </a>
+	            </a> 
 	            <a href="#volunteers" class="drawer__link">
 	                <label for="menu-checkbox">
 	                    <div id="menu-7" class="drawer-menu"><img data-src="img/menu7.svg" class="lazyload">Стать партнером
 	                    </div>
 	                </label>
-	            </a>
+	            </a> -->
 	            <a href="#volunteers" class="drawer__link">
 	                <label for="menu-checkbox">
 	                    <div id="menu-8" class="drawer-menu"><img data-src="img/menu8.svg" class="lazyload">Стать волонтером
+	                    </div>
+	                </label>
+	            </a>
+	            <a href="#volunteers" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-8" class="drawer-menu"><img data-src="img/menu5.svg" class="lazyload">Сервисы
 	                    </div>
 	                </label>
 	            </a>
@@ -132,19 +139,19 @@
 	                <h6 class="reg__title">Через социальные сети</h6>
 	                <div class="reg__wrap-soc">
 	                    <div class="reg__google btn-form">
-	                        <div style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;overflow: hidden;"
+	                        <div style="position: absolute;width: 200px;min-width: 100%;height: 100%; top: 0; left: 0; right: 0; opacity: 0;overflow: hidden;"
 	                            class="g-signin2" data-onsuccess="onSignIn"></div>
 	                        <img src="./img/google.png" alt="google">
 	                        <span class="reg__soc-title">Google</span>
 	                    </div>
-	                    <div class="reg__facebook btn-form">
+	                    <!-- <div class="reg__facebook btn-form">
 	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
 	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
 	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
 	                            data-width=""></div>
 	                        <img src="./img/facebook.png" alt="facebook">
 	                        <span class="reg__soc-title">Facebook</span>
-	                    </div>
+	                    </div> -->
 	                </div>
 	                <span class="reg__title">или</span>
 	                <form method="POST" class="reg__form" id="reg-form" autocomplete="on">
@@ -168,7 +175,7 @@
 	                    <!-- <span class="link-to-enter">Уже есть аккаунт?</span> -->
 	                </div>
 	                <div class="reg__footer">
-	                    <p>Регистрируясь на этом веб-сайте,<br>ты принимаешь наши
+	                    <p>Регистрируясь на этом веб-сайте,<br>вы принимаете наши
 	                        <a href="terms.html" class="reg__link-conf" target="_blank"
 	                            rel="noopener noreferrer">Пользовательское соглашение</a> и
 	                        <a href="privacy.html" target="_blank" class="reg__link-conf" rel="noopener noreferrer">Политику
@@ -185,14 +192,14 @@
 	                        <img src="./img/google.png" alt="google">
 	                        <span class="reg__soc-title">Google</span>
 	                    </div>
-	                    <div class="reg__facebook btn-form">
+	                    <!-- <div class="reg__facebook btn-form">
 	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
 	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
 	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
 	                            data-width=""></div>
 	                        <img src="./img/facebook.png" alt="facebook">
 	                        <span class="reg__soc-title">Facebook</span>
-	                    </div>
+	                    </div> -->
 	                </div>
 	                <span class="reg__title">или</span>
 	                <form method="POST" class="reg__form" id="auth-form" autocomplete="on">
@@ -458,7 +465,7 @@
 	            <a class="terms-use link-info" href="terms.html">Пользовательское соглашение</a>
 	            <a class="ethics-use link-info" href="ethics.html">Этика заполнения анкет</a>
 	        </div>
-	        <div class="license">© 2021 Незабуду. Все права защищены.</div>
+	        <div class="license">© 2022 Незабуду. Все права защищены.</div>
 	    </div>
 	</footer>
 	<!-- <div id="status">
