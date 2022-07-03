@@ -10806,12 +10806,12 @@ jQuery(function ($) {
 				}
 				if (data[key].death_date == null) {
 					if (data[key].profile_mine == true) {
-						out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--mine"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
+						out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--mine"><img data-src="' + data[key].avatar + '" alt="face" class="user__avatar lazyload"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
 					} else {
-						out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
+						out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--life"><img data-src="' + data[key].avatar + '" alt="face" class="user__avatar lazyload"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span></div><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
 					}
 				} else {
-					out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img src="' + data[key].avatar + '" alt="face" class="user__avatar"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
+					out += '<a href="../questionnaire-life/#' + data[key].id + '" class="user  item"><div class="user__info"><div class="user__avatar-wrap user__avatar-wrap--death"><img data-src="' + data[key].avatar + '" alt="face" class="user__avatar lazyload"></div><div class="user__title"><span class="user__surname">' + data[key].first_name + '</span><span></span><span class="user__name">' + data[key].last_name + '</span><span class="user__patronymic">' + data[key].patronymic + '</span></div><div class="user__lives"><span class="user__both">' + birth + '</span><span> - </span><span class="user__die">' + die + '</span></div></div><div class="user__btns"><span href="../questionnaire-life/#' + data[key].id + '" class="user__link-more">Читать дальше</span></div></a>';
 				}
 				section.html(out);
 			}
@@ -11293,6 +11293,33 @@ jQuery(function ($) {
 
 
 	setTimeout(() => {
+		//Start Set new language location***************************************
+		function renderLocations() {
+			let loc_list = document.querySelectorAll('.autocomplete-items div');
+			function goToLanguage(arr) {
+				for (let i = 0; i < arr.length; i++) {
+					arr[i].addEventListener('click', () => {
+						let key = arr[i].getAttribute('location');
+						switch (key) {
+							case 'Русский':
+								window.location.href = 'https://nezabudu.com/all-person-page/';
+								break;
+							case 'Українська':
+								window.location.href = 'https://nezabudu.com/ua/all-person-page/';
+								break;
+							case 'English':
+								window.location.href = 'https://nezabudu.com/en/all-person-page/';
+								break;
+						}
+					})
+				}
+			};
+
+			goToLanguage(loc_list);
+		}
+		//End Set new language location***************************************
+
+		//Start render location items*************************
 
 		let languages = [
 			"Русский",
@@ -11346,6 +11373,7 @@ jQuery(function ($) {
 					this.parentNode.appendChild(a);
 					for (i = 0; i < arr.length; i++) {
 						b = document.createElement("DIV");
+						b.setAttribute('location', `${arr[i]}`);
 						b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
 						b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 						b.addEventListener("click", function (e) {
@@ -11354,6 +11382,7 @@ jQuery(function ($) {
 						});
 						a.appendChild(b);
 					}
+					renderLocations();
 				}
 			}
 			document.addEventListener("click", function (e) {

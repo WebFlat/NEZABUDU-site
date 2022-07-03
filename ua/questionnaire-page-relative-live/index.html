@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>НЕЗАБУДУ - місце для збереження спогадів та розповідей про своє життя та життя ваших предків.</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#92e4fc">
+	<meta name="theme-color" content="#ffffff">
+	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+	
+	<link rel="stylesheet" href="css/styles.min.css">
+	
+	<meta name="description"
+	    content="НЕЗАБУДУ - місце для збереження спогадів та розповідей про своє життя та життя ваших предків.">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC3C97PHE1"></script>
+	<script>
+	    window.dataLayer = window.dataLayer || [];
+	    function gtag() { dataLayer.push(arguments); }
+	    gtag('js', new Date());
+	
+	    gtag('config', 'G-YC3C97PHE1');
+	</script>
+</head>
+
+<body>
+
+	<header>
+	    <div id="header">
+	        <a href="../auth-user/" class="header-title">НЕЗАБУДУ</a>
+	        <a href="../cabinet-page/" class="header__user-wrap">
+	            <img src="img/user-def-black.png" class="header__user">
+	        </a>
+	    </div>
+	    <div class="menu">
+	        <input type="checkbox" id="menu-checkbox" />
+	        <label class="drawer-burg" for="menu-checkbox" onclick>
+	            <span></span>
+	            <span></span>
+	            <span></span>
+	        </label>
+	        <div id="drawer-menu">
+	            <label id="drawer-close" for="menu-checkbox">
+	                <span></span>
+	                <span></span>
+	            </label>
+	            <a href="../cabinet-page/" class="drawer__link">
+	                <label for="menu-checkbox" class="menu-enter">
+	                    <div id="menu-1" class="drawer-menu"><img src="img/resume.svg" alt="questionar">Мої анкети</div>
+	                </label>
+	            </a>
+	            <a href="../all-person-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-4" class="drawer-menu"><img src="img/007-eye.svg" alt="questionar">Дивитись усі</div>
+	                </label>
+	            </a>
+	            <a href="../cabinet-page/#tab2" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-2" class="drawer-menu"><img src="img/bookmark-2.svg" alt="bookmark">Додані до мої
+	                    </div>
+	                </label>
+	            </a>
+	            <a href="../cabinet-page/#tab3" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-3" class="drawer-menu"><img src="img/bell.svg" alt="alarm">Сповіщення</div>
+	                </label>
+	            </a>
+	            <!-- <a href="../care-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-6" class="drawer-menu"><img src="img/menu5.svg" alt="peace">Сервисы
+	                    </div>
+	                </label>
+	            </a> -->
+	            <!-- <a href="../person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-5" class="drawer-menu"><img src="img/005-favorites.svg" alt="questionar">Известные
+	                        личности</div>
+	                </label>
+	            </a>
+	            <a href="../care-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-6" class="drawer-menu"><img src="img/menu5.svg" alt="peace">Уход за захоронениями
+	                    </div>
+	                </label>
+	            </a>
+	            <a href="../qr-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-7" class="drawer-menu"><img src="img/menu6.svg" alt="qr code">Заказать QR код</div>
+	                </label>
+	            </a> -->
+	            <a href="../cabinet-page/#tab4" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-8" class="drawer-menu"><img src="img/settings.svg" alt="settings"
+	                            style="width: 26px">Налаштування</div>
+	                </label>
+	            </a>
+	            <a class="drawer__link" id="logout">
+	                <label for="menu-checkbox">
+	                    <div id="menu-9" class="drawer-menu"><img src="img/logout.svg" alt="logout">Вихід</div>
+	                </label>
+	            </a>
+	            <div id="menu-lang" class="drawer-menu"><input id="select-language" name="language" value="Українська"
+	                    readonly></input></div>
+	
+	        </div>
+	    </div>
+	</header>
+	<div id="p_prldr">
+	    <div class="contpre">
+	        <span class="contpre__logo">НЕЗАБУДУ</span></br>
+	        <span class="svg_anm"></span>
+	    </div>
+	</div>
+	<span id="error-message">
+		<span id="error" class="success"></span>
+	</span>
+	<!-- контент страницы -->
+	<section class="questionnaire">
+	    <div class="profile">
+	        <div class="wrapper">
+	            <p class="order__links"><a href="../cabinet-page/index.html" class="order__link-main">Pсобистий кабінет</a>
+	                /
+	                <span class="order__ab">Анкета</span>
+	            </p>
+	        </div>
+	        <section class="profile__menu profile__menu--mob">
+	            <div class="menu__items menu__items--mob">
+	                <a href="#" class="menu__item menu__item--mob active-items main">
+	                    <img src="./img/icon1.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon2.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon3.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon4.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon5.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon6.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon7.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon8.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	                <a href="#" class="menu__item menu__item--mob">
+	                    <img src="./img/icon9.png" alt="icon" class="menu__img menu__img--mob">
+	                </a>
+	            </div>
+	        </section>
+	        <div class="wrapper">
+	            <div class="profile__wrap">
+	                <section class="profile__data">
+	                    <div class="wrapper">
+	                        <div class="data__form-tabs">
+	                            <form method="POST" class="data__form-default data__form">
+	                                <div class="about__subsettings">
+	                                    <div class="about__show">
+	                                        <div class="about__show-wrap">
+	                                            <img class="about__visible" src="./img/lock.png" alt="lock">
+	                                            <input class="about__check" type="radio" name="type" id="close"
+	                                                data-status="false">
+	                                            <label for="close">Закрита</label>
+	                                        </div>
+	                                        <div class="about__show-wrap">
+	                                            <img class="about__visible" src="./img/unlock.png" alt="lock">
+	                                            <input type="radio" class="about__check" name="type" id="open" checked
+	                                                data-status="true">
+	                                            <label for="open">Відкрита</label>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="about__wrap">
+	                                    <div class="about__img-wrap">
+	                                        <img src="./img/default-foto.png" alt="foto" class="about__img" id="output">
+	                                    </div>
+	                                    <div class="about__upload about__upload--ava">
+	
+	                                        <span class="about__upload-text about__upload-text--ava">
+	                                            Додати фото
+	                                            <input type="hidden" name="img" id="test-img" data-preview="false"
+	                                                class="simple-file-upload">
+	                                        </span>
+	                                    </div>
+	                                    <!-- <div class="about__gallery">
+	                                        <div class="about__gal-wrap about__gal-wrap--def" id="elem">
+	                                            <input type="file" class="about__gal-add" id="addFoto" accept='image/*'>
+	                                        </div>
+	                                    </div> -->
+	                                </div>
+	
+	
+	                                <div class="data__user">
+	                                    <div class="user__inp-wrap">
+	                                        <div class="user__names">
+	                                            <input type="text" class="user__surname" required placeholder="Прізвище">
+	                                        </div>
+	                                        <div class="user__names">
+	                                            <input type="text" class="user__name" required placeholder="Ім'я">
+	                                        </div>
+	                                        <input type="text" class="user__patronymic" placeholder="По батькові">
+	                                        <input type="text" class="user__surname-girl user__soname-girl"
+	                                            placeholder="Дівоче прізвище">
+	                                    </div>
+	                                    <div class="user__lives-data">
+	                                        <div class="user__lives-wrap">
+	                                            <div class="user__inp-wrap">
+	                                                <span class="user__cal" id="btn-both">
+	                                                    <input type="date" name="calendar1" id="user-both">
+	                                                </span>
+	                                                <input type="text" class="user__both" required
+	                                                    placeholder="Дата народження" readonly>
+	
+	                                            </div>
+	
+	
+	                                        </div>
+	                                    </div>
+	                                    <div class="user__lives-loc">
+	                                        <input type="text" class="user__both-loc" placeholder="Місце народження">
+	                                    </div>
+	                                    <label class="user__title-second" for="area-lives">
+	                                        Розкажіть основну інформацію:
+	                                    </label>
+	                                    <textarea name="main-info" id="area-lives" rows="5" style="resize: none;"
+	                                        placeholder="розкажіть про характер, діяльність, особливості та інше"></textarea>
+	                                </div>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close" id="sendFistRequest">Зберегти</button>
+	                                </div>
+	                                <p class="data__title">Натисніть кнопку “Зберегти”, щоб продовжити заповнювати анкету
+	                                </p>
+	
+	                            </form>
+	                            <!--
+	                            <form action="" class="data__form" method="POST">
+	                                <h6 class="data__form-title">Заметки о родственниках</h6>
+	                                <p class="data__form-subtitle">Запишите информацию о родственниках, которые связывают
+	                                    вас с умершим, чтобы сохранить семейные связи.</p>
+	                                <textarea class="data__form-text" name="info" id="relatives"
+	                                    placeholder="Голубев Иван Иванович (1972г.) +380678783523"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                            <form action="" class="data__form">
+	                                <h6 class="data__form-title">Увлечения в жизни</h6>
+	                                <p class="data__form-subtitle">Запишите главные увлечения в жизни ушедшего. Как проводил
+	                                    свободное время? Чем увлекался?</p>
+	                                <textarea class="data__form-text" name="info" id="interest"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                            <form class="data__form">
+	                                <h6 class="data__form-title">Опишите его характер</h6>
+	                                <p class="data__form-subtitle">Какие черты характера ушедшего близкого? Веселый и
+	                                    открытый? Или строгий и консервативный?
+	                                    Описав черты характера можно лучше предствавить образ человека.</p>
+	                                <textarea class="data__form-text" name="info" id="character"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close" id="">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                            <form action="" class="data__form">
+	                                <h6 class="data__form-title">Какие ценности нес и чему научил</h6>
+	                                <p class="data__form-subtitle">Например: любить семью, беречь свое здоровье, заботиться
+	                                    о животных, читать книги, печь пирожки, колядавать, ходить в церковь и другое.</p>
+	                                <textarea class="data__form-text" name="info" id="value-person"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                            <form action="" class="data__form">
+	                                <h6 class="data__form-title">Интересные истории</h6>
+	                                <p class="data__form-subtitle">Расскажите истории, которые остались у вас в памяти чтобы
+	                                    сохранить для потомков.</p>
+	                                <textarea class="data__form-text" name="info" id="histories"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                            <form action="" class="data__form">
+	                                <h6 class="data__form-title">Чем вы гордитесь?</h6>
+	                                <p class="data__form-subtitle">Расскажите о заслугах, поступках или черте характера
+	                                    ушедшего, которыми вы гордитесь.</p>
+	                                <textarea class="data__form-text" name="info" id="pride"></textarea>
+	                                <p class="data__title">Можно продолжить заполнять информацию о вашем близком и
+	                                    рассказать о нем чуть больше. Данная информация может быть как доступна другим так и
+	                                    скрыта от всех</p>
+	                                <div class="data__btns">
+	                                    <button class="btn data__btn-close">Сохранить</button>
+	                                </div>
+	                                <button class="data__save">Скачать анкету</button>
+	                            </form>
+	                        -->
+	                        </div>
+	                    </div>
+	                </section>
+	                <section class="profile__menu">
+	                    <div class="menu__items">
+	                        <a href="#" class="menu__item active-items main">
+	                            <div class="menu__description">
+	                                <span>Лінія життя</span>
+	                            </div>
+	                            <img src="./img/icon1.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Сім'я</span>
+	                            </div>
+	                            <img src="./img/icon2.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Традиції/Свята</span>
+	                            </div>
+	                            <img src="./img/icon3.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Діяльність/робота</span>
+	                            </div>
+	                            <img src="./img/icon4.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Захоплення/інтереси</span>
+	                            </div>
+	                            <img src="./img/icon5.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Подорожі</span>
+	                            </div>
+	                            <img src="./img/icon6.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Спадщина</span>
+	                            </div>
+	                            <img src="./img/icon7.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Друзі/навчання</span>
+	                            </div>
+	                            <img src="./img/icon8.png" alt="icon" class="menu__img">
+	                        </a>
+	                        <a href="#" class="menu__item">
+	                            <div class="menu__description">
+	                                <span>Веселі історії</span>
+	                            </div>
+	                            <img src="./img/icon9.png" alt="icon" class="menu__img">
+	                        </a>
+	                    </div>
+	                </section>
+	            </div>
+	        </div>
+	</section>
+	<!-- скрипты -->
+	<script src="js/main.min.js"></script>
+</body>
+
+</html>

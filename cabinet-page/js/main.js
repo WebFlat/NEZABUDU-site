@@ -11641,6 +11641,33 @@ $(document).ready(function () {
 
 
 
+	//Start Set new language location***************************************
+	function renderLocations() {
+		let loc_list = document.querySelectorAll('.autocomplete-items div');
+		function goToLanguage(arr) {
+			for (let i = 0; i < arr.length; i++) {
+				arr[i].addEventListener('click', () => {
+					let key = arr[i].getAttribute('location');
+					switch (key) {
+						case 'Русский':
+							window.location.href = 'https://nezabudu.com/cabinet-page/';
+							break;
+						case 'Українська':
+							window.location.href = 'https://nezabudu.com/ua/cabinet-page/';
+							break;
+						case 'English':
+							window.location.href = 'https://nezabudu.com/en/cabinet-page/';
+							break;
+					}
+				})
+			}
+		};
+
+		goToLanguage(loc_list);
+	}
+	//End Set new language location***************************************
+
+	//Start render location items*************************
 	let languages = [
 		"Русский",
 		"Українська",
@@ -11649,21 +11676,6 @@ $(document).ready(function () {
 	];
 	autocomplete(document.getElementById("select-language"), languages);
 
-
-	let work_type = [
-		"Работа с музеями",
-		"Написание статей о личностях",
-		"Интервьюирование ветеранов",
-		"Уборка захоронений ветеранов",
-		"Возложение цветов ветеранам",
-		"Сотрудничество с гос. организациями",
-		"Сотрудничество с общинами",
-		"Работа по уборке на кладбище",
-		"Оцифровка архивов",
-		"Оцифровка данных с памятников",
-		"Партнерство по установке памятнико",
-		"Партнерство по уходу за захоронениями"
-	];
 
 	function autocomplete(inp, arr) {
 
@@ -11701,6 +11713,7 @@ $(document).ready(function () {
 				this.parentNode.appendChild(a);
 				for (i = 0; i < arr.length; i++) {
 					b = document.createElement("DIV");
+					b.setAttribute('location', `${arr[i]}`);
 					b.innerHTML = '<string class="autocomplete-value">' + arr[i] + "</string>";
 					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 					b.addEventListener("click", function (e) {
@@ -11709,6 +11722,7 @@ $(document).ready(function () {
 					});
 					a.appendChild(b);
 				}
+				renderLocations();
 			}
 		}
 		document.addEventListener("click", function (e) {
@@ -11725,6 +11739,7 @@ $(document).ready(function () {
 			}
 		}
 	}
+	//End render location items*************************
 });
 class UploadWidget {
 	width;

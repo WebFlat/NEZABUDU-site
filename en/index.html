@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>NEZABUDU - a place to preserve memories and stories about your life and the life of your ancestors.</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#92e4fc">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="google-signin-client_id" content="65830191151-qdaau551j9ta4r6k5rumb25ee17omp02.apps.googleusercontent.com">
+	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+	
+	<link rel="stylesheet" href="css/styles.min.css">
+	
+	<meta name="description"
+	    content="NEZABUDU - a place to preserve memories and stories about your life and the life of your ancestors.">
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC3C97PHE1"></script>
+	<script>
+	    window.dataLayer = window.dataLayer || [];
+	    function gtag() { dataLayer.push(arguments); }
+	    gtag('js', new Date());
+	
+	    gtag('config', 'G-YC3C97PHE1');
+	</script>
+</head>
+
+<body>
+
+	<div id="p_prldr">
+	    <div class="contpre">
+	        <span class="contpre__logo">NEZABUDU</span></br>
+	        <span class="svg_anm"></span>
+	    </div>
+	</div>
+	<header>
+	    <div id="header">
+	        <a class="header-title">NEZABUDU</a>
+	        <span href="#" class="enter">
+	            <div id="login">
+	                Login
+	                <img data-src="img/sign-in.svg" class="lazyload">
+	            </div>
+	        </span>
+	    </div>
+	    <div class="menu">
+	        <input type="checkbox" id="menu-checkbox" />
+	        <label class="drawer-burg" for="menu-checkbox" onclick>
+	            <span></span>
+	            <span></span>
+	            <span></span>
+	        </label>
+	        <div id="drawer-menu">
+	            <label id="drawer-close" for="menu-checkbox">
+	                <span></span>
+	                <span></span>
+	            </label>
+	            <a class="drawer__link enter">
+	                <label for="menu-checkbox" class="menu-enter">
+	                    <div id="menu-1" class="drawer-menu"><img data-src="img/menu1.svg" class="lazyload">Add profile
+	                    </div>
+	                </label>
+	            </a>
+	            <a href="./all-person-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-2" class="drawer-menu"><img data-src="img/menu2.svg" class="lazyload">See all
+	                    </div>
+	                </label>
+	            </a>
+	            <!-- 
+	            <a href="#" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-3" class="drawer-menu"><img data-src="img/menu3.svg" class="lazyload">Найти место
+	                        захоронения</div>
+	                </label>
+	            </a>
+	           <a href="./person-page/" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-4" class="drawer-menu"><img data-src="img/menu4.svg" class="lazyload">Известные
+	                        личности</div>
+	                </label>
+	            </a>
+	            <a href="./care-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-5" class="drawer-menu"><img data-src="img/menu5.svg" class="lazyload">Уход за
+	                        захоронениями</div>
+	                </label>
+	            </a>
+	            <a href="./qr-page/" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-6" class="drawer-menu"><img data-src="img/menu6.svg" class="lazyload">Заказать QR код
+	                    </div>
+	                </label>
+	            </a> 
+	            <a href="#volunteers" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-7" class="drawer-menu"><img data-src="img/menu7.svg" class="lazyload">Стать партнером
+	                    </div>
+	                </label>
+	            </a> -->
+	            <!-- <a href="#volunteers" class="drawer__link">
+	                <label for="menu-checkbox">
+	                    <div id="menu-8" class="drawer-menu"><img data-src="img/menu8.svg" class="lazyload">Стать волонтером
+	                    </div>
+	                </label>
+	            </a> -->
+	            <!-- <a href="#volunteers" class="drawer__link" style="pointer-events: none;opacity: .5;">
+	                <label for="menu-checkbox">
+	                    <div id="menu-8" class="drawer-menu"><img data-src="img/menu5.svg" class="lazyload">Services
+	                    </div>
+	                </label>
+	            </a> -->
+	            <div id="menu-lang" class="drawer-menu"><input id="select-language" name="language" value="English"
+	                    readonly></input></div>
+	
+	        </div>
+	    </div>
+	</header>
+	<div class="reg-bg">
+	    <section class="reg">
+	        <span class="reg__close">
+	            <img src="./img/close.png" alt="close">
+	        </span>
+	        <div class="reg__form-bg">
+	            <div class="reg__header">
+	                <span class="reg__btn-reg reg-tab">Registration</span>
+	                <span class="reg__btn-enter reg-tab">Login</span>
+	            </div>
+	            <div class="wrapper wrapper--reg reg__main">
+	                <h6 class="reg__title">Through social network</h6>
+	                <div class="reg__wrap-soc">
+	                    <div class="reg__google btn-form">
+	                        <div style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;overflow: hidden;"
+	                            class="g-signin2" data-onsuccess="onSignIn"></div>
+	                        <img src="./img/google.png" alt="google">
+	                        <span class="reg__soc-title">Google</span>
+	                    </div>
+	                    <!-- <div class="reg__facebook btn-form">
+	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
+	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
+	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+	                            data-width=""></div>
+	                        <img src="./img/facebook.png" alt="facebook">
+	                        <span class="reg__soc-title">Facebook</span>
+	                    </div> -->
+	                </div>
+	                <span class="reg__title">or</span>
+	                <form method="POST" class="reg__form" id="reg-form" autocomplete="on">
+	                    <div class="reg__wrap-names">
+	                        <input id="reg-soname" type="text" name='userSoname' required placeholder="Last name"
+	                            class="reg__input btn-form">
+	                        <input id="reg-name" type="text" name='userName' required placeholder="Name"
+	                            class="reg__input btn-form">
+	                    </div>
+	                    <input id="reg-patronymic" type="text" name="userPatronymic" required placeholder="Patronymic"
+	                        class="reg__input">
+	                    <input id="reg-tel" type="text" name="userTel" required placeholder="+380507777777"
+	                        class="reg__input">
+	                    <input id="reg-email" type="email" name="userEmail" required placeholder="example@mail.com"
+	                        class="reg__input">
+	                    <input id="reg-password" type="password" name="userPassword" required placeholder="Password"
+	                        class="reg__input" autocomplete="on">
+	                    <input type="submit" value="Register" class="reg__btn" name="registr" id="sendReg">
+	                </form>
+	                <div class="reg__link-wrap reg-tab">
+	                    <!-- <span class="link-to-enter">Уже есть аккаунт?</span> -->
+	                </div>
+	                <div class="reg__footer">
+	                    <p>By registering on this website,<br>you accept our
+	                        <a href="terms.html" class="reg__link-conf" target="_blank" rel="noopener noreferrer">User
+	                            Agreement</a> and
+	                        <a href="privacy.html" target="_blank" class="reg__link-conf" rel="noopener noreferrer">Privacy
+	                            Policy</a>
+	                    </p>
+	                </div>
+	            </div>
+	            <div class="wrapper wrapper--reg reg__main">
+	                <h6 class="reg__title">Through social network</h6>
+	                <div class="reg__wrap-soc">
+	                    <div class="reg__google btn-form">
+	                        <div style="position: absolute;width: 200px;height: 100%; top: 0%; left: 0; right: 0; opacity: 0;overflow: hidden;"
+	                            class="g-signin2" data-onsuccess="onSignIn"></div>
+	                        <img src="./img/google.png" alt="google">
+	                        <span class="reg__soc-title">Google</span>
+	                    </div>
+	                    <!-- <div class="reg__facebook btn-form">
+	                        <div style="position: absolute;width: 100px;height: 100%; top: 30%; left: 0;opacity: 0;"
+	                            class="fb-login-button" data-size="medium" data-button-type="login_with"
+	                            data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+	                            data-width=""></div>
+	                        <img src="./img/facebook.png" alt="facebook">
+	                        <span class="reg__soc-title">Facebook</span>
+	                    </div> -->
+	                </div>
+	                <span class="reg__title">or</span>
+	                <form method="POST" class="reg__form" id="auth-form" autocomplete="on">
+	                    <input id="auth-email" type="text" name="authEmail" required placeholder="Email" class="reg__input">
+	                    <input id="auth-password" type="password" name="authPassword" required placeholder="Password"
+	                        class="reg__input" autocomplete="on">
+	                    <!-- <div class="g-recaptcha captcha" data-sitekey="6Le-nP0ZAAAAAIVD_XVU_oC54rpo9yRmXqPnBjou"></div> -->
+	                    <input type="submit" value="Login" class="reg__btn" name="auth" id="authSend">
+	                </form>
+	                <div class="reg__link-wrap">
+	                    <span id="remember">Forgot your password?</span>
+	                </div>
+	            </div>
+	        </div>
+	        <span id="error"></span>
+	    </section>
+	</div>
+	<span id="error-message">
+		<span id="error" class="success"></span>
+	</span>
+	<!-- контент страницы -->
+	<main>
+	    <div id="main">
+	        <div class="wellcome-page">
+	            <div class="wellcome-title">
+	                NEZABUDU - a place to preserve memories and stories about your life and the life of your ancestors
+	            </div>
+	            <span>
+	                <div class="add-memory-button button enter">Add a memory</div>
+	            </span>
+	        </div>
+	        <div class="cite-page">
+	            <div class="cite-1">
+	                <p>“</p>
+	                If not us, then who? If not now, then when?
+	                <p>Let's pass on valuable information to the digital future
+	                    our children and descendants, about us and our ancestors.
+	                </p>
+	            </div>
+	            <div class="cite-2 cite">
+	                Record important memories and stories about yourself
+	            </div>
+	            <div class="cite-3 cite">
+	                Become a helper and write down memories from the life of parents and the older generation
+	            </div>
+	            <div class="cite-4 cite">
+	                Keep the memory and warm memories of the ancestors and deceased loved ones
+	            </div>
+	        </div>
+	        <div class="timeline-type-page">
+	            <div class="timeline-type-title title-2">
+	                Visualize the chronology of your life and family by sorting notes, photos and memories by dates and
+	                categories
+	            </div>
+	            <div class="timeline-type-block">
+	                <div class="timeline-type">
+	                    <img data-src="img/Group1.jpg" class="lazyload">
+	                    <div class="timeline-desc">A family</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group2.jpg" class="lazyload">
+	                    <div class="timeline-desc">Traditions</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group3.jpg" class="lazyload">
+	                    <div class="timeline-desc">Activity</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group4.jpg" class="lazyload">
+	                    <div class="timeline-desc">Hobbies</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group5.jpg" class="lazyload">
+	                    <div class="timeline-desc">Travels</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group6.jpg" class="lazyload">
+	                    <div class="timeline-desc">Heritage</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group7.jpg" class="lazyload">
+	                    <div class="timeline-desc">Funny stories</div>
+	                </div>
+	                <div class="timeline-type">
+	                    <img data-src="img/Group8.jpg" class="lazyload">
+	                    <div class="timeline-desc">Study and friends</div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="profile-type-page">
+	            <div class="profile-type-title title">
+	                Three types of family tree questionnaires
+	            </div>
+	            <div class="profile-type-block slide">
+	                <div class="profile-type-block-1 profile-block">
+	                    <div class="profile-title-1 profile-title">My profile</div>
+	                    <img data-src="img/mob1.webp" class="lazyload">
+	                    <div class="profile-desc-1 profile-desc">
+	                        “I remember as a child every summer I spent with my grandmother, we had a tradition of
+	                        cooking
+	                        pancakes on
+	                        breakfast"
+	                    </div>
+	                </div>
+	                <div class="profile-type-block-2 profile-block">
+	                    <div class="profile-title-2 profile-title">Grandparents, parents, etc.</div>
+	                    <img data-src="img/mob2.webp" class="lazyload">
+	                    <div class="profile-desc-2 profile-desc">
+	                        “1992 I traveled to Armenia, the city of Spetaki, to rebuild the city after the earthquake”
+	                    </div>
+	                </div>
+	                <div class="profile-type-block-3 profile-block">
+	                    <div class="profile-title-3 profile-title">Deceased, ancestors</div>
+	                    <img data-src="img/mob3.webp" class="lazyload">
+	                    <div class="profile-desc-3 profile-desc">
+	                        “My great-grandmother used to cover her pillows with lace doilies every morning.”
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="profile-ps">
+	                Choose for yourself: open or closed profile!
+	                <br>Data is stored on a world server
+	            </div>
+	            <span class="enter">
+	                <div class="add-memory-button button">Add a memory</div>
+	            </span>
+	        </div>
+	        <div class="search-page">
+	            <div class="search-title title">
+	                "All people are individuals"
+	            </div>
+	            <form class="search-block">
+	                <input id="search-profile" type="search" placeholder="Find" required>
+	                <a href="./all-person-page/" class="search-button button">Search all
+	                    questionnaires
+	                </a>
+	            </form>
+	            <div class="search-title-2 title-2">
+	
+	            </div>
+	            <!-- <div class="swiper"> -->
+	            <div class="famous-profiles-block slide">
+	            </div>
+	            <!-- <div class="famous-profiles-block-pag swiper-pagination"></div> -->
+	            <!-- </div> -->
+	        </div>
+	        <div class="memory-page">
+	            <div class="search-title title">
+	                "Their life was interesting"
+	            </div>
+	            <div class="famous-profiles-block died slide">
+	            </div>
+	            <div class="memory-title-big title">Connect the past with the future!</div>
+	            <div class="memory-title-2 title-2">
+	                Our ancestors deserve to be remembered as often as possible!
+	            </div>
+	            <div class="memory-title-ps title">N E Z A B U D U services</div>
+	            <div class="memory-title-ps title-2"></div>
+	            <div class="memory-desc-block slide">
+	                <div class="memory-block-1 memory-block">
+	                    <div class="memory-title-1 memory-title">To remember is to remember</div>
+	                    <div class="memory-img-1 memory-img">
+	                        <img class="memory-avatar lazyload" data-src="img/pensioner1.png">
+	                        <div class="memory-desc-1">
+	                            <div class="memory-name">Savelyev Ilya Mikhailovich</div>
+	                            <div class="memory-birth">11.10.1952 - 27.04.2007</div>
+	                            <div class="memory-age">55 years</div>
+	                            <div class="memory-history">An artist, a loving grandfather, a traveler who
+	                                favorite thing.</div>
+	                        </div>
+	                        <div class="memory-icon">
+	                            <div class="memory-img-2-wrap"><img data-src="img/memory2.png" class="lazyload"></div>
+	                            <img class="memory-icon-2 lazyload" data-src="img/memory3.svg">
+	                        </div>
+	                    </div>
+	                    <a class="enter">
+	                        <div class="memory-button-1 memory-button button">Remember online</div>
+	                    </a>
+	                </div>
+	                <div class="memory-block-2 memory-block">
+	                    <div class="memory-title-2 memory-title">The monument can tell much more</div>
+	                    <div class="memory-img-2 memory-img">
+	                        <img data-src="img/memory1.png" class="lazyload">
+	                        <div class="memory-block-2-desc"></div>
+	                    </div>
+	                    <a style="opacity: 0.5">
+	                        <div class="memory-button-2 memory-button button">Comming soon</div>
+	                    </a>
+	                </div>
+	                <div class="memory-block-3 memory-block">
+	                    <div class="memory-title-3 memory-title">Let's take care of the graves of your ancestors</div>
+	                    <div class="memory-block-3-wrap">
+	                        <div class="memory-img-3">
+	                            We will help take care of the burial place of departed relatives and ancestors: cleaning
+	                            of
+	                            graves
+	                        </div>
+	                        <a style="opacity: 0.5">
+	                            <div class="memory-button-3 memory-button button">Comming soon</div>
+	                        </a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="awards-page">
+	            <div class="awards-title title">
+	                We are winners of the Ukrainian startup incubator 1991
+	                <br>They write about us:
+	            </div>
+	            <div class="awards-block">
+	                <a href="https://www.youtube.com/watch?v=pfVLw96oxsg" target="_blank"
+	                    class="awards-img-1 awards-img"><img data-src="img/award1.png" class="lazyload"></a>
+	                <a href="https://www.facebook.com/ERAUkraine/posts/3299089936867567" target="_blank"
+	                    class="awards-img-2 awards-img"><img data-src="img/award2.png" class="lazyload"></a>
+	                <a href="https://pr.ua/ru/news/kladoviswha-mariupolya-ocsifruyutq-za-dopomogoyu-droniv" target="_blank"
+	                    class="awards-img-3 awards-img"><img data-src="img/award3.png" class="lazyload"></a>
+	                <a href="https://babel.ua/ru/texts/56437-eto-kak-socialnaya-set-dlya-teh-kto-umer-ukrainskiy-startap-nezabudu-pomozhet-nayti-mogily-predkov-i-ocifrovat-kladbishcha-poka-tolko-v-mariupole"
+	                    target="_blank" class="awards-img-4 awards-img"><img data-src="img/award4.png" class="lazyload"></a>
+	                <a href="https://www.0629.com.ua/news/2965302/v-mariupole-startap-ob-uvekovecivanii-pamati-umersih-polucil-100-tysac-griven-foto"
+	                    target="_blank" class="awards-img-5 awards-img"><img data-src="img/award5.png" class="lazyload"></a>
+	            </div>
+	        </div>
+	        <div class="volunteer-page" id="volunteers">
+	            <div class="volunteer-title title">Become a partner or volunteer</div>
+	            <div class="volunteer-title-2 title-2">
+	                We want to cooperate with you - leave a request, join the community in social networks
+	            </div>
+	            <div class="volunteer-form-block">
+	                <div class="volunteer-img">
+	                    <img data-src="img/volunteer1.png" class="lazyload">
+	                </div>
+	                <form class="volunteer-form">
+	                    <input id="volunteer-name" type="text" placeholder="Your name" required>
+	                    <input id="volunteer-tel" type="tel" placeholder="Phone" required>
+	                    <input id="volunteer-work" type="text" placeholder="How can you help us?" required readonly>
+	
+	                    <button id="submit-button" class="submit-button button" type="submit">submit an
+	                        application</button>
+	                </form>
+	            </div>
+	        </div>
+	        <div class="page-ps">
+	            <div class="cite-ps-text">
+	                <p class="title">Coming soon:</p>
+	                <p class="title-2">"Co-adding Memories, Photos"</p>
+	                <p class="title-2">"Adding profiles to the family tree"</p>
+	                <p class="title-2">"Online payment for services"</p>
+	            </div>
+	        </div>
+	    </div>
+	</main>
+
+	<footer>
+	    <div id="footer">
+	        <div class="socnet-block">
+	            <a href="https://www.instagram.com/nezabudu.com_/" target="_blank" class="inst socnet"><img
+	                    data-src="img/inst.png" class="lazyload"></a>
+	            <a href="https://www.facebook.com/nezabudu.com.ua/" target="_blank" class="fb socnet"><img
+	                    data-src="img/fb.png" class="lazyload"></a>
+	            <a href="https://www.youtube.com" target="_blank" class="ytb socnet"><img data-src="img/ytube.png"
+	                    class="lazyload"></a>
+	        </div>
+	        <div class="contacts">
+	            <a class="contact-tel" href="tel:+380965636858">+38 (096) 563-68-58</a>
+	            <a class="contact-email" href="mailto:nezabudu.team@gmail.com">nezabudu.team@gmail.com</a>
+	        </div>
+	        <div class="add-info">
+	            <a class="privacy-policy link-info" href="privacy.html">Privacy policy</a>
+	            <a class="terms-use link-info" href="terms.html">User agreement</a>
+	            <a class="ethics-use link-info" href="ethics.html">Ethics of filling out questionnaires</a>
+	        </div>
+	        <div class="license">© 2022 Nezabudu. All rights reserved.</div>
+	    </div>
+	</footer>
+	<!-- <div id="status">
+	</div> -->
+	<script>
+
+	</script>
+	<!-- скрипты -->
+	<script src="js/lazysizes.min.js" async=""></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script defer src="js/main.min.js"></script>
+
+</body>
+
+</html>
